@@ -46,8 +46,3 @@ jobs:
               npm run build
               echo 'Deployment completed.'
             "
-
-      - name: Disable SSH Port on GCP Firewall (After Deployment)
-        run: |
-          # Disable SSH access by removing the firewall rule
-          gcloud compute firewall-rules update allow-ssh --remove
