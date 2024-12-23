@@ -19,22 +19,20 @@ jobs:
       - name: Set GCP Project
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
+
       - name: Open SSH Port on GCP Firewall (Before Deployment)
         run: |
           # Open SSH port temporarily for deployment
           gcloud compute firewall-rules update allow-ssh --allow tcp:22
+
       - name: Deploy Angular App to Private Instance
         run: |
-          # Deploy the Angular app via SSH to the GCP VM
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} << EOF
-            echo "Starting deployment..."
-            cd /opt/nodejs/spotz-frontend/
-            git pull origin main
-            cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
-            npm install
-            npm run build
-            echo "Deployment completed."
-          EOF
+          # SSH into the instance using the service account
+          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} \
+            --project=${{ secrets.PROJECT_ID }} \
+            --zone=${{ secrets.ZONE }} \
+            --command="cd /opt/nodejs/spotz-frontend/ && git pull origin main && cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && npm install && npm run build && echo 'Deployment completed.'"
+
       - name: Close SSH Port on GCP Firewall (After Deployment)
         run: |
           # Close the SSH port after deployment
