@@ -19,7 +19,10 @@ jobs:
       - name: Set GCP Project
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
-
+      - name: Open SSH Port on GCP Firewall (Before Deployment)
+        run: |
+          # Open SSH port temporarily for deployment
+          gcloud compute firewall-rules update allow-ssh --allow tcp:22
       - name: Deploy Angular App to Private Instance
         run: |
           # Deploy the Angular app via SSH to the GCP VM
@@ -32,3 +35,7 @@ jobs:
             npm run build
             echo "Deployment completed."
           EOF
+      - name: Close SSH Port on GCP Firewall (After Deployment)
+        run: |
+          # Close the SSH port after deployment
+          gcloud compute firewall-rules update allow-ssh --remove
