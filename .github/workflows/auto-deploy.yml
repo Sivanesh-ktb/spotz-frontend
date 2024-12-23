@@ -20,15 +20,19 @@ jobs:
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
 
-      - name: Open SSH Port on GCP Firewall (Before Deployment)
+      - name: Check if SSH Port is Open (Create if not)
         run: |
-          # Open SSH port temporarily for deployment (creating rule)
-          gcloud compute firewall-rules create allow-ssh \
-            --allow tcp:22 \
-            --target-tags ssh-access \
-            --description "Allow SSH for deployment" \
-            --priority 1000 \
-            --direction IN
+          # Check if firewall rule exists, and create it if not
+          if ! gcloud compute firewall-rules describe allow-ssh --project=${{ secrets.PROJECT_ID }} &>/dev/null; then
+            echo "Creating SSH firewall rule..."
+            gcloud compute firewall-rules create allow-ssh \
+              --allow tcp:22 \
+              --description "Allow SSH for deployment" \
+              --priority 1000 \
+              --direction IN
+          else
+            echo "SSH firewall rule already exists."
+          fi
 
       - name: Deploy Angular App to Private Instance
         run: |
@@ -54,5 +58,5 @@ jobs:
 
       - name: Close SSH Port on GCP Firewall (After Deployment)
         run: |
-          # Delete SSH port rule after deployment to secure the instance
+          # Disable SSH port (delete the firewall rule)
           gcloud compute firewall-rules delete allow-ssh --quiet
