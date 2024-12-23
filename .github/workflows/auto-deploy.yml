@@ -11,7 +11,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}  # Ensure this runs for the `main` branch
 
     steps:
-      - name: Authenticate to GCP
+      - name: Authenticate to GCP using Service Account Key
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
@@ -27,11 +27,10 @@ jobs:
 
       - name: Deploy Angular App to Private Instance
         run: |
-          # SSH into the instance using the service account
-          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} \
+          # Use gcloud compute ssh command with the service account (no private key required)
+          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
             --project=${{ secrets.PROJECT_ID }} \
             --zone=${{ secrets.ZONE }} \
-            --tunnel-through-iap \
             --command="cd /opt/nodejs/spotz-frontend/ && git pull origin main && cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && npm install && npm run build && echo 'Deployment completed.'"
 
       - name: Close SSH Port on GCP Firewall (After Deployment)
