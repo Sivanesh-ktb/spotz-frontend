@@ -20,11 +20,6 @@ jobs:
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
 
-      - name: Enable SSH Port on GCP Firewall (Before Deployment)
-        run: |
-          # Enable SSH access by adding firewall rule
-          gcloud compute firewall-rules update allow-ssh --allow tcp:22
-
       - name: Deploy Angular App to Private Instance
         run: |
           # SSH into the instance using gcloud compute and execute the deployment commands
