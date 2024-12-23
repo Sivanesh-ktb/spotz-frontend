@@ -1,9 +1,9 @@
-name: Debug Deployment to GCP
+name: Auto Deployment to GCP - Frontend
 
 on:
   push:
     branches:
-      - main
+      - main  # Modify this if you use a different branch name
 
 jobs:
   deploy:
@@ -11,6 +11,16 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts
+
       - name: Authenticate to GCP using Service Account Key
         uses: google-github-actions/auth@v2
         with:
@@ -22,16 +32,13 @@ jobs:
 
       - name: Deploy Angular App
         run: |
-          # SSH into the instance using gcloud compute and execute deployment commands
-          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
-            --project=${{ secrets.PROJECT_ID }} \
-            --zone=${{ secrets.ZONE }} \
-            --command="
-              git config --global --add safe.directory /opt/nodejs/spotz-frontend
-              cd /opt/nodejs/spotz-frontend/
-              git pull origin main
-              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
-              npm install
-              npm run build
-              echo 'Deployment completed.'
-            "
+          # SSH into the instance using the configured SSH key and run deployment commands
+          ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} << 'EOF'
+            # Update repository and install dependencies
+            cd /opt/nodejs/spotz-frontend
+            git pull origin main
+            cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
+            npm install
+            npm run build
+            echo "Deployment completed successfully"
+          EOF
