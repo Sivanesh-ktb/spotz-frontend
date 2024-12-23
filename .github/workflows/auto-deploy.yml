@@ -21,6 +21,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts
 
+      - name: Test DNS Resolution
+        run: |
+          echo "Testing DNS resolution for ${SERVER_NAME}..."
+          nslookup ${{ secrets.SERVER_NAME }}
+
       - name: Authenticate to GCP using Service Account Key
         uses: google-github-actions/auth@v2
         with:
