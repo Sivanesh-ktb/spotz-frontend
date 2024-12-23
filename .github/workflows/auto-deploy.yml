@@ -31,6 +31,7 @@ jobs:
           gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} \
             --project=${{ secrets.PROJECT_ID }} \
             --zone=${{ secrets.ZONE }} \
+            --tunnel-through-iap \
             --command="cd /opt/nodejs/spotz-frontend/ && git pull origin main && cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && npm install && npm run build && echo 'Deployment completed.'"
 
       - name: Close SSH Port on GCP Firewall (After Deployment)
