@@ -25,17 +25,27 @@ jobs:
           # Open SSH port temporarily for deployment
           gcloud compute firewall-rules update allow-ssh --allow tcp:22
 
-      - name: Mark repository as safe
-        run: |
-          git config --global --add safe.directory /opt/nodejs/spotz-frontend
-
       - name: Deploy Angular App to Private Instance
         run: |
-          # Use gcloud compute ssh command with the service account (no private key required)
+          # SSH into the instance using gcloud compute and execute the deployment commands
           gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
             --project=${{ secrets.PROJECT_ID }} \
             --zone=${{ secrets.ZONE }} \
-            --command="cd /opt/nodejs/spotz-frontend/ && git pull origin main && cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && npm install && npm run build && echo 'Deployment completed.'"
+            --command="
+              # Add repository to safe list to avoid 'dubious ownership' error
+              git config --global --add safe.directory /opt/nodejs/spotz-frontend
+              
+              # Ensure proper ownership (optional step)
+              sudo chown -R $(whoami):$(whoami) /opt/nodejs/spotz-frontend
+              
+              # Perform the deployment
+              cd /opt/nodejs/spotz-frontend/
+              git pull origin main
+              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
+              npm install
+              npm run build
+              echo 'Deployment completed.'
+            "
 
       - name: Close SSH Port on GCP Firewall (After Deployment)
         run: |
