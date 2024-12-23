@@ -1,50 +1,24 @@
-name: Auto Deployment to GCP - Frontend
-
-on:
-  push:
-    branches:
-      - main  # Trigger the workflow on push to the main branch
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Authenticate to GCP using the Service Account
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      # Step 2: Set the GCP Project
-      - name: Set GCP Project
+      - name: Add SSH Key
         run: |
-          gcloud config set project ${{ secrets.PROJECT_ID }}
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts
 
-      # Step 3: Deploy Angular App to Private Instance
       - name: Deploy to Instance
         run: |
-          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
-            --project=${{ secrets.PROJECT_ID }} \
-            --zone=${{ secrets.ZONE }} \
-            --command="
-              # Navigate to the application directory
-              cd /opt/nodejs/spotz-frontend
-
-              # Add repository to the safe directory list
-              git config --global --add safe.directory /opt/nodejs/spotz-frontend
-
-              # Pull the latest code
-              git pull origin main
-
-              # Copy environment configuration
-              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
-
-              # Install dependencies
-              npm install
-
-              # Build the application
-              npm run build
-
-              echo 'Deployment completed successfully.'
-            "
+          ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} << 'EOF'
+            cd /opt/nodejs/spotz-frontend
+            git pull origin main
+            npm install
+            npm run build
+            echo "Deployment completed successfully"
+          EOF
