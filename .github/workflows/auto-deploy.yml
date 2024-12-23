@@ -49,5 +49,5 @@ jobs:
 
       - name: Close SSH Port on GCP Firewall (After Deployment)
         run: |
-          # Close the SSH port after deployment
-          gcloud compute firewall-rules update allow-ssh --remove
+          # Close SSH port after deployment by deleting the rule
+          gcloud compute firewall-rules delete allow-ssh --quiet
