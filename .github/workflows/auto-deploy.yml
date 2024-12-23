@@ -41,7 +41,7 @@ jobs:
               # Perform the deployment
               cd /opt/nodejs/spotz-frontend/
               git pull origin main
-              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
+              cp /opt/nodejs/spotz-devops/config/sample.txt /opt/nodejs/spotz-frontend/src/environments/sample.txt
               npm install
               npm run build
               echo 'Deployment completed.'
