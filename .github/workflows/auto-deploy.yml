@@ -3,12 +3,11 @@ name: Auto Deployment to GCP - Frontend
 on:
   push:
     branches:
-      - main  # You can modify this branch name as per your requirement
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}  # Ensure this runs for the `main` branch
 
     steps:
       - name: Authenticate to GCP using Service Account Key
@@ -20,24 +19,27 @@ jobs:
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
 
+      - name: Validate Environment Variables
+        run: |
+          echo "Validating environment variables..."
+          if [ -z "${{ secrets.SERVER_USERNAME }}" ] || [ -z "${{ secrets.SERVER_NAME }}" ] || [ -z "${{ secrets.ZONE }}" ]; then
+            echo "Error: Missing required environment variables."
+            exit 1
+          fi
+
       - name: Deploy Angular App to Private Instance
         run: |
-          # SSH into the instance using gcloud compute and execute the deployment commands
           gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
             --project=${{ secrets.PROJECT_ID }} \
             --zone=${{ secrets.ZONE }} \
             --command="
-              # Add repository to safe list to avoid 'dubious ownership' error
+              set -e
               git config --global --add safe.directory /opt/nodejs/spotz-frontend
-              
-              # Ensure proper ownership (optional step)
               sudo chown -R $(whoami):$(whoami) /opt/nodejs/spotz-frontend
-              
-              # Perform the deployment
-              cd /opt/nodejs/spotz-frontend/
-              git pull origin main
-              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
-              npm install
-              npm run build
-              echo 'Deployment completed.'
+              cd /opt/nodejs/spotz-frontend/ || exit 1
+              git pull origin main || { echo 'Git pull failed'; exit 1; }
+              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts || { echo 'Copying environment file failed'; exit 1; }
+              npm install || { echo 'npm install failed'; exit 1; }
+              npm run build || { echo 'Build failed'; exit 1; }
+              echo 'Deployment completed successfully.'
             "
