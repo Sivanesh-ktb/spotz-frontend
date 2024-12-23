@@ -1,0 +1,15 @@
+<div class="form-group date-picker-container">
+  <input type="text"
+         class="form-control date-picker"
+         ngxDaterangepickerMd
+         [(ngModel)]="selected"
+         [ranges]="ranges"
+         [alwaysShowCalendars]="true"
+         [minDate]="minDate"
+         [maxDate]="maxDate"
+         [autoApply]="true"
+         (rangeClicked)="onRangeClicked($event)"
+         (datesUpdated)="onDatesUpdated($event)"
+         readonly >
+
+</div>

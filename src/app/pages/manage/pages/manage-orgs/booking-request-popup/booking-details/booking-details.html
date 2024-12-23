@@ -1,0 +1,109 @@
+
+  <div *ngIf="bookingDetails && bookingDetails.status" class="status">
+      STATUS: {{getStatusTitle(bookingDetails.status)}}
+  </div>
+  <div class="row pt-2">
+      <!-- start time end time left side -->
+      <div class="col-md-3">
+          <div class="panel1 text-center">
+              <div class="mb-2"><i class="icon-watch2 font-medium-1"></i></div>
+              <h3 class="m-0">Start Time</h3><span
+              *ngIf="bookingDetails && bookingDetails.blocks">
+              {{changeTimeFormat(bookingDetails.blocks[0])}}</span>
+          </div>
+          <div class="panel1 text-center">
+              <div class="mb-2"><i class="icon-watch2 font-medium-1"></i></div>
+              <h3 class="m-0">End Time</h3><span
+              *ngIf="bookingDetails && bookingDetails.blocks">
+              {{changeTimeFormat(bookingDetails.blocks[bookingDetails.blocks.length - 1] + 1)}}</span>
+          </div>
+      </div>
+      <!-- summary location address right side -->
+      <div class="col-md-9 font_family summary_address">
+          <div class="col-xs-12 py-3">
+              <h3 class="m-0">Summary <span class="icon-pencil3"></span></h3>
+              <div *ngIf="bookingDetails && bookingDetails.sport">
+                {{bookingDetails.sport}} <span
+                *ngIf="bookingDetails && bookingDetails.eventName">- {{bookingDetails.eventName}}
+              </span>
+              </div>
+              <div *ngIf="bookingDetails && bookingDetails.attendance">
+                Attendance: {{bookingDetails.attendance }}
+              </div>
+              <p class="help-block pl-0 "
+              *ngIf="bookingDetails && bookingDetails._id && bookingDetails.dateC">Order #:
+                {{bookingDetails._id}}<br>Request Date: <span>{{ bookingDetails.dateC | date: 'MM/dd/yy hh:mm:ss a' }}</span>              </p>
+              <p >
+                <a *ngIf="bookingDetails && bookingDetails.status &&
+                 bookingDetails.status > -2 && bookingDetails._id"
+                  class="btn btn-default btn-xs" href="/reservations/print/{{bookingDetails._id}}"
+                  target="_blank"><span
+                        class="icon-printer2 font-small-3 mr-2"></span>
+                           Print Receipt</a>
+                <a *ngIf="bookingDetails && bookingDetails.invoice"
+                class="btn btn-default btn-xs">
+                <span class="icon-printer2 font-small-3 mr-2"></span>
+                          Print Invoice</a>
+              </p>
+          </div>
+          <div class="col-xs-12 py-3">
+              <h3>Location</h3>
+              <div><span *ngIf="bookingDetails && bookingDetails.info &&
+                bookingDetails.info.s && bookingDetails.info.s.name">
+                {{bookingDetails.info.s.name}} </span>
+                <br>
+                <span *ngIf="bookingDetails  && bookingDetails.info &&
+                bookingDetails.info.f && bookingDetails.info.f.name">
+                  {{bookingDetails.info.f.name}}</span>
+              </div>
+          </div>
+          <div class="col-xs-12 py-3">
+              <div>
+                  <h3>Requestor<span> Supervisor</span></h3>
+                  <div><a *ngIf="bookingDetails  && bookingDetails.supervisor">
+                    <span class="fa fa-user pe-3"></span>{{bookingDetails.supervisor.firstName}}</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row receipt-modal">
+      <div class="row ">
+          <div class="col-md-6 col-sm-4 col-xs-5">
+              <h3> <span>Booking </span>Status</h3>
+          </div>
+          <div class="col-md-6 col-sm-8 col-xs-7 text-end">
+              <div class="switch">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                      <!-- 'Approved' button -->
+                      <button
+                          [ngClass]="{'btn-success': isApproved, 'btn-hidden': !isApproved}"
+                          type="button" class="btn" (click)="toggleStatus('Denied')">
+                          <span class="fa fa-check"></span> Approved
+                      </button>
+
+                      <!-- 'Denied' button -->
+                      <button
+                          [ngClass]="{'btn-danger': !isApproved, 'btn-hidden': isApproved}"
+                          type="button" class="btn" (click)="toggleStatus('Approved')">
+                          <span class="fa fa-close"></span> Denied
+                      </button>
+                  </div>
+              </div>
+
+
+          </div>
+      </div>
+      <div class="col-xs-12 py-2">
+          <h3>Approval Message</h3>
+          <label class="message_lable" for="Include message">Include a message for the renter (optional):</label>
+          <textarea type="textarea" rows="4" class="form-control " aria-multiline="true"
+              aria-invalid="false"></textarea>
+      </div>
+      <div class="col-xs-12 py-2">
+          <h3>Maintenance Instructions</h3>
+          <label class="message_lable" for="write message">Write a message to your maintenance team (optional):</label>
+          <textarea type="textarea" rows="4" class="form-control" aria-multiline="true"
+              aria-invalid="false"></textarea>
+      </div>
+  </div>

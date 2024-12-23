@@ -1,0 +1,124 @@
+.allowed-activiies,.max-box,.select-rental-type,.f-discription,.event-box,.new-space,.dim-cnt {
+  box-shadow: rgba(67,79,92,.22) 0 2px 2px 0;
+  padding: 18px;
+  border-radius: 20px;
+  background: #fff;
+}
+input.form-control.price-input-box.ng-untouched.ng-pristine.ng-valid {
+  height: 100%;
+}
+.input-group-prepend.btn,.input-group-append.btn {
+  background-color: #4dcaf4;
+  color: #fff;
+  border: 1px solid #4dcaf4;
+  padding: 3px 12px 0px 10px !important;
+  font-weight: 600;
+}
+span.input-group-text
+{
+  background-color: #4dcaf4;
+  border: 1px solid #4dcaf4;
+  color: #fff;
+}
+label.active-tab {
+  background: #4dcaf4;
+  color: #fff;
+}
+.btn-group.facility-type label {
+  border: 1px solid #f1e6e6;
+  padding: 5px;
+  border: 1px solid #f1e6e6;
+  font-size: 0.8em;
+}
+.btn-group input[type=radio] {
+  display: none;
+}
+textarea.form-control.ng-untouched.ng-pristine.ng-valid {
+  height: 100% !important;
+}
+.h5, h5 {
+  font-size: 0.9em !important;
+}
+
+.listing-selectedName {
+  margin-right: 4px;
+  margin-bottom: 4px;
+  margin-left: 4px;
+  float: left;
+  height: auto;
+  max-height: 100px;
+  width: 100%;
+  overflow: auto;
+}
+
+.listing-names {
+  background-color: #034a61;
+  font: 75% "Open Sans", sans-serif;
+  color: #ffffff;
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  border-radius: 3px;
+  margin: 2px;
+}
+
+.types-multi-selection{
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #ddd;
+}
+
+.form-clear{
+  margin-top: 7px;
+  font-weight: bold;
+  padding-right: 3px;
+  font-size: 12px;
+  height: 12px;
+}
+
+.form-remove:hover{
+  color:#fd7e14;
+}
+
+.card{
+  border: transparent !important;
+}
+
+.grey-text{
+  color: #737373;
+  cursor: default;
+}
+
+.price-input span{
+  font-size: 20px;
+}
+.invalid-space-name{
+  border: 1px solid #e58327 !important;
+}
+.price-input .form-control {
+  font-size: 20px !important;
+  height: 40px !important;
+  font-weight: 700;
+}
+
+.form-check-label{
+  font-size: 13px;
+}
+
+h5{
+  margin-top: 0;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #000!important;
+}
+
+.h_88px{
+  height: 88px !important;
+}

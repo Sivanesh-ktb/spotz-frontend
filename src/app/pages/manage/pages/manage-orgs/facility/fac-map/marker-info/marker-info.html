@@ -1,0 +1,22 @@
+
+<ng-container *ngIf="spacePage; else noSpace">
+  <div class="d-flex flex-column">
+<label for="Select Space">Select Space</label>
+<select class="name-limit" [(ngModel)]="spaceId" (change)="spaceChange($event)">
+  <option class="name-limit" *ngFor="let space of spaceMarkers" [value]="space.id">{{space.name}}</option>
+</select>
+<button (click)="onSpaceDelete()" class="btn btn-default btn-xn mt-2">
+  <span class="fa fa-times"></span> Delete Marker
+</button>
+</div>
+</ng-container>
+<ng-template #noSpace>
+<div>
+  <label for="Name / Description" class="form-label mb-2">Name / Description</label>
+  <input type="text" class="form-control" [(ngModel)]="fileName" (keyup)="saveLocationName($event)" placeholder="Enter file name" />
+</div>
+<p class="small-text mt-1">"Locker Room A", "West Parking", "North Entrance"</p>
+<button (click)="onDelete()" class="btn btn-default btn-xs mt-2">
+  <span class="fa fa-times"></span> Delete Amenity
+</button>
+</ng-template>

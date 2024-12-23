@@ -1,0 +1,213 @@
+<div class="availability-popup-container">
+<div class="modal-header ng-scope">
+  <h4 class="ng-binding">{{popupHeader}}</h4>
+  <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close"><span aria-hidden="true">x</span></a>
+</div>
+<div class="modal-body admin ng-scope">
+  <div *ngIf="type === -1" class="row ng-scope">
+    <div class="form-group col-sm-6">
+      <div>
+        <label for="description" class="mb-2">Description</label>
+        <input id="description" type="text" [(ngModel)]="description" (keyUp)="checkValues()" required="required" class="form-control"
+          aria-required="true" aria-invalid="true">
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <div>
+        <label for="reason" class="mb-2">Reason</label>
+        <select id="exception"  (change)="checkValues()" [(ngModel)]="reason" class="form-control"
+          aria-invalid="false">
+          <option disabled></option>
+          <option value="1">Maintenance</option>
+          <option value="2">Resting</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="type === -2">
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <div>
+          <label for="description">Event Description</label>
+          <input id="description" type="text" (keyUp)="checkValues()" [(ngModel)]="description" required="required"
+            class="form-control mt-2" aria-required="true">
+        </div>
+      </div>
+      <div class="form-group col-sm-3">
+        <div>
+          <div ng-if="filtered" class="ng-scope">
+            <label for="Event Type">Event Type</label>
+            <select [(ngModel)]="sport" (change)="checkValues()" ng-options="item for item in sports" required="required"
+              class="form-control mt-2" aria-required="true"
+              aria-invalid="true">
+              <option value="?" selected="selected"></option>
+              <option label="Baseball" value="Baseball">Baseball</option>
+              <option label="Basketball" value="Basketball">Basketball</option>
+              <option label="Family Picnic/Reunion" value="Family Picnic/Reunion">Family Picnic/Reunion</option>
+              <option label="Football (youth)" value="Football (youth)">Football (youth)</option>
+              <option label="Football (adult) *" value="Football (adult) *">Football (adult) *</option>
+              <option label="Other *" value="Other *">Other *</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-sm-3">
+        <div>
+          <label for="attendance">Attendance</label>
+          <input type="number" min="0"
+            placeholder="Attendance" [(ngModel)]="attendance"
+            required="required" class="form-control mt-2 remove-input-arrow"
+            aria-required="true" aria-invalid="true">
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="row mt-2">
+<div class="form-group col-sm-6 start-date">
+  <div class="availability-date-picker">
+    <label for="buttondisplay" class="font-bold block mb-2">{{dateLabel}}</label>
+    <p-calendar
+    [(ngModel)]="startDate"
+    [showIcon]="true"
+    inputId="buttondisplay"
+    [style]="{'height': '75%'}"
+    [showOnFocus]="false"
+    (onSelect)="checkValues()"
+    (onInput)="preventStringInput($event)"
+    [minDate]="minDate"
+    [disabled]="isDisabled"
+    >
+  </p-calendar>
+  </div>
+</div>
+<div class="form-group col-sm-6">
+  <label for="&nbsp">&nbsp;</label>
+  <div class="checkbox mt-3">
+    <label class="fw-normal">
+      <input type="checkbox"  [disabled]="isDisabled" [(ngModel)]="multiple" (click)="checked()"
+        class="ng-pristine ng-untouched ng-valid" tabindex="0" aria-disabled="false"
+        aria-checked="true"
+        aria-invalid="false">  Multiple Dates
+    </label>
+  </div>
+</div>
+</div>
+<div *ngIf="multiple" class="row mt-3">
+  <div class="form-group col-sm-6 start-date">
+    <div class="availability-date-picker">
+      <label for="buttonDisplayOne" class="font-bold block mb-2">End Date</label>
+      <p-calendar
+          [(ngModel)]="endDate"
+          [showIcon]="true"
+          inputId="buttondisplay"
+          [style]="{'height': '75%'}"
+          [minDate]="minDate"
+          (onSelect)="checkValues()"
+          (onInput)="preventStringInput($event)"
+          [showOnFocus]="false"
+          [disabled]="isDisabled"
+          >
+      </p-calendar>
+    </div>
+  </div>
+  <div class="form-group col-sm-6">
+    <label for="dow" class="mb-2">Days</label>
+    <app-day-drop-down [selectedDays]="days"
+    [isDisabled]="isDisabled" (daySelected)="onDaySelected($event)"></app-day-drop-down>
+  </div>
+</div>
+<div class="row mt-3">
+  <ng-container *ngIf="(!spaceDetails?.hourly || spaceDetails?.pricing.length === 0) || type=== -2; else customTemplate">
+  <div class="col-sm-3">
+    <label class="control-label mb-2" for="Start Time">Start Time</label>
+    <select  [disabled]="isDisabled" [(ngModel)]="startTime" (change)="checkValues()" class="form-control" required>
+      <option value="" disabled selected>Select a time</option>
+      <option *ngFor="let time of times; let setTime = index" [value]="time">{{ time }}</option>
+    </select>
+  </div>
+  <div class="col-sm-3">
+    <label class="control-label mb-2" for="End Time">End Time</label>
+    <select [disabled]="isDisabled" [(ngModel)]="endTime" (change)="checkValues()" class="form-control" required>
+      <option value="" disabled selected>Select a time</option>
+      <option *ngFor="let time of times; let setTime = index" [value]="time">{{ time }}</option>
+    </select>
+  </div>
+</ng-container>
+<ng-template #customTemplate>
+<div class="py-2 col-xs-12 col-md-6 col-lg-6 ">
+    <div class="custom-template py-2">
+      <div class="checkbox select-all-times">
+        <label class="d-flex gap-2">
+          <input type="checkbox" [(ngModel)]="checkAll" (click)="selectAll()"
+          tabindex="0" aria-checked="false" aria-invalid="false"><span>Select All</span>
+        </label>
+      </div>
+    </div>
+  <div *ngFor="let pricing of spaceDetails?.pricing" class="custom-template">
+    <div class="row row-seamless aling-items-center">
+      <div class="col-lg-6 col-xs-6">
+        <div class="checkbox m-0">
+          <label class="d-flex gap-2">
+            <input type="checkbox" [(ngModel)]="pricing.checked"
+              tabindex="0" aria-disabled="false" aria-checked="false" aria-invalid="false">
+              <span>{{pricing.name}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="col-lg-6 col-xs-6 m-0">
+        <div class="font-small-2 text-muted d-flex gap-2">
+          <span class="time-container">{{convertTime(pricing.startTime)}} —</span>
+          <span class="time-container"> {{convertTime(pricing.endTime)}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </ng-template>
+
+  <div class="col-sm-6">
+    <label class="mb-2" for="Priority">Priority</label>
+    <app-priority-drop-down [accessLevel]="selectedPriority" (prioritySelected)="onPrioritySelected($event)">
+    </app-priority-drop-down>
+  </div>
+</div>
+<div class="mt-4" *ngIf="type === -2 && orgId && groupDetails">
+  <app-assign-space-popup [orgId]="orgId" [groups]="groupDetails" [formValid]="assignValidate"
+  (formValidChange)="onFormValidChange($event)"
+  (selectedDetails)="onSelectedDetails($event)"></app-assign-space-popup>
+</div>
+<div class="col-sm-12 text-right mt-2 d-flex justify-content-end gap-3">
+  <ng-container *ngIf="userId ; else newRule">
+    <button type="submit" class="btn btn-secondary" (click)="updateAvailability()" [disabled]="validate">Save</button>
+  </ng-container>
+  <ng-template #newRule>
+   <button type="submit" class="btn btn-secondary" (click)="saveAvailability()" [disabled]="validate">Save</button>
+  </ng-template>
+  <button type="button" (click)="dismiss()" class="btn btn-default">Cancel</button>
+</div>
+
+<div *ngIf="type === 1">
+  <div class="alert alert-info mt-3">
+    <p><span class="help highlight"><span class="fa fa-lightbulb-o"></span></span>
+    Setting availability will allow users to find and request a space for rental.
+    Access Level determines what
+    <a (click)="viewGroup()" (keydown.enter)="viewGroup()" tabindex="0" class="alert-link cursor-pointer">groups</a>
+    will be available to find and request the space.</p>
+    <p><span class="fa fa-sticky-note-o"></span>
+      <em>Editing the availability information will not affect any existing bookings.</em>
+    </p>
+    <p>After setting availability, you'll be able to block off times by using exceptions
+      (below) and by<a class="alert-link" (click)="viewHomePage()" (keydown.enter)="viewHomePage()" tabindex="0">
+          assigning space</a>.</p>
+  </div>
+</div>
+<div *ngIf="type === -1">
+<div class="alert alert-info">
+  <p><span class="help highlight"><span class="fa fa-lightbulb-o"></span>
+  </span> Exceptions override the available settings for the selected date/time period
+  for current and future availability.<i>Once an exception is made it can be deleted,
+    however, the</i><strong> availability of the dates and times will not be reinstated.
+    </strong></p>
+</div>
+</div>
+</div>

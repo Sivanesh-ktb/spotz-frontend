@@ -1,0 +1,141 @@
+<ng-container *ngIf="!groupId;">
+  <div class="tab-pane active">
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="d-flex align-items-center">
+        <label class="control-label m-0 pr-3" for="Member Search">Member Search</label>
+        <div class="input-group">
+          <input type="email" [(ngModel)]="email"
+          placeholder="Find group(s) by user email" autocomplete="off"
+            class="form-control ng-pristine ng-untouched ng-valid ng-valid-email"
+            aria-invalid="false"><span
+            class="input-group-btn">
+            <button (click)="searchMember()" class="btn btn-secondary search"><span
+                class="fa fa-search"></span></button>
+              <ng-container *ngIf="clearIcon">
+                <button (click)="clearSearch()" class="btn btn-secondary search"><span
+                    class="fa fa-times"></span></button>
+              </ng-container>
+              </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex align-items-center justify-content-end">
+        <label class="control-label" for="Filter">Filter</label>
+        <div>
+          <input type="text" [(ngModel)]="filterText"
+          (ngModelChange)="filterGroup()" placeholder="Filter groups by name"
+            class="form-control ng-pristine ng-untouched ng-valid" aria-invalid="false">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive mb-4">
+    <ng-container *ngIf="customGroupDetails?.length > 0 || filterText; else noCustomGroups">
+    <table class="table table-small table-condensed table-bordered" aria-hidden="false">
+      <thead>
+        <tr>
+          <th>Name </th>
+          <th>Members</th>
+          <th>Balance</th>
+          <th></th>
+          <th>Level</th>
+          <th>Discount</th>
+          <th>Tax</th>
+          <th>Allow Invoice</th>
+          <th>Instant Approval</th>
+          <th>Lead Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="customGroupDetails?.length > 0; else noData">
+        <tr *ngFor="let member of customGroupDetails"  class="ng-scope">
+          <ng-container *ngIf="member.system === 0">
+          <td class="ng-binding">
+            <button class="btn-icon" (click)="viewGroup(member?._id)" style="background: none; border: none;">
+              <i class="fas fa-pencil-alt cursor-pointer px-2"></i>
+            </button>
+            <span>{{member.name}}</span>
+          </td>
+          <td>
+            <a (click)="allowOrganizationAccess(member?._id)" (keydown.enter)="allowOrganizationAccess(member?._id)" tabindex="0" class="d-flex gap-1 group-members">
+              <i class="fas fa-users"></i>
+              <div *ngIf="member.members?.length; else noMembers" aria-hidden="true" class="members-count">
+                {{member.members?.length}}
+            </div>
+            <ng-template #noMembers>
+                <span class="fa fa-plus"></span>
+            </ng-template>
+              </a>
+          </td>
+           <td class="text-right">
+            <a (click)="allowOrganizationReport(member?._id)" (keydown.enter)="allowOrganizationReport(member?._id)" tabindex="0" class="ng-binding">
+              {{ member?.balance ? ('$' + member.balance.toFixed(2)) : '$0.00' }}
+            </a>
+              <!-- <a class="ng-binding">$0.00</a> -->
+            </td>
+          <td class="ng-binding">
+            <ng-container *ngFor="let starIndex of [0, 1, 2, 3]">
+              <span class="fa" [ngClass]="getStarClass(starIndex, member?.level)"></span>
+            </ng-container>
+          </td>
+          <td class="ng-binding">{{selectedLevelText(member?.level)}}</td>
+          <td class="hidden-xs hidden-sm ng-binding">{{member?.discount}}%</td>
+          <td><ng-container *ngIf="!member?.taxNum; else noValue">
+            <i class="fa-check-square fas"></i>
+            </ng-container>
+            <ng-template #noValue>
+              <i class="fa-square far"></i>
+            </ng-template>
+           <td class="hidden-xs hidden-sm">
+            <ng-container *ngIf="member?.invoice; else noInvoice">
+              <i class="fa-check-square fas"></i>
+              </ng-container>
+              <ng-template #noInvoice>
+                <i class="fa-square far"></i>
+              </ng-template>
+             </td>
+              <td class="hidden-xs hidden-sm">
+                <ng-container *ngIf="member?.instant; else noInstant">
+                  <i class="fa-check-square fas"></i>
+                  </ng-container>
+                  <ng-template #noInstant>
+                    <i class="fa-square far"></i>
+                  </ng-template>
+                </td>
+                <td class="hidden-xs hidden-sm">
+                  <span class="ng-binding">{{member?.lead}} days</span></td>
+          </ng-container>
+        </tr>
+      </ng-container>
+      <ng-template #noData>
+        <tr>
+          <td colspan="10" class="text-center">No data available</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+    </ng-container>
+    <ng-template #noCustomGroups>
+      <div *ngIf="email" class="alert alert-warning ng-binding" aria-hidden="false">Searching for
+        {{email}} <span aria-hidden="false">
+          — <em>
+            <u>No results found</u></em></span><a (click)="clearSearch()" (keydown.enter)="clearSearch()" tabindex="0">
+          Clear <span class="fa fa-times-circle"></span></a></div>
+      <p aria-hidden="false">
+        No custom groups have been created for this organization.
+        Create groups of users to prioritize access, give discounts on rentals, and more.</p>
+    </ng-template>
+  </div>
+  <div class="tab-pane fade show active" id="custom" role="tabpanel" aria-labelledby="custom-tab">
+  <div class="mb-4">
+    <a (click)="addNewGroup()" (keydown.enter)="addNewGroup()" tabindex="0" class="btn btn-default">
+    <span class="fa fa-plus-circle"></span>Add New Group</a>
+  </div>
+</div>
+<div class="tab-pane fade" id="import" role="tabpanel" aria-labelledby="import-tab">
+<app-import-groups/>
+</div>
+</div>
+</ng-container>

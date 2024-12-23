@@ -1,0 +1,150 @@
+<div class="col-sm-12">
+  <h3>Import</h3>
+  <p>View instructions on import file formatting for each of the following:</p>
+  <div role="group" aria-label="..." class="btn-group">
+    <button type="button"
+      (click)="importGroup()" [ngClass]="{ 'active-tab': importGroupTab === true }" class="btn btn-default">Groups</button>
+    <button type="button" [ngClass]="{ 'active-tab': importMembersTab === true }"
+    (click)="importMembers()" class="btn btn-default">Members</button>
+  </div>
+  <div *ngIf="importGroupTab" aria-hidden="true" class="ng-hide">
+    <h4>Groups <small>
+        and members optional<a
+          class="fa fa-times close-icon"></a></small>
+    </h4>
+    <p>Upload a CSV file that has the following fields. Use the
+      <u>Header Text</u>&nbsp;underlined in the first row of each column
+    </p>
+    <div class="table-responsive mb-4">
+      <table class="table table-sm table-bordered table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Field /
+              <u>Header Text</u>
+            </th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Group
+                <u>name</u><em>&nbsp;(required)</em></strong></td>
+            <td>Text String</td>
+            <td>
+              Name the group so others can categorize themselves (e.g. Staff, Coach, etc.)
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <u>level</u>&nbsp;(Priority)
+            </td>
+            <td>Text String or Number<br>
+              <ul>
+                <li>"First" or 4</li>
+                <li>"Second" or 3</li>
+                <li>"Third" or 2</li>
+                <li>"Fourth" or 1</li>
+                <li>"Everybody" or 0 <em>-- Default</em></li>
+              </ul>
+            </td>
+            <td>Levels have access to any listings at or below the level. i.e. Second priority groups can rent Second,
+              Third, Fourth or Public spaces listings.</td>
+          </tr>
+          <tr>
+            <td>
+              Required<u>lead</u>&nbsp;Time
+            </td>
+            <td>Number (0-10)<br><em>Default 2</em></td>
+            <td>Number of days (x 24hrs) that the group needs to book a space. </td>
+          </tr>
+          <tr>
+            <td>
+              <u>discount</u>&nbsp;Percentage
+            </td>
+            <td>Number (0-100)<br><em>Default 0</em></td>
+            <td>This is the percentage discounted from a space listing. e.g. 5% discount would save a group $5 on a $100
+              rental, and a 100% discount is a $0 rental.</td>
+          </tr>
+          <tr>
+            <td>
+              <u>instant</u>&nbsp;Approval
+            </td>
+            <td>True / False<br><em>Default False</em></td>
+            <td>If True, members of this group do not require approval to use the space.</td>
+          </tr>
+          <tr>
+            <td>
+              <u>tax</u> Exempt
+            </td>
+            <td>True / False <br><em>Default False</em></td>
+            <td>If True, members of this group will not be charged Sales Tax.</td>
+          </tr>
+          <tr>
+            <td>
+              <u>private</u>&nbsp;/ Invite Only
+            </td>
+            <td>True / False<br><em>Default True</em></td>
+            <td>If True, members must be invited to join the group (no self-application).</td>
+          </tr>
+          <tr>
+            <td><strong>
+                <u>member.email</u><em>&nbsp;(required)</em></strong><br>
+              <u>member.firstName</u><em>&nbsp;(optional)</em><br>
+              <u>member.lastName</u><em>&nbsp;(optional)</em>
+            </td>
+            <td>Text String</td>
+            <td>For each user that you would like to add to the group, you must at least include the group name in the
+              row.
+              Email is Required
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="importMembersTab" aria-hidden="true" class="ng-hide">
+    <h4>
+      Members<small><a class="fa fa-times close-icon"></a></small>
+    </h4>
+    <p>Upload a CSV file that has the following fields. Use the
+      <u>Header Text</u>&nbsp;underlined in the first row of each column.
+    </p>
+    <p class="help-block"><strong>Note</strong>To import members, you must first create the group.</p>
+    <div class="table-responsive mb-4">
+      <table class="table table-sm table-bordered table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Field /<u>Header Text</u></th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Group<u>name</u><em>&nbsp;(required)</em></strong></td>
+            <td>Text String</td>
+            <td>Name the group so others can categorize themselves (e.g. Staff, Coach, etc.)
+            </td>
+          </tr>
+          <tr>
+            <td><strong><u>member.email</u><em>&nbsp;(required)</em></strong><br>
+              <u>member.firstName</u><em>&nbsp;(optional)</em><br>
+              <u>member.lastName</u><em>&nbsp;(optional)</em>
+            </td>
+            <td>Text String</td>
+            <td>For each user that you would like to add to the group, you must at least include the group name in the
+              row.
+              Email is Required
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div style="margin-top: 10px;" class="well">
+    <label for="file" class="control-label">Upload File</label>
+    <input type="file" id="file" (change)="onFileChange($event)" required style="border-color: #ccc;" class="form-control">
+    <button (click)="import()" [disabled]="!file" style="margin-top:5px;" class="btn btn-primary btn-import">Import Groups</button>
+  </div>
+</div>

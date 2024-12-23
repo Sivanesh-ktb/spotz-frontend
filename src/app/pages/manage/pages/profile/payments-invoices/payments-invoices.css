@@ -1,0 +1,15 @@
+button.nav-link {
+  color: #333 !important;
+}
+.payment-tab-content{
+  color: #044f80;
+}
+.invoice-container .tab-content{
+  background-color: #f9f9f9 !important;
+  padding: 0px;
+  border: none;
+  border-top: 0;
+  margin-bottom: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  }

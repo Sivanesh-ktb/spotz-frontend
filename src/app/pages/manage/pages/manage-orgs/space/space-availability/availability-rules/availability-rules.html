@@ -1,0 +1,63 @@
+
+  <div class="row mb-3">
+    <div class="col-sm-4 col-xs-12">
+      <h3>Rules<small>
+             <a (click)="showRules()" (keydown.enter)="showRules()" tabindex="0" class="btn-link mx-3"><span class="fa fa-question-circle">
+            </span></a></small></h3>
+    </div>
+  </div>
+  <div *ngIf="availabilityRule" class="mb-3 ng-hide" aria-hidden="true">
+    <div class="alert alert-info">
+      <p><span class="help highlight"><span class="fa fa-lightbulb-o"></span></span>Setting availability will allow
+        users to find and request a space for rental. Access Level determines what<a (click)="viewGroups()"
+          class="alert-link"> groups </a>will be available to find and request the space.</p>
+      <p><span class="fa fa-sticky-note-o"></span><em> Editing the availability information will not affect any existing
+          bookings.</em></p>
+      <p>After setting availability, you'll be able to block off times by using exceptions (below) and by<a
+          class="alert-link" (click)="viewHomePage()"> assigning space</a>.</p>
+    </div>
+    <div class="alert alert-info">
+      <p><span class="help highlight"><span class="fa fa-lightbulb-o"></span></span>Exceptions override the available
+        settings for the selected date/time period for current and future availability.<i>Once an exception is
+          made it can be deleted, however, the</i><strong> availability of the dates and times will not be
+          reinstated.</strong></p>
+    </div>
+    <div class="alert alert-info">
+      <p><span class="help highlight"><span class="fa fa-lightbulb-o"></span></span>Assign space allows you to create
+        calendar entries for internal events that are scheduled outside of the Spotz process.</p>
+    </div>
+  </div>
+  <ng-container *ngIf="availabilityRoleType === 'all'">
+    <div *ngIf="spaceAvailabilityData.length >0; else noData" class="table-responsive mb-3">
+      <app-space-rule-table (refreshData)="onReFreshData()" [spaceDetails]="spaceDetails" [groupDetails]="groupDetails" [data]="spaceAvailabilityData" [viewMode]="viewMode"></app-space-rule-table>
+    </div>
+    <ng-template #noData>
+    <div  class="alert alert-warning mb-3" aria-hidden="false">No scheduling rules set for this space.
+    </div>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngIf="availabilityRoleType === 'availability'">
+    <div *ngIf="filterData && filterData.length >0; else noData" class="table-responsive mb-3">
+      <app-space-rule-table [data]="filterData"  [spaceDetails]="spaceDetails" [groupDetails]="groupDetails" (refreshData)="onReFreshData()" [viewMode]="viewMode"></app-space-rule-table>
+    </div>
+    <ng-template #noData>
+    <div  class="alert alert-warning mb-3" aria-hidden="false">No availability scheduling rules set for this space.</div>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngIf="availabilityRoleType === 'exception'">
+    <div *ngIf="filterData && filterData.length >0; else noData" class="table-responsive mb-3">
+      <app-space-rule-table (refreshData)="onReFreshData()"  [spaceDetails]="spaceDetails" [groupDetails]="groupDetails" [data]="filterData" [viewMode]="viewMode"></app-space-rule-table>
+    </div>
+    <ng-template #noData>
+    <div  class="alert alert-warning mb-3" aria-hidden="false">No exception scheduling rules set for this space.
+    </div>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngIf="availabilityRoleType === 'assignment'">
+    <div *ngIf="filterData && filterData.length >0; else noData" class="table-responsive mb-3">
+      <app-space-rule-table (refreshData)="onReFreshData()"  [spaceDetails]="spaceDetails" [groupDetails]="groupDetails" [data]="filterData" [viewMode]="viewMode"></app-space-rule-table>
+    </div>
+    <ng-template #noData>
+    <div  class="alert alert-warning mb-3" aria-hidden="false">No assignment scheduling rules set for this space.    </div>
+    </ng-template>
+  </ng-container>

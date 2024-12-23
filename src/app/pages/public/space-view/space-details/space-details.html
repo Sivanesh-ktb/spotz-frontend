@@ -1,0 +1,122 @@
+<div class="space-details  p-3 px-5">
+    <div class="container-fluid p-3 ">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="heading text-white">
+                    <h4>Space Tagline</h4>
+                </div>
+                <div class="tagline description text-white">
+                    <p class="p_scroll">
+                        <ng-container *ngIf="spaceDetails && spaceDetails.tagline; else noTagline">
+                            {{spaceDetails.tagline}}
+                        </ng-container>
+                        <ng-template #noTagline>
+                            <span>No tagline</span>
+                        </ng-template>
+                    </p>
+                    <div class="heading text-white">
+                        <h4>Space summary : </h4>
+                    </div>
+                    <p class="p_scroll">
+                        <ng-container *ngIf="spaceDetails && spaceDetails.summary; else noSummary">
+                            {{spaceDetails.summary}}
+                        </ng-container>
+                        <ng-template #noSummary>
+                            <span>No tagline</span>
+                        </ng-template>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="heading text-white">
+                    <h4>
+                        Pricing
+                    </h4>
+                </div>
+                <div class="description text-white">
+                    <div class="space-price" *ngIf="!spaceDetails?.pricing?.length">
+                        <div class="price-hr"></div>
+                        <div class="rate">
+                            <span>
+                                <ng-container *ngIf="spaceDetails?.rentaltypes===1;else hour">
+                                    ${{price | number:'1.2-2'}} per day
+                                </ng-container>
+                                <ng-template #hour>
+                                    ${{price | number:'1.2-2'}} per hour
+                                </ng-template>
+                            </span>
+                        </div>
+                        <div class="price-hr"></div>
+                    </div>
+                    <div class="panel panel-default p-0 mt-3" *ngIf="spaceDetails?.pricing?.length">
+                        <div class="panel-heading text-white">
+                            <p class="m-0">This space uses special block pricing.</p>
+                        </div>
+                        <div class="panel-body text-white">
+                            <adv-block-display *ngIf="spaceDetails?.pricing" start-label="sTime" end-label="eTime"
+                                class="ng-isolate-scope">
+                                <div class="">
+                                    <ul class="list-feed mt-2">
+                                        <li *ngFor="let price of spaceDetails?.pricing">
+                                            <div class="block-time">
+                                                <span ng-hide="price.endTime <= price.startTime"
+                                                    class=" pr-4 ng-binding">
+                                                    <strong>
+                                                        {{totalHours(price.startTime, price.endTime)}}
+                                                    </strong>
+                                                </span>
+                                                <span class="ng-binding">
+                                                    {{ price.name }}, {{ price.startTime | timeslotPipe : 12}} to {{price.endTime | timeslotPipe : 12 }}
+                                                    <span class="hidden-sm hidden-xs">
+                                                        <span>&ndash;</span>
+                                                        <span *ngFor="let line of price.table">
+                                                            ${{ line.amount }}
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </adv-block-display>
+                        </div>
+                    </div>
+                    <table class="table table-bordered text-white">
+                        <tbody>
+                            <tr *ngFor="let price of spaceDetails?.pricing">
+                                <td>
+                                    <span class="px-3">{{ price.name }}</span>
+                                    <em class="text-muted">
+                                        {{ price.startTime | timeslotPipe : 12}} to {{price.endTime | timeslotPipe : 12 }}
+                                    </em>
+                                </td>
+                                <td>
+                                    <div *ngFor="let line of price.table" class="row">
+                                        <div class="col-xs-4 col-lg-4">${{ line.amount }}</div>
+                                        <div class="col-xs-8 col-lg-8">{{ getShortDayNames(line.days) }}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading text-white">
+                    <h4>
+                        Amenities
+                    </h4>
+                </div>
+                <div class="description row">
+                    <ng-container *ngFor="let chunk of chunkArray(amenities, 4)">
+                        <div class="col-md-6" *ngFor="let amenity of chunk">
+                            <div class="amenities-1 text-white">
+                                <span class="fa fa-star me-1 f-sm" aria-hidden="true"> &nbsp; </span><a>{{ amenity }}</a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

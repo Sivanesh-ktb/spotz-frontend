@@ -1,0 +1,123 @@
+
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+</div>
+
+<div class="container-fluid">
+  <div class="manage-org">
+    <div class="row">
+      <div class="col-lg-3">
+<app-admin-org-sidebar [orgName] = "orgDetails"></app-admin-org-sidebar>
+</div>
+<div class="col-lg-9">
+  <h3 class="new-space-h fw-bold">Facilities</h3>
+  <p><i class="fa fa-info-circle info-circle"> </i>
+    A facility is a park or building and comprises the physical address
+    and contact information for a rentable space.</p>
+    <div class="panel panel-default">
+      <h6>FILTER</h6>
+      <div class="row">
+        <div class="col-sm-4 py-3">
+          <label for="Name">Name</label>
+          <div class="facilities-name-filiter d-flex align-items-center gap-2">
+          <input type="text" [(ngModel)]="filterText"
+          (ngModelChange)="filterFacilities()" placeholder="Search"
+            class="form-control ng-pristine ng-valid ng-touched mt-2" aria-invalid="false">
+            <a *ngIf="checkFilter"(click)="clearFilter()" (keydown.enter)="clearFilter()" tabindex="0" class="fa fa-times-circle cancel clear" aria-label="clearFilter"></a>
+          </div>
+        </div>
+        <div class="col-sm-4 py-3">
+          <label for="go to">Go To</label>
+          <div class="input-group full-width-select-dro-down mb-3 mt-2">
+            <div class="card flex justify-content-center w-100">
+              <div class="admin-text">
+                <li class="nav-item dropdown">
+                  <span id="navbarAdminDropdown" role="button"
+                  class="form-control custom-dropdown-section custom-dropdown"
+                  data-bs-toggle="dropdown" aria-expanded="false">Select...
+                  <i class="fa-solid fa-angle-down"></i></span>
+                  <ul class="dropdown-menu facility-drop-down w-100"
+                  aria-labelledby="navbarAdminFacilityDropdown">
+                  <ng-container *ngFor="let facility of orgFacDetails">
+                    <li class="dropdown-item">
+                      <a (click)="viewFacility(facility._id)" (keydown.enter)="viewFacility(facility._id)" tabindex="0">{{ facility.name }}</a>
+                    </li>
+                  </ng-container>
+                <hr/>
+                    <li><a (click)="addFacility()" (keydown.enter)="addFacility()" tabindex="0" class="dropdown-item"><i class="fa fa-plus-circle"></i> Add Facility</a></li>
+                  </ul>
+                </li>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+  <div >
+    <app-pagination
+    [totalItems]="totalItems"
+    [pageSize]="pageSize"
+    [multipleData]="filteredFacilities"
+    (pagedOrgDetails)="onSelectedPagination($event)" >
+  </app-pagination>
+  </div>
+      <table class="table table-small table-condensed table-bordered" aria-hidden="false">
+        <thead>
+          <tr>
+            <th class="text-align-center"></th>
+            <th>Facility</th>
+            <th class="text-align-center">Tags</th>
+            <th class="text-align-center">Zip</th>
+            <th class="text-align-center">Space(s)</th>
+            <th class="text-align-center">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="filteredFacilities.length > 0; else noFacilities">
+            <tr *ngFor="let fac of pagedOrgDetails"  class="ng-scope">
+            <td class="ng-binding cursor-pointer" (click)="editFacility(fac?._id)">
+              <i class="fas fa-pencil-alt"></i>
+            </td>
+            <td><a (click)='viewFacility(fac?._id)' (keydown.enter)="viewFacility(fac?._id)" tabindex="0"
+              aria-hidden="false" class="view-profile" title="View Profile">
+              <span class="facility-name">{{fac?.name}}</span></a>,
+              <span class="facility-address">{{fac?.address?.city}},{{fac?.address?.state}}</span>
+            </td>
+            <td><span class="label label-success ng-binding">{{fac?.tags}}</span></td>
+            <td><span class="label label-success ng-binding">{{fac?.address?.zip}}</span></td>
+            <td class="shaded-column">
+              <div class="fac-buttons">
+                <a (click)="viewSpaces(fac?._id)" (keydown.enter)="viewSpaces(fac?._id)" tabindex="0"
+                class="btn btn-default btn-common">
+                <i class="fas fa-list"></i>
+                <span class="hidden-sm hidden-xs view-add-btn">view</span></a>
+               <a (click)="addSpace(fac?._id)" (keydown.enter)="addSpace(fac?._id)" tabindex="0"
+               class="btn btn-default btn-common hidden-xs add-space" *ngIf="admin">
+               <span class="fa fa-plus-circle"></span>
+               <span class="hidden-sm hidden-xs mr-2 view-add-btn"> add</span></a>
+              </div></td>
+              <td class="shaded-column">
+                <span class="badge ng-binding">{{fac?.spaces?.length}}</span>
+              </td>
+          </tr>
+        </ng-container>
+        <ng-template #noFacilities>
+          <tr>
+            <td colspan="6" class="text-center">No facilities available</td>
+          </tr>
+          </ng-template>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-sm-12 d-flex justify-content-end pr-0">
+          <button (click)="addFacility()" class="btn btn-primary edit ng-scope">
+            <span class="fa fa-plus-circle"></span> Facility
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</section>

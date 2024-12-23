@@ -1,0 +1,153 @@
+
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+</div>
+
+<div class="container-fluid">
+  <div class="manage-org">
+    <div class="row">
+      <div class="col-lg-3">
+         <app-admin-org-sidebar [orgName] = "orgDetails"></app-admin-org-sidebar>
+     </div>
+     <div class="col-lg-9">
+      <h3 class="new-space-h fw-bold">Contact Information</h3>
+      <div class="panel panel-default">
+        <div >
+          <app-pagination
+          [totalItems]="totalItems"
+          [pageSize]="pageSize"
+          [multipleData]="orgContactInfo"
+          (pagedOrgDetails)="onSelectedPagination($event)" >
+        </app-pagination>
+    </div>
+        <table class="table table-small table-sm table-condensed table-bordered" aria-hidden="false">
+          <thead>
+            <tr>
+              <th>Name/Title</th>
+              <th class="text-align-center">Type</th>
+              <th class="text-align-center">Email</th>
+              <th class="text-align-center">Phones</th>
+              <th class="text-align-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="orgContactInfo.length > 0; else noContactInfo">
+              <tr *ngFor="let orgContact of orgContactInfo; let i = index" class="ng-scope">
+                <ng-container *ngIf="!orgContact.isEditing; else editContact">
+                  <td>
+                    <span class="mr-3 ng-binding">{{orgContact?.firstName}},{{orgContact?.lastName}}</span>
+                    <span class="text-muted ng-binding">{{orgContact?.title}}</span>
+                  </td>
+                  <td>
+                    <div class="label label-info ng-binding">{{orgContact?.typ}}</div>
+                  </td>
+                  <td class="ng-binding">{{orgContact?.email}}</td>
+                  <td>
+                    <div *ngFor="let phone of orgContact?.phones" class="ng-scope">
+                      <div class="label label-default mr-3 ng-binding">{{phone?.typ}}</div>
+                      <span class="ng-binding">{{phone?.num}}&nbsp;</span>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <button type="button" title="Delete" (click)="deleteOrgContact(i)" class="btn btn-link">
+                      <span class="fas fa-trash-alt"></span>
+                    </button>
+                    <button type="button" title="Edit" (click)="editOrgContact(i)" class="btn btn-link">
+                      <span class="fas fa-pencil-alt"></span>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-template #editContact>
+                  <td>
+                    <div class="row row-seamless mb-2">
+                      <div class="col-md-6">
+                        <input type="text" [(ngModel)]="orgContact.firstName" placeholder="First Name" required="required"
+                          class="form-control first split ng-pristine ng-invalid ng-invalid-required ng-touched" aria-required="true"
+                          aria-invalid="true">
+                      </div>
+                      <div class="col-md-6">
+                        <input type="text" [(ngModel)]="orgContact.lastName" placeholder="Last Name" required="required"
+                          class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" aria-required="true"
+                          aria-invalid="true">
+                      </div>
+                    </div>
+                    <div class="row row-seamless">
+                      <div class="col-md-12">
+                        <input type="text" [(ngModel)]="orgContact.title" placeholder="Title"
+                          class="form-control ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <select type="text" [(ngModel)]="orgContact.typ" placeholder="Type" required="required"
+                      class="form-control sm ng-pristine ng-untouched ng-invalid ng-invalid-required" aria-required="true"
+                      aria-invalid="true">
+                      <option value="">Type</option>
+                      <option value="primary">Primary</option>
+                      <option value="secondary">Secondary</option>
+                      <option value="janitorial">Janitorial</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="email" [(ngModel)]="orgContact.email" placeholder="Email"
+                      class="form-control ng-pristine ng-untouched ng-valid ng-valid-email" aria-invalid="false">
+                  </td>
+                  <td>
+                    <div *ngFor="let phone of orgContact.phones; let j = index" class="row row-seamless ng-scope">
+                      <div class="col-md-12">
+                        <p-inputMask
+                        mask="(999) 999-9999"
+                        [(ngModel)]="phone.num"
+                        [style]="{'height':'70%'}"
+                        placeholder="(___) ___-____ x_____" />
+                      </div>
+                      <div class="col-md-6">
+                        <select type="text" [(ngModel)]="phone.typ" placeholder="Type" required="required"
+                          class="form-control sm ng-pristine ng-untouched ng-invalid ng-invalid-required" aria-required="true"
+                          aria-invalid="true">
+                          <option value="">Type</option>
+                          <option value="office">Office</option>
+                          <option value="mobile">Mobile</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 p-2">
+                        <span (click)="removePhone(orgContact, phone)" (keydown.enter)="removePhone(orgContact, phone)" tabindex="0" class="fa fa-minus-circle ml-3 font-medium-3 text-danger" role="button" tabindex="0"></span>
+                        <span (click)="addPhone(orgContact)" (keydown.enter)="addPhone(orgContact)" tabindex="0" *ngIf="orgContact?.phones?.length < 2"
+                          class="fa fa-plus-circle font-medium-3 ml-3 text-success" role="button" tabindex="0" aria-hidden="false"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="btn-group btn-group-xs d-flex gap-2">
+                      <button type="submit" class="btn btn-primary btn-primary-small"
+                      (click)="saveContact(orgContact)">
+                        <span class="hidden-sm hidden-xs">Save</span></button>
+                      <button type="button" (click)="cancelContactEdit(i)"
+                      class="btn btn-primary btn-primary-small">
+                        <span class="hidden-sm hidden-xs">Cancel</span></button>
+                    </div>
+                  </td>
+                </ng-template>
+              </tr>
+            </ng-container>
+            <ng-template #noContactInfo>
+              <tr>
+                <td colspan="5" class="text-center">No contact information available</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+        <div class="row" *ngIf="addMoreContact">
+          <div class="col-sm-12 d-flex justify-content-end pr-0">
+            <button (click)="addContacts()" class="btn btn-primary edit ng-scope">
+              <span class="fa fa-plus-circle icon-gap"></span>Add Contact
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+   </div>
+ </div>
+</section>

@@ -1,0 +1,21 @@
+<div class="header-content">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <div class="info-block">
+      <div class="info hidden-xs">
+        <div class="logo">
+          <img src="{{banner}}" alt="Organization Logo" class="img-fluid">
+        </div>
+      </div>
+      <div class="organization"><span class="hidden-xs" aria-hidden="false"><a
+           class="color-block">{{orgName}}</a><span
+            class="fa fa-caret-right"></span></span>
+        <a class="color-block">
+          {{facName}}</a>
+      </div>
+      <h4 class="my-1 hidden-xs color-block">{{facName}}</h4>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6  col-md-6 col-lg-6">
+    <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close-modal color-black">x</a>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="booking-container">
+  <app-booking-header [banner]="banner" [facName]="facName" [orgName]="orgName"></app-booking-header>
+  <div class="sections clearfix mt-3 mb-4 px-3">
+    <app-booking-navbar [page]="page" (currentPage)="onCurrentPage($event)"></app-booking-navbar>
+  </div>
+  <div *ngIf="page ==bookingInfo && !notAllowInfo" class="booking-info-container">
+    <app-booking-info *ngIf="spaceDetails && facDetails.length > 0" [spaceDetails]="spaceDetails"
+      [facDetails]="facDetails" [banner]='banner' [amenities]="amenities" [row]="facData"
+      (navigateToSchedule)="navigateToBookingSchedule()"></app-booking-info>
+  </div>
+  <div *ngIf="page ===bookingSchedule" class="booking-info-container booking-schedule-container">
+    <app-booking-schedule (navigateToSchedule)="navigateToBookingSchedule()" [filterparams]="recurringFilterParams"></app-booking-schedule>
+  </div>
+  <div *ngIf="page ===bookPage || page ===bookingUsageDetails" class="booking-info-container booking-schedule-container">
+    <app-booking-usage-details></app-booking-usage-details>
+  </div>
+  <div *ngIf="page ===bookingOption" class="booking-info-container booking-schedule-container">
+    <app-booking-options></app-booking-options>
+  </div>
+  <div *ngIf="page ===bookingPayment" class="booking-info-container booking-schedule-container">
+    <app-booking-payment></app-booking-payment>
+  </div>
+  <div *ngIf="page ===bookingVerify" class="booking-info-container booking-schedule-container">
+    <app-verify-booking></app-verify-booking>
+  </div>
+  <div *ngIf="page ===bookingDone" class="booking-info-container booking-schedule-container">
+    <app-booking-done></app-booking-done>
+  </div>
+</div>

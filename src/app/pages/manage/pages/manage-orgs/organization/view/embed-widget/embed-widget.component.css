@@ -1,0 +1,99 @@
+.embed-widget {
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  padding: 10px;
+}
+
+.embed-widget .btn-primary {
+  color: white;
+  display: block;
+  width: 100%;
+  text-align: center;
+  height: 54px;
+  vertical-align: middle;
+  background-color: #e58327;
+  border-color: #e58327;
+  padding-top: 12px;
+  font-size: 14pt;
+}
+
+.embed-widget .calendar {
+  width: 220px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.embed-widget .calendar > div {
+  width: 100%;
+  padding: 0 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.embed-widget .calendar > div:last-child {
+  border-bottom: none;
+}
+
+.embed-widget .calendar .btn-primary {
+  margin: 10px 0;
+  padding-top: 8px;
+}
+
+.embed-widget .powered {
+  font-size: 8pt;
+  color: #a5a5a5;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.embed-widget img {
+  margin-top: -10px;
+  margin-left: 5px;
+}
+
+.embed-widget .widget-select {
+  position: relative;
+}
+
+.embed-widget .search_widget-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  z-index: 1;
+  width: 100%;
+  border: 0px; 
+  background: none;
+  font-size: 16px;
+  outline: none;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.embed-widget .datepicker table tr td.active {
+  background-color: #e58327;
+  background-image: none;
+}
+
+.embed-widget .datepicker table tr td.today {
+  background-color: #fde19a;
+  background-image: none;
+}
+
+.calendar input[type="date"] {
+  width: 100%;
+  height: 35px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search_widget-select {
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+input#mat-input-0 {
+  display: none;
+}

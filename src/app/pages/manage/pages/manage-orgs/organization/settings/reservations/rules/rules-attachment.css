@@ -1,0 +1,20 @@
+.drop-file {
+  width: 100%;
+  border: 1px solid #ccf1ff;
+  border-radius: 12px;
+  background-color: #edfaff;
+}
+
+.instructions{
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  background: #e2f4fb;
+  border-radius: 15px;
+}
+
+.uploadPdf{
+  background-color: #ccf1ff;
+  border-radius: 10px;
+  margin: 5px
+}

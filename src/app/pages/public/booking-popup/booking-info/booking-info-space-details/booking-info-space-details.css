@@ -1,0 +1,154 @@
+.space-price {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.space-price .price-hr {
+  flex-shrink: 4;
+  width: 800px;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin-top: 6px;
+}
+.space-price .rate {
+  flex-shrink: 1;
+  width: 300px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: #999;
+}
+.space-dimensions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.facility-listing h4 {
+  font-size: 20px;
+  font-weight: 400;
+}
+.space-price .rate span {
+  font-size: 21px;
+  color: #333;
+  margin: 0 8px;
+}
+.clearfix h5{
+  font-size: 14px !important;
+  color: #333;
+}
+.list-feed li{
+  position: relative;
+    margin: 0;
+    padding-bottom: 15px;
+    padding-left: 28px;
+    list-style-type: none;
+}
+
+.list-feed>li:before {
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid #607d8b;
+  z-index: 3;
+}
+
+.list-feed>li:after, .list-feed>li:before {
+  content: '';
+  top: 5px;
+}
+
+.list-feed>li:first-child:after {
+  top: 8px;
+}
+
+.list-feed>li:after {
+  position: absolute;
+  left: 3px;
+  bottom: -7px;
+  width: 0;
+  border-left: 1px solid #607d8b;
+  border-right: 1px solid #607d8b;
+  z-index: 2;
+}
+
+.list-feed > li:last-child:after {
+  content: none;
+}
+.panel .panel-heading {
+  background-color: #eaf3ff;
+  border-radius: 20px 20px 0 0;
+  border: none;
+  color: #333;
+  padding: 10px 15px;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+table{
+  font-weight: 400;
+  font-size: 20px !important;
+}
+
+.panel1 {
+  background-color: #e8f1fb;
+  padding-bottom: 20px;
+  padding: 15px;
+  box-shadow: 1px 2px 2px rgba(121, 141, 163, .18);
+  margin-bottom: 15px;
+  border-radius: 9px;
+}
+
+.panel1 h3.panel-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.panel1 h5{
+    font-size: 14px;
+}
+
+.space-options .addon-price {
+  color: #777;
+  font-size: 12px;
+  padding-left: 6px;
+}
+
+.space-options .addon-desc {
+  color: #777;
+  display: block;
+  font-size: 12px;
+  margin-left: 6px;
+  padding-bottom: 8px;
+}
+
+.list-style-bullet li {
+  padding: 3px 0;
+  list-style-type: disc;
+}
+.listing h5 {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.space-detail-title {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+.space-detail-subtitle {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #333 !important;
+  font-family: 'Open Sans',sans-serif!important;
+}
+.panel-heading h4 {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}

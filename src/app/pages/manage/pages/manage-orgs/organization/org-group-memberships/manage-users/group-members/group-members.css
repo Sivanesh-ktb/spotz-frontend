@@ -1,0 +1,90 @@
+
+.tab-content {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e4ebf5;
+  border-top: 0;
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: rgba(67, 79, 92, .22) 0 2px 2px -1px;
+}
+.manage-org {
+  background-color: #f9f9f9;
+}
+.admin-members {
+  color: #274451 !important;
+  font-size: 18px;
+}
+.admins-oversee {
+  background-color: #22c3f03b;
+  padding: 10px 10px;
+  border-radius: 20px;
+}
+.admins-oversee p {
+  padding-top: 7px;
+}
+.add-members {
+  padding-top: 10px;
+}
+.table > thead > tr > th {
+  background-color: #034a61;
+  color: #fff;
+}
+.ng-scope a {
+  text-decoration: none;
+  color: #000;
+}
+.hidden-xs.remove-update-access{
+  color:#0269d9 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+.admin .btn-link {
+  color: #0269d9;
+  font-weight: 600;
+}
+.alert {
+  border-radius: 9px;
+}
+.text-danger {
+  position: absolute;
+  top: 38px;
+}
+a.view-profile {
+  cursor: pointer;
+}
+.invalid-feedback {
+  position: absolute;
+  top: 41px;
+}
+::ng-deep .cdk-global-overlay-wrapper {
+  justify-content: center;
+  align-items: baseline !important;
+  top: 20px;
+}
+
+.label-success {
+  background-color: #5cb85c;
+}
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  color: #fff;
+  border-radius: .25em;
+}
+.btn-secondary,.btn-secondary:focus,.btn-secondary:hover {
+  color: #fff;
+  background-color: #034A61;
+  border-color: #011d26;
+}
+h5.admin-members {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #044f80 !important;
+  text-transform: none;
+  margin-top: 0;
+}
+.update-access {
+  color: #0269d9 !important;
+}

@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-lg-3">
+    <h6 class="tag-sp b-spc">Pricing Templates</h6>
+  </div>
+  <div [ngClass]="templateId ? 'col-lg-12' : 'col-lg-9'">
+  <div class="f-day">
+    <div class="row">
+     <div [ngClass]="templateId ? 'col-lg-3' : 'col-lg-0'"></div>
+     <div class="col-lg-9">
+      <p>To rent this space in larger blocks (e.g half-day, full-day) define those blocks here. Then,
+        apply these templates to individual spaces.</p>
+        <div *ngIf="templateId || templateDetails && templateDetails.length>0" class="row">
+          <div class="col-lg-12">
+            <div class="row d-flex w-100">
+            <div class="col-lg-5">
+              <app-template-drop-down [templateName]="templateName" [showTimeBlock]='showTimeBlock' [templates]="templateDetails" (selectedTemplateId)="OnSelectedTemplateId($event)">
+              </app-template-drop-down>
+            </div>
+            <div class="col-lg-3">
+              <div class="col-md-12 mt-4 col-sm-2 py-1 col-xs-12">
+                <a (click)="cancel()" (keydown.enter)="cancel()" tabindex="0" class="btn btn-link edit d-flex gap-1 align-items-center" aria-hidden="false">
+                  <span class="fa fa-times mt-2"></span><span class="text">cancel</span></a>
+              </div>
+            </div>
+            <div class="col-lg-4" *ngIf="templateId && templateId !== 1">
+              <div class="col-md-12 mt-4 col-sm-4 text-right">
+                <button (click)="deleteAll()" class="btn btn-default d-flex gap-1" aria-hidden="false">
+                  <span class="fa fa-trash mt-1"></span> Delete Template</button>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+      </div>
+    </div>
+      <div class="ex-temp"  *ngIf="templateList">
+        <ng-container *ngIf="(templateId || templateDetails.length > 0) || templateList ">
+         <app-example-template></app-example-template>
+         </ng-container>
+      </div>
+      <div *ngIf="templateId !== 1 || templateDetails.length === 0" class="row">
+        <div class="col-lg-6">
+          <app-template-drop-down [templateName]="templateName" (selectedTemplateId)="OnSelectedTemplateId($event)">
+          </app-template-drop-down>
+        </div>
+      </div>
+      <div *ngIf="(templateId || templateDetails.length > 0) || !templateList" class="ex-temp mt-2">
+        <div class="row">
+          <div class="col-sm-7">
+            <label class="control-label" for="Template Name">Template Name</label>
+          </div>
+          <div class="col-sm-5">
+            <div class="form-group">
+              <input [(ngModel)]="templateName" required="required" class="form-control" aria-required="false">
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="timeBlocks">
+          <app-time-block-template [page]='page' [showTimeBlock]=true [timeBlocks]="timeBlocks"
+          [data]="templateDetails" (orgTimeBlockDetails)="OnOrgTimeBlockDetails($event)">
+          </app-time-block-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

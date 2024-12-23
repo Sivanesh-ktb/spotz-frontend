@@ -1,0 +1,70 @@
+<div class="row">
+
+  <div class="col-sm-9 col-xs-9">
+    <div class="tab-cnt1">
+      <div class="t-b-1 d-flex justify-content-between">
+        <p>Create tags to help generate reports for your facilities and spaces.</p>
+        <div class="tb-icon">
+          <i class="fas fa-pencil-alt" (click)="editTags()" (keydown.enter)="editTags()" tabindex="0"></i>
+        </div>
+      </div>
+      <div class="setting-tax p-2" *ngIf="!showTags">
+        <div  *ngIf="tags.length">
+          <ul class="nav nav-pills fac-tags" style="float: left">
+            <li class="active p-2" *ngFor="let tag of tags">
+              <a class="tag-value">{{ tag }}</a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div *ngIf="showTags">
+        <div class="well" *ngFor="let tag of tags; let i = index;trackBy: trackByIndex">
+          <div class="d-flex align-items-center p-2">
+            <div class="form-group mb-0 col-sm-5">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="tags[i]"
+                placeholder="Tag Name"
+              />
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-link" (click)="removeTag(i)">
+                <span class="fa fa-minus-circle"></span> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-link" (click)="addTag()">
+              <span class="fa fa-plus-circle"></span> Add Tag
+            </button>
+            <button
+              class="btn btn-link"
+              *ngIf="canImportTags"
+              (click)="importTags()"
+            >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-3">
+    <button class="btn btn-link edit" (click)="editTags()" *ngIf="!showTags">
+      <span class="icon-pencil3"></span>
+    </button>
+
+    <div class="btn-group edit" *ngIf="showTags">
+      <button class="btn btn-xs btn-primary" type="submit" (click)="saveTags()">
+        <span class="hidden-xs">Save</span>
+      </button>
+      <button class="btn btn-xs btn-default" (click)="cancelTags()">
+        <span class="hidden-xs">Cancel</span>
+      </button>
+    </div>
+  </div>
+
+</div>

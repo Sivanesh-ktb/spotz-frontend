@@ -1,0 +1,5 @@
+
+::ng-deep .custom-paginator .p-paginator {
+  background-color: transparent !important;
+  color: #fff !important;
+}

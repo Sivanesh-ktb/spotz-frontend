@@ -1,0 +1,23 @@
+section.content.fac-space-view-section {
+  background: #f9f9f9;
+}
+.full-width-select-drop-down {
+  width: 100%;
+  max-width: 350px;
+}
+
+.space-clear-filter{
+  padding-top: 36px;
+}
+.space-info{
+  font-size: 14px;
+}
+.space-info-icon{
+  font-size: 13px;
+}
+.filter-title{
+  font-size: .8em !important;
+}
+.text-right{
+  text-align: right;
+}

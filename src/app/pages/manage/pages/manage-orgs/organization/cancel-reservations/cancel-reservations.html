@@ -1,0 +1,99 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12">
+          <div class="edit-org-cnt mb-0">
+            <h3 class="new-space-h fw-bold">Cancel Reservations</h3>
+         </div>
+         <div class="row">
+          <div class="col-lg-3">
+            <label class="control-label mb-2">Choose Date</label>
+            <div class="position-relative mb-3">
+              <input placeholder="Date" matInput class="form-control date-picker-input" (click)="dp3.open()" [matDatepicker]="dp3" [(ngModel)]="date" readonly/>
+              <mat-datepicker-toggle matSuffix [for]="dp3" class="date-picker-container custom-datepicker-toggle"></mat-datepicker-toggle>
+              <mat-datepicker #dp3></mat-datepicker>
+              <i class="fa fa-calendar form-control-feedback-cancel" (click)="dp3.open()"></i>
+            </div>
+
+
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="container py-3">
+        <div class="section sub-section">
+          <div class="header">
+            <div class="row">
+              <div class="col-lg-6">
+                <h4 class="pt-1">Filter Results</h4>
+              </div>
+              <div class="col-lg-6 d-flex justify-content-end align-items-center">
+                <a (click)="clearFilters()" class="btn btn-default btn-xs">
+                  <i class="fa-solid fa-xmark"></i> Clear Filters
+                </a>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <ng-container *ngIf="cancelPage">
+                  <app-facility-drop-down [cancelPage]="cancelPage" [clearValue]="clearValue"
+                    (selectedFacIdName)="onFacilitySelected($event)">
+                  </app-facility-drop-down>
+                  </ng-container>
+                </div>
+                <div class="col-lg-4">
+                  <app-space-type-drop-down [clearValue]="clearValue"
+                  (spaceTypeSelected)="onSpaceTypeSelected($event)">
+                  </app-space-type-drop-down>
+                </div>
+                <div class="col-lg-4">
+                  <ng-container *ngIf="cancelPage">
+                  <app-booking-status-drop-down [setStatus]="cancelPage" [clearValue]="clearValue"
+                  (bookingTypeNameSelected)="onBookingTypeSelected($event)">
+                  </app-booking-status-drop-down>
+                </ng-container>
+                </div>
+              </div>
+              </div>
+        </div>
+        <div class="section sub-section mt-2">
+          <div class="header">
+            <div class="row">
+              <div class="col-lg-6">
+                <h4 class="pt-1 mt-2">All Results </h4>
+              </div>
+              <ng-container *ngIf="facName">
+                <div class="d-flex gap-2">
+                  <h4>
+                    at
+                  </h4>
+                  <span class="advanced-filter-values fw-bold">
+                    {{facName}}
+                  </span>
+                 </div>
+              </ng-container>
+              <ng-container *ngIf="spaceNames && spaceNames.length > 0">
+                <div class="d-flex gap-2">
+                  of status
+                <span class="advanced-filter-values fw-bold">
+                  {{spaceNames.join(',')}}
+                </span>
+               </div>
+              </ng-container>
+              </div>
+            </div>
+        </div>
+      </div>
+      </div>
+         </div>
+         </div>
+    </div>
+ </div>
+</section>

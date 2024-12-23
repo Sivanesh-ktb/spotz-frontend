@@ -1,0 +1,45 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar/>
+        </div>
+        <div class="col-lg-9">
+            <app-navbar-group-members [groupName]="groupName" [system]="system">
+              </app-navbar-group-members>
+            <ng-container *ngIf="!groupId && !newGroup;">
+            <div class="col-sm-9 col-xs-9">
+              <h2 class="mt-0"><i class="fas fa-users"></i> Groups</h2>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="custom-tab" data-bs-toggle="tab" data-bs-target="#custom"
+                  type="button" role="tab" aria-controls="custom" aria-selected="true">
+                  Custom</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="import-tab" data-bs-toggle="tab"
+                data-bs-target="#import" type="button" role="tab" aria-controls="import"
+                aria-selected="false">
+                  <span class="fa fa-plus-circle"></span>
+                  Import</button>
+              </li>
+            </ul>
+          </ng-container>
+            <div class="tab-content">
+              <ng-container *ngIf="!newGroup; else newGroupForm">
+              <app-custom-group/>
+              </ng-container>
+              <ng-template #newGroupForm>
+                <app-new-group (newGroupNameOutput)="onNewGroupNameOutput($event)"/>
+              </ng-template>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>

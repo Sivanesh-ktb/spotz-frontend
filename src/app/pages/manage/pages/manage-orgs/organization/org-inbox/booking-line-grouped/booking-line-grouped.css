@@ -1,0 +1,201 @@
+.table {
+  border: 1px solid #dde3eb;
+}
+.table.default-status {
+  border-left: 5px solid #658b9b !important;
+}
+.table-sm td, .admin .table-sm th {
+  font-size: 10pt;
+  padding: 6px 8px;
+}
+.cal.horizontal .day {
+  font-size: 1em;
+  padding: 16px 0;
+  border-right: 1px solid #eee;
+  font-weight: 700;
+}
+
+.cal-table .day  {
+  height: 55px;
+  width: 50%;
+  float: left;
+}
+.cal-table .day {
+  padding: 4px 0 !important;
+  border-right: 1px solid #eee !important;
+}
+.cal .day {
+  font-size: .7em;
+  color: #000;
+  line-height: 1.3em;
+}
+.cal.horizontal .days {
+  font-size: 1em;
+  /* border-right: 1px solid #eee; */
+  font-weight: 700;
+}
+
+.cal-table .days  {
+  height: 55px;
+  width: 50%;
+  float: left;
+}
+.cal-table .days {
+  padding: 4px 0 !important;
+  /* border-right: 1px solid #eee !important; */
+}
+.cal .days {
+  font-size: .7em;
+  color: #000;
+  line-height: 1.3em;
+}
+.cal .month {
+  font-weight: 700;
+  color: #c00;
+}
+.cal .month, .cal .year {
+  font-size: 12px;
+  line-height: 13px;
+}
+.label.default-status {
+  background-color: #658b9b;
+  color: #fff;
+  font-size: 11px;
+}
+
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  color: #fff;
+  border-radius: .25em;
+}
+.status{
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: .8em;
+  color: #666;
+}
+.activity{
+  padding: 5px 15px;
+}
+.event{
+  padding: 5px 15px;
+  border: 1px solid #dee2e6;
+  margin: -1px;
+  background: #ffff;
+  border-bottom: none;
+}
+.h{
+  line-height: 1em;
+  font-weight: 700;
+  color: #333;
+}
+.a{
+  text-transform: uppercase;
+}
+.date{
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1em;
+}
+.min_max_w_90{
+  min-width:90px;
+  max-width:90px;
+}
+.min_max_w_150{
+  min-width:150px;
+  max-width:150px;
+}
+.min_max_w_120{
+  min-width:120px;
+  max-width:120px;
+}
+.min_max_w_80{
+  min-width:80px;
+  max-width:80px;
+}
+.min_max_w_250{
+  min-width:250px;
+  max-width:250px;
+}
+.vertical-middle{
+  vertical-align: middle;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  border: 1px solid #e4ebf5;
+  border-bottom-color: transparent;
+}
+.nav-tabs {
+  border-bottom: 1px solid #e4ebf5;
+}
+.nav-tabs>li {
+  margin-bottom: -2px;
+}
+.nav-tabs>li>a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+.nav>li>a {
+  padding: 8px 15px !important;
+}
+.nav-tabs>li>a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+.tim {
+  text-align: center;
+  padding: 7px 4px;
+  margin: 0 auto;
+}
+.tim .h {
+  line-height: 1em;
+  font-weight: 700;
+  color: #333;
+}
+.tim .a {
+  text-transform: uppercase;
+}
+.duration {
+  text-align: center;
+  font-size: .75em;
+  color: #919191;
+  text-transform: uppercase;
+}
+.column .duration {
+  border-top: 1px solid #eee;
+}
+.nav-tabs>li {
+  margin-bottom: -2px;
+}
+.cart-subnav>li, .facility-detail ul.checklist, ul li {
+  list-style-type: none;
+}
+.table-sm td, .table-sm th {
+  font-size: 10pt !important;
+  padding: 6px 8px;
+}
+.text {
+  font-family: 'Open Sans', sans-serif !important;
+}
+.text .place {
+  font-weight: 200 !important;
+  color: #919191;
+}
+.cal.cal-table .days {
+  border-right: none!important;
+  text-align: center;
+  padding: 4px!important;
+}
+.cal .days,.cal.horizontal .day {
+  height: 55px;
+  width: 50%;
+  float: left;
+}
+.status {
+  padding: 5px 5px 2px;
+}

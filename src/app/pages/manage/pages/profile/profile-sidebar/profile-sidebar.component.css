@@ -1,0 +1,26 @@
+.my-s,.my-spotz h6 {
+  width: 100%;
+  padding: 20px 15px 10px 15px;
+}
+.my-s{
+  background-color: #fff;
+  box-shadow: rgba(67, 79, 92, .22) 0 2px 2px 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+}
+.my-spotz h6 {
+  background-color: #d3eaf0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin: 0;
+}
+.profile-sidebar p{
+  padding: 3px 0px;
+}
+.profile-sidebar p i{
+  padding-right: 10px;
+}
+.profile-sidebar p {
+  font-size: 18px;
+}

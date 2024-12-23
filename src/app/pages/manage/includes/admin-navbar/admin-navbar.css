@@ -1,0 +1,279 @@
+.site-logo img {
+  width: 140px !important;
+}
+
+.navbar .bg-light {
+  background-color: #f8f9fa00 !important;
+}
+.org-bg {
+  background-color: #3d5964;
+}
+.admin-key{
+  color: #fff;
+}
+.home-icon i {
+font-size: 25px;
+color: #fff;
+cursor: pointer;
+}
+.admin-home-icon{
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.user-logo.admin-navbar {
+  margin-left: 30px;
+}
+.org-name h6,.space h6,.admin-key i{
+color:#fff;
+font-size: 1em;
+padding-top: 10px;
+}
+
+.org-name p,.small-name{
+font-size: 0.8em;
+color: #fff;
+}
+.space p{
+font-size: 18px;
+color: #fff;
+}
+
+.admin-text{
+  color:#fff;
+  font-size: 20px;
+  list-style: none;
+  text-decoration: none;
+  }
+
+.admin-key a:hover {
+  color: #fff;
+}
+.dev-cnt {
+float: right;
+color: #fff;
+}
+p.small-name.choose-facility {
+  font-size: 14px;
+}
+.Spotz-only {
+  color: #fff;
+}
+a.dropdown-item {
+  cursor: pointer;
+  font-size: 0.9em !important;
+}
+a.add-fac-space {
+  color: #fff;
+  text-decoration: none;
+  cursor:pointer;
+}
+li.nav-item.dropdown a.facility-header,a.show {
+  color: #fff;
+  text-decoration: none;
+}
+.admin-org-dropdown{
+  margin: 0px 10px 0px 10px !important;
+}
+ul.dropdown-menu.facility-drop-down.show::-webkit-scrollbar {
+  width: 8px;
+}
+
+ul.dropdown-menu.facility-drop-down.show::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+ul.dropdown-menu.facility-drop-down.show::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+ul.dropdown-menu.facility-drop-down.show::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+li.dropdown-item.ng-star-inserted {
+  cursor: pointer;
+}
+a.close-icon.ng-star-inserted i.fa.fa-times {
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+}
+.admin-text li.nav-item.dropdown a.ng-star-inserted {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+li.nav-item.dropdown {
+  list-style: none;
+}
+.space li.nav-item.dropdown a.add-space {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+nav.navbar.navbar-expand-lg.navbar-light.pad-spc {
+  padding: 0px;
+}
+.view-org-text{
+  font-size: 14px;
+  color: #fff;
+}
+.view-icon{
+  margin-top: -1rem !important;
+}
+li.dropdown-item a {
+  color: #333;
+}
+.form-control.form-box {
+  color: rgba(255,255,255,.612);
+  background-color: #3d5964 !important;
+  border-color: #3d5964;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none !important;
+}
+.admin-hover:hover{
+  color : #e58327 !important;
+}
+.dropdown-header {
+  font-size: 13px;
+  color: #777;
+  padding: 0.25rem 1.5rem;
+}
+.dropdown-list{
+  margin-left: -120px;
+}
+.dev-cnt a img.profile-img {
+  border: 3px solid #465B72;
+  border-radius: 22.5px;
+  width: 45px;
+  height: 45px;
+  margin: 7px;
+  background-size: cover;
+  background-position: 0;
+  float: right;
+}
+.admin-container {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+.dropdown-menu .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+.active-column {
+  border-bottom: 3px solid orange;
+}
+.dropdown-item.active, .dropdown-item:active{
+  background-color: #e58327 !important;
+  color: #fff !important;
+}
+.dropdown-item:focus .a, .dropdown-item:hover {
+  color: #fff;
+  background-color: #e58327;
+}
+#navbarAdminDropdown:hover,
+#navbarAdminDropdown:hover i {
+  color: #e58327;
+  cursor: pointer;
+}
+
+#navbarAdminDropdown i:hover,
+#navbarAdminDropdown i:hover + a {
+  color: #e58327;
+  cursor: pointer;
+}
+.dropdown-menu {
+  min-width: 14em;
+}
+.admin-navbar
+{
+  font-size: 1.0em !important;
+}
+.admin-home-icon{
+
+  background-color: #38525c;
+  text-align: center;
+  padding: 18px 10px;
+}
+.home-icon.hover-icon:hover,.admin-home-icon:hover {
+  background-color: #304750;
+  border-bottom: 3px solid #e58327;
+}
+.home-icon.hover-icon:hover>a,
+.admin-home-icon:hover{
+  color: #e58327;
+}
+.home-icon.hover-icon {
+  padding: 18px 0px;
+  position: relative;
+  text-align: center;
+  max-width: 56px;
+  width: 100%;
+  cursor: pointer;
+}
+.admin-hover{
+  font-size: 14px;
+  color: #fff;
+}
+
+i.fas.fa-caret-down {
+  font-size: 10px !important;
+}
+a.add-space-drop-down
+{
+  padding: 4px 7px;
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.organization-container:not(:first-of-type) {
+  gap: 2rem;
+}
+.organization-container .header{
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #fff;
+}
+
+.organization-container .selector{
+  border: none;
+  background-color: transparent;
+  box-shadow: inherit;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.facility-head{
+  margin-top: 4px;
+}
+li.off .label-info {
+  background-color: #C00;
+  font-size: .6em;
+  float: right;
+  margin-top: 3px;
+  color:#fff;
+}
+
+.mtr_5{
+  margin-top: 5px;
+  margin-right: 5px;
+}
+.min_width_200px{
+  min-width: 250px;
+  height: 100%;
+  margin: 0 1%;
+  display: grid;
+  align-items: center;
+}
+.fs_13{
+  font-size: 13px;
+}

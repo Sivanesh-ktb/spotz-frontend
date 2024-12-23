@@ -1,0 +1,116 @@
+
+ul.contacts {
+  padding: 0;
+}
+.label-info {
+  background-color: #034A61;
+}
+.organization-details h4 {
+  font-size: 1.5em !important;
+  font-weight: 700 !important;
+}
+.label-info,
+.label-default {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  color: #fff;
+  border-radius: .25em;
+}
+.label-default {
+  background-color: #777;
+}
+.logo-g1.text-center {
+  max-width: 250px;
+  width: 100%;
+}
+.logo-g1.text-center img {
+  width: 100%;
+}
+
+.org-social-links {
+  width: 7%;
+  text-align: center;
+}
+.color-black:hover{
+  color: #e58327 !important;
+}
+
+.spotz-logo{
+  width: 85px;
+  height: 25px;
+}
+.fac-icon-info {
+  font-size: 11px;
+}
+.question-arrow:hover {
+  color: #2f81dd !important;
+}
+.instructions.hovered {
+  display: block;
+  height: 200px;
+}
+.upload-org-profile-image.active{
+  width: 100%;
+  height: 136px;
+  padding: 0px !important;
+}
+.upload-org-profile-image{
+  width: 100%;
+  height: 136px;
+  padding: 0px !important;
+}
+.instructions {
+  background: aliceblue;
+  padding: 13px;
+  border-radius: 20px;
+}
+.loader {
+  position: absolute;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 40px;
+  height: 40px;
+  left: 48%;
+  top: 56%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader.show {
+  display: block;
+}
+.loadingbanner {
+  position: absolute;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 40px;
+  height: 40px;
+  left: 48%;
+  top: 26%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  display: none;
+}
+.loadingbanner.show {
+  display: block;
+}
+.powered {
+  font-size: 10pt;
+  color: #a5a5a5;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+.org-pencil-icon:hover {
+  color: #e58327;
+}

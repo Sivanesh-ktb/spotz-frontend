@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <h4 class="header">Buffer Time</h4>
+  </div>
+  <div class="col-md-7 col-sm-6 col-xs-9">
+    <p><i>By using buffer time, rental requests can automatically add additional time
+      for maintenance, cleaning, scheduling, etc. Buffers will be added when available,
+      and will warn before approval if the buffer time is not met for an individual request.
+    </i></p>
+    <ng-container *ngIf="showBuffer">
+      <div class="row" aria-hidden="false">
+      <div class="col-md-6">
+        <label class="control-label space-setting-label mb-2" for="Time before">Time before</label>
+        <select class="form-control" [(ngModel)]="bufferBeforeValue">
+          <option *ngFor="let option of getOptions()" [value]="option.value" [selected]="bufferBeforeValue === option.value">
+            {{ option.label }}
+          </option>
+        </select>
+        <p class="help-block mt-3">Select the number of time blocks that should be blocked before
+          a rental.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <label class="control-label space-setting-label mb-2" for="Time after">Time after</label>
+        <select class="form-control" [(ngModel)]="bufferAfterValue">
+          <option *ngFor="let option of getOptions()" [value]="option.value" [selected]="bufferAfterValue === option.value">
+            {{ option.label }}
+          </option>
+        </select>
+        <p class="help-block mt-3">Select the number of time blocks that should be blocked after
+          a rental.
+        </p>
+      </div>
+    </div>
+    </ng-container>
+  </div>
+  <div class="col-md-3 col-sm-3 col-xs-3">
+    <ng-container *ngIf="!showBuffer; else hideBuffer">
+      <a class="fas fa-pencil-alt space-setting-edit-icon cancel-buffer" (click)="changeBuffer()" (keydown.enter)="changeBuffer()" tabindex="0" aria-label="change buffer"></a>
+    </ng-container>
+    <ng-template #hideBuffer>
+      <div class="btn-group edit ng-hide settings-rental-card" aria-hidden="true">
+        <div>
+            <div class="flex flex-wrap justify-content-center gap-2">
+            <button (click)="updateBufferTimeDetails()" pButton type="button" label="Save" icon="pi pi-save"
+              class="btn btn-sm btn-primary d-flex align-items-center" styleClass="p-button-warning"></button>
+          </div>
+        </div>
+        <button pButton type="button" label="Cancel" (click)="cancelBuffer()"
+          class="btn btn-sm btn-default cancel-buffer"></button>
+      </div>
+    </ng-template>
+  </div>
+</div>

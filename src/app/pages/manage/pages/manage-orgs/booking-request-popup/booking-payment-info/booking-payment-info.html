@@ -1,0 +1,78 @@
+<div>
+  <h3>
+      <span class="fa fa-usd"></span> Payment
+      <small>
+          <span class="adjust-price" role="button" tabindex="0">
+              <span class="fa fa-level-down"></span>&nbsp;Adjust Pricing
+          </span>
+      </small>
+  </h3>
+  <div class="receipt">
+      <div class="py-2">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="payment-text">Duration</div>
+              </div>
+              <div class="col-md-9">1 hour at $50/hr</div>
+              <div class="col-md-3 text-end">$50.00</div>
+          </div>
+          <!-- Options Total -->
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="payment-text">Setup &amp; Add-Ons</div>
+              </div>
+          </div>
+          <div class="row addon-items">
+              <div class="col-md-9">Bleachers</div>
+              <div class="col-md-3 text-end">free</div>
+          </div>
+      </div>
+      <hr>
+      <div class="py-2">
+          <!-- Subtotal -->
+          <div class="row rate-hours-row" aria-hidden="false">
+              <div class="col-md-9">
+                  <div class="payment-text">Subtotal</div>
+              </div>
+              <div class="col-md-3 text-end">$50.00</div>
+          </div>
+
+          <div class="row" aria-hidden="false">
+              <div class="col-md-9 ">Spotz Insurance (1.25%)</div>
+              <div class="col-md-3 text-end ">$0.63</div>
+          </div>
+      </div>
+      <!-- Total -->
+      <div class="row total recipt_total my-3">
+          <div class="col-md-9"><strong>Total</strong></div>
+          <div class="col-md-3 text-end amt">
+              <strong>$50.62</strong>
+          </div>
+      </div>
+
+  </div>
+</div>
+<div>
+  <div class="btn-group py-3" role="group" aria-label="Basic example">
+      <button type="button" class="btn"
+          [ngClass]="{'btn-info': activeTab1 === cartDetails, 'btn-default': activeTab1 !== cartDetails}"
+          (click)="setActiveTab1(cartDetails)">
+          Card Details
+      </button>
+      <button type="button" class="btn"
+          [ngClass]="{'btn-info': activeTab1 === transactionTab, 'btn-default': activeTab1 !== transactionTab}"
+          (click)="setActiveTab1(transactionTab)">
+          Transaction History
+      </button>
+  </div>
+
+  <!-- Panel 1: Card Details -->
+  <div *ngIf="activeTab1 === cartDetails" class="tab-pane panel1">
+     <app-booking-card-details></app-booking-card-details>
+  </div>
+
+  <!-- Panel 2: Transaction History -->
+  <div *ngIf="activeTab1 === transactionTab" class="tab-pane panel2">
+      <app-booking-transaction-history></app-booking-transaction-history>
+  </div>
+</div>

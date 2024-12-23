@@ -1,0 +1,105 @@
+<div class="container-fluid" id="results">
+  <div class="col-lg-12 sticky-search">
+    <div class="form-bg pad-sp search-org-fac-details">
+      <app-search
+        [facDetails]="addresses"
+        [searchParams]="searchParams"
+        [page]="page"
+      ></app-search>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-5 fixed-content">
+      <google-map
+        #mapContainer
+        [center]="mapCenter"
+        width="100%"
+        [height]="mapHeight"
+        [zoom]="mapZoom"
+      >
+      </google-map>
+    </div>
+    <div class="col-lg-7 scrollable-content">
+      <!--Buttons of grid and list-->
+      <div class="result-tabs d-flex justify-content-between gap-2 w-100">
+        <div class="space-drop-down-filter">
+          <app-sort-by-distance-drop-down
+            [page]="page"  (sortChange)="onSortChange($event)"
+          ></app-sort-by-distance-drop-down>
+        </div>
+        <div class="space-drop-down-filter">
+          <app-miles-drop-down
+            [page]="page"
+            (proximityChanged)="onProximityChange($event)"
+          ></app-miles-drop-down>
+        </div>
+        <div class="space-drop-down-filter">
+          <app-public-space-types
+            [page]="page"
+            (spaceTypeValueSelected)="handleSpaceTypeValue($event)"
+          ></app-public-space-types>
+        </div>
+        <div class="space-drop-down-filter w-25">
+          <!-- <app-space-activity [page]="page"></app-space-activity> -->
+        </div>
+        <div class="space-drop-down-filter">
+          <!-- <app-more-filter [page]="page"></app-more-filter> -->
+        </div>
+        <div class="space-card-tab d-flex gap-2" *ngIf="!checkFacSpaces && (filteredfacility && filteredfacility.length> 0)">
+          <i
+            class="fa fa-th-list cursor-pointer grid-view"
+            (click)="changeViewTemplate(false)"
+            aria-hidden="true"
+          ></i>
+          <i
+            class="fa fa-th-large cursor-pointer grid-view"
+            (click)="changeViewTemplate(true)"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+      <div class="buttons search-organization">
+        <div *ngIf="loader" class="loader">
+          <div>
+            <h2 class="ng-binding loading_text">Loading...</h2>
+          </div>
+          <div>
+            <img class="loader-gif" src="assets/img/loader.gif"  alt="Loading, please wait..."/></div>
+          </div>
+            <ng-container *ngIf="!loader">
+        <ng-container
+          *ngIf="filteredfacility && filteredfacility.length > 0; else noFacility"
+        >
+          <div class="grid">
+            <div class="grid-addresses" *ngIf="gridView ; else listView">
+              <app-space-grid-template
+                [addresses]="addresses"
+                [filteredfacility]="displayedFacilities"
+              >
+              </app-space-grid-template>
+            </div>
+            <ng-template #listView>
+              <app-space-list-template
+                [filteredfacility]="displayedFacilities">
+               </app-space-list-template>
+            </ng-template>
+            <div class="my-2">
+
+              <app-public-pagination *ngIf="!checkFacSpaces"
+              [totalItems]="totalItems"
+              [multipleData]="filteredfacility"
+              (pagedOrgDetails)="onPagedOrgDetails($event)"
+              ></app-public-pagination>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noFacility>
+          <div class="mt-3">
+            <app-available-fac-location></app-available-fac-location>
+          </div>
+        </ng-template>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+                   <h5 class="admin-members">{{roleTitle}}</h5>
+                    <ng-container *ngIf="roleDescription">
+                      <div class="admins-oversee">
+                      <p class="d-flex">
+                      <ng-container *ngIf="roleTitle; else description">
+                        <span><i class="fas fa-shield-alt m-1"></i></span>
+                        <ng-container *ngIf="descriptionTitle">
+                        {{descriptionTitle}}<br>
+                        </ng-container>
+                        {{roleDescription}}
+                      </ng-container>
+                      <ng-template #description>
+                        {{roleDescription}}
+                      </ng-template>
+                    </p>
+                    </div>
+                    </ng-container>
+                <div class="add-members">
+                  <h6><i class="fas fa-plus-circle"></i> Add Members</h6>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <p>{{commonRoleOne}}
+                    </p>
+                    <p>{{commonRoleTwo}}</p>
+                  </div>
+                  <div class="col-lg-6">
+                    <form [formGroup]="inviteEmail" (ngSubmit)="inviteMemberAccess()" class="ng-untouched ng-pristine ng-invalid">
+                      <p class="fw-bold">Invite User By Email</p>
+                      <div class="input-group">
+                      <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControl['email'].errors }" />
+                        <div *ngIf="submitted && formControl['email'].errors" class="invalid-feedback">
+                          <div *ngIf="formControl['email'].errors['required']">Email is required</div>
+                          <div *ngIf="formControl['email'].errors['email']">Email must be a valid email address</div>
+                      </div>
+                        <span class="input-group-btn">
+                          <button class="btn btn-secondary px-2 py-1">
+                            <span class="fa fa-envelope"> </span>
+                            Invite</button>
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                  <h6><i class="fas fa-users"></i> Current Members</h6>
+                <div *ngIf="membersData && membersData.length === 0"aria-hidden="false" class="">
+                  <div class="alert alert-warning">
+                    <p>There are no current members for this group.</p>
+                  </div>
+                </div>
+          <div *ngIf = "membersData && membersData.length > 10">
+            <app-pagination
+            [totalItems]="totalItems"
+            [pageSize]="pageSize"
+            [multipleData]="membersData"
+            (pagedOrgDetails)="onSelectedPagination($event)" >
+          </app-pagination>
+          </div>
+                <table *ngIf="membersData && membersData.length > 0" class="table table-small table-condensed table-bordered" aria-hidden="false">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Profile</th>
+                      <th>Status</th>
+                      <!-- <th></th> -->
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let members of pagedOrgDetails" class="ng-scope">
+                      <td class="ng-binding">
+                        <ng-container *ngIf="members.active === 1">{{members.user && members.user.email}}</ng-container>
+                        <ng-container *ngIf="members.active !== 1">{{members.user && members.user.firstName}} {{members.user && members.user.lastName}}</ng-container>
+                      </td>
+                      <td><a (click)="viewProfile(members.uid)" (keydown.enter)="viewProfile(members.uid)" tabindex="0"
+                        aria-hidden="false" class="view-profile" title="View Profile">View Profile</a></td>
+                      <td><span class="label label-success ng-binding">
+                        <ng-container *ngIf="members.active === 2">Active</ng-container>
+                        <ng-container *ngIf="members.active === 1">Pending</ng-container>
+                        <ng-container *ngIf="members.active < 0">Inactive</ng-container>
+                      </span></td>
+                      <!-- <td><a aria-hidden="true"
+                        class="ng-hide">view application
+                          files</a></td> -->
+                      <td>
+                        <div *ngIf="members.active === 2 || members.active === 1" style="float:left;" class="ng-scope">
+                          <div class="btn btn-xs update-access">
+                            <span class="fa fa-times"></span>
+                            <a (click)="updateAndRemoveAccess(members.uid, members.user.firstName+' '+members.user.lastName)" (keydown.enter)="updateAndRemoveAccess(members.uid, members.user.firstName+' '+members.user.lastName)" tabindex="0" class="hidden-xs remove-update-access">
+                              Remove/Update Access</a></div>
+                        </div>
+                        <div *ngIf="members.active < 0" style="float:left;" class="ng-scope">
+                          <button (click)="updateAndRemoveAccess(members.uid, members.user.firstName+' '+members.user.lastName)" class="btn btn-xs btn-link"> <span class="fa fa-plus"> </span><span class="hidden-xs"> Activate</span></button><i> or </i>
+                          <button (click)="delete(members.uid, members.user.firstName+' '+members.user.lastName)" class="btn btn-xs btn-link"> <span class="fa fa-minus"> </span><span class="hidden-xs"> Delete</span></button>
+                        </div>
+                        <div *ngIf="members?.notify" style="float:right;" class="ng-scope">
+                          <div class="hidden-xs remove-update-access ">
+                            <span class="fa fa-check"></span> Notify of reservations</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+

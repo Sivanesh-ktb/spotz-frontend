@@ -1,0 +1,117 @@
+<div class="availability-popup-container">
+  <div class="modal-header ng-scope">
+    <h4 class="ng-binding">Confirm Setting</h4>
+    <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close"><span aria-hidden="true">x</span></a>
+  </div>
+  <div class="modal-body admin ng-scope">
+   <div class="main p-2">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 availability-section">
+        <div class="text-center">
+          <ng-container *ngIf="newAvailabilityData?.type === -1">
+          <div class="button-header exception">
+            <h4 class="white-header ng-binding py-3">Exception</h4>
+          </div>
+          <div class="row text-center align-items-center">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <label for="Description">Description </label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 border-right-dotted">
+              <div class="tim">
+                <span class="h ng-binding">{{newAvailabilityData?.description}}</span></div>
+              </div>
+          </div>
+          <div class="row text-center align-items-center">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <label for="Reason">Reason </label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 border-right-dotted">
+              <div class="tim">
+                <span class="h ng-binding">
+                    <ng-container *ngIf="newAvailabilityData?.reason === 1">
+                      Maintenance
+                    </ng-container>
+                    <ng-container *ngIf="newAvailabilityData?.reason === 2">
+                      Resting
+                    </ng-container></span></div>
+              </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="newAvailabilityData?.type === 1">
+          <div class="button-header availability">
+            <h4 class="white-header ng-binding py-3">availability</h4>
+          </div>
+        </ng-container>
+          <div class="row text-center align-items-center mt-2">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <label *ngIf="endDate" class="ng-binding" for="Dates">
+                Dates</label>
+                <label *ngIf="!endDate" class="ng-binding" for="Date">
+                  Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <div class="row grid">
+                <div class="col-lg-6 col-md-6 col-xs-6">
+                  <ng-container *ngIf="startDate">
+                  <app-calendar [date]="startDate" [viewMode]="viewMode"></app-calendar>
+                </ng-container>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-xs-6">
+                    <ng-container *ngIf="endDate">
+                      <app-calendar [date]="endDate" [viewMode]="viewMode"></app-calendar>
+                    </ng-container>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row text-center align-items-center">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <label for="Time">Times </label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 border-right-dotted">
+              <div class="tim">
+                <span class="h ng-binding">{{startTime}}</span></div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 border-right-dotted">
+                <div class="tim">
+                  <span class="h ng-binding">{{endTime}}</span></div>
+              </div>
+          </div>
+          <div *ngIf="endDate" class="row text-center align-items-center">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <label for="Days">Days </label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 border-right-dotted">
+              <app-days [selectedDays]="selectedDays"  [viewMode]="viewMode"></app-days>
+
+            </div>
+            </div>
+            <div class="row text-center align-items-center mt-2">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <label class="ng-binding" for="Priority">Priority</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 border-right-dotted">
+                <app-priority-boxes [priority]="priority" [viewMode]="viewMode"></app-priority-boxes>
+              </div>
+              </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-4">
+        <div class="text-center good-to-g-container" aria-hidden="false">
+          <span class="fa fa-thumbs-up"></span>
+        <h2>Good to go</h2>
+        <p>There are no conflicts for this rule.</p>
+        </div>
+      </div>
+    </div>
+   </div>
+   <div class="modal-footer ng-scope">
+    <div class="d-flex justify-content-end gap-3">
+      <button type="button" (click)="done()" ng-disabled="loading" class="btn btn-secondary" aria-disabled="false">
+         Confirm
+      </button>
+      <button type="button" (click)="dismiss()" class="btn btn-default">Cancel</button>
+    </div>
+  </div>
+  </div>
+</div>

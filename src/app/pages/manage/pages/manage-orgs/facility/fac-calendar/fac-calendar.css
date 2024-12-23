@@ -1,0 +1,30 @@
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+  background: #4dcaf4;
+}
+label.btn.btn-outline-secondary:focus-visible,
+label.btn.btn-outline-secondary:focus {
+  box-shadow: none !important;
+}
+.resource-list {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.resource-list-title {
+  font-size: 14px;
+  display: block;
+  word-wrap: break-word;
+  white-space: initial;
+  width: 100%;
+}
+.dropdown-header {
+  font-size: 13px;
+  color: #777;
+}
+.resource-list span>a {
+  padding: 4px 8px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #333;
+}

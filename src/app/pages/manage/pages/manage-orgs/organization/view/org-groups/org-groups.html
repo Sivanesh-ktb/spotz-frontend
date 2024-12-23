@@ -1,0 +1,95 @@
+
+  <div class="row group-members-header mb-3">
+    <div class="col-lg-9 col-sm-9">
+      <h2><span class="fa fa-users"></span> Groups</h2>
+    </div>
+    <div class="col-lg-3 col-sm-3">
+      <button id="editGroups" (click)="editGroups()" ng-show="view" class="btn btn-link edit"
+        aria-hidden="false"><span class="text"></span>
+        <span class="fas fa-pencil-alt"></span></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-xs-12">
+      <ul class="nav nav-tabs">
+        <li class="nav-item active"><a
+            ng-click="vm.groupTab = 0">Custom</a></li>
+      </ul>
+      <div class="tab-content">
+        <div ng-class="{active:vm.groupTab === 0}" class="tab-pane active">
+          <ng-template #noData>
+          <div ng-hide="custom.length" class="mb-2" aria-hidden="false">
+            <p><em>Use custom groups to handle priority, discounts and invoicing.</em></p>
+            <p><a (click)="editGroups()" (keydown.enter)="editGroups()" tabindex="0" ng-show="view" class="btn btn-sm btn-secondary"
+                aria-hidden="false"><i class="icon-plus3 font-small-3 mr-2"></i> Add group</a></p>
+          </div>
+        </ng-template>
+          <ng-container *ngIf="customGroupDetails?.length > 0; else noData">
+            <div class="table-responsive mb-4">
+            <table ng-show="custom.length" class="table table-condensed table-bordered table-xs ng-hide"
+              aria-hidden="true">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th></th>
+                  <th>Level</th>
+                  <th class="hidden-xs hidden-sm">Discount</th>
+                  <th class="hidden-xs hidden-sm">
+
+                    Instant <br>Approval
+                  </th>
+                  <th class="hidden-xs hidden-sm">
+                    Lead <br>Time
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let member of customGroupDetails"  class="ng-scope">
+                    <ng-container *ngIf="member.system === 0">
+                    <td class="ng-binding cursor-pointer" (click)="viewGroup(member?._id)">
+                      <i class="fas fa-pencil-alt"></i>
+                     {{member.name}}
+                    </td>
+                    <td class="ng-binding">
+                      <ng-container *ngFor="let starIndex of [0, 1, 2, 3]">
+                        <span class="fa" [ngClass]="getStarClass(starIndex, member?.level)"></span>
+                      </ng-container>
+                    </td>
+                    <td class="ng-binding">{{selectedLevelText(member?.level)}}</td>
+                    <td class="hidden-xs hidden-sm ng-binding">{{member?.discount}}%</td>
+                        <td class="hidden-xs hidden-sm">
+                          <ng-container *ngIf="member?.instant; else noInstant">
+                            <i class="fa-check-square fas"></i>
+                            </ng-container>
+                            <ng-template #noInstant>
+                              <i class="fa-square far"></i>
+                            </ng-template>
+                          </td>
+                          <td class="hidden-xs hidden-sm">
+                            <span class="ng-binding">{{member?.lead}} days</span></td>
+                    </ng-container>
+                  </tr>
+                  <tr>
+                    <td>...</td>
+                    <td colspan="5" class="text-right">
+                      <a (click)="editGroups()"
+                      class="btn btn-link edit">
+                      <span class="text">View All Groups </span>
+                      <span class="fa fa-arrow-right"></span>
+                    </a>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+          </ng-container>
+          <ng-template #noData>
+          <p ng-hide="vm.org.groups.length > 0" aria-hidden="true" class="ng-hide">No custom groups have been
+            created for this organization. Create groups of users to prioritize access, give discounts on rentals, and
+            more.</p>
+            </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>

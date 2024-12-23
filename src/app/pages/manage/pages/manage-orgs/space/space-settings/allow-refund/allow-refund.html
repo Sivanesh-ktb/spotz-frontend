@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <h4 class="header">Allow Refund</h4>
+  </div>
+  <div class="col-md-5 col-sm-6 col-xs-9">
+    <p>Whether or not to allow refunds for this space.
+    </p>
+  </div>
+  <div class="row">
+    <div class="allow-refund-section d-flex gap-3 align-items-center">
+      <div class="col-sm-3 col-xs-6 addon-selected">
+        <div class="onoffswitch">
+          <input type="checkbox" class="onoffswitch-checkbox" [(ngModel)]="checkIsRefundable"
+          (click)="spaceRefund($event)" id="myonoffswitch" checked>
+          <label class="onoffswitch-label" for="myonoffswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+         </div>
+         </div>
+      <ng-container  *ngIf="(isRefundable !== checkIsRefundable) ">
+      <div class="bootstrap-switch-container mb-3 mt-2 d-flex gap-2">
+      <button type="submit"
+      class="btn btn-primary" (click)="saveRefundable()" aria-hidden="false">Save</button>
+      <button type="button" class="btn btn-default" (click)="cancelRefundable()"
+      aria-hidden="false">Cancel</button>
+    </div>
+  </ng-container>
+    </div>
+  </div>
+  </div>

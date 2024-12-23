@@ -1,0 +1,18 @@
+button.nav-link,button.nav-link:hover {
+  color: #333;
+}
+p.help-block {
+  font-size: 12px;
+}
+.tab-content {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e4ebf5;
+  border-top: 0;
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: rgba(67,79,92,.22) 0 2px 2px -1px;
+}
+textarea.form-control {
+  min-height: calc(3.5em + (.75rem + 2px)) !important;
+}

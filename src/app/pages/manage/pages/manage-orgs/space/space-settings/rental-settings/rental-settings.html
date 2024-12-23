@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <h4 class="header">Rental Settings</h4>
+  </div>
+  <div class="col-md-7 col-sm-6 col-xs-9">
+    <p><i>Settings around time block size and minimum rental time.</i></p>
+    <div class="row" aria-hidden="false">
+      <div class="col-md-8" aria-hidden="false">
+        <label class="control-label space-setting-label mb-2" for="Default Rental Block">Default Rental Block</label>
+        <ng-container *ngIf="hideRental; else showRentalChange">
+          <div class="setting ng-binding ng-binding-setting w-100">{{rentalBlockTime}}</div>
+        </ng-container>
+      </div>
+    </div>
+    <ng-template #showRentalChange>
+      <div class="col-md-12">
+        <select class="form-control" [(ngModel)]="selectedOptionValue">
+          <option [value]="1" [selected]="selectedOptionValue === 1">60 minutes</option>
+          <option [value]="2" [selected]="selectedOptionValue === 2">30 Minutes</option>
+          <option [value]="4" [selected]="selectedOptionValue === 4">15 Minutes</option>
+        </select>
+        <p class="help-block mt-3">Select the time block to use as inventory across the organization.</p>
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-md-3 col-sm-3 col-xs-3">
+    <ng-container *ngIf="hideRental; else showRental">
+      <a class="fas fa-pencil-alt space-setting-edit-icon cancel-rental" (click)="changeRental()" (keydown.enter)="changeRental()" tabindex="0" aria-label="change rental"></a>
+    </ng-container>
+    <ng-template #showRental>
+      <div class="btn-group edit ng-hide settings-rental-card" aria-hidden="true">
+        <div>
+          <div class="flex flex-wrap justify-content-center gap-2">
+            <button (click)="confirmRentalTime()" pButton type="button" label="Save" icon="pi pi-save"
+              class="btn btn-sm btn-primary d-flex align-items-center" styleClass="p-button-warning"></button>
+          </div>
+        </div>
+        <button pButton type="button" label="Cancel" (click)="cancelRental()"
+          class="btn btn-sm btn-default cancel-rental"></button>
+      </div>
+    </ng-template>
+  </div>
+</div>

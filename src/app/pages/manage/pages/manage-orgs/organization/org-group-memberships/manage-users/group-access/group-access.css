@@ -1,0 +1,14 @@
+button.nav-link {
+  color: #333;
+}
+.nav-tabs .nav-link:hover
+{
+  border-color: none;
+}
+.group-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #044f80;
+  text-transform: none;
+  margin-top: 0;
+}

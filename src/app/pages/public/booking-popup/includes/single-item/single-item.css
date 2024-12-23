@@ -1,0 +1,29 @@
+.loader-gif {
+    top: 50%;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    align-items: center;
+  }
+  
+  .loader{
+    background: #ffff;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    position: absolute;
+  }
+  .loading_text{
+    text-align: center;
+    font-size: 25px !important;
+    font-weight: 600 !important;
+    color: #333;
+   
+  }
+  .arrows{
+    padding: 20px;
+      color: #333;
+  }

@@ -1,0 +1,130 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9">
+          <div class="edit-org-cnt">
+            <h3 class="new-space-h fw-bold">Transactions</h3>
+          </div>
+          <div class="panel">
+            <div class="row">
+              <div class="col-xs-12 transaction-title">
+                <h4 class="fw-bold">All Transactions</h4>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row mb-4">
+                <div class="col-lg-8 mt-2">
+                  <label for="daterangepicker" class="mb-2">Date Range</label>
+                  <ng-container *ngIf="page">
+                    <app-date-range-picker [checkPage]="page" (dateRange)="onSelectedDateRange($event)">
+                    </app-date-range-picker>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10 col-xs-12 col-lg-12">
+                  <div class="row">
+                    <div class="col-xs-8 col-lg-8">
+                      <p>Paid Transaction Search Criteria</p>
+                    </div>
+                    <div class="col-xs-4 col-lg-4 d-flex justify-content-end text-right">
+                      <ng-container *ngIf="showRestFilters">
+                        <a (click)="resetFilters();" (keydown.enter)="resetFilters();" tabindex="0" class="btn btn-default btn-xs ng-scope"><i
+                            class="icon-cross3 mr-1"></i>Clear Criteria</a>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-sm-5 col-xs-12 col-lg-6 choice">
+                  <div class="row">
+                    <div class="col-xs-6 col-lg-6">
+                      <label class="fw-bold mb-1" for="Card Type">Card Type</label>
+                      <select [(ngModel)]="cardType" (change)="checkRestFilters()"
+                        class="form-control input ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                        <option value=""></option>
+                        <option value="MasterCard">MasterCard</option>
+                        <option value="Visa">Visa</option>
+                        <option value="American Express">American Express</option>
+                        <option value="Discover">Discover </option>
+                      </select>
+                    </div>
+                    <div class="col-xs-6 col-lg-6">
+                      <label class="fw-bold mb-1" for="Last 4">Last 4</label>
+                      <input type="text" (keyup)="checkRestFilters()" [(ngModel)]="last4" minlength="4" maxlength="4"
+                        class="form-control input ng-pristine ng-untouched ng-valid ng-valid-mask ng-valid-maxlength"
+                        placeholder="____" aria-invalid="false">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5 col-xs-12 choice col-lg-3">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="fw-bold mb-1" for="Name">Name</label>
+                      <input type="text" [(ngModel)]="cardholderName" (keyup)="checkRestFilters()" maxlength="100"
+                        placeholder="e.g. John Doe"
+                        class="form-control input ng-pristine ng-untouched ng-valid ng-valid-maxlength"
+                        aria-invalid="false">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2 col-xs-12 text-right col-lg-3">
+                  <div class="row">
+                    <div class="col-xs-12 d-flex justify-content-end">
+                      <button (click)="searchTransactions()" style="margin-top:22px;"
+                        class="btn btn-secondary">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions"
+                type="button" role="tab" aria-controls="transactions" aria-selected="true">
+                Transactions</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="discounted-tab" data-bs-toggle="tab" data-bs-target="#discounted"
+                type="button" role="tab" aria-controls="discounted" aria-selected="false">
+                Discounted</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="in-person-tab" data-bs-toggle="tab" data-bs-target="#in-person" type="button"
+                role="tab" aria-controls="in-person" aria-selected="false">
+                In-person</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="user-tab" data-bs-toggle="tab" data-bs-target="#user" type="button"
+                role="tab" aria-controls="user" aria-selected="false">
+                User</button>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
+              <app-transactions></app-transactions>
+            </div>
+            <div class="tab-pane fade" id="discounted" role="tabpanel" aria-labelledby="discounted-tab">
+              <app-discounted></app-discounted>
+            </div>
+            <div class="tab-pane fade" id="in-person" role="tabpanel" aria-labelledby="in-person-tab">
+              <app-is-person></app-is-person>
+            </div>
+            <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+              <app-users></app-users>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

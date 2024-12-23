@@ -1,0 +1,72 @@
+<div class="embed-widget">
+    <div *ngIf="displayType === 'calendar'; else calendarMode">
+        <form method="get" [action]="vm.embed.url" target="_blank">
+            <input id="date" type="hidden" name="date" [(ngModel)]="scheduleCalendarDate" />
+            <input type="hidden" name="referer" />
+            <input type="hidden" name="org" [value]="orgDetails?.name" />
+            <input type="hidden" name="orgId" [value]="orgId" />
+            <input type="hidden" name="data" [value]="orgDetails?.address?.geocode?.coordinates" />
+
+            <div class="calendar">
+                <mat-card class="demo-inline-calendar-card">
+                    <mat-calendar [(selected)]="selected"></mat-calendar>
+                </mat-card>
+                <div class="widget-select">
+                    <label class="control-label" style="padding-top: 4px; margin-bottom: 0" for="Space Type">Space Type</label>
+                    <div class="space-type-container">
+                      <select
+                        class="search_widget-select"
+                        name="spaceType"
+                        [(ngModel)]="selectedSpaceType"
+                        required
+                      >
+                        <ng-container *ngIf="spaceTypes?.length; else noSpaceTypes">
+                          <option *ngFor="let item of spaceTypes" [value]="item.value">
+                            {{ item.name }}
+                          </option>
+                        </ng-container>
+                        <ng-template #noSpaceTypes>
+                          <option disabled>No space types available</option>
+                        </ng-template>
+                      </select>
+                    </div>
+                    <span
+                      class="widget-absolute selector glyphicon glyphicon-menu-down"
+                      style="width: 24px; height: 24px"
+                    ></span>
+                  </div>
+                  
+                <div>
+                    <button class="btn btn-primary" type="submit" (click)="findTime()"
+                        [ngStyle]="{ 'background-color': buttonBgColor, 'color': buttonTextColor }">
+                        <span class="glyphicon glyphicon-search"></span> Find Time
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <ng-template #calendarMode>
+        <form method="get" [action]="vm.embed.url" target="_blank">
+            <input type="hidden" name="orgId" [value]="orgId" />
+            <input type="hidden" name="url" [value]="vm.embed.url" />
+            <button (click)="viewOrganization(orgDetails?.address, orgDetails?.shortName)" class="btn btn-primary"
+                type="button" [ngStyle]="{ 'background-color': buttonBgColor, 'color': buttonTextColor }">
+                Reserve Now
+            </button>
+        </form>
+    </ng-template>
+
+    <p class="powered">
+        <span>Powered By</span>
+        <a href="https://findspotz.com" target="_blank">
+            <img *ngIf="vm.embed.color === true; else logoBlack"
+                src="https://s3-us-west-2.amazonaws.com/gymdandy.imgsrv/site/spotz/spotz_logo_white_sm.png"
+                style="width: 100px; height: 16px" align="middle" alt="logo"/>
+        </a>
+        <ng-template #logoBlack>
+            <img src="https://s3-us-west-2.amazonaws.com/gymdandy.imgsrv/site/spotz/spotz_logo_black_sm.png"
+                style="width: 100px; height: 16px" align="middle" alt="logoBlack"/>
+        </ng-template>
+    </p>
+</div>

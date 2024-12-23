@@ -1,0 +1,78 @@
+.no-select{
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.text-muted{
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ends-data{
+  font-size: 15px;
+  font-weight: 600;
+}
+.start-icon{
+  font-size: 12px;
+}
+input{
+  border: 1px solid #fff;
+}
+.week-text{
+  font-size:0.8em !important;
+}
+.ends-data ul{
+  padding: 0px;
+}
+.repeat-rules {
+  background-color: #e9f9ff;
+  overflow: hidden;
+  
+  border-radius: 12px;
+}
+select.form-select, .select-drop-down {
+  height: 30px !important;
+  font-size: 13px !important;
+  padding: 4px !important;
+  width: 100%;
+  margin: 10px !important;
+  border-radius: unset !important;
+}
+select.from-select:focus, .select-drop-down:focus {
+  box-shadow: none !important;
+}
+.repeat-rules label {
+  font-size: 0.9em;
+  padding: 6px 10px 3px;
+}
+label.no-select {
+  display: flex;
+  gap: 5px;
+}
+.font-small-3 {
+  font-size: 12px!important;
+  color: #6c757d !important;
+}
+/* custome style  */
+
+/* .repeat-rules {
+  background-color: #e9f9ff;
+  overflow: hidden; 
+  border-radius: 12px;
+  height: 0; 
+  transform: translateY(0px); 
+  transition: height 1s ease, transform 1s ease; 
+}
+
+.repeat-rules .expanded {
+  height: auto; 
+  transform: translateY(0);
+  
+} */
+.label_span_fs{
+  font-weight: normal;
+  color: #333;
+}
+.vertical_middle{
+  vertical-align: middle;
+}

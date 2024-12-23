@@ -1,0 +1,343 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="manage-space-bg">
+    <div class="container-fluid">
+      <div class="manage-org">
+        <div class="row">
+          <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+            <app-admin-space-sidebar [displayName]="displayName" [price]="rentalAmount"
+            [rentaltypes]="rental" [facName]="facName" [selectedSpaceTypeEvent]="selectedSpaceTypeEvent"></app-admin-space-sidebar>
+          </div>
+          <div class="col-lg-9">
+            <h3 class="new-space-h fw-bold">{{spaceFormTitle}}</h3>
+          <form [formGroup]="spaceForm" (ngSubmit)="addAndUpdateSpace()">
+            <div class="container-fluid d-flex space-form gap-3">
+          <div class="col-lg-8">
+            <div class="new-space">
+              <div class="display-name-box mb-2">
+                <h6>Display Name </h6>
+                <input type="text" class="form-control display-name"
+                 value="{{displayName}}" disabled name="name">
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <h6>Base Name</h6>
+                  <input type="text" class="form-control mb-2"[ngClass]="{'invalid-space-name': invalidSpaceName}"
+                  formControlName="base"
+                  placeholder="Space Name i.e Court 1" (keyup)="spaceBaseName($event)">
+                  <div *ngIf="spaceForm.controls['base'].invalid && (spaceForm.controls['base'].dirty || spaceForm.controls['base'].touched)" class="text-danger">
+                    Base Name is required.
+                  </div>
+                  <h6 class="parent-name">Parent Name</h6>
+                  <select class="form-select mb-2" aria-label="Default select example" formControlName = "parentId" (change) = "getParentSpace($event)">
+                    <option *ngFor="let space of facSpaceDetails[0]" [value] ="space.id">{{ space.name }}</option>
+                  </select>
+                </div>
+                <div class="col-lg-8 mb-2">
+                  <div class="numbar">
+                    <div class="row  mb-2">
+                      <div class="col-lg-4">
+                        <h6>Number <p-tooltip-arrow pTooltip={{numberInfo}} tooltipPosition="bottom" class="question-arrow" >
+                          <a class="fa fa-question-circle" aria-label="number"></a>
+                        </p-tooltip-arrow>
+                        </h6>
+                        <input type="number" (keyup)="spaceNumbers($event)" class="form-control remove-input-arrow" placeholder="1,2,3 or 4" formControlName="number">
+                      </div>
+                      <div class="col-lg-4">
+                        <h6>Letter / Dir <p-tooltip-arrow pTooltip={{spaceLetterInfo}} tooltipPosition="bottom" class="question-arrow">
+                          <a class="fa fa-question-circle" aria-label="letter / dir"></a></p-tooltip-arrow></h6>
+                        <input type="text" class="form-control" (keyup)="spaceLetter($event)" placeholder="A,B,C N,S" formControlName="letter">
+                      </div>
+                      <div class="col-lg-4">
+                        <h6>Suffix <p-tooltip-arrow pTooltip={{spaceSuffixInfo}} tooltipPosition="bottom" class="question-arrow">
+                          <a class="fa fa-question-circle" aria-label="suffix"></a></p-tooltip-arrow></h6>
+                        <input type="text" class="form-control" (keyup)="spaceSuffix($event)" placeholder="Descriptor" formControlName="suffix">
+                      </div>
+                    </div>
+                    <p class="new-spc-cnt p-text">Use these fields better sort your spaces in directories, lists, and calendars
+                      OR
+                      simply combine and format the base name field</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="classification">
+              <div class="row">
+                <div class="col-lg-6 mt-4">
+                  <h5><i class="fa fa-dot-circle-o"></i> Classification</h5>
+                  <div class="form-remove d-flex justify-content-end" *ngIf = "checkboxcheck">
+                    <span class="form-clear fa-regular fa-circle-xmark"></span>
+                    <li type="button" (click)="clearSpaceSelection()" (keydown.enter)="clearSpaceSelection()" tabindex="0">Clear</li>
+                  </div>
+                  <div *ngIf="checkboxcheck && selectedSpaceName.length >= 0" class="types-multi-selection">
+                      <li *ngFor="let type of selectedSpaceName" class="listing-names" [ngStyle]="{'background-color': getSpaceColor(type.value)}">{{type.name}} </li>
+                  </div>
+                  <h6>Type</h6>
+                    <select class="form-select mb-1" formControlName="selectedSpaceType" aria-label="Default select example" (change)="onOptionChange($event)">
+                      <option *ngFor="let type of spacesName" [class.show]="dropdownOpen" [value]="type.value">{{ type.name }}</option>
+                    </select>
+                    <div *ngIf="spaceForm.controls['selectedSpaceType'].invalid && (spaceForm.controls['selectedSpaceType'].dirty || spaceForm.controls['selectedSpaceType'].touched)" class="text-danger">
+                      Type is required.
+                    </div>
+                  <div class="multiple-use">
+                    <input type="checkbox" formControlName = 'spaceTypeCheckbox' class="form-check-input" id="exampleCheck1" (click)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="exampleCheck1">This Space has multiple uses
+                      <p-tooltip-arrow pTooltip={{spaceTypeInfo}} tooltipPosition="bottom" class="question-arrow">
+                        <a class="fa fa-question-circle" aria-label="multiple use"></a></p-tooltip-arrow>
+                    </label>
+                  </div>
+                  <h5 class="dimensions-head mt-3"><i class="fa fa-arrows-alt"></i> Dimensions</h5>
+                  <div class="dim-cnt py-2 px-4">
+                    <div class="row">
+                      <div class="col-lg-6 mt-4">
+                        <span class="fw-bold">Base Length</span>
+                        <input type="number" class="form-control mb-2 remove-input-arrow" placeholder="Length" formControlName="l" (keyup)="calculateArea()">
+                        <h6 class="d-width">Width</h6>
+                        <input type="number" class="form-control mb-2 remove-input-arrow" placeholder="Width" formControlName="w" (keyup)="calculateArea()">
+
+                        <h5 class="area-d">Area
+                          <p-tooltip-arrow pTooltip="{{spaceAreaInfo}}" tooltipPosition="bottom" class="question-arrow">
+                            <a class="fa fa-question-circle" aria-label="Area"></a>
+                          </p-tooltip-arrow>
+                        </h5>
+
+                        <p>{{dimensionsWith}} {{basicType}}<sup *ngIf="dimensionsWith !='0'">2</sup></p>
+                      </div>
+                      <div class="col-lg-6 mt-4">
+                        <div class="basis">
+                          <div class="button-group-f">
+                            <h6>Basic</h6>
+                            <div class="ml-3 button-group-in btn-group facility-type basic-type">
+                              <label [ngClass]="{ 'active-tab': basicType === 'ft' }">
+                                <input type="radio" formControlName="m" [value]="ft" (click)="onBasicTypeChange('ft')">
+                                ft
+                              </label>
+                              <label [ngClass]="{ 'active-tab': basicType === 'yds' }">
+                                <input type="radio" formControlName="m" [value]="yds" (click)="onBasicTypeChange('yds')">
+                                yds
+                              </label>
+                              <label [ngClass]="{ 'active-tab': basicType === 'm' }">
+                                <input type="radio" formControlName="m" [value]="m" (click)="onBasicTypeChange('m')">
+                                m
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mt-4">
+                  <h5><i class="fa fa-futbol-o"></i> Activities</h5>
+                  <div class="allowed-activiies">
+                    <div class="d-flex justify-content-between">
+                    <p class="p-0 m-0">Allowed Activities</p>
+                    <div class="form-remove d-flex justify-content-end" *ngIf = "sportTypes">
+                      <span (click)="clearSportSection()" (keydown.enter)="clearSportSection()" tabindex="0" class="form-clear fa-regular fa-circle-xmark"></span>
+                      <li type="button" (click)="clearSportSection()" (keydown.enter)="clearSportSection()" tabindex="0">Clear</li>
+                    </div>
+                  </div>
+                    <div class="listing-selectedName" *ngIf="sportTypes">
+                      <p class="listing-names" *ngFor="let name of sportTypes">{{ name }}</p>
+                    </div>
+
+
+                    <div class="input-group full-width-select-dro-down">
+                      <div class="card flex justify-content-center full-width-select-dro-down w-100">
+                        <div class="admin-text">
+                          <li class="nav-item dropdown">
+                            <ng-container *ngIf = "sportTypes && spaceId ; else noSports">
+                              <app-sport-activity-drop-down [createSpace] = true [selectedSports]="sportTypes" (sportTypeSelected)="onSportTypeSelected($event)">
+                              </app-sport-activity-drop-down>
+                            </ng-container>
+                            <ng-template #noSports>
+                              <app-sport-activity-drop-down [createSpace] = true [selectedSports]="sportTypes" (sportTypeSelected)="onSportTypeSelected($event)">
+                              </app-sport-activity-drop-down>
+                            </ng-template>
+                          </li>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                  <h5 class="details mt-3"><i class="fa fa-info"></i> Details</h5>
+                  <div class="max-box">
+                    <div class="m-g">
+                      <h6>Max Age Group</h6>
+                      <div class="input-group-age-group">
+                        <div>
+                          <h3>Selected Age Groups</h3>
+                          <select class="form-select mb-2" formControlName="ageGroup"
+                          aria-label="Default select example">
+                            <option selected disabled>Select Age Group</option>
+                            <ng-container>
+                              <optgroup *ngIf="firstOptionValue.length > 0" label="{{ firstLabel }}">
+                                <option *ngFor="let firstAge of firstOptionValue" [value]="firstAge">{{ firstAge }}</option>
+                              </optgroup>
+                              <optgroup *ngIf="secondOptionValue.length > 0" label="{{ secondLabel }}">
+                                <option *ngFor="let secondAge of secondOptionValue" [value]="secondAge">{{ secondAge }}</option>
+                              </optgroup>
+                              <optgroup *ngIf="thirdOptionValue.length > 0" label="{{ thirdLabel }}">
+                                <option *ngFor="let thirdAge of thirdOptionValue" [value]="thirdAge">{{ thirdAge }}</option>
+                              </optgroup>
+                            </ng-container>
+                          </select>
+                        </div>
+                        </div>
+                      <h6 class="surface">Surface</h6>
+                      <select class="form-select mb-2" aria-label="Default select example" formControlName="surface"
+                      (change)="surfaceChange($event)">
+                        <option *ngFor = "let surface of surfaceList" [value]="surface">{{surface}}</option>
+                      </select>
+                      <div class="button-group-in btn-group facility-type">
+                        <label [ngClass]="{ 'active-tab': spaceType === 1 }">
+                          <input type="radio" formControlName="indoor" [value]="1" (click)="onSpaceTypeChange(1)">
+                          Indoor
+                        </label>
+                        <label [ngClass]="{ 'active-tab': spaceType === 2 }">
+                          <input type="radio" formControlName="indoor" [value]="2" (click)="onSpaceTypeChange(2)">
+                          Outdoor
+                        </label>
+                      </div>
+                    </div>
+                    <div class="capacity mt-3">
+                      <h6>Capacity</h6>
+                      <input type="number" class="form-control remove-input-arrow" formControlName="capacity" aria-label="Text input with dropdown button" min="0" step="1" oninput="validity.valid||(value='');">
+                      <p class="approximate-cnt p-text"><a class="fa fa-question-circle grey-text" aria-label="Approximate"></a> Approximate capacity, if
+                        applicable
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="select-spc">
+              <div class="select-rental-type">
+                <div class="s-r">
+                  <h6>Select Rental Type</h6>
+                  <select class="form-select mb-2" formControlName="rentaltypes"
+                  aria-label="Default select example" (change)="rentalType($event)">
+                  <option disabled selected>Select Rental Type</option>
+                  <option value="0">Per Hours</option>
+                    <option value="1">Per Day</option>
+                  </select>
+                  <div *ngIf="spaceForm.controls['rentaltypes'].invalid && (spaceForm.controls['rentaltypes'].dirty || spaceForm.controls['rentaltypes'].touched)" class="text-danger">
+                    Rental Type is required.
+                    </div>
+                </div>
+                <h6 class="price-h">Price Per <span *ngIf="rental === 1; else hour">Day</span>
+                <ng-template #hour>Hour</ng-template>
+                </h6>
+                <div class="input-group mb-2 price-input">
+                  <div class="input-group-prepend btn">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="text" class="form-control price-input-box" formControlName="price" (keyup)="numberFormat($event)"  (blur)="numberFormat($event, true)">
+                  <div class="input-group-append btn">
+                    <span class="input-group-text">/<span *ngIf="rental === 1; else hour">Day</span>
+                    <ng-template #hour>Hour</ng-template></span>
+                  </div>
+                </div>
+                <div *ngIf="spaceForm.controls['price'].invalid && (spaceForm.controls['price'].dirty || spaceForm.controls['price'].touched)" class="text-danger">
+                  Price is required.
+                </div>
+              </div>
+            </div>
+
+            <h5 class="description-cnt mt-3"><i class="fa fa-thumb-tack"></i> Description</h5>
+            <div class="f-discription">
+              <h6>Tag line</h6>
+              <input type="text" class="form-control" formControlName="tagline"aria-label="Text input with dropdown button"
+                placeholder="A short description">
+              <p class="brief-dis p-text m-0">Brief description for the search results page </p>
+              <h6>Summary</h6>
+              <label for="exampleFormControlTextarea1" class="form-label"></label>
+              <textarea class="form-control h_88px" id="exampleFormControlTextarea1" formControlName="summary" rows="4"
+                placeholder="Ex: Located closest to the interstate. this space..."></textarea>
+              <p class="p-text">Describe the space including surface or field quality. Highlight any amenities
+                available
+                to the user that other spaces may not offer.</p>
+            </div>
+
+            <h5 class="description-cnt mt-3"><i class="fa fa-cog"></i> Options</h5>
+            <div class="event-box">
+              <div class="event">
+                <h6>Event Name</h6>
+                <div class="bootstrap-switch-container mb-2" style="width: 117px;">
+                  <label class='toggle-label'>
+                    <input type='checkbox' formControlName="eventName"/>
+                      <span class='back'>
+                       <span class='toggle'></span>
+                        <span class='label on'>Yes</span>
+                       <span class='label off'>No</span>
+                     </span>
+                   </label></div>
+                <p class="event-name-dis p-text"> <a class="fa fa-question-circle grey-text" aria-label="name or title"></a> A name or title for the rental is
+                  required
+                  (i.e. "U8 Practice"). You can override that requirement if you feel the use of the space does not
+                  require
+                  an event name</p>
+              </div>
+              <div class="instant-b">
+                <h6>instant Booking</h6>
+              </div>
+              <div class="instant-book">
+                <div class="input-group mb-2">
+                  <div class="bootstrap-switch-container" style="width: 117px;">
+                    <label class='toggle-label'>
+                      <input type='checkbox' formControlName="instantBooking" (click)="instantBookingChange($event)"/>
+                        <span class='back'>
+                         <span class='toggle'></span>
+                          <span class='label on'>Yes</span>
+                         <span class='label off'>No</span>
+                       </span>
+                     </label></div>
+                </div>
+                <p class="instant-booking p-text"> <a class="fa fa-question-circle grey-text" aria-label="reserve the space"></a>
+                  Allow anyone to reserve this space without requiring admin approval.</p>
+                <ng-container *ngIf="notifyStatus">
+                  <hr class="line-design">
+                  <div class="instant-b">
+                    <h6>Notify on Rental</h6>
+                  </div>
+                  <div class="instant-book">
+                    <div class="input-group mb-2">
+                      <div class="bootstrap-switch-container" style="width: 117px;">
+                        <label class='toggle-label'>
+                          <input type='checkbox' formControlName="notify"/>
+                            <span class='back'>
+                             <span class='toggle'></span>
+                              <span class='label on'>Yes</span>
+                             <span class='label off'>No</span>
+                           </span>
+                         </label></div>
+                    </div>
+                <p class="instant-booking p-text"> <a class="fa fa-question-circle grey-text" aria-label="booking"></a>
+                  By default, we do not send emails to hosts for instant approval rentals.
+                  If you'd still like us to send you an email, select 'Yes'.</p>
+              </div>
+
+            </ng-container>
+ </div>
+            </div>
+          </div>
+          </div>
+          <div class="save-btn">
+            <div class="">
+              <div class="btns">
+                <button type="submit" class="btn btn-primary" [disabled]="invalidSpaceName">Save</button>
+                <button type="button" class="btn btn-default" (click)="cancelEdit()">Cancel</button>
+              </div>
+            </div>
+          </div>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

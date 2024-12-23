@@ -1,0 +1,20 @@
+h1{
+    color: #e58327;
+    font-size: 24px !important;
+}
+
+.hoursly-container{
+    margin-bottom: 0.5rem !important;
+    font-size: 14px;
+}
+.waiverbtn{
+    background-color: #e58327;
+    padding: 4px 12px !important;
+    font-size: 14px !important;
+    font-weight: 400;
+}
+
+.hourslysize{
+    font-size: 1.5em !important;
+    font-weight: 500px !important;
+}

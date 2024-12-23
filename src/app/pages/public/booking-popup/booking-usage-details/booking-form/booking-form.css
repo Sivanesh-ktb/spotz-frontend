@@ -1,0 +1,87 @@
+.custom-textarea {
+    width: 100%;
+    height: 700px;
+     font-size: 1.2em;
+      padding: 20px;
+    border-radius: 8px;
+    resize: vertical;
+  }
+
+.head-label {
+    height: 28px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+input.ng-touched.ng-invalid {
+    border: 1px solid #e58327;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.important{
+    font-size: 6pt;
+    color: #999;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.btn-link {
+    color: #034A61;
+    border-color: transparent;
+    padding: 4px 12px !important;
+    text-decoration: none;
+}
+
+.btn-primary[disabled] {
+    background-color: #ccc;
+    border-color: #adadad;
+    cursor: not-allowed;
+}
+
+.button-links button {
+    font-size: 15px !important;
+}
+
+select {
+    appearance: auto;
+}
+.help-block {
+  font-size: 12px;
+  position: relative;
+  margin-top: 0;
+}
+
+.btn-link:hover,
+p.help-block a,.question-arrow{
+    color: #e58327;
+}
+.form-group.head-label {
+  border-bottom: 1px solid #e2e7e9;
+  height: 28px;
+}
+.checkbox label, .radio label {
+  min-height: 20px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+.text-danger.info-message{
+  font-size: 11px !important;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: none;
+}

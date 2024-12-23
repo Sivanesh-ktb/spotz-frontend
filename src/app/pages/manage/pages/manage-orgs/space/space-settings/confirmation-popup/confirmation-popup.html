@@ -1,0 +1,28 @@
+<div class="modal-content-popup">
+  <div class="modal-header-popup ng-scope d-flex justify-content-between">
+    <h4><i class="fa-solid fa-check-to-slot"></i> {{heading}} </h4>
+    <a (click)="dismissPopup()" (keydown.enter)="dismissPopup()" tabindex="0" class="close">X</a>
+  </div>
+  <div class="modal-popup-body admin booking ng-scope">
+    <div class="container-fluid">
+      <div class="modal-body ng-binding ng-scope"
+      ng-bind-html="msg" [innerHTML]="parent_content">
+       <ng-container *ngIf="type===1">
+        <span class="name-limit">"{{spaceDetails?.name}}"</span> ?
+      <br><br>
+        {{child_content}}
+      </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ng-scope mb-2">
+    <div class="row">
+      <div class="bootstrap-switch-container d-flex gap-2">
+        <button type="submit"
+        class="btn btn-primary" (click)="update(status)" aria-hidden="false">Yes</button>
+        <button type="button" class="btn btn-default" (click)="dismissPopup()"
+        aria-hidden="false">No</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="row">
+<div class="col-lg-12 position-relative">
+    <div class="or">OR</div>
+    <div class="row">
+        <div class="col-xs-6  col-lg-5 col-md-5 col-sm-5 text-right" style="z-index: 101;">
+            <button class="btn btn-default" type="button" (click)="toggleSelection(true)"
+                [ngClass]="{'btn-bright-blue': selectAll}">
+                Select ALL
+            </button>
+        </div>
+        <div class="col-xs-6  col-lg-7 col-md-7 col-sm-7">
+            <button class="btn btn-default" style="z-index: 102;" (click)="toggleSelection(false)"
+                [ngClass]="{'btn-bright-blue': !selectAll}">
+                Select Each
+            </button>
+            <div id="coverflow-controls" class="single d-flex gap-2" aria-hidden="false"><a class="prev-arrow arrows"
+                #prevArrow><i class="fa fa-chevron-left"></i>
+            </a><a class="next-arrow arrows" #nextArrow><i class="fa fa-chevron-right"> </i></a></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5">
+            <div class="mask no-focus select-all" *ngIf="!selectAll" (click)="toggleSelection(true)" (keydown.enter)="toggleSelection(true)" tabindex="0"></div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7">
+            <div class="mask no-focus select-each" *ngIf="selectAll" (click)="toggleSelection(false)" (keydown.enter)="toggleSelection(false)" tabindex="0"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 px-2"  (click)="toggleSelection(true)" (keydown.enter)="toggleSelection(true)" tabindex="0">
+            <p class="help-block text-end no-select">Use the grid below to select all dates for any time.</p>
+            <div class="calendar-card left_table">
+                <app-calendar-item [cal]="spaceAvailability?.data?.[0]?.spaces?.[0]" [timerange]="timeRange" [summary]="true"
+                    (toggleScoreCard)="toggleScore()"></app-calendar-item>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 ui-coverflow-wrapper">
+            <p class="help-block no-select">Build your reservation by selecting times for each date.</p>
+
+            <div class="position-relative ng-scope ui-state-active mb-4">
+
+                <div class="calendar-card cover-block w-100">
+                    <div class="booking-card-container coverflow" #coverflowContainer>
+                        <a *ngFor="let cal of availabilityList; let dayIndex = index"
+                            class="calendar-card-container ui-coverflow-item coverflow__image"
+                            (click)="jumpToDay(dayIndex)" (keydown.enter)="jumpToDay(dayIndex)" tabindex="0" [attr.data-coverflow-index]="dayIndex + 1">
+                           <app-calendar-item [cal]="cal" [timerange]="timeRange"></app-calendar-item>
+                        </a>
+                    </div>
+                    <div class="cover-block"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex d-sm-none tab-content">
+        <div class="tab-pane" [ngClass]="{ active: selectAll }">
+            <p class="help-block text-center">Use the grid below to select all dates for any time.</p>
+            <div class="calendar-card">
+                <app-calendar-item [cal]="spaceAvailability?.data?.[0]?.spaces?.[0]" [timerange]="timeRange" [summary]="true"></app-calendar-item>
+            </div>
+        </div>
+        <div class="tab-pane" [ngClass]="{ active: !selectAll }">
+            <p class="help-block text-center">Build your reservation by selecting times for each date in your recurring
+                request.</p>
+            <p class="help-block" style="position: absolute; bottom: -10px;">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span class="fa fa-arrow-right"></span> Use arrows to navigate calendars
+            </p>
+            <div class="results-calendars">
+                <div class="calendar-card" *ngFor="let cal of availabilityList">
+                    <app-calendar-item [cal]="cal" [timerange]="timeRange"></app-calendar-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

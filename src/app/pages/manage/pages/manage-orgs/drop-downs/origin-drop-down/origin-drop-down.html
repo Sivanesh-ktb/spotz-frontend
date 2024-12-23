@@ -1,0 +1,27 @@
+<div class="allowed-activiies w-100">
+  <p class="drop-down-title">Origin</p>
+  <div class="input-group full-width-select-dro-down mb-3">
+    <div class="card flex justify-content-center full-width-select-dro-down w-100">
+      <div class="admin-text">
+        <li class="nav-item dropdown">
+          <span id="navbarAdminDropdown" role="button" title="Origin"
+          class="form-control custom-dropdown-section custom-dropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">{{originName}}
+          <i class="fa-solid fa-angle-down"></i></span>
+          <ul class="dropdown-menu custom-dropdown  w-100"
+          [ngStyle]="{'height':origins && origins.length  > 4 ? '250px' : 'auto'}"
+            aria-labelledby="navbarAdminDropdown">
+            <li *ngIf="origins && origins.length > 0">
+              <a class="dropdown-item clear-drop-down filter" (click)="clearAllOrigins(); $event.stopPropagation();" (keydown.enter)="clearAllOrigins(); $event.stopPropagation();" tabindex="0">
+              <i class="fa fa-times mr-2"></i>  Clear</a>
+               <li *ngFor="let origin of origins; let current = index">
+              <a (click)="selectOrigin(origin.title, origin.value)" (keydown.enter)="selectOrigin(origin.title, origin.value)" tabindex="0" class="dropdown-item small">
+              <span class="fa mr-2" [ngClass]="{'text-success fa-check': isChecked(current)}"
+              ></span>
+              {{origin.title}}</a></li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>

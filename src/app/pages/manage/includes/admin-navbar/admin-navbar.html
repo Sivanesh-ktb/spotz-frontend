@@ -1,0 +1,266 @@
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light pad-spc sticky_nav">
+<div class="container-fluid">
+  <div class="site-logo">
+  <a class="navbar-brand" (click)="viewHomePage()"  (keydown.enter)="viewHomePage()" tabindex="0"><img [src]="logo" alt="logo"></a>
+ </div>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" (click)="viewHomePage()"  (keydown.enter)="viewHomePage()" tabindex="0" aria-current="page" >Find Space</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          List Space
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" (click)="dashboard()"  (keydown.enter)="dashboard()" tabindex="0">Dash Board</a></li>
+          <li><a class="dropdown-item">Inbox</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item">Bookings</a></li>
+        </ul>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" [href]="supportLink" target="_blank" aria-current="page">Support</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          My Spotz
+        </a>
+        <ul class="dropdown-menu w-100 dropdown-list" aria-labelledby="navbarDropdown">
+          <app-user-drop-down></app-user-drop-down>
+        </ul>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" aria-current="page" ><i class="fa fa-shopping-cart"></i></a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+</header>
+<!-- Organization Menu list -->
+<div class="container-fluid organization org-bg">
+  <div class="org-bg">
+     <div class="row">
+        <div class="col-lg-10 d-flex p-0 organization-container gap-3 align-items-center justify-content-start text-align-center">
+            <a (click)="dashboard()"  (keydown.enter)="dashboard()" tabindex="0" class="fa fa-home  admin-home-icon h-100 admin-hover">
+          </a>
+          <ng-container *ngIf="superAdmin || userOrgList; else noList">
+          <div class="org-name org-list min_width_200px" [ngClass]="{'active-column': activeColumn === 1}">
+            <div class="row align-items-center">
+              <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                <span class="header">Organization</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <ng-container *ngIf="orgIdCheck">
+                  <a class="view-org-text" (click)="viewOrganization(orgIdCheck)"  (keydown.enter)="viewOrganization(orgIdCheck)" tabindex="0"aria-hidden="false">view</a>
+                </ng-container>
+              </div>
+            </div>
+            <ng-container *ngIf="superAdmin;else userOrg" >
+            <div class="search-org">
+              <div class="row align-items-center">
+                <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                  <input type="text" class="form-control form-box p-0" [(ngModel)]="orgName" placeholder="Organization name"
+                  (keyup)="getOrganizationDetails($event)">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <a *ngIf="orgName" (click)="removeOrgName()"  (keydown.enter)="removeOrgName()" tabindex="0"
+                  aria-labelledby="removeOrgName" class="fa-regular fa-circle-xmark Spotz-only mt-1"></a>
+                </div>
+              </div>
+
+
+            </div>
+              <ul class="dropdown-menu" [ngClass]="{'show': orgDetails?.length > 0}" aria-labelledby="navbarAdminDropdown">
+                <ng-container *ngIf="orgDetails && orgDetails.length > 0">
+                 <li class="dropdown-item" *ngFor="let org of orgDetails">
+                  <a class="admin-navbar" (click)="viewOrganization(org?.placeId)"  (keydown.enter)="viewOrganization(org?.placeId)" tabindex="0"
+                  aria-labelledby="viewOrganization">
+                    {{ org?.description }}
+                  </a>
+                </li>
+                </ng-container>
+              </ul>
+            </ng-container>
+            <ng-template #userOrg>
+              <li class="nav-item dropdown">
+                <a id="navbarAdminDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false" class="highlight color-white">
+                  <div class="d-flex gap-5 align-items-center justify-content-between">
+                    <i class="choose-fac admin-navbar" > {{orgName?orgName:'Choose Organization'}} </i>
+                    <i class="fas fa-caret-down"></i>
+                    </div>
+                </a>
+                <ul class="dropdown-menu w-100 facility-drop-down">
+                  <ng-container *ngFor="let org of userOrgDetails">
+                    <li>
+                      <a class="dropdown-item" (click)="viewOrganization(org._id,org.name)"  (keydown.enter)="viewOrganization(org._id,org.name)" tabindex="0">{{ org.name }}</a>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-template>
+          </div>
+          <div class="org-name org-list ng-star-inserted min_width_200px" [ngClass]="{'active-column': activeColumn === 2}">
+            <div class="row align-items-center">
+              <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                <span class="header">Facility</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <ng-container *ngIf="facId && orgId">
+                  <a class="view-org-text" (click)="viewFacility(facId,facilityName)"  (keydown.enter)="viewFacility(facId,facilityName)" tabindex="0"  aria-hidden="false">view</a>
+                </ng-container>
+              </div>
+            </div>
+            <li class="nav-item dropdown selector">
+              <ng-container *ngIf="orgId; else noOrgPage">
+            <ng-container *ngIf="facilities.length > 0; else noFacility">
+              <a id="navbarAdminDropdown" class="facility-header small-name"
+            role="button" data-bs-toggle="dropdown" [class.disabled]="!orgId" [attr.aria-disabled]="!orgId" aria-expanded="false">
+            <ng-container *ngFor="let facility of facilities;  ">
+              <div *ngIf = "facility.id === facId;" class="d-flex gap-5 align-items-center justify-content-between">
+            <i class="admin-navbar">
+              {{ facility.name }}
+            </i>
+            <i class="fas fa-caret-down"></i>
+            </div>
+          </ng-container>
+            <ng-container *ngIf="noFacilityName">
+              <div class="d-flex gap-5 align-items-center justify-content-between">
+            <i class="choose-fac admin-navbar" >Choose a Facility </i>
+            <i class="fas fa-caret-down"></i>
+            </div>
+            </ng-container>
+             </a>
+            </ng-container>
+            <ng-template #noFacility>
+              <a (click)="addFacility()" class="small-name"  (keydown.enter)="addFacility()" tabindex="0">
+              <i class="fa fa-plus-circle"></i>
+              Add Facility
+            </a>
+          </ng-template>
+          </ng-container>
+          <ng-template #noOrgPage>
+            <div class="d-flex gap-5 align-items-center justify-content-between">
+            <i class="choose-facility cursor-pointer disabled small-name" >Choose a Facility
+              </i>
+              </div>
+            </ng-template>
+            <ul class="dropdown-menu w-100 facility-drop-down "
+            aria-labelledby="navbarAdminFacilityDropdown">
+            <ng-container *ngFor="let facility of facilities">
+              <li>
+                <a class="dropdown-item" (click)="viewFacility(facility.id,facility.name)" (keydown.enter)="viewFacility(facility.id,facility.name)" tabindex="0">{{ facility.name }}</a>
+              </li>
+            </ng-container>
+          <hr/>
+              <li><a (click)="addFacility()" (keydown.enter)="addFacility()" tabindex="0" class="dropdown-item"><i class="fa fa-plus-circle"></i> Add Facility</a></li>
+            </ul>
+          </li>
+          </div>
+          <div class="space org-list min_width_200px"  [ngClass]="{'active-column': activeColumn === 3}">
+            <div class="row align-items-center">
+              <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                <span class="header">Space</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <ng-container *ngIf="spaceId && facId">
+                  <a class="view-org-text" (click)="viewSpace(spaceId,spaceName)"  (keydown.enter)="viewSpace(spaceId,spaceName)" tabindex="0"aria-hidden="false">view</a>
+                </ng-container>
+              </div>
+            </div>
+             <li class="nav-item dropdown selector">
+              <ng-container *ngIf="facId && orgId; else viewOrgPage">
+              <ng-container *ngIf="spaceDetails.length > 0; else noSpace">
+                <a id="navbarAdminDropdown" class="facility-header small-name"
+              role="button" data-bs-toggle="dropdown" [class.disabled]="!facId" [attr.aria-disabled]="!facId" aria-expanded="false">
+              <ng-container *ngFor="let space of spaceDetails;">
+                <div class="d-flex gap-5 align-items-center justify-content-between">
+              <i class="admin-navbar" *ngIf = "space.id === spaceId;">
+                {{ space.name }}
+              </i>
+              <i *ngIf = "space.id === spaceId;" class="fas fa-caret-down"></i>
+              </div>
+            </ng-container>
+              <ng-container *ngIf="noSpaceName">
+              <div class="d-flex gap-5 align-items-center justify-content-between">
+                <i class="admin-navbar"> {{ noSpaceName }}</i>
+                <i class="fas fa-caret-down"></i>
+              </div>
+              </ng-container>
+               </a>
+              </ng-container>
+              <ng-template #noSpace>
+                <a (click)="addSpace()" (keydown.enter)="addSpace()" tabindex="0" class="add-space admin-navbar add-space-drop-down">
+                <i class="fa fa-plus-circle"></i>
+                Add space
+              </a>
+            </ng-template>
+            </ng-container>
+            <ng-template #viewOrgPage>
+              <div class="d-flex gap-5 align-items-center justify-content-between fs_13">
+              <i class="facility-header admin-navbar color-white disabled">Choose a Spaces </i>
+             </div>
+              </ng-template>
+              <ul class="dropdown-menu w-100 facility-drop-down"
+              aria-labelledby="navbarAdminFacilityDropdown">
+              <ng-container *ngFor="let space of spaceDetails">
+                <li  [ngClass]="{ 'off': space.nonRental === 1 }">
+                  <a class="dropdown-item" (click)="viewSpace(space.id,space.name)" (keydown.enter)="viewSpace(space.id,space.name)" tabindex="0">{{ space.name }}
+                    <span class="label label-info" *ngIf="space.nonRental === 1"> OFF </span>
+                  </a>
+                </li>
+              </ng-container>
+            <hr/>
+                <li><a (click)="addSpace()" class="dropdown-item add-space-drop-down" (keydown.enter)="addSpace()" tabindex="0"><i class="fa fa-plus-circle"></i> Add Space</a></li>
+              </ul>
+            </li>
+          </div>
+          <div class="org-name admin-nav org-list ng-star-inserted min_width_200px" *ngIf="superAdmin">
+            <li class="nav-item dropdown">
+            <a id="navbarAdminDropdown" class="admin-key admin-hover"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-key admin-hover"> </i> Admin</a>
+            <ul class="dropdown-menu w-100 mt-3"
+            aria-labelledby="navbarAdminDropdown">
+              <li class="dropdown-header disabled">Add</li>
+              <li><a class="dropdown-item" (click)="addOrganization()" (keydown.enter)="addOrganization()" tabindex="0">Add Organization</a></li>
+              <li class="dropdown-header disabled">Super Admin</li>
+              <li><a class="dropdown-item">Users</a></li>
+              <li><a class="dropdown-item">Reservations</a></li>
+              <li><a class="dropdown-item">Host/Renter</a></li>
+              <li><a class="dropdown-item">Refunds</a></li>
+              <li><a class="dropdown-item">Org Claims</a></li>
+              <li><a class="dropdown-item" (click)="viewIncidentClaims()" (keydown.enter)="viewIncidentClaims()" tabindex="0">Incident Claims</a></li>
+              <li><a class="dropdown-item">Finance Export</a></li><li class="divider"></li>
+              <li><a class="dropdown-item" (click)="regions()" (keydown.enter)="regions()" tabindex="0">Regions</a></li>
+              <li><a class="dropdown-item">Markets</a></li>
+              <li><a class="dropdown-item" (click) = "addons()" (keydown.enter)="addons()" tabindex="0">Addons</a></li>
+            </ul>
+          </li>
+          </div>
+      </ng-container>
+    </div>
+      <ng-template #noList>
+        <div class="col-lg-8"></div>
+      </ng-template>
+        <div class="col-lg-2">
+          <div class="dev-cnt">
+            <a (click)="viewProfile()" (keydown.enter)="viewProfile()" tabindex="0" class="admin-hover cursor-pointer align-items-center d-flex">
+              <p class="mt-3 px-2 color-white admin-hover">{{userName}}</p>
+            <img class="profile-img" *ngIf="userImage" [src]="userImage" alt="user">
+            </a>
+          </div>
+        </div>
+     </div>
+  </div>
+</div>
+<!-- Organization Menu list End-->

@@ -1,0 +1,59 @@
+a.btn.btn-link.ml-4.clear-button {
+  text-decoration: none;
+}
+label.active-tab {
+  background: #4dcaf4;
+  color: #fff;
+  border: 1px solid #4dcaf4 !important;
+}
+.btn-group.facility-type label {
+  padding: 4px;
+  border: 1px solid #f1e6e6;
+  font-size: 0.8em;
+}
+.panel-body,.panel{
+  padding: 15px 14px;
+}
+.btn-group input[type=radio] {
+  display: none;
+}
+.space-facility{
+  padding: 4px 16px;
+}
+h2.left-panel-title.ellipsis.ng-scope,ul.nav.nav-pills.nav-stacked.leftmenu-bottom {
+  font-family: inherit !important;
+  background-color: #d3eaf0;
+  font-weight: 700;
+  padding: 20px;
+}
+h2.left-panel-title.ellipsis.ng-scope{
+  border-radius: 18px 18px 0 0;
+}
+ul.nav.nav-pills.nav-stacked.leftmenu-bottom {
+  border-radius: 0px 0px 18px 18px;
+}
+.fac-sidebar{
+  background-color: #fff;
+}
+.form-control.text-area {
+  height: 110px !important;
+}
+span.highlight {
+  background-color: #e58327;
+  color: #fff;
+  padding: 3px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  margin: 0 1px;
+}
+span.note {
+  background-color: #034a61;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border: 1px solid #034a61;
+  margin: 0 4px;
+}
+.fac-link{
+  font-size: 12px;
+}

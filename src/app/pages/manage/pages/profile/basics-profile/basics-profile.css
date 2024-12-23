@@ -1,0 +1,88 @@
+.photo {
+  width: 100%;
+  max-width: 300px;
+}
+
+.basic-profile-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.drop-box-popup {
+
+  background: #eefbff;
+    border: 2px dashed #4dcaf4;
+    width: 100%;
+    padding: 10px;
+    max-width: 150px;
+   
+    text-align: center;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.instructions {
+  width: 130px;
+  height: 130px;
+  text-align: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #666;
+  display: none;
+}
+
+.instructions.hovered {
+  display: block;
+}
+
+.profile-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.hidden {
+  display: none;
+}
+.profile-img.hidden{
+  display: none;
+}
+
+.hovered {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.hidden-file-upload {
+  display: none;
+}
+
+.name-title.small-name,
+.small-name {
+  font-size: 11px;
+}
+
+.profile-basics h6,
+.bio-form h6 {
+  font-size: 20px;
+}
+.profile-drop{
+  font-size: 25pt;
+  margin-bottom: 20px;
+}
+
+.basic-profile-titles {
+  font-size: 18px;
+  font-weight: 700;
+}
+.basic-profile-valid{
+  font-size: 13px;
+  color: red;
+}
+.i-color{
+  color: #0269d9;
+}
+textarea.form-control {
+  height: auto !important;
+}

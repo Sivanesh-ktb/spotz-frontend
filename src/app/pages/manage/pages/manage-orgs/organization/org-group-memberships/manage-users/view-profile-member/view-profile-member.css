@@ -1,0 +1,55 @@
+
+.mat-mdc-dialog-surface.mdc-dialog__surface,
+.mdc-dialog__container {
+  border-radius: 20px !important;
+}
+ .modal-content.view-profile-popup{
+  width: 50rem;
+  top: 0px;
+
+ }
+.dialog-header, .modal-header {
+  background-color: #eaf3f5;
+  border-bottom: none!important;
+  padding: 14px 20px;
+  margin-bottom: 0;
+}
+.modal-header .close {
+  margin-top: -2px;
+}
+a.close {
+  text-decoration: none;
+  color: #000;
+}
+.view-user-icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  margin: 10px auto;
+  border: 1px solid #d7d7d7;
+  color: #999;
+  background-size: cover;
+  background-color: #fff;
+  display: table;
+}
+.cdk-global-overlay-wrapper {
+  justify-content: center !important;
+  align-items: baseline !important;
+  top: 0px !important;
+}
+.social {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.social img{
+  height: 25px;
+  width: 25px;
+}
+
+.social.google.active {
+  background-color: #DB4437;
+}

@@ -1,0 +1,311 @@
+.calendar-card .top.selected {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+.ui-coverflow-item {
+  position: relative;
+  cursor: pointer;
+  float: left;
+  display: block;
+}
+.calendar-card .top{
+  background-color: #ffffff ;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+}
+.calendar-card .top>.row>div {
+  font-size: 1.4em;
+  padding-top: 5px;
+
+}
+.col-xs-7.text-start {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.calendar-card.weekday {
+  font-weight: 400;
+  font-size: 1.6em!important;
+}
+.calendar-card .top .month {
+  padding-left: 30px;
+}
+.calendar-card .top .date {
+  padding-right: 30px;
+}
+.calendar-card .card-times .schedule-label,
+.schedule-label {
+  background-color: #f3fcff;
+  padding: 3px 10px;
+  color: #088DB8;
+   font-size: 11px;
+}
+.drag-to-select{
+  min-height:22px;
+  font-weight:normal;
+  color:#999;
+  border-bottom:1px solid #ccc;
+}
+.calendar-card .card-times .schedule-blocks .buttons button,
+.schedule-blocks .buttons button,
+.drag-to-select button {
+  padding-right: 5px !important;
+  padding-left: 7px !important;
+  text-align: right;
+  font-size: .8em !important;
+  border-color: #b6e9f9;
+  background-color: #FFFFFF;
+}
+.calendar-card .schedule-blocks .btn-default, .facility .schedule-blocks .btn-default,
+.schedule-blocks .btn-default ,
+.drag-to-select button{
+  border-radius: 0;
+  border-left: none;
+  border-top: none;
+  width: 25%;
+  position: relative;
+}
+.calendar-card .card-times .schedule-blocks .btn-default .locked,
+.schedule-blocks .btn-default .locked,
+.drag-to-select button .locked {
+  bottom: -2px;
+}
+.calendar-card .schedule-blocks .locked, .facility .schedule-blocks .locked,
+.schedule-blocks .locked,
+.drag-to-select .locked {
+  position: absolute;
+  bottom: 0;
+  right: 3px;
+  color: #999;
+  font-size: 7pt;
+}
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
+}
+.available-title{
+  font-weight:normal;
+  color: #333;
+}
+.calendar-card-container{
+  z-index: 14;
+  visibility: visible;
+  left: -187px;
+  transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  transform-origin: right center;
+  background-color: #e5e5e5;
+  width: 289px;
+  border: 1px solid #b6e9f9;
+  border-bottom: none;
+}
+#coverflow-controls,#coverflow-controls-second {
+  position: absolute;
+  right: 0;
+  z-index: 50;
+  top: 0px;
+  cursor: pointer;
+}
+.calendar-card .cover-block {
+  background-color: rgba(255,255,255,.2);
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.booking-card-container {
+  transition-property: left;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  transition-delay: initial;
+  display: flex;
+  gap: 17px;
+}
+.ui-coverflow .ui-coverflow-item {
+  position: relative;
+  cursor: pointer;
+  float: left;
+  display: block;
+}
+
+$imageW: 350px;
+$imageH: 225px;
+$transitionSpeed: 350ms;
+$transitionEasing: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+$nonfocusSpacing: 90px;
+$focusMargin: 230px;
+$maxNonfocusOpacity: 0.5;
+$maxNonfocusScale: 0.5;
+$minNonfocusScale: 0.2;
+$numNonfocusVisible: 3;
+$centerGlow: 0 1px 25px 10px rgba(#000000, 0.6);
+$perspective: 1000px;
+$leftTransform: rotateY(30deg);
+$rightTransform: rotateY(-20deg);
+$maxImages: 75;
+
+.coverflow {
+  position: relative;
+  height: $imageH;
+  padding: 1rem;
+  overflow: hidden;
+  perspective: $perspective;
+
+  &__image {
+    user-select: none;
+    width: $imageW;
+    height: $imageH;
+    transition: all $transitionSpeed $transitionEasing;
+    &[data-coverflow-index] {
+      position: absolute;
+      left: 50%;
+      transform-origin: 50% 50%;
+      &:before {
+        content: " ";
+        z-index: 1;
+        position: absolute;
+        top: 300px;
+        width: 100%;
+        height: 10%;
+      }
+    }
+  }
+
+  @for $x from 1 through $maxImages {
+    &[data-coverflow-position="#{$x}"] {
+      @for $y from 1 through $maxImages {
+        @if ($y < $x) {
+          $dist: $x - $y;
+          .coverflow__image[data-coverflow-index="#{$y}"] {
+            z-index: $maxImages - $dist;
+            $scale: (calc(($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale;
+            $translateX: (-1 * $nonfocusSpacing * ($dist - 1)) - (calc($imageW / 2)) - $focusMargin;
+            transform: translateX($translateX) scale($scale) $leftTransform;
+            opacity: (calc($maxNonfocusOpacity / $numNonfocusVisible)) * ($numNonfocusVisible - ($dist - 1));
+          }
+        }
+        @if ($y == $x) {
+          .coverflow__image[data-coverflow-index="#{$y}"] {
+            z-index: $maxImages;
+            transform: translateX(-1 * (calc($imageW / 2)));
+          }
+        }
+        @if ($y > $x) {
+          $dist: $y - $x;
+          .coverflow__image[data-coverflow-index="#{$y}"] {
+            z-index: $maxImages - $dist;
+            $scale: (calc(($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale;
+            $translateX: ($nonfocusSpacing * ($dist - 1)) - (calc($imageW / 2)) + $focusMargin;
+            transform: translateX($translateX) scale($scale) $rightTransform;
+            opacity: (calc($maxNonfocusOpacity / $numNonfocusVisible)) * ($numNonfocusVisible - ($dist - 1));
+          }
+        }
+      }
+    }
+  }
+}
+
+%arrow-control {
+  cursor: pointer;
+  z-index: $maxImages;
+  position: absolute;
+  top: 50%;
+  padding: 1.5rem 2rem;
+  color: rgba(#FFFFFF, 0.5);
+  font-size: 3rem;
+  line-height: 3rem;
+  background: rgba(#000000, 0.00);
+  border-radius: 1rem;
+  transform-origin: 50% 50%;
+  transform: translateY(-50%);
+  transition: color 200ms, background 200ms;
+  &:hover, &:focus {
+    color: rgba(#FFFFFF, 0.9);
+    background: rgba(#000000, 0.5);
+  }
+}
+.calendar-card-container button {
+  padding-right: 5px;
+  padding-left: 7px;
+  text-align: right;
+  font-size: .9em;
+  border-color: #b6e9f9;
+}
+.calendar-card-container button.lead {
+  background: #333;
+  color: #fff;
+}
+.timeblock .btn-default {
+  color: #333;
+  background-color: #fff;
+}
+/* custome style */
+.slider_time_fs{
+  font-weight: 700;
+    text-transform: uppercase;
+    font-size: .8em;
+}
+.fs-clear{
+  color: #000 !important;
+  font-weight: 700;
+    text-transform: uppercase;
+    font-size: .8em;
+}
+.bg_sea_blue{
+  background-color: #f3fcff;
+    padding: 3px 10px;
+}
+.schedule-blocks .schedule-label{
+  font-weight: normal;
+  color: #999;
+  border-bottom: 1px solid #ccc;
+}
+
+.schedule-blocks .unavail {
+  position: absolute;
+  width: 100%;
+  height: 335px;
+  padding: 36px 0;
+  background: rgba(255,0,0,.05);
+  z-index: 1;
+  color: #c00;
+  font-weight: 500;
+  font-size: .9em;
+}
+.schedule-blocks {
+  border-top: 1px solid #98e0f7;
+  min-height: 100px;
+}
+.schedule-label-container
+{
+  min-height:22px;
+  font-weight:normal;
+  color:#999;
+}
+.schedule-blocks .buttons .lead,.drag-to-select button .lead,
+.timeblock button.btn.btn-default.lead{
+  background: #333;
+  color: #fff;
+}
+.timeblock button.btn.btn-default.custom
+{
+  padding-right: 5px;
+  padding-left: 7px;
+  text-align: right;
+  font-size: 0.9em;
+  border-color: #b6e9f9;
+  border-radius: unset !important;
+}
+.legend {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 3px;
+  font-size: 0.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.calendar-card .top .weekday {
+  font-weight: 400;
+  font-size: 1.6em !important;
+}

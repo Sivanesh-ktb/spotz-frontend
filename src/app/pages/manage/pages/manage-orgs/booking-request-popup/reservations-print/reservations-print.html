@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-lg-7 col-sm-5 col-sm-12 col-md-12 col-print-5">
+      <div class="page">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12 text-center" *ngIf="reservationDetails && reservationDetails.reservation
+              && reservationDetails.reservation.info && reservationDetails.reservation.info.o
+              && reservationDetails.reservation.info.o.name">
+                {{reservationDetails.reservation.info.o.name}}<br>
+                {{reservationDetails.reservation.info.o.id.address.street1}}<br>
+                {{reservationDetails.reservation.info.o.id.address.city}},
+                {{reservationDetails.reservation.info.o.id.address.state}},
+                {{reservationDetails.reservation.info.o.id.address.zip}},
+              </div>
+            </div><br><br><br>
+            <div class="row">
+              <div class="col-md-6"><small>Order Id</small></div>
+              <div class="col-md-6 text-right"
+              *ngIf="reservationDetails && reservationDetails.reservation
+              && reservationDetails.reservation._id"><small>#{{reservationDetails.reservation._id}}
+              </small></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><small>Date Requested</small></div>
+              <div class="col-md-6 text-right">
+                <small *ngIf="reservationDetails && reservationDetails.reservation
+                && reservationDetails.reservation.dateC"
+                >{{ reservationDetails.reservation.dateC | date: 'EEE MMM d, yyyy' }}
+                </small></div>
+            </div><br>
+            <div class="row">
+              <div class="col-md-6">Start Date</div>
+              <div class="col-md-6 text-right" *ngIf="reservationDetails &&
+              reservationDetails.reservation
+              && reservationDetails.reservation.eventDate">
+                {{ reservationDetails.reservation.eventDate | date: 'EEE MMM d, yyyy' }}</div>
+            </div>
+            <div class="row" *ngIf="reservationDetails && reservationDetails.reservation
+            && reservationDetails.reservation.eventName">
+              <div class="col-md-6">Event Name</div>
+              <div class="col-md-6 text-right">
+              {{ reservationDetails.reservation.eventName }}</div>
+            </div>
+            <div class="row" *ngIf="reservationDetails && reservationDetails.reservation
+            && reservationDetails.reservation.sport">
+              <div class="col-md-6">Sport / Activity</div>
+              <div class="col-md-6 text-right">{{ reservationDetails.reservation.sport  }}
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">Time</div>
+              <div class="col-md-6 text-right"
+              *ngIf="reservationDetails && reservationDetails.reservation
+              && reservationDetails.reservation.blocks">
+              {{changeTimeFormat(reservationDetails.reservation.blocks[0])}}
+                to
+        {{changeTimeFormat(reservationDetails.reservation.blocks[reservationDetails.reservation.blocks.length - 1] + 1)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">Duration</div>
+              <div class="col-md-6 text-right" *ngIf="reservationDetails && reservationDetails.reservation
+              && reservationDetails.reservation.blocks">
+                {{totalHours(reservationDetails.reservation.blocks[0],
+                reservationDetails.reservation.blocks[reservationDetails.reservation.blocks.length - 1] + 1)}} HOURS
+              </div>
+            </div><br>
+            <div *ngIf="reservationDetails && reservationDetails.reservation &&
+            reservationDetails.reservation.pricing &&
+            reservationDetails.reservation.pricing.length > 0" class="row">
+              <div class="col-md-12"><strong>Pricing</strong></div>
+              <div *ngFor="let pricing of reservationDetails.reservation.pricing">
+                <!-- <div class="col-md-12" *ngIf="pricing.name">
+                  {{ pricing.name }}
+                </div>
+                <div class="col-md-8" *ngIf="pricing.endTime">
+                  Ends at: {{ pricing.endTime }}
+                </div>
+                <div class="col-md-4 text-right" *ngIf="pricing.price">
+                  Price: ${{ pricing.price }}
+                </div> -->
+              </div>
+            </div>
+            <div class="border-line"></div>
+            <div class="row">
+              <div class="col-md-8 col-md-8"><strong>Subtotal</strong></div>
+              <div class="col-md-4 text-right"
+              *ngIf="reservationDetails && reservationDetails.reservation &&
+              reservationDetails.reservation.cost &&
+              reservationDetails.reservation.cost.subtotal">
+              <strong>${{reservationDetails.reservation.cost.subtotal}}</strong></div>
+            </div>
+            <div class="border-line"></div>
+            <div class="row">
+              <div class="col-md-8"><strong>TOTAL</strong></div>
+              <div *ngIf="reservationDetails && reservationDetails.reservation &&
+              reservationDetails.reservation.cost &&
+              reservationDetails.reservation.cost.total" class="col-md-4 text-right"><strong>
+                ${{reservationDetails.reservation.cost.total}}</strong></div>
+            </div><br><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+               <div class="col-md-4">For user:</div>
+                <div class="col-md-8 text-right"
+                *ngIf="reservationDetails && reservationDetails.reservation &&
+                reservationDetails.reservation.supervisor &&
+                reservationDetails.reservation.supervisor.firstName">
+                {{reservationDetails.reservation.supervisor.firstName}}
+                {{reservationDetails.reservation.supervisor.lastName}}
+                  <br>{{reservationDetails.reservation.supervisor.email}}<br>
+                  {{reservationDetails.reservation.supervisor.phon}}</div>
+              </div>
+              </div>
+            </div><br><br>
+            <div class="row"
+            *ngIf="reservationDetails && reservationDetails.reservation
+              && reservationDetails.reservation.info && reservationDetails.reservation.info.o
+              && reservationDetails.reservation.info.o.id
+              && reservationDetails.reservation.info.o.id.contacts.length>0">
+              <div class="col-md-12">Organization Contacts:</div>
+              <div class="col-md-6">
+             {{reservationDetails.reservation.info.o.id.contacts[0].firstName}}
+             {{reservationDetails.reservation.info.o.id.contacts[0].lastName}}</div>
+              <div class="col-md-6 text-right">
+                {{reservationDetails.reservation.info.o.id.contacts[0].phones[0].num}}<br></div>
+            </div><br><br><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

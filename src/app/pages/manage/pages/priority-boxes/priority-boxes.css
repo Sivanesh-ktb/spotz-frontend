@@ -1,0 +1,49 @@
+.block.highlight{
+  font-size: 0.8em;
+}
+.block {
+  font-size: .8em;
+  color: #ccc;
+}
+.block .box {
+  background-color: #eee;
+  float: left;
+  margin-right: 5px;
+  width: 5px;
+  height: 1.2em;
+}
+.rating {
+  margin: 5px;
+  float: right;
+}
+.rating {
+  width: 24px;
+  height: 24px;
+  border-radius: 13px;
+  background-color: #333;
+  color: #fff;
+  padding: 1px 6px;
+}
+.block .priority-text {
+  text-align: left;
+  padding-left: 30px;
+}
+.block.highlight .box {
+  background-color: #e58327;
+}
+.block.highlight .priority-text {
+  color: #333;
+  font-size: 12px;
+}
+.list-view {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+  align-items: center;
+  text-align: center;
+  font-weight: 700;
+  margin: 0px;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+}

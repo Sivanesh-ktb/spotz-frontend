@@ -1,0 +1,90 @@
+.time-block-section{
+  padding-left:215px;
+}
+p.bold {
+  font-weight: 700;
+}
+.black-text{
+  color: #333;
+}
+span.fa.fa-check {
+  color: #0e9702;
+}
+.full-width-select-dro-down {
+  width: 100%;
+}
+
+.custom-dropdown-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.custom-dropdown .dropdown-menu {
+  width: 100%;
+}
+
+.fa-check {
+  margin-right: 10px;
+}
+
+.checkbox {
+  margin-top: 10px;
+}
+
+.admin-text {
+  list-style-type: none;
+}
+
+.nav-item .dropdown-menu {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item .fa {
+  margin-right: 10px;
+}
+
+.border-bottom-line {
+  border-top: 1px solid #bfebf9;
+  padding: 10px 15px;
+}
+
+.btn-group.edit.settings-rental-card.cancel-icon {
+  font-size: 10px;
+}
+.cancel-icon{
+  display: flex;
+  right: 0 !important;
+}
+.time-block-container{
+    padding: 15px;
+    background-color: #ecf3fb;
+    border: none;
+    box-shadow: none;
+    border-radius: 12px;
+    font-weight: 500;
+}
+.preview-container p{
+  font-size: 14px;
+}
+.remove-all-pricing{
+  right: 0;
+}
+.font-small {
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+
+.highlight:hover{
+  color:#e58327;
+}

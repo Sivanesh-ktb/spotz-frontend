@@ -1,0 +1,109 @@
+<section class="section-grid">
+  <div class="row mt-2">
+    <ng-container *ngFor="let row of filteredfacility">
+      <ng-container *ngIf="(row.facilityData?.name && row.facilityData.org?.banner && row.facilityData?.org?.name); else noDataTemplate">
+        <ng-container *ngIf="loc ||(!org && !fac && !loc); else noOrgFac">
+            <div class="col-lg-6 my-2">
+              <div class="s-1-img position-relative">
+                <div class="s-image spaceimages">
+                  <img *ngIf="row?.assets && row.assets.length > 0; else noImage" [src]="row.assets[0].url"
+                    class="w-100" alt="2_logo" />
+                  <ng-template #noImage>
+                    <img src="assets/img/spaces/default/2_logo.jpg" class="w-100" alt="Placeholder Image" />
+                  </ng-template>
+                </div>
+                <div class="hover-buttons" *ngIf="row?.facilityData?.org?.claimed; else notClaimed">
+                  <div class="btn-group hidden-xs">
+                    <button class="btn btn-default">Quick View Details</button>
+                  </div>
+                </div>
+                <ng-template #notClaimed>
+                  <div class="hover-buttons">
+                    <div class="btn-group hidden-xs">
+                      <button (click)="viewOrgPage(row.facilityData.address, row.facilityData.org.shortName || '', row.facilityData._id)"
+                        class="btn btn-default">Claim Organization</button>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="row">
+                <div class="col-lg-9 mt-2">
+                  <div class="s-content-1">
+                    <a (click)="viewSpacePage(row.facilityData.address, row.facilityData.org.shortName || '', row.id, row.facilityData.name )"  (keydown.enter)="viewSpacePage(row.facilityData.address, row.facilityData.org.shortName || '', row.id, row.facilityData.name )" tabindex="0">
+                      <h4 class="m-0 color-white">{{ row.name }}</h4>
+                    </a>
+                    <a (click)="viewFacilityPage(row.facilityData.address, row.facilityData.org.shortName || '', row.facilityData._id)"  (keydown.enter)="viewFacilityPage(row.facilityData.address, row.facilityData.org.shortName || '', row.facilityData._id)" tabindex="0">
+                      <h4 class="m-0 color-white">{{ row.facilityData.name }}</h4>
+                    </a>
+                    <a (click)="viewOrgPage(row.facilityData.address, row.facilityData.org.shortName || '', row.facilityData._id)"  (keydown.enter)="viewOrgPage(row.facilityData.address, row.facilityData.org.shortName || '', row.facilityData._id)" tabindex="0">
+                      <p class="m-0 color-white">{{ row.facilityData.org.name }}</p>
+                    </a>
+                    <p class="text-margin p-0 color-white">{{ row.facilityData.address.city }}</p>
+                    <h6 class="mb-1 p-0 color-white">{{ row.price ?? 0 }} per hour</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 mt-2">
+                  <div class="capacity-icon align-items-center text-center text-white">
+                    <p>{{ row?.capacity ?? 0 }} <i class="fa fa-user-o" aria-hidden="true"></i></p>
+                  </div>
+                </div>
+              </div>
+              <div class="book-now-btn mt-2">
+                <a (click)="bookNow(row)"  (keydown.enter)="bookNow(row)" tabindex="0" class="booking-btn btn-default mt-5">Book now</a>
+              </div>
+            </div>
+        </ng-container>
+        <ng-template #noOrgFac>
+          <ng-container *ngIf="org || fac">
+            <p class="n-availability mb-1 color-white">{{ row.name }}:</p>
+          </ng-container>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #noDataTemplate>
+        <div class="col-lg-6 my-2">
+          <div class="s-1-img position-relative">
+            <div class="s-image spaceimages">
+              <img  *ngIf="getAssetUrl(row); else noImage" [src]="getAssetUrl(row)" class="w-100" alt="2_logo" />
+              <ng-template #noImage>
+                <img src="assets/img/spaces/default/2_logo.jpg" class="w-100" alt="Placeholder Image" />
+              </ng-template>
+            </div>
+            <div class="hover-buttons" *ngIf="row">
+              <div class="btn-group hidden-xs">
+                <button (click)="bookNow(row)" class="btn btn-default">Quick View &amp; Book</button>
+                <button class="btn btn-default">View Times</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-9 mt-2">
+              <div class="s-content-1">
+                <a (click)="viewSpacePage(row.address,  row.info?.o?.shortName || '', row.spaces[0].id, row.name )" (keydown.enter)="viewSpacePage(row.address,  row.info?.o?.shortName || '', row.spaces[0].id, row.name )" tabindex="0"
+                  *ngIf="row.spaces && row.spaces.length">
+                  <h4 class="m-0 color-white">{{ row.spaces[0].name }}</h4>
+                </a>
+                <a (click)="viewFacilityPage(row.address,  row.info?.o?.shortName || '', row._id)" (keydown.enter)="viewFacilityPage(row.address,  row.info?.o?.shortName || '', row._id)" tabindex="0">
+                  <h4 class="m-0 color-white">{{ row.name }}</h4>
+                </a>
+                <a (click)="viewOrgPage(row.address,  row.info?.o?.shortName|| '', row._id)" (keydown.enter)="viewOrgPage(row.address,  row.info?.o?.shortName|| '', row._id)" tabindex="0">
+                  <p class="m-0 color-white">{{ row.info?.o?.name }}</p>
+                </a>
+                <p class="text-margin p-0 color-white">{{ row.address.city }}</p>
+                <h6 class="mb-1 p-0 color-white">{{ row.price ?? 0 }} per hour</h6>
+              </div>
+            </div>
+            <div class="col-lg-3 mt-2">
+              <div class="capacity-icon align-items-center text-center text-white">
+                <p>{{ row?.capacity ?? 0 }} <i class="fa fa-user-o" aria-hidden="true"></i></p>
+              </div>
+            </div>
+          </div>
+          <div class="book-now-btn mt-2">
+            <a (click)="bookNow(row)" (keydown.enter)="bookNow(row)" tabindex="0" class="booking-btn btn-default mt-5">Book now</a>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</section>

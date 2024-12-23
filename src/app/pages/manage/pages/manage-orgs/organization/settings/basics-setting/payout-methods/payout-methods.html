@@ -1,0 +1,64 @@
+<div class="tab-cnt1">
+  <div class="t-b-1">
+    <p>Where do you want to receive your rental payments?</p>
+  </div>
+    <div *ngIf="!showPayoutMethod" class="tb-icon d-flex justify-content-between mb-2 gap-2">
+      <div *ngIf="customerName; else noCustomerName" class="setting-tax py-2"
+      aria-hidden="false">{{customerName}}</div>
+      <ng-template #noCustomerName>
+        <p>— No payout methods —</p>
+      </ng-template>
+      <a (click)="paymentMethodInfo()" (keydown.enter)="paymentMethodInfo()" tabindex="0" aria-label="payment info" class="fas fa-pencil-alt mt-2"></a>
+    </div>
+    <div *ngIf="showPayoutMethod" aria-hidden="false">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="row">
+        <div class="col-lg-6 col-sm-6 ng-binding">
+          <div class="input-group d-flex flex-column">
+          <label class="control-label fw-bold mb-2" for="Routing number">Routing Number</label>
+            <p-inputMask
+              mask="9999-9999-9"
+              [(ngModel)]="routing"
+              (keyup)="checkRoutingNumberDetails()"
+              [style]="{'height':'35px'}"
+              placeholder="____-____-_" />
+              <p *ngIf="routingStatus===200;else errorMessage" class="text-success">{{customerName}}</p>
+              <ng-template #errorMessage>
+                <p class="text-danger">{{routingNumberStatusMessage}}</p>
+              </ng-template>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+          <div class="input-group  d-flex flex-column">
+          <label class="control-label fw-bold mb-2" for="Account Number">Account Number</label>
+          <p-inputMask
+              mask="9999999999"
+              [(ngModel)]="account"
+              (keyup)="validateForm()"
+              [style]="{'height':'35px'}"
+              placeholder="__________" />
+              <p *ngIf="accountNumberStatusMessage" class="text-danger">{{accountNumberStatusMessage}}</p>
+            </div>
+            <div class="input-group  d-flex flex-column mb-2">
+            <label class="control-label fw-bold mb-2" for="Confirm Acoount number">
+              Confirm Account Number</label>
+            <p-inputMask
+            mask="9999999999"
+            [style]="{'height':'35px'}"
+            (keyup)="validateForm()"
+            [(ngModel)]="accountConfirm"
+            placeholder="__________" />
+         </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 mt-4">
+      <div class="btn-group edit" aria-hidden="false">
+        <button type="submit" [disabled]="validate" class="btn btn-xs btn-primary" (click)="savePayment()">Save</button>
+        <button type="button" (click)="cancelPayment()" class="btn btn-xs btn-default">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

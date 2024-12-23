@@ -1,0 +1,89 @@
+<section class="content fac-space-view-section">
+<app-admin-navbar></app-admin-navbar>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <ng-container *ngIf="facName">
+          <app-admin-fac-sidebar [facilityName]="facilityDetails?.name" />
+        </ng-container>
+        </div>
+        <div class="col-lg-9">
+          <div class="row">
+            <div class="col-lg-4 d-flex justify-content-arround gap-2
+            align-items-center">
+          <h3 class="new-space-h fw-bold">Calendar</h3>
+        </div>
+        <div class="col-lg-4">
+          <div class="space-rentable-toggle d-flex justify-content-end gap-2
+          align-items-center">
+            <h6 class="fw-bold">Bookings</h6>
+              <div class="bootstrap-switch-container mb-3" style="width: 117px;">
+                <label class='toggle-label'>
+                  <input type='checkbox'/>
+                    <span class='back'>
+                    <span class='toggle'></span>
+                      <span class='label on'>Yes</span>
+                    <span class='label off'>No</span>
+                  </span>
+                </label>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="space-rentable-toggle d-flex justify-content-end gap-2
+            align-items-center">
+              <h6 class="fw-bold">Availability</h6>
+                <div class="bootstrap-switch-container mb-3" style="width: 117px;">
+                  <label class='toggle-label'>
+                    <input type='checkbox'/>
+                      <span class='back'>
+                      <span class='toggle'></span>
+                        <span class='label on'>Yes</span>
+                      <span class='label off'>No</span>
+                    </span>
+                  </label>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+          <div class="calendar-filter col-xs-12 col-md-8 col-lg-9">
+            <app-org-calendar-filter [spaceDetails]="spaceDetails"></app-org-calendar-filter>
+          </div>
+           <div class="col-md-4 col-lg-3 hidden-xs hidden-sm">
+            <div class="resource-key">
+
+                <div class="resource-list">
+                  <span class="px-3 py-3">Spaces</span>
+                  <hr>
+                  <span class="d-flex gap-2 px-3">
+                    <input type="checkbox" class="resource-checkbox">
+                  <a class="resource-name">Select All</a>
+                </span>
+                <hr>
+                 <ng-container *ngFor="let space of spaceDetails">
+                  <div class="resource-item">
+                    <div class="resource-color" [style.background-color]="space.color"></div>
+                    <div class="dropdown-header">
+                      <div class="resource-list-title">{{spaceType(space.typ)}}</div>
+                    </div>
+                    <span class="d-flex gap-2 px-3">
+                      <input type="checkbox" class="resource-checkbox" value="space.id">
+                    <a class="resource-name">{{ space.name }}</a>
+                  </span>
+                  </div>
+                <hr>
+                  </ng-container>
+                </div>
+              </div>
+           </div>
+          </div>
+        </div>
+        </div>
+
+        </div>
+        </div>
+        </section>
+
+

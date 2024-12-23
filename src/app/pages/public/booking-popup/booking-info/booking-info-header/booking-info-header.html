@@ -1,0 +1,52 @@
+<div class="spaces-list w-100 px-3 mb-3">
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <h2 class="m-0 mt-2 p-2 d-flex gap-2 align-items-center ng-binding diamond"><small>
+        <ul class="nav nav-pills">
+          <li class="spaces space-type m-0 mx-1 ng-binding rounded py-1 px-2" *ngFor="let type of spaceTypes"
+              [ngStyle]="{'background-color': getSpaceColor(type.value)}">
+            {{ type.name }}
+          </li>
+        </ul>
+        </small>{{selectedSpace.name}}</h2>
+      <div class="space-selector" aria-hidden="false">
+        <select class="no-focus no-shadow form-control">
+          <option label="Space-1 1A - Des">Space-1 1A - Des</option>
+            <option label="first space">first space</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 d-flex gap-2 justify-content-end align-items-center mt-2 p-2">
+      <div class="d-flex flex-row-reverse">
+        <div class="form-inline hidden-xs d-flex">
+          <div class="form-group me-2">
+            <label class="control-label" for="Facility Spaces">Facility Spaces</label>
+          </div>
+          <div class="btn-group">
+            <div class="resource-list">
+              <div class="dropdown w-100">
+                <button class="btn search-space-drop-down dropdown-toggle btn-default" id="dropdownMenuButton"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ selectedSpace.name || 'Select Space' }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <ng-container *ngFor="let detail of facDetails">
+                    <li class="dropdown-header ng-binding disabled">
+                      <span class="fa"></span>{{ getSpaceTypeName(detail?.typ?.[0] ?? 0) }}
+                    </li>
+                    <li class="ng-scope dropdown-item" (click)="selectSpace(detail)" (keydown.enter)="selectSpace(detail)" tabindex="0">
+                        {{ detail.name }}
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="banner banner-booking px-3 mb-3">
+  <img src="{{banner}}" class="heading ng-isolate-scope" alt="banner" >
+</div>

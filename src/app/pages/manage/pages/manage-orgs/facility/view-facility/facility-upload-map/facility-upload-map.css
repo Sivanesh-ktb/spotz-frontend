@@ -1,0 +1,21 @@
+.addFile {
+  width: 100%;
+  border: 1px solid #ccf1ff;
+  border-radius: 12px;
+  background-color: #edfaff;
+}
+.addFile .instructions {
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+a.view-map-btn {
+  color: #fff;
+  background-color: #034A61;
+  border-color: #011d26;
+  text-align: center;
+}
+.group-sec h2 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}

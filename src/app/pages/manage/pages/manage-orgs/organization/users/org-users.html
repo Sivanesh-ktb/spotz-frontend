@@ -1,0 +1,185 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+</div>
+
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9">
+          <div class="image-place">
+            <div class="spotz">
+              <div class="col-sm-6 col-xs-12">
+                <h1 ng-if="heading" class="ng-binding ng-scope">System Users</h1>
+              </div>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                    type="button" role="tab" aria-controls="home" aria-selected="true">System Users</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="row">
+                    <div>
+                      <div class="tab-pane active">
+                        <div class="table-responsive mb-2">
+                          <table class="table table-sm table-condensed table-striped table-bordered">
+                            <thead class="org-members-header">
+                              <tr>
+                                <th>Name</th>
+                                <th>Members</th>
+                                <th>Description</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="ng-scope">
+                                <td style="width:25%" class="ng-binding">
+                                  <div class="org-container">
+                                    <a class="no-line" (click)="allowOrganizationAccess(adminGroupId)"
+                                    (keydown.enter)="allowOrganizationAccess(adminGroupId)" tabindex="0"
+                                    >
+                                      <p><i class="fas fa-pencil-alt"></i></p>
+                                    </a>
+                                    Admin
+                                  </div>
+                                </td>
+                                <td><a (click)="allowOrganizationAccess(adminGroupId)" (keydown.enter)="allowOrganizationAccess(adminGroupId)" tabindex="0"><i class="fas fa-users"></i>
+                                    <span class="ng-binding" aria-hidden="false">
+                                      {{adminCount}}</span><span aria-hidden="true" class="ng-hide">
+                                      </span></a>
+                                </td>
+                                <td ng-switch="group.name">
+                                  <p class="m-0"><span ng-switch-when="Admin" class="ng-scope">
+                                      {{adminRole}}</span>
+                                  </p>
+                                </td>
+                              </tr>
+                              <tr class="ng-scope">
+                                <td style="width:25%" class="ng-binding">
+                                  <div class="org-container">
+                                    <a (click)="allowOrganizationAccess(approverGroupId)" (keydown.enter)="allowOrganizationAccess(approverGroupId)" tabindex="0" class="no-line">
+                                      <p><i class="fas fa-pencil-alt"></i></p>
+                                    </a>
+                                    Approver
+                                  </div>
+                                </td>
+                                <td><a (click)="allowOrganizationAccess(approverGroupId)" (keydown.enter)="allowOrganizationAccess(approverGroupId)" tabindex="0"><i class="fas fa-users"></i>
+                                    <span ng-show="group.members.length" class="ng-binding" aria-hidden="false">
+                                      {{approverCount}}</span><span ng-hide="group.members.length" aria-hidden="true" class="ng-hide">
+                                      </span></a>
+                                </td>
+                                <td ng-switch="group.name">
+                                  <p class="m-0"><span ng-switch-when="Admin" class="ng-scope">
+                                     {{approverRole}}</span>
+                                  </p>
+                                </td>
+                              </tr>
+                              <tr class="ng-scope">
+                                <td style="width:25%" class="ng-binding">
+                                  <div class="org-container">
+                                    <a class="no-line" (click)="allowOrganizationAccess(editorGroupId)" (keydown.enter)="allowOrganizationAccess(editorGroupId)" tabindex="0">
+                                      <p><i class="fas fa-pencil-alt"></i></p>
+                                    </a>
+                                    Editor
+                                  </div>
+                                </td>
+                                <td><a (click)="allowOrganizationAccess(editorGroupId)" (keydown.enter)="allowOrganizationAccess(editorGroupId)" tabindex="0">
+                                  <div class="members-details">
+                                  <i class="fas fa-users"></i>
+                                    <span ng-show="group.members.length" class="ng-binding" aria-hidden="false">
+                                      </span>
+
+                                      <div *ngIf="editorCount; else noEditors" aria-hidden="true" class="ng-hide">
+                                        {{editorCount}}
+                                    </div>
+                                    <ng-template #noEditors>
+                                        <span class="fa fa-plus"></span>
+                                    </ng-template>
+                                  </div>
+                                  </a>
+                                </td>
+                                <td ng-switch="group.name">
+                                  <p class="m-0"><span ng-switch-when="Admin" class="ng-scope">
+                                     {{editorRole}}</span>
+                                  </p>
+                                </td>
+                              </tr>
+                              <tr class="ng-scope">
+                                <td style="width:25%" class="ng-binding">
+                                  <div class="org-container">
+                                    <a class="no-line" (click)="allowOrganizationAccess(maintenanceManagerGroupId)" (keydown.enter)="allowOrganizationAccess(maintenanceManagerGroupId)" tabindex="0">
+                                      <p><i class="fas fa-pencil-alt"></i></p>
+                                    </a>
+                                    Maintenance Manager
+                                  </div>
+                                </td>
+                                <td><a (click)="allowOrganizationAccess(maintenanceManagerGroupId)" (keydown.enter)="allowOrganizationAccess(maintenanceManagerGroupId)" tabindex="0">
+                                  <div class="members-details">
+                                    <i class="fas fa-users"></i>
+                                    <span ng-show="group.members.length" class="ng-binding" aria-hidden="false">
+                                      </span>
+                                  <div *ngIf="maintenanceManagerCount; else noMaintenanceManagerCount" aria-hidden="true" class="ng-hide">
+                                  {{maintenanceManagerCount}}
+                              </div>
+                              <ng-template #noMaintenanceManagerCount>
+                                  <span class="fa fa-plus"></span>
+                              </ng-template>
+                            </div></a>
+                                </td>
+                                <td ng-switch="group.name">
+                                  <p class="m-0"><span ng-switch-when="Admin" class="ng-scope">
+                                     {{maintenanceManagerRole}}</span>
+                                  </p>
+                                </td>
+                              </tr>
+                              <tr class="ng-scope">
+                                <td style="width:25%" class="ng-binding">
+                                  <div class="org-container">
+                                    <a class="no-line" (click)="allowOrganizationAccess(maintenanceStaffGroupId)" (keydown.enter)="allowOrganizationAccess(maintenanceStaffGroupId)" tabindex="0">
+                                      <p><i class="fas fa-pencil-alt"></i></p>
+                                    </a>
+                                    Maintenance Staff
+                                  </div>
+                                </td>
+                                <td><a (click)="allowOrganizationAccess(maintenanceStaffGroupId)" (keydown.enter)="allowOrganizationAccess(maintenanceStaffGroupId)" tabindex="0">
+                                  <div class="members-details">
+                                    <i class="fas fa-users"></i>
+                                    <span ng-show="group.members.length" class="ng-binding" aria-hidden="false">
+                                      </span>
+                                    <div *ngIf="maintenanceStaffCount; else noMaintenanceStaffCount" aria-hidden="true" class="ng-hide">
+                                    {{maintenanceStaffCount}}
+                                </div>
+                                <ng-template #noMaintenanceStaffCount>
+                                    <span class="fa fa-plus"></span>
+                                </ng-template>
+                              </div>
+                                </a>
+                                </td>
+                                <td ng-switch="group.name">
+                                  <p class="m-0"><span ng-switch-when="Admin" class="ng-scope">
+                                      {{maintenanceStaffRole}}</span>
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,71 @@
+<section >
+  <div class="sticky_navbar">
+    <app-admin-navbar></app-admin-navbar>
+    </div>
+    <div class="p-2">
+        <h1 class="region-heading">Regions</h1>
+        <p class="mt-4">{{regionFirstText}}</p>
+        <p class="mt-4">{{regionSecondText}}</p>
+<div class="panel panel-body p-4">
+    <div class="row mb-3">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-default" (click)="addRegions()">
+                        <span class="fa-solid fa-plus"></span> Add New
+                    </button>
+                </div>
+                <div class="col-sm-9" *ngIf="addingRegions">
+                    <form class="form-inline d-flex" (ngSubmit)="saveRegion()">
+                        <div class="form-group d-flex px-2">
+                            <label for="regionInput" class="font-weight-bold px-2">Region</label>
+                            <input id="regionInput" [(ngModel)]="region" (keyup)="validateForm()" name="region" type="text" placeholder="City" class="form-control form-control-sm" style="max-width: 150px;" />
+                        </div>
+                        <div class="form-group d-flex px-2">
+                            <input id="stateInput" [(ngModel)]="state" (keyup)="validateForm()" name="state" type="text" placeholder="State" class="form-control form-control-sm  mr-2"  />
+                        </div>
+                        <button type="submit" [disabled]="valid" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 text-right">
+            <input type="text" [(ngModel)]="search" (ngModelChange)="filterRegions()" placeholder="Search Regions" class="form-control" />
+        </div>
+    </div>
+
+    <app-pagination
+    [totalItems]="totalItems"
+    [pageSize]="pageSize"
+     [checkPage]=1
+    [multipleData]="filteredRegionDetails"
+    (pagedOrgDetails)="onSelectedPagination($event)" >
+  </app-pagination>
+
+    <div class="mb-2 ">
+        <table class="table table-hover table-condensed table-sm table-bordered" aria-hidden="false">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">Edit</th>
+                    <th class="col-sm-2">City</th>
+                    <th class="col-sm-2">State</th>
+                    <th>Url</th>
+                    <th>Coordinates</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let region of pagedOrgDetails">
+                    <td>
+                        <span class="fa-solid fa-pencil" (click)="editRegion(region)" (keydown.enter)="editRegion(region)" tabindex="0"></span>
+                    </td>
+                    <td class="ng-binding">{{region?.city || ''}}</td>
+                    <td class="ng-binding">{{region?.state || ''}}</td>
+                    <td class="ng-binding">{{region?.urlName || ''}}</td>
+                    <td class="ng-binding">{{region?.location?.coordinates || ''}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+</section>

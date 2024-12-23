@@ -1,0 +1,15 @@
+.label-success {
+  background-color: #5cb85c;
+}
+
+.label-danger {
+  background-color: #a94442;
+}
+.label-danger,.label-success{
+  font-size: 12px;
+}
+.org-setting{
+  display: inline;
+  padding: 5px;
+  border-radius: 5px;
+}

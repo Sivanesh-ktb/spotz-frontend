@@ -1,0 +1,21 @@
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.select-wrapper select {
+  padding-left: 30px !important;
+}
+.select-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
+}
+
+.year-option
+{
+  font-weight: 700;
+  color:#333;
+}

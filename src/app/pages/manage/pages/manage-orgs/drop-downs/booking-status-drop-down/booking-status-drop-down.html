@@ -1,0 +1,37 @@
+<div class="allowed-activiies w-100">
+  <p class="drop-down-title">Status (multiple) </p>
+  <div class="input-group full-width-select-dropdown mb-3">
+    <div class="card flex justify-content-center full-width-select-dropdown w-100">
+      <div class="admin-text">
+        <li class="nav-item dropdown">
+          <span id="navbarAdminDropdown" role="button" title="Status (multiple)"
+                class="form-control custom-dropdown-section custom-dropdown w-100"
+                data-bs-toggle="dropdown" aria-expanded="false">
+            <ng-container *ngIf="selectedStatusNames.length === 0">
+              Select Booking Status
+            </ng-container>
+            <ng-container *ngIf="selectedStatusNames.length > 0">
+              {{ selectedStatusNames.join(', ') }}
+            </ng-container>
+            <i class="fa-solid fa-angle-down"></i>
+          </span>
+         <ul class="dropdown-menu custom-dropdown w-100 booking-drop-down"
+          [ngClass]="{'selected': selectedStatusNames.length > 0, 'not-selected': selectedStatusNames.length === 0}"
+          aria-labelledby="navbarAdminDropdown">
+            <li *ngIf="selectedStatusNames.length > 0">
+              <a class="dropdown-item clear-drop-down filter" (click)="clearAllStatuses(); $event.stopPropagation();" (keydown.enter)="clearAllStatuses(); $event.stopPropagation();" tabindex="0">
+              <i class="fa fa-times mr-2"></i>  Clear
+              </a>
+            </li>
+            <li *ngFor="let status of bookingStatus; let index = index">
+              <a class="dropdown-item" (click)="toggleBookingType(status.value, index, status.title); $event.stopPropagation();" (keydown.enter)="toggleBookingType(status.value, index, status.title); $event.stopPropagation();" tabindex="0">
+                <span class="fa mr-2" [ngClass]="{'text-success fa-check': isChecked(status.value)}"></span>
+                {{ status?.title }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>

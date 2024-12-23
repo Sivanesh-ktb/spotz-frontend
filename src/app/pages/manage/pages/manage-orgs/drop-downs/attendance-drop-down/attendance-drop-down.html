@@ -1,0 +1,25 @@
+<div class="allowed-activiies w-100 mt-2">
+  <p class="drop-down-title">Attendance</p>
+  <div class="input-group full-width-select-dro-down mb-2">
+    <div class="card flex justify-content-center full-width-select-dro-down w-100">
+      <div class="admin-text">
+        <li class="nav-item dropdown">
+          <span id="navbarAdminDropdown" role="button"
+          class="form-control custom-dropdown-section custom-dropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">{{selectedName}}
+          <i class="fa-solid fa-angle-down"></i></span>
+          <ul class="dropdown-menu custom-dropdown  w-100" aria-labelledby="navbarAdminDropdown">
+              <li *ngIf="selectedName.length > 0">
+                <a class="dropdown-item clear-drop-down filter" (click)="clearAllAttendance(); $event.stopPropagation();" (keydown.enter)="clearAllAttendance(); $event.stopPropagation();" tabindex="0">
+                <i class="fa fa-times mr-2"></i>  Clear</a>
+            <li *ngFor="let attendance of attendanceEnum; let current = index">
+              <a (click)="selectFacility(attendance.value,current,attendance.label)" (keydown.enter)="selectFacility(attendance.value,current,attendance.label)" tabindex="0" class="dropdown-item small">
+              <span class="fa mr-2" [ngClass]="{'text-success fa-check': isChecked(current)}"
+              ></span>
+              {{attendance.label}}</a></li>
+          </ul>
+        </li>
+      </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,93 @@
+.availability-card {
+	border: 1px solid #618494;
+	padding: 17px 12px;
+	border-radius: 10px;
+}
+.availability-btn {
+	position: relative;
+	height: 100px;
+}
+.listing-page-tab .nav.nav-tabs .nav-item a {
+	color: #fff !important;
+	background: #274451;
+	border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+.nav.nav-tabs,li.nav-item.booking-tab-container {
+	border-bottom: 1px solid #92a7af;
+}
+
+
+.availability-container {
+	padding-top: 0px;
+}
+
+.header h2{
+	font-size: 20px !important;
+}
+.calendar_h3{
+	font-size: 24px !important;
+	padding-top: 20px;
+	padding-bottom: 10px;
+    font-weight: 500 !important;
+    line-height: 1.1 !important;
+    color: inherit;
+}
+.click-to-book{
+	text-align: end;
+	padding-top: 20px;
+    padding-bottom: 10px;
+	font-size: 17px;
+}
+.icon_square{
+	color: #034A61;
+    opacity: .3;
+    margin-right: 4px;
+}
+.fc-toolbar-chunk {
+	display: flex;
+	align-items: center;
+  }
+  
+  .fc-button-group {
+	display: inline-flex;
+	margin-right: 8px;
+  }
+  
+  .fc-today-button,
+  .fc-calendarIcon-button,
+  .fc-prev-button,
+  .fc-next-button {
+	background-color: #f5f5f5;
+	color: #333;
+	border: 1px solid #ccc;
+	padding: 8px 12px;
+	font-size: 14px;
+	cursor: pointer;
+  }
+  
+  .fc-today-button:hover,
+  .fc-calendarIcon-button:hover,
+  .fc-prev-button:hover,
+  .fc-next-button:hover {
+	background-color: #e6e6e6;
+  }
+  
+  .fc-today-button:active,
+  .fc-calendarIcon-button:active,
+  .fc-prev-button:active,
+  .fc-next-button:active {
+	background-color: #dcdcdc;
+  }
+  
+  .fc-button-group:first-of-type {
+	border-radius: 4px;
+  }
+  .fc.calendar .fc-icon-calendar {
+    display: block;
+    padding: .5em .2em;
+    height: 100%;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1em;
+}

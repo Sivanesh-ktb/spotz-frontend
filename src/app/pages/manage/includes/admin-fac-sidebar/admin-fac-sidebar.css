@@ -1,0 +1,124 @@
+.admin-nav .links {
+  background-color: #fff;
+  margin-bottom: 15px;
+  border-radius: 18px;
+  box-shadow: 0 1px 2px 1px rgba(67,79,92,.141);
+}
+.admin-nav .nav.left-nav {
+  padding: 0 20px 20px;
+}
+.admin-side-bar-section {
+  background: #fff;
+  border-radius: 16px;
+}
+.left-panel-title.ellipsis {
+  font-family: inherit!important;
+  font-size: 21px!important;
+  color: #044f80;
+  background-color: #d3eaf0;
+  font-weight: 700;
+  padding: 20px;
+  border-radius: 18px 18px 0 0;
+}
+  .admin-nav .nav.left-nav {
+    padding: 0 20px 20px;
+  }
+  .left-panel-title.ellipsis {
+    font-family: inherit!important;
+    font-size: 20px!important;
+    color: #044f80;
+    background-color: #d3eaf0;
+    font-weight: 700;
+    padding: 20px;
+    border-radius: 18px 18px 0 0;
+  }
+  ul {
+    padding: 0;
+  }
+  .error+.error, ul {
+    margin: 0;
+  }
+  .manage .left-nav li.header {
+    font-size: 1em;
+    padding: 15px 0;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0;
+  }
+  .leftmenu-bottom {
+    padding: 12px 10px;
+    background-color: #d3eaf0;
+    border-radius: 0 0 18px 18px;
+  }
+  .cart-subnav>li, .facility-detail ul.checklist, ul li {
+    list-style-type: none;
+  }
+  .leftmenu-bottom li a {
+    font-weight: 600;
+    color: #025266;
+  }
+  .leftmenu-bottom li a span.fa {
+    margin-right: 5px;
+  }
+  ul.nav-pills.nav-stacked {
+    padding-left: 20px;
+  }
+
+  ul.nav-pills.nav-stacked li {
+    margin-bottom: 20px;
+
+  }
+  ul.nav-pills.nav-stacked li a{
+    text-decoration: none;
+    color: #000;
+  }
+  .col-sm-6.col-xs-12.hidden-print h1.ng-binding.ng-scope {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 10px!important;
+    font-family: inherit;
+    color: #044f80;
+  }
+  ul.nav.nav-pills.nav-stacked.leftmenu-bottom {
+    display: flex;
+    flex-direction: column;
+  }
+  li.ng-scope.header span.ng-binding.ng-scope {
+    font-size: 1.2em;
+    padding: 15px 0;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0;
+  }
+  li.ng-scope.header span.ng-binding.ng-scope {
+    font-size: 1em;
+    padding: 15px 0;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0;
+}
+ul.nav-pills.nav-stacked li a{
+  text-decoration: none;
+  color: #000;
+}
+.col-sm-6.col-xs-12.hidden-print h1.ng-binding.ng-scope {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px!important;
+  font-family: inherit;
+  color: #044f80;
+}
+ul.nav.nav-pills.nav-stacked.leftmenu-bottom {
+  display: flex;
+  flex-direction: column;
+}
+a.ng-binding.ng-scope.view-facility {
+  cursor: pointer;
+}
+.sidebar-heading{
+  padding: 15px 0;
+}
+.not-allowed {
+  cursor: not-allowed !important;
+}
+

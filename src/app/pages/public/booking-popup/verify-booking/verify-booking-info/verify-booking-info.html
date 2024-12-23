@@ -1,0 +1,113 @@
+<div class="animate-switch ng-scope mb-4">
+  <div class="ng-scope">
+    <h4 class="facility-listing">Verify Booking</h4>
+    <div class="payment px-3">
+      <div class="row" aria-hidden="false">
+        <div class="col-sm-6 col-lg-6 col-md-6">
+          <div class="form-group row mb-2">
+            <label class="col-sm-4 col-xs-4 col-md-4 col-lg-4 fw-bold" for="Event Info">Event Info</label>
+            <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
+              <p aria-hidden="false" *ngIf="booking?.sport">{{booking.sport}}</p>
+              <p> <i>{{booking.eventName}}</i></p>
+              <p>Attendance: {{booking.attendance}}</p>
+            </div>
+          </div>
+          <div class="form-group row mb-2" *ngIf="booking?.details?.length">
+            <label class="col-sm-4 col-xs-4 col-md-4 col-lg-4 fw-bold" for="Notes">Notes</label>
+            <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
+              <p>{{ booking.details }}</p>
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-sm-4 col-xs-4 col-md-4 col-lg-4 fw-bold" for="Supervisor">Supervisor</label>
+            <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
+              <p>
+                <span *ngIf="booking?.supervisor?.title">
+                  {{ booking.supervisor.title }}&nbsp;
+                </span>
+                {{ booking.supervisor.firstName }} {{ booking.supervisor.lastName }}
+              </p>
+              <p>{{ booking.supervisor.email }}</p>
+              <p>{{ booking.supervisor.phon ?? "" | phone }}</p>
+              <div *ngIf="booking?.supervisor?.affiliation && booking?.supervisor?.affiliation !== 'None'">
+                <br />
+                <p>
+                  <i>On behalf of...</i>
+                  <br />
+                  <span *ngIf="booking?.supervisor?.otherAffiliation">
+                    {{ booking.supervisor.otherAffiliation }}
+                  </span>
+                  <span *ngIf="!booking?.supervisor?.otherAffiliation">
+                    {{ booking.supervisor.affiliation }}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="!isCartCheckOut" class="row mb-2">
+          <div *ngIf="booking.cost.options && booking.cost.options.length" class="col-sm-6">
+            <div class="form-group">
+              <label class="col-sm-4 col-xs-4 col-md-4 col-lg-4 fw-bold" for="Options">Options</label>
+              <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
+                <p *ngFor="let addon of booking.cost.options">
+                  {{ addon.name }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3 mb-2">
+          <div class="col-sm-12 col-lg-12 col-md-12">
+            <div class="well terms">
+              <div class="row" aria-hidden="false">
+                <div class="col-sm-1">
+                  <input type="checkbox" tabindex="0" [(ngModel)]="booking.terms" required="required" aria-checked="true" aria-required="false"
+                    aria-invalid="false">
+                </div>
+                <div class="col-sm-11">
+                  <p>
+                    <span aria-hidden="false">I agree </span>to the following Terms:
+                  </p>
+                  <p><a (click)="viewTermsOfRental()" (keydown.enter)="viewTermsOfRental()" tabindex="0" class="plain-link">Spotz Terms of Rental  <span class="fa fa-external-link"></span></a></p>
+                  <p class="ng-scope"><em>Insurance Requirement</em>
+                    <br>I have collected or will collect a Participant Waiver from each participant. [
+                    <a (click)="viewSampleWaiver()" (keydown.enter)="viewSampleWaiver()" tabindex="0" class="view-samples" target="print">Sample waiver</a>]
+                  </p><br>
+                  <p><span aria-hidden="false">I agree </span>to
+                    the following Damage Deposits:
+                  </p>
+                  <p class="help-block">
+                    Deposits will only be charged after the event occurs and any subjective deposits will be charged
+                    entirely at the discretion of the host.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" aria-hidden="false">
+          <div class="col-sm-12 text-right">
+            <div class="button-links divide">
+              <button class="btn btn-link" (click)="reverse()"><span class="fa fa-chevron-circle-left"></span>Back</button>
+              <button type="button" class="btn btn-link" aria-hidden="false" (click)="cancel()">
+                Cancel<span class="fa fa-times"></span>
+              </button>
+              <button
+              id="book"
+              type="submit"
+              class="btn btn-primary"
+              (click)="bookRental()"
+              [ngClass]="{'disabled': !booking.terms}"
+              [disabled]="!booking.terms">
+              Book Rental <span class="fa fa-chevron-circle-right"></span>
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,305 @@
+<ng-container *ngIf="spaceAvailabilityDetails && spaceAvailabilityDetails.data">
+  <div class="cart booking-receipt right">
+    <div class="listing-search confirmation mb-2">
+      <div class="receipt-header">
+        <div class="row">
+          <div class="col-xs-5 col-sm-6 col-md-5 col-lg-5">
+            <div class="d-none d-sm-block">
+              <h3 class="no-select">
+                  <span class="badge bg-secondary">3</span> Book
+              </h3>
+            </div>
+          </div>
+          <div *ngIf="cart?.booking?.cost" class="text-end count col-xs-3 col-sm-3 col-md-3">
+            <a class="d-sm-inline-block d-xs-inline-block"
+              (click)="cart.showDetails = !cart.showDetails" (keydown.enter)="cart.showDetails = !cart.showDetails" tabindex="0" style="padding-top: 0;">
+            </a>
+          </div>
+          <div  *ngIf="cart?.booking?.cost" class="text-end dollars col-xs-4 col-sm-3 col-md-4">
+            <span class="amount">{{ cart.booking.cost.total | currency:'$' }}</span>
+            <a *ngIf="cart.booking.cost.total >= 1000" class="visible-smx-inline-block total-amount-text visible-xs-inline-block"
+              (click)="cart.showDetails = !cart.showDetails">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="booking-details" [class.collapse]="cart && !cart.showDetails">
+        <div class="space">
+          <div class="row">
+            <div class="col-md-6">
+              <span *ngIf="cart?.booking?.info?.s?.name">{{ cart.booking.info.s.name }}</span><br>
+              <span *ngIf="cart?.booking?.info?.f?.name">@ {{ cart.booking.info.f.name }}</span>
+            </div>
+            <div class="col-3 text-end px-0">
+              <a 
+                href="javascript:void(0);" 
+                (click)="isOpen = !isOpen" 
+                *ngIf="cart?.booking && cart.booking.children.length" 
+                class="d-block p-2 toggle"
+              >
+                <span *ngIf="!isOpen">hide</span>
+                <span *ngIf="isOpen">show</span>
+                <span 
+                  [ngClass]="{'fa-caret-down': isOpen, 'fa-caret-up': !isOpen}" 
+                  class="ms-2 fa" 
+                ></span>
+              </a>
+            </div>            
+            <div class="col-md-3 text-end" *ngIf="cart?.booking && cart.booking.price">
+              <span *ngIf="cart.booking.cost.count">
+                {{ cart.booking.cost.count | durationString: null: cart.booking.divisor :true}}
+              </span><br>
+              <span>{{ cart.booking.price }}</span>
+            </div>
+          </div>
+
+          <div class="blocks" *ngIf="cart?.booking && isOpen">
+            <div class="row" *ngFor="let event of cart.booking.children" [ngClass]="{'error-item':!event.valid}">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <strong>
+                      {{ formatDate(event.eventDate) }}
+                    </strong>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12" style="padding-right: 0;">
+                    <span *ngIf="!event.pricing">
+                      <span [innerHTML]="event.blocks | timespanPipe:event.divisor:false:false:false:true"></span>
+                    </span>
+                    <span *ngIf="event.pricing">
+                      <span *ngFor="let price of event.pricing; let i= index">
+                        <span *ngIf="i>0">
+                          <br>
+                        </span>
+                        <span>
+                          {{ price.startTime | timeslotPipe : 12}} to {{price.endTime | timeslotPipe : 12 }}
+                          {{price.name}}
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 text-end">
+                x {{event.blocks | duration: event.divisor : true}}
+              </div>
+
+              <div class="col-md-3 text-end">
+                <!-- <div *ngIf="cart.listing.selectedSpace.rentaltypes === 2">
+                  ${{cart.listing.selectedSpace.price}}
+                </div>
+                <div *ngIf="cart.listing.selectedSpace.rentaltypes !== 2">
+                  ${{event.rate}}
+                </div> -->
+                {{ formatCurrency(event.rate || 0) }}
+              </div>
+
+              <div class="col-md-12" *ngIf="event.error">
+                <div>
+                  <span class="fa fa-exclamation-triangle">
+                    {{event.error}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subtotal" *ngIf="cart?.booking && cart.booking.cost.rateHours.base">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                Subtotal for
+                <span *ngIf="cart.booking.children.length > 1">
+                  {{ cart.booking.children.length }} days
+                </span>
+                <span *ngIf="cart.booking.children.length === 1">
+                  {{ formatDate(cart.booking.children[0].eventDate) }}
+                </span>
+              </div>
+
+              <div class="col-sm-3 col-md-3 text-end">
+                <span *ngIf="cart.booking.price">
+                  {{ cart.booking.cost.count }} hours
+                </span><br>
+                <span *ngIf="!cart.booking.price">
+                  {{ cart.booking.cost.totalHours }} hours
+                </span>
+              </div>
+
+              <div class="col-sm-3 col-md-3 text-end">
+                {{ formatCurrency(cart.booking.cost.rateHours.base) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="subtotal discount" *ngIf="cart?.booking && cart.booking.cost.discount.amount">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <em>
+                  <strong *ngIf="cart && cart.booking && cart.booking.cost && cart.booking.cost.discount &&
+                  cart.booking.cost.discount.group && cart.booking.cost.discount.group.name"
+                  >{{ cart.booking.cost.discount.group.name }} Discount</strong>
+                </em>
+              </div>
+              <div *ngIf="cart && cart.booking && cart.booking.cost && cart.booking.cost.discount &&
+              cart.booking.cost.discount.percentage"
+              class="col-sm-3 col-md-3 text-end">
+                ({{ cart.booking.cost.discount.percentage }}%)
+              </div>
+              <div *ngIf="cart && cart.booking && cart.booking.cost && cart.booking.cost.discount &&
+              cart.booking.cost.discount.amount" class="col-sm-3 col-md-3 text-end">
+                {{ formatCurrency(cart.booking.cost.discount.amount) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="subtotal" *ngIf="cart?.booking && cart.booking.options.length">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <strong>Space Options</strong>
+              </div>
+            </div>
+
+            <div class="opts" >
+              <ng-container *ngIf="cart?.booking">
+                <div class="row" *ngFor="let addon of cart.booking.options">
+                  <div class="col-sm-9 col-md-9">
+                    {{ addon.name }}
+                    <span *ngIf="!addon.perItem && addon.quantity > 0">
+                      (Quantity {{ addon.quantity }})
+                    </span>
+                    <span *ngIf="addon.perItem">
+                      <span *ngIf="+addon.use > 0">
+                        (Quantity {{ addon.use }})
+                      </span>
+                      <span *ngIf="+addon.use === 0" style="color:#e58327;">
+                        (em select qty.)
+                      </span>
+                    </span>
+                    <span *ngIf="addon && addon.subtotal && addon.subtotal > 0 && !addon.include" class="text-end">
+                      &#151; {{ calculateSubtotal(addon) }}
+                    </span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="subtotal discount"
+            *ngIf="cart?.booking && cart.booking.cost.discount.percentage === 100 && cart.booking.cost.optionsTotal">
+            <div class="row">
+              <div class="col-sm-6 col-xs-6">
+                <em>
+                  <strong>{{ cart.booking.cost.discount.group?.name || '' }} Discount</strong>
+                </em>
+              </div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                ({{ cart.booking.cost.discount.percentage }}%)
+              </div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                {{ cart.booking.cost.optionsTotal | currency: '$' }}
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="cart?.booking && cart.booking.cost.rateHours?.base" class="subtotal">
+            <div class="row">
+              <div class="col-sm-6 col-xs-6">Subtotal</div>
+              <div class="col-sm-6 col-xs-6 text-right">
+                {{ cart.booking.cost.subtotal | currency: '$' : '1.2-2' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="subtotal fees">
+            <div *ngIf="cart?.booking && cart.booking.cost.fees?.tax" class="row">
+              <div class="col-sm-6 col-xs-6">Sales Tax</div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                {{ (cart.booking.cost.taxRate * 100) | number: '1.0-0' }}%
+              </div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                {{ cart.booking.cost.fees.tax | currency: '$' : '1.2-2' }}
+              </div>
+            </div>
+
+            <div *ngIf="cart?.booking && cart.booking.cost.fees?.insurance" class="row">
+              <div class="col-sm-6 col-xs-6">Spotz Insurance</div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                {{ (insurance * 100) | number: '1.2-2' }}%
+              </div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                {{ cart.booking.cost.fees.insurance | currency: '$' : '1.2-2' }}
+              </div>
+            </div>
+
+            <div *ngIf="cart?.booking && cart.booking.cost.fees?.tx" class="row">
+              <div class="col-sm-6 col-xs-6">Processing Fees</div>
+              <div class="col-sm-3 col-xs-3 text-right">{{ cart.taxfees }}%</div>
+              <div class="col-sm-3 col-xs-3 text-right">
+                {{ cart.booking.cost.fees.tx | currency: '$' }}
+              </div>
+            </div>
+
+            <div *ngIf="cart?.booking && cart.booking.cost.fees?.book" class="row">
+              <div class="col-sm-6 col-xs-6">
+                Spotz
+                <span *ngIf="cart.booking?.children && cart.booking.children.length === 1">Single Service Fee</span>
+                <span *ngIf="cart.booking?.children && cart.booking.children.length > 1">Recurring Service Fee</span>
+              </div>
+              <div class="col-sm-3 col-xs-3 text-right"></div>
+              <div class="col-sm-3 col-xs-6 text-right">
+                {{ cart.booking.cost.fees.book | currency: '$' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="subtotal total" *ngIf="cart?.booking">
+            <div class="row d-flex">
+              <div class="col-6">
+                <i class="fa fa-shopping-cart hidden-xs hidden-sm"
+                  style="font-size:2.3em; color:#e58327; float:left; margin-right:10px;"></i>
+                <span class="amount">Total</span>
+              </div>
+              <div class="col-6 text-right">
+                <span class="amount">{{ cart.booking.cost.total | currency: '$' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="go hidden-smx hidden-xs" [ngClass]="{open: cart.showDetails}">
+          <div class="text-center">
+            <div *ngIf="!(cart.showDetails || !cart.error.days.length)">
+              <span class="fa fa-exclamation-triangle"></span>
+              Please fix selection errors in order to continue.
+            </div>
+          </div>
+
+          <div *ngIf="schedulePage" class="button-links">
+            <button class="btn btn-primary w-100 continue-btn" type="submit"
+                    (click)="forward(); cart.showFull = false; cart.showDetails = true; submitSchedule()"
+                    [disabled]="cart.error.days.length || !cart.booking.children.length">
+              Continue to book
+              <span class="fa fa-chevron-circle-right"></span>
+            </button>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <!-- <div class="col-md-12">
+            <a href="" (click)="cart.showDetails = !cart.showDetails">
+              <span class="fa" [ngClass]="{'fa-caret-down': cart.showDetails, 'fa-caret-up': !cart.showDetails}"></span>
+              <span *ngIf="cart.showDetails">&nbsp;hide</span>
+              <span *ngIf="!cart.showDetails">&nbsp;show</span>
+              details&nbsp;
+              <span class="fa" [ngClass]="{'fa-caret-down': cart.showDetails, 'fa-caret-up': !cart.showDetails}"></span>
+            </a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

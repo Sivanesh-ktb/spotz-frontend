@@ -1,0 +1,155 @@
+<div class="modal fade show update-access" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Admin</h1>
+        <a type="button" class="btn-close" (click)="closeUpdateDialog()" (keydown.enter)="closeUpdateDialog()" tabindex="0" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body" id="modal-box">
+        <div class="row popup-bx">
+          <div class="col-lg-2">
+            <div class="access-h">
+              <p>Access</p>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="edit-group">
+              <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"
+              [ngClass]="{'currentTabActive': accessType === 0}"
+              (click)="showContentButton()">
+              Group Default
+              </button>
+              <button type="button" class="btn btn-outline-primary"
+              [ngClass]="{'currentTabActive': accessType === 1}"
+              (click)="facilitiesAndSpace()">
+              Custom
+              </button>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <ng-container *ngIf="active === 2">
+            <div class="remove-button">
+              <button type="button"  (click)="removeAllAccess()" class="btn btn-danger"><span
+                  class="fa fa-times"></span> Remove All Access</button>
+            </div>
+          </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!--Group Default  -->
+      <div class="group-default" *ngIf="accessType === 0">
+        <p>ALL spaces @ ALL facilities</p>
+      </div>
+      <div class="custom-cnt" id="content" class="hidden px-3" *ngIf="accessType === 1">
+        <div class="custom-cn group-default">
+          <p>No space types or facilities selected</p>
+        </div>
+        <div class="custom-tab">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="facilities-tab" data-bs-toggle="tab" data-bs-target="#facilities" type="button"
+                role="tab" aria-controls="facilities" aria-selected="true">Facilities</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link color-block" id="space-type-tab" data-bs-toggle="tab" data-bs-target="#space-type" type="button"
+                role="tab" aria-controls="space-type" aria-selected="false">Space Types</button>
+            </li>
+          </ul>
+          <div class="tab-content user-access-popup" id="myTabContent">
+            <div class="tab-pane fade show active user-access fac" id="facilities" role="tabpanel" aria-labelledby="facilities-tab">
+              <div class="facilities-cnt">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h6>Facilities</h6>
+                  </div>
+                  <div class="col-lg-6 d-flex justify-content-end">
+                    <div class="btn-group btn-cus" role="group" aria-label="Basic outlined example">
+                      <button type="button" class="btn btn-outline-primary" (click)="selectAllFacilities()">All</button>
+                      <button type="button" class="btn btn-outline-primary" (click)="removeAllFacilities()">None</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="custom-check">
+                <form [formGroup]="facilityForm">
+                  <div class="row">
+                    <ng-container *ngFor="let facility of facilities">
+                      <div class="col-lg-4">
+                        <div class="form-check cursor-pointer">
+                          <input class="form-check-input cursor-pointer" type="checkbox"
+                          [formControlName]="facility.id"
+                          [id]="facility.name">
+                          <label class="form-check-label cursor-pointer cursor-pointer"
+                          [for]="facility.name">
+                            {{facility.name}}
+                          </label>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="tab-pane fade custom-tb user-access fac" id="space-type" role="tabpanel" aria-labelledby="space-type-tab">
+              <div class="custom-cnt">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h6>Space Types</h6>
+                  </div>
+                  <div class="col-lg-6 d-flex justify-content-end">
+                    <div class="btn-group btn-cus" role="group" aria-label="Basic outlined example">
+                      <button type="button" class="btn btn-outline-primary" (click)="selectAllSpaceTypes()">All</button>
+                      <button type="button" class="btn btn-outline-primary" (click)="removeAllSpaceTypes()">None</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="custom-check">
+                <form [formGroup]="spaceForm">
+                  <div class="row">
+                    <ng-container *ngFor="let spaceType of spaceTypes">
+                      <div class="col-lg-4">
+                        <div class="form-check cursor-pointer" *ngIf="spaceType?.name">
+                          <input
+                            class="form-check-input cursor-pointer"
+                            type="checkbox"
+                            [formControlName]="spaceType.name"
+                            [value]="spaceType?.value"
+                            [id]="spaceType.name"
+                          >
+                          <label
+                            class="form-check-label cursor-pointer"
+                            [for]="spaceType.name">
+                            {{ spaceType?.name }}
+                          </label>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-show="data.group.name === 'Admin'" class="row ng-hide notify-me-checkbox" aria-hidden="true">
+        <div class="col-sm-12">
+          <div class="checkbox px-3">
+            <label>
+              <input type="checkbox" [(ngModel)]="notify" class="form-check-input cursor-pointer" tabindex="0">
+              Notify User of Reservation Requests
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end gap-2 py-2 px-2">
+        <button type="button" class="btn btn-default" (click)="closeUpdateDialog()" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" (click)="saveMemberAccess()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

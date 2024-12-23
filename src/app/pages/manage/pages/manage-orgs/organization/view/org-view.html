@@ -1,0 +1,618 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar [orgName]="orgDetails?.name"></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar [orgName]="orgDetails?.name"[viewOrgPage]='viewOrg'>
+          </app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9">
+          <div class="image-place">
+            <div class="spotz">
+              <div class="sp-img">
+                <div
+                  class="drop-bg"
+                  id="bannerImage"
+                  [style.background-image]="'url(' + (orgDetails && orgDetails.banner ? orgDetails.banner : '/assets/img/Drop-Img.png') + ')'"
+                  (click)="triggerFileUpload()" (keydown.enter)="triggerFileUpload()" tabindex="0"
+                  (drop)="handleDropBannerImg($event)"
+                  (dragover)="handleDragOverBannerImg($event)"
+                >
+                  <p-fileUpload
+                    #fileUpload
+                    mode="advanced"
+                    name="demo[]"
+                    url="{{uploadUrl}}"
+                    accept="image/*"
+                    chooseLabel=""
+                    uploadLabel="Upload"
+                    (onUpload)="onBasicUploadAutoBanner($event)"
+                    [auto]="true"
+                    styleClass="hidden-file-upload"
+                  >
+                  </p-fileUpload>
+                  <div *ngIf="loadingbanner" class="loadingbanner" [ngClass]="{'show': loadingbanner}"></div>
+                  <label for="img"></label>
+                  <div class="dp-icon">
+                    <button class="btn btn-secondary">
+                      <span class="fa fa-camera"></span>
+                    </button>
+                  </div>
+                </div>
+                <div class="og-h-box">
+                  <div
+                    class="upload-org-profile-image"
+                    [ngClass]="{'active': orgDetails?.logo}"
+                    [style.background-image]="'url(' + (orgDetails && orgDetails.logo ? orgDetails.logo : '') + ')'"
+                    (click)="triggerFileUploadProfile()"  (keydown.enter)="triggerFileUploadProfile()" tabindex="0"
+                    (mouseenter)="onHover(true)"
+                    (mouseleave)="onHover(false)"
+                    (drop)="handleDropProfileImg($event)"
+                    (dragover)="handleDragOverProfileImg($event)"
+                  >
+                    <p-fileUpload
+                      #fileUploadProfile
+                      mode="advanced"
+                      name="profile[]"
+                      url="{{uploadUrl}}"
+                      accept="image/*"
+                      chooseLabel=""
+                      uploadLabel="Upload"
+                      (onUpload)="onBasicUploadProfile($event)"
+                      [auto]="true"
+                      styleClass="hidden-file-upload"
+                    >
+                    </p-fileUpload>
+                    <div *ngIf="loadingprofile" class="loader" [ngClass]="{'show': loadingprofile}"></div>
+                    <ng-container *ngIf="showUploadInfo">
+                      <div class="instructions">
+                        <p><span class="profile-drop fa fa-picture-o"></span><br>
+                          Drop new photo here <br><em>— or —</em><br><span class="fa fa-mouse-pointer"></span> click to upload
+                        </p>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="text-center test-org">
+                  <p>Organization</p>
+                  <div class="organization-details align-items-center text-align-cetner">
+                    <h4 class="color-black" *ngIf="orgDetails">
+                      {{orgDetails.name}}
+                    </h4>
+                    <a class="color-black" (click)="editOrganization()"  (keydown.enter)="editOrganization()" tabindex="0">
+                     <i class="fas fa-pencil-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <h5 class="d-lo">
+                <i class="fas fa-map-marker-alt"></i> Details
+              </h5>
+              <div class="details-box">
+                <h6>Address</h6>
+
+                <p *ngIf="orgDetails && orgDetails?.address?.street1">
+                  {{orgDetails?.address?.street1}},
+                </p>
+                <p *ngIf="orgDetails && orgDetails?.address?.city">
+                  {{orgDetails?.address?.city}},
+                </p>
+                <p *ngIf="orgDetails && orgDetails?.address?.state">
+                  {{orgDetails?.address?.state}},
+                  {{orgDetails?.address?.country}}
+                </p>
+                <ng-container *ngIf="orgDetails">
+                  <app-org-introduction
+                    [orgDescription]="orgDescription"
+                    [editOrgDescription]="editOrgDescription"
+                  >
+                  </app-org-introduction>
+                </ng-container>
+                <div class="contact-us">
+                  <h6>Contacts</h6>
+                  <a (click)="viewContactInformation()"  (keydown.enter)="viewContactInformation()" tabindex="0">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12 col-sm-12">
+                    <div ng-hide="vm.showContacts" aria-hidden="false" class="">
+                      <ng-container
+                        *ngIf="orgDetails?.contacts?.length > 0; else noContacts"
+                      >
+                        <ul class="contacts">
+                          <li
+                            *ngFor="let contact of orgDetails.contacts"
+                            class="ng-scope"
+                          >
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="row">
+                                  <div
+                                    class="col-lg-12 ng-binding d-flex gap-2"
+                                  >
+                                    {{contact?.firstName}} {{contact?.lastName}}
+                                    <div
+                                      class="label label-info"
+                                      aria-hidden="false"
+                                    >
+                                      {{contact?.typ}}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div
+                                    style="font-size: 0.8em"
+                                    class="col-lg-12 d-flex gap-2"
+                                  >
+                                    <em
+                                      class="ng-binding"
+                                      title="contact?.email"
+                                      >{{contact?.title}}</em
+                                    >
+                                    <span
+                                      *ngIf="contact?.email"
+                                      title="{{contact?.email}}"
+                                      class="fa fa-envelope mt-1"
+                                      aria-hidden="false"
+                                    ></span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6 no-padding">
+                                <div class="ng-scope">
+                                  <div
+                                    *ngFor="let phone of contact.phones"
+                                    class="d-flex gap-2 mb-2"
+                                  >
+                                    <i class="fa-solid fa-phone"></i>
+                                    <div
+                                      style="font-size: 0.6em"
+                                      class="label label-default ng-binding"
+                                    >
+                                      {{phone?.typ}}
+                                    </div>
+                                    <span
+                                      style="font-size: 0.9em"
+                                      class="ng-binding"
+                                    >
+                                      {{phone?.num}}</span
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </ng-container>
+                      <ng-template #noContacts>
+                        <p>
+                          No contact information listed for this organization.
+                        </p>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="links">
+                <h5><i class="fas fa-link"></i> Links</h5>
+              </div>
+              <div class="test">
+                <h6 *ngIf="orgDetails && orgDetails?.social?.facebook">
+                  <a
+                    class="color-black fw-normal"
+                    target="_blank"
+                    [href]="orgDetails?.social?.facebook"
+                    ><i class="fab fa-facebook-f org-social-links"></i>{{
+                    getDomain(orgDetails?.social?.facebook) }}</a
+                  >
+                </h6>
+                <h6 *ngIf="orgDetails && orgDetails?.social?.twitter">
+                  <a
+                    class="color-black fw-normal"
+                    target="_blank"
+                    [href]="orgDetails?.social?.twitter"
+                    ><i class="fab fa-twitter org-social-links"></i>{{
+                    getDomain(orgDetails?.social?.twitter) }}</a
+                  >
+                </h6>
+                <h6 *ngIf="orgDetails && orgDetails?.social?.instagram">
+                  <a
+                    class="color-black fw-normal"
+                    target="_blank"
+                    [href]="orgDetails?.social?.instagram"
+                    ><i class="fab fa-instagram org-social-links"></i>{{
+                    getDomain(orgDetails?.social?.instagram) }}</a
+                  >
+                </h6>
+                <h6 *ngIf="orgDetails && orgDetails?.url">
+                  <a
+                    class="color-black fw-normal"
+                    target="_blank"
+                    [href]="orgDetails?.url"
+                    ><i class="fa fa-globe org-social-links"></i>{{
+                    getDomain(orgDetails?.url) }}</a
+                  >
+                </h6>
+              </div>
+
+              <div class="groups-iocns">
+                <div class="d-flex justify-content-between mt-3 mb-3">
+                  <div class="group-sec gap-2">
+                    <h4><i class="fas fa-building"></i> Facilities</h4>
+                    <p-tooltip-arrow
+                      pTooltip="{{orgFacilityInfo}}"
+                      tooltipPosition="bottom"
+                      class="question-arrow"
+                    >
+                      <a class="fa fa-question-circle"></a
+                    ></p-tooltip-arrow>
+                    <span class="badge ng-binding">
+                      {{orgDetails?.facilities?.length}}
+                    </span>
+                  </div>
+                  <div class="btn-group edit">
+                    <button
+                      class="btn btn-default btn-xs"
+                      (click)="viewFacilityList()"
+                    >
+                      <span class="fa-icon">
+                        <i class="fas fa-list"></i>
+                      </span>
+                      <span class="fa-text"> list </span>
+                    </button>
+                    <button
+                      (click)="addNewFacility()"
+                      class="btn btn-primary btn-xs ng-scope"
+                    >
+                      <span class="fa fa-plus-circle"></span
+                      ><strong> add</strong>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="filter-box mb-4">
+                  <div class="frm">
+                    <p>Filter</p>
+                    <input
+                      type="name"
+                      class="form-control search"
+                      [(ngModel)]="filterText"
+                      (ngModelChange)="filterFacility()"
+                      id="name"
+                      placeholder="Search"
+                      name="name"
+                    />
+                  </div>
+                  <div *ngIf="filteredFacility.length > 10">
+                    <app-pagination
+                      [totalItems]="totalItems"
+                      [pageSize]="pageSize"
+                      [multipleData]="filteredFacility"
+                      (pagedOrgDetails)="onSelectedPagination($event)"
+                    >
+                    </app-pagination>
+                  </div>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tags</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let fac of pagedOrgDetails">
+                        <th scope="row">
+                          <a (click)="viewFacility(fac?.id)"  (keydown.enter)="viewFacility(fac?.id)" tabindex="0" class="org-pencil-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                          </a>
+                        </th>
+                        <td>{{fac?.name}}</td>
+                        <td>{{fac?.tags}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row filter-box">
+                <div class="col-lg-4">
+                  <h6 class="logo-g">Logo</h6>
+                </div>
+                <div class="col-lg-8">
+                  <div
+                    class="logo-g1 text-center"
+                    (click)="triggerFileTrustLogo()"  (keydown.enter)="triggerFileTrustLogo()" tabindex="0"
+                    (drop)="handleDropTrustImg($event)"
+                    (dragover)="handleDragOverTrustImg($event)"
+                  >
+                    <ng-container *ngIf="orgDetails?.trust; else noTrustLogo">
+                      <img [src]="orgDetails.trust" alt="Trust Logo" />
+                    </ng-container>
+                    <ng-template #noTrustLogo>
+                      <img src="assets/img/logo-old.png" alt="Trust Logo" />
+                    </ng-template>
+                    <p-fileUpload
+                      #fileUploadTrustLogo
+                      mode="advanced"
+                      name="trust[]"
+                      url="{{uploadUrl}}"
+                      accept="image/*"
+                      chooseLabel=""
+                      uploadLabel="Upload"
+                      (onUpload)="onBasicUploadTrust($event)"
+                      [auto]="true"
+                      styleClass="hidden-file-upload"
+                    ></p-fileUpload>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <h6 class="terms">Terms</h6>
+                </div>
+                <div class="col-lg-8">
+                  <p class="transaction">
+                    Transaction Fee :<span class="fw-bold"
+                      >{{orgDetails?.terms?.tx * 100}}%</span
+                    >
+                  </p>
+                  <p *ngIf="orgDetails">
+                    Monthly :<span class="fw-bold"
+                      >${{orgDetails.monthly ? orgDetails.monthly : 0}}/mo</span
+                    >
+                  </p>
+                </div>
+                <div class="col-lg-4">
+                  <h6 class="toggle">Toggle</h6>
+                </div>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p
+                        *ngIf="orgDetails && orgDetails.claimed; else notClaimed"
+                      >
+                        <i class="fas fa-check fw-bold"></i> Claimed
+                      </p>
+                      <ng-template #notClaimed>
+                        <p>
+                          <input
+                            type="checkbox"
+                            id="playing"
+                            name="playing"
+                            disabled
+                            value="playing"
+                          />
+                          Claimed
+                        </p>
+                      </ng-template>
+                      <p
+                        *ngIf="orgDetails && orgDetails.paying; else notPaying"
+                      >
+                        <i class="fas fa-check"></i>Playing
+                      </p>
+                      <ng-template #notPaying>
+                        <p>
+                          <input
+                            type="checkbox"
+                            id="playing"
+                            name="playing"
+                            disabled
+                            value="playing"
+                          />
+                          Playing
+                        </p>
+                      </ng-template>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <p
+                        *ngIf="orgDetails && orgDetails.active; else notActive"
+                      >
+                        <i class="fas fa-check"></i> Active
+                      </p>
+                      <ng-template #notActive>
+                        <p>
+                          <input
+                            type="checkbox"
+                            id="playing"
+                            name="playing"
+                            disabled
+                            value="playing"
+                          />
+                          Active
+                        </p>
+                      </ng-template>
+                      <p
+                        *ngIf="orgDetails && orgDetails.featured; else notFeatured"
+                      >
+                        <i class="fas fa-check"></i> Featured
+                      </p>
+                      <ng-template #notFeatured>
+                        <p>
+                          <input
+                            type="checkbox"
+                            id="featured"
+                            name="Featured"
+                            disabled
+                            value="Featured"
+                          />
+                          Featured
+                        </p>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <h6 class="geocode">Geocode</h6>
+                </div>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p>
+                        <span class="fw-bold">lat:</span>
+                        <ng-container
+                          *ngIf="orgDetails && orgDetails?.address?.geocode?.coordinates[0]"
+                        >
+                          {{orgDetails?.address?.geocode?.coordinates[0]}}
+                        </ng-container>
+                      </p>
+                      <p>
+                        <span class="fw-bold">lng:</span>
+                        <ng-container
+                          *ngIf="orgDetails && orgDetails?.address?.geocode?.coordinates[1]"
+                        >
+                          {{orgDetails?.address?.geocode?.coordinates[1]}}
+                        </ng-container>
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="recode">
+                        <a (click)="recode()"  (keydown.enter)="recode()" tabindex="0">
+                          <p>Re-code</p>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <h6>Org ID</h6>
+                </div>
+                <div class="col-lg-8">
+                  <div class="obj-cnt">
+                    <p *ngIf="orgDetails && orgDetails._id">
+                      ObjectId({{orgDetails._id}})
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="section divider">
+                <app-org-groups [orgId]="orgId"> </app-org-groups>
+              </div>
+              <div class="settings-container">
+                <app-org-view-settings [orgId]="orgId"></app-org-view-settings>
+              </div>
+              <div class="rules">
+                <div class="">
+                  <h5><i class="fas fa-file"></i> Rules and attachments</h5>
+                </div>
+                <a (click)="viewOrgSettings()" (keydown.enter)="viewOrgSettings()" tabindex="0" class="fas fa-pencil-alt"></a>
+              </div>
+
+              <div class="rules-cnt">
+                <p>
+                  The rules, claims, or any additional information regarding the
+                  use of this organization's facilities. These documents will
+                  show up on the public listing pages for this organization, and
+                  on its facility and space pages.
+                </p>
+                <div *ngIf="orgDetails && orgDetails.files
+				&& orgDetails.files.length" style="border-bottom:1px solid #ccc;">
+                  <div class="row">
+                    <div class="col-sm-4 col-xs-4">
+                      <label class="control-label" for="Name">Name</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-8">
+                      <label class="control-label" for="Description">Description</label>
+                    </div>
+                  </div>
+                  <div *ngFor="let file of orgDetails.files" style="padding:10px 0">
+                    <div class="row">
+                      <div class="col-sm-4 col-xs-4">
+                        <span>{{ file.name }}&nbsp;</span>
+                        <span *ngIf="file.terms" class="fa fa-check-circle-o"></span>
+                      </div>
+                      <div class="col-sm-8 col-xs-8">
+                        <!-- Remove markdownToHtml pipe if not defined or use it if you have it -->
+                        <div *ngIf="file.description" [innerHTML]="file.description"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="embed">
+                <h5><i class="fas fa-code"></i> Embed</h5>
+              </div>
+              <div class="embed-cnt">
+                <p>
+                  Copy the following html into your website's CMS to be able to
+                  search your organization's availabilty directly from your
+                  website.
+                </p>
+                <div class="bg-btn">
+                  <div class="cnt-bg">
+                    <h6 class="bg-bx">Background</h6>
+                    <input type="checkbox" id="background-checkbox" [(ngModel)]="vm.embed.color"
+                      (change)="updateEmbed()" />
+                    Custom
+                    <div *ngIf="vm.embed.color">
+                      <h6 class="bg-btn1">Color</h6>
+                      <input type="text" [(ngModel)]="vm.embed.bgcolor" pattern="(?:[0-9a-fA-F]{3}){1,2}"
+                        (ngModelChange)="updateEmbed()" />
+                      <p class="help-block p-0">Enter HEX color code</p>
+                    </div>
+                  </div>
+
+                  <div class="cnt-bg">
+                    <h6 class="bg-bx">Button</h6>
+                    <input type="checkbox" id="button-checkbox" [(ngModel)]="vm.embed.button"
+                      (change)="updateEmbed()" />
+                    Custom
+                    <div *ngIf="vm.embed.button">
+                      <h6 class="bg-btn1">Color</h6>
+                      <input type="text" [(ngModel)]="vm.embed.btncolor" pattern="(?:[0-9a-fA-F]{3}){1,2}"
+                        (ngModelChange)="updateEmbed()" />
+                      <p class="help-block p-0">Enter HEX color code</p>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h6 class="dis-box">Display</h6>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="display-cnt">
+                        <p>
+                          <input type="radio" [(ngModel)]="vm.embed.display" value="button" (change)="updateEmbed()" />
+                          Button
+                        </p>
+                        <p>
+                          <input type="radio" [(ngModel)]="vm.embed.display" value="calendar"
+                            (change)="updateEmbed()" />
+                          Calendar
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="spc"></div>
+
+                <div class="iframe" *ngIf="orgDetails && orgDetails._id">
+                  <pre>{{ vm.embed.code }}</pre>
+                  <iframe [src]="vm.embed.url" id="spotz-widget" frameborder="0" width="100%"
+                    [height]="vm.embed.height"></iframe>
+                </div>
+
+                <app-embed-widget *ngIf="vm && vm.embed && vm.embed.btncolor" [buttonBgColor]="vm.embed.bgcolor || '#e58327'"
+                [orgDetails]="orgDetails"
+                  [buttonTextColor]="vm.embed.btncolor" [displayType]="vm.embed.display">
+                </app-embed-widget>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

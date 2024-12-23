@@ -1,0 +1,24 @@
+<div class="modal-content-popup">
+  <div class="modal-header-popup ng-scope d-flex justify-content-between">
+    <h4> DUPLICATE SPACE </h4>
+    <a (click)="dismissDuplicatePopup()" (keydown.enter)="dismissDuplicatePopup()" tabindex="0" class="close">X</a>
+  </div>
+  <div class="modal-popup-body admin booking ng-scope mt-3">
+    <div class="container-fluid">
+      <div class="modal-body ng-binding ng-scope"
+      ng-bind-html="msg">
+      Are you sure you would like to duplicate "{{displayName}}"?
+      <br><br>This will create an exact copy of the space, including pictures and addons, and name the space "{{displayName}} - COPY"
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ng-scope">
+    <div class="row">
+      <div class="bootstrap-switch-container mb-3 mt-2 d-flex gap-2">
+        <button type="submit"
+        class="btn btn-primary" (click)="duplicateSpaceConfirm()" aria-hidden="false">Yes</button>
+        <button type="button" class="btn btn-default" (click)="dismissDuplicatePopup()"
+        aria-hidden="false">No</button>
+      </div>
+    </div>
+  </div>

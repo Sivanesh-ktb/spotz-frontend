@@ -1,0 +1,62 @@
+
+  <div class="m-g">
+      <div class="mg-sec">
+        <div class="mg-icon text-center">
+          <ul class="sidebar-header">
+            <li class="cursor-pointer"(click)="viewInbox()" (keydown.enter)="viewInbox()" tabindex="0"
+            [ngClass]="{'fw-bold active-tab':currentRoute === 'inbox'}"><i class="fas fa-envelope"></i> inbox</li>
+            <li class="cursor-pointer" [ngClass]="{'fw-bold active-tab':currentRoute === 'schedule'}" (click)="viewEvents()" (keydown.enter)="viewEvents()" tabindex="0">
+              <i class="fas fa-calendar-check"></i> Events</li>
+            <li class="cursor-pointer" [ngClass]="{'fw-bold active-tab':currentRoute === 'cancel'}"
+            (click)="viewCancelReservations()" (keydown.enter)="viewCancelReservations()" tabindex="0">
+              <i class="fas fa-times"></i> Cancel</li>
+          </ul>
+        </div>
+        <div class="mg-head">
+          <h6>Manage Organization</h6>
+          <a (click)="viewOrg()" (keydown.enter)="viewOrg()" tabindex="0" class="nav-bar cursor-pointer" title="View organization">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'viewOrg' }">View</p>
+        </a>
+        <a (click)="viewSetting()" (keydown.enter)="viewSetting()" tabindex="0" class="nav-bar cursor-pointer" title="Settings">
+          <p [ngClass]="{ 'fw-bold active': currentRoute === 'settings' }">Settings</p>
+        </a>
+
+            <a (click)="editGroups()" (keydown.enter)="editGroups()" tabindex="0" class="nav-bar cursor-pointer" title="Groups">
+              <p [ngClass]="{ 'fw-bold active': currentRoute === 'groups' }">Groups
+              </p>
+              </a>
+        </div>
+        <div class="finance-reports">
+          <h6>Finance & Reports</h6>
+          <a (click)="viewEventList()" (keydown.enter)="viewEventList()" tabindex="0" class="nav-bar cursor-pointer" title="Event list">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'event' }">Event List
+            </p>
+          </a>
+          <a (click)="viewTransactions()" (keydown.enter)="viewTransactions()" tabindex="0" class="nav-bar cursor-pointer" title="Transactions">
+          <p [ngClass]="{ 'fw-bold active': currentRoute === 'transactions' }">Transactions</p>
+          </a>
+          <a (click)="viewDeposits()" (keydown.enter)="viewDeposits()" tabindex="0" class="nav-bar cursor-pointer"  title="Deposits">
+          <p [ngClass]="{'fw-bold active': currentRoute === 'deposits'}">Deposits</p>
+        </a>
+        <a (click)="viewInvoices()" (keydown.enter)="viewInvoices()" tabindex="0" class="nav-bar cursor-pointer" title="Invoices">
+          <p [ngClass]="{'fw-bold active':currentRoute === 'invoices'}">Invoices</p>
+        </a>
+        <a class="nav-bar cursor-pointer"  (keydown.enter)="viewUsage()" tabindex="0" (click)="viewUsage()" title="Usage">
+          <p [ngClass]="{'fw-bold active':currentRoute === 'usage'}">Usage</p>
+        </a>
+          <a (click)="viewUsers()" (keydown.enter)="viewUsers()" tabindex="0" class="nav-bar cursor-pointer"
+          title="Users">
+          <p [ngClass]="{'fw-bold active':currentRoute ==='users'}">Users</p>
+          </a>
+        </div>
+        <div >
+          <ul class="leftmenu-bottom">
+            <li *ngIf="viewOrgPage"><a (click) = "deleteOrgManage()"  (keydown.enter)="deleteOrgManage()" tabindex="0"title="Delete"><i class="fas fa-trash-alt"></i> Delete</a></li>
+            <li *ngIf="viewOrgPage"><a><i class="fas fa-pencil-alt"></i> Bulk Edit</a></li>
+            <li><a (click) = "viewOrganization()" (keydown.enter)="viewOrganization()" tabindex="0" class="d-flex gap-2 align-items-center org-view-text" title="View Organization Listing"><i class="fas fa-external-link-square-alt"></i>
+              <p class="m-0"> View Organization Listing</p></a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+

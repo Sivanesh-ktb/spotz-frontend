@@ -1,0 +1,36 @@
+<footer class="footer-bg">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="copyright-txt">
+          <p>Copyright © Spotz</p>
+        </div>
+
+      </div>
+      <div class="col-lg-8">
+        <div class="footer-menu">
+          <ul>
+            <li><a [href]="supportLink" target="_blank">Support</a></li>
+            <li><a class="footerhover"  (click) = 'terms()' (keydown.enter)="terms()" tabindex="0" >Site terms & conditions</a></li>
+            <li><a class="footerhover" (click) = 'privacy()' (keydown.enter)="privacy()" tabindex="0">Privacy</a></li>
+            <li><a class="footerhover"(click) = 'hostTerms()' (keydown.enter)="hostTerms()" tabindex="0">Host rental</a></li>
+            <li><a class="footerhover" (click) = 'hourslyTerms()' (keydown.enter)="hourslyTerms()" tabindex="0">Hourly rentals</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="social-icons">
+          <ul>
+            <li><p></p></li>
+            <li><a [href]="linkedInLink" target="_blank" class="footerhover"><span class="fa fa-linkedin "></span></a></li>
+            <li><a [href]="twitterLink" target="_blank" class="footerhover"><span class="fa-brands fa-x-twitter"></span></a></li>
+            <li><a [href]="faceBookLink" target="_blank" class="footerhover"><span class="fa fa-facebook"></span></a></li>
+            <li><a [href]="instagramLink" target="_blank" class="footerhover"><span class="fa fa-instagram "></span></a></li>
+        </ul>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,113 @@
+
+/*Organization-Section*/
+
+.org-hd {
+  padding-top: 10px;
+  color: #274451;
+  font-size: 1.1em;
+}
+.table-head-no{
+  max-width: 30px;
+  min-width:30px;
+}
+.org-sec {
+  display: flex;
+  gap:10px;
+  align-items: baseline;
+}
+
+.month-cnt {
+  padding-top: 24px;
+  float: right;
+}
+.dashboard-table.table-responsive thead th {
+  background-color: #274451 !important;
+}
+.org-name-btn .button {
+  padding: 2px 15px;
+  border: 1px solid #92a7af;
+  background-color: transparent;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.7em;
+  cursor: pointer;
+  float: left;
+}
+
+.num {
+  background-color:#22c3f0 !important;
+}
+.ng-isolate-scope a {
+  text-decoration: none;
+  color:#fff;
+  font-size: 14px !important;
+}
+
+.ng-scope a {
+text-decoration: none;
+color:#000;
+font-size: 15px !important;
+}
+.table-clr {
+  color:#fff !important;
+  background-color: #044f80 !important;
+}
+
+.footer-spc {
+  padding-top: 40px;
+}
+a.ng-binding.org-name {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+}
+.org-container {
+  display: flex;
+  grid-gap: 14px;
+}
+.org-container a {
+  cursor: pointer;
+}
+td.text-right a {
+  text-decoration: none;
+  color: #000;
+}
+select {
+  width: 200px;
+}
+.btn-group a.btn.btn-default.btn-sm:hover{
+  border: 1px solid #d3d3d3;
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid\9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.dropdown-item{
+  padding: 0% 0% 0% 7%;
+}
+
+td.text-right a.highlight:hover, a.ng-binding.org-name:hover, .highlight:hover{
+  color: #FF8000;
+}
+
+.table-head-no, .table-clr {
+  cursor: pointer;
+}
+
+.table-head-no span, .table-clr span {
+  margin-left: 5px;
+  font-size: 0.8em;
+  color: #ffffff;
+}
+
+.table-head-no span:hover, .table-clr span:hover {
+  color: #ffffff;
+}

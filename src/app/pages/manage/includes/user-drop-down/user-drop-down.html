@@ -1,0 +1,10 @@
+<li class="dropdown-header name-limit">{{userEmail}}</li>
+<li><a class="dropdown-item" href="{{ dashboardUrl }}" target="_self" (click)="viewPage($event,dashboardUrl)">Dashboard</a></li>
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item" href="{{ viewReservationsUrl }}" target="_self" (click)="viewPage($event,reservationsPageUrl)" >Reservations</a></li>
+<li><a class="dropdown-item" href="{{ viewInvoicesUrl }}" target="_self" (click)=viewPage($event,paymentsPageUrl) >Payments & Invoices</a></li>
+<li><a class="dropdown-item" href="{{ viewProfileUrl }}" target="_self" (click)="viewPage($event,profilePageUrl)" >Profile</a></li>
+<li><a class="dropdown-item" href="{{ viewAccountUrl }}" target="_self" (click)="viewPage($event,accountSettingsPageUrl)" >Account</a></li>
+<li><a class="dropdown-item" href="{{ viewMembershipsUrl }}" target="_self" (click)="viewPage($event,membershipsPageUrl)">Memberships</a></li>
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item" (click)="logout()" (keydown.enter)="logout()" tabindex="0">Sign Out</a></li>

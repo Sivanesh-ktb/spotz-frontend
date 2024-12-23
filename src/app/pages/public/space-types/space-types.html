@@ -1,0 +1,16 @@
+<div class="list-space-container color-white container-fluid px-3">
+<div class="row">
+  <div class="col-lg-6">
+    <div class="list-spaces">
+      <h2>Spaces</h2>
+    </div>
+    <div class="spacetype d-flex w-100">
+      <div class="space-type">
+         <app-public-space-types [orgSpaces]="orgSpaces" (spaceTypeSelected)="onSpaceTypeSelected($event)"></app-public-space-types>
+      </div>
+    </div>
+  </div>
+   <div class="col-lg-6">
+  </div>
+</div>
+</div>

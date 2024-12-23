@@ -1,0 +1,23 @@
+.filter-result{
+  color: #044f80;
+  font-weight: 500 !important;
+  font-size: 1em !important;
+}
+label {
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.section.sub-section {
+  margin: 15px 0;
+  background-color: #e5f2f5;
+  padding: 15px;
+  border-radius: 9px;
+}
+.panel-body {
+  padding: 20px;
+}
+.rule-type-items:hover {
+  color: #333 !important;
+  background-color: #e6e6e6;
+}

@@ -1,0 +1,256 @@
+
+/*Here Are  Spaces Section */
+
+.here-are-bg {
+  background-color: #274451;
+}
+.here-are-bg p {
+  font-size: 17px;
+}
+#spaces {
+    color: #fff;
+    border: none !important;
+    text-decoration: underline;
+    background-color: #274451 !important;
+
+}
+#spaces:focus { outline: none !important; }
+.pad-spc {
+    padding-top: 0px;
+    padding-bottom:70px;
+}
+#united-states {
+    color: #fff;
+   border: none !important;
+    text-decoration: underline;
+    background-color: #274451  !important;
+}
+#united-states:focus { outline: none !important; }
+.s-content-1 {
+    color: #fff;
+}
+.s-content-1 h4{
+    padding-top: 15px !important;
+    font-size: 24px;
+}
+.s-icon {
+    float: right;
+   padding-top: 10px !important;
+}
+.s-icon p {
+   border: 1px solid #9db4be;
+    width: 67px;
+    padding: 1px 4px;
+    border-radius: 60px;
+    color: #9db4be;
+}
+.s-1-img {
+    position: relative;
+}
+.s-image img {
+    width: 100%;
+}
+
+.s-1-img-2 img{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.p-spc {
+    padding-top: 40px;
+}
+.s-more-spac {
+    padding-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
+    cursor: pointer;
+}
+.sign-up-bg {
+  background-color: #274451;
+}
+.sign-up {
+    padding-left: 3%;
+}
+.sign-up h2 {
+   padding-top:70px;
+   font-size: 64px;
+   color: #fff;
+   padding-bottom: 40px;
+   font-weight: bold;
+}
+.find-spacem {
+    color: #274451;
+    font-size: 48px;
+    background-color: #fff;
+}
+.sign-up h5{
+    color: #fff;
+    font-size: 32px;
+}
+.sign-up-btn a {
+    padding: 10px 30px;
+    border-radius: 0px;
+    background-color: #2ac4ee;
+    color: #000;
+    border-color: #004185;
+    font-family: "Roboto", serif;
+    position: relative;
+    transition: 0.5s ease-in;
+    border-radius: 10px;
+}
+
+.find-space::before{
+  content:'';
+  height: 62px;
+  width: 80px;
+  position: absolute;
+  left: 77%;
+  top: 12px;
+  background-repeat: no-repeat;
+}
+.find-space {
+   position:relative;
+}
+.signup-rt-img  {
+    position: relative;
+    padding-left: 19%;
+}
+.signup-rt-cnt,.signup-rt-cnt-2  {
+    position: absolute;
+    bottom: 8%;
+    left: 27%;
+    display: flex;
+    font-size: 18px;
+    color: #fff;
+    background-color: #00000075;
+    padding: 12px 18px 1px;
+    border-radius: 60px;
+}
+.thicket-pool {
+    text-decoration:underline ;
+}
+.signup-rt-img-2  {
+    position: relative;
+    right: -11px;
+    float: right;
+}
+.anarondak-txt {
+  text-decoration:underline ;
+}
+.padd-spc {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.name-limits{
+  font-size: 18px !important;
+  font-weight: 600;
+}
+.slider-image {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+.slider-click-area {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    cursor: pointer;
+    z-index: 1;
+}
+.left {
+    left: 0;
+}
+.right {
+    right: 0;
+}
+.slider-image-container {
+    position: relative;
+    height: 250px;
+}
+.space-address{
+    color: #ffffffc2;
+}
+p.space-address-details {
+  font-size: 17px !important;
+  font-weight: 500;
+}
+.carousel.slide button.carousel-control-next span.carousel-control-next-icon {
+  background-color: #000 !important;
+  border-radius: 30px !important;
+}
+.featured-spaces h3 {
+  color: #fff;
+  font-size: 24px !important;
+}
+.slider-image {
+    border-radius: 7px;
+}
+
+
+  .slider-click-area {
+    pointer-events: auto;
+  }
+  
+  .carousel-controls i{
+    font-size: 32px;
+    color: #fff;
+  }
+
+  .carousel-controls button{
+    background-color: transparent;
+    border:none
+  }
+
+  .carousel-controls {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+
+/* Featured Spaces Animation css */
+.zoom-in-animation {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes zoomIn {
+  0% {
+  opacity: 0;
+  -webkit-transform: scale3d(.3, .3, .3);
+  transform: scale3d(.3, .3, .3);
+  }
+  50% {
+  opacity: 1;
+  }
+  }
+  @keyframes zoomIn {
+  0% {
+  opacity: 0;
+  -webkit-transform: scale3d(.3, .3, .3);
+  transform: scale3d(.3, .3, .3);
+  }
+  50% {
+  opacity: 1;
+  }
+  } 
+
+
+ 
+
+
+
+

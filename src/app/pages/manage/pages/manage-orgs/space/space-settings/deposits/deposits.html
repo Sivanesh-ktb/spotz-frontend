@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <h4 class="header">Deposits</h4>
+  </div>
+  <div class="col-md-5 col-sm-6 col-xs-9">
+    <p class="font-small">Creating deposits allow you to collect from a space user in case of incident.
+      The user agrees to allow you to charge these amounts on any rental.
+    </p>
+  </div>
+  <div class="col-md-5 col-sm-6 col-xs-9">
+    <p class="font-small">Note: This deposit will only be collected for this space.
+      To charge a deposit for all spaces, you can use the organization deposits setting.
+    </p>
+  </div>
+    <div class="row add-ons-container">
+      <app-org-add-deposits [deposits]="deposits" (updateDepositsDetails)="onUpdateDepositsDetails($event)"
+      (newDepositSave)="onNewDepositSave($event)" (deleteDeposits)="onDeleteDeposits($event)"></app-org-add-deposits>
+
+        </div>
+</div>

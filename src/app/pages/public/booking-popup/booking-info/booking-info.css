@@ -1,0 +1,19 @@
+.bootstrap-switch, .btn-group .btn-default {
+  border-color: #4dcaf4;
+}
+.facility-map-container h4 {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+.facility-listing .search-box.banner-cover {
+  margin-top: -144px;
+}
+.facility-listing .search-box {
+  background-color: #fff;
+  border: 1px solid #c7dfef;
+  margin-bottom: 20px;
+  box-shadow: rgba(67,79,92,.22) 0 1px 3px 1px;
+  border-radius: 12px;
+  position: relative;
+  width: 95%;
+}

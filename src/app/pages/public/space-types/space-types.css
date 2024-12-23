@@ -1,0 +1,11 @@
+.list-space-container {
+  background-color: #274451;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+.space-type-drop-down {
+  color: #fff;
+  border: none !important;
+  text-decoration: underline;
+  background-color: #274451 !important;
+}

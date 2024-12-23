@@ -1,0 +1,120 @@
+
+
+.info-container{
+  float: right;
+  margin-right: 12px;
+}
+.info-icon{
+  background: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  padding: 17px;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 1px 1px 2px 1px rgba(128, 128, 128, 0.5);
+  -moz-box-shadow: 1px 1px 2px 1px rgba(128, 128, 128, 0.5);
+  box-shadow: 1px 1px 2px 1px rgba(128, 128, 128, 0.5);
+  margin-right: 0;
+}
+
+.topnav-icon {
+  display: flex;
+  position: absolute;
+  z-index: 2;
+  width: 96%;
+  margin-top: -26px;
+  justify-content: right;
+}
+.admin .user-banner , .admin .logo {
+  position: relative;
+  overflow: hidden;
+}
+.info-text{
+  font-size: 0.8em;
+  display: block;
+  text-align: center;
+}
+.user-banner {
+  width: 100%;
+  height: 200px;
+  background-color: #333;
+  border-radius: 20px 20px 0 0;
+}
+.user-banner .img {
+  background-repeat: no-repeat;
+  background-position: center 45%;
+  background-size: cover;
+  width: 100%;
+  min-height: 200px;
+  right: 0;
+  left: 0;
+  position: absolute;
+}
+.admin .logo {
+  border-radius: 18px;
+  background: url(/content/images/logo.png) center center no-repeat;
+  height: 150px;
+  background-size: auto;
+  text-align: center;
+  margin: 0 auto;
+}
+.admin .logo-admin img {
+  width: 144px;
+}
+.pg-header {
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+.pg-header, .pg-header .small {
+  text-transform: inherit;
+  font-family: inherit;
+}
+.banner-container {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: rgba(67,79,92,.22) 0 2px 2px 0;
+  margin-bottom: 40px;
+}
+.actions-row {
+  padding-top: 20px;
+  border-top: 1px solid #e4f8ff;
+  margin-top: 15px;
+}
+.logo-row .logo-admin {
+  margin-top: -60px;
+  max-width: 150px;
+  height: 140px;
+  background: #fff;
+}
+.logo-row .logo {
+  margin: -90px auto 0;
+  text-align: center;
+  padding: 0;
+  max-width: 160px;
+  box-shadow: rgba(67,79,92,.22) 0 2px 2px 0;
+  background: #fff;
+  border-radius: 18px;
+}
+.logo-row .logo-admin img {
+  border-radius: 10px 10px 0px 0px;
+  height: 100%;
+  padding: 8px 0px;
+}
+h2.pg-header.mt-2 a {
+  font-weight: 700;
+  color: #333;
+  font-size: 23px;
+}
+.admin h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px!important;
+  font-family: inherit;
+  color: #044f80;
+}
+.banner-container a:hover {
+  color: #e58327 !important;
+}
+.small{
+  font-weight: 400;
+}

@@ -1,0 +1,80 @@
+<div class="tab-cnt1">
+  <div class="t-b-1">
+    <p>Enter your organization's tax information</p>
+  </div>
+  <ng-container *ngIf="!type; else addInfo">
+  <div class="tb-icon d-flex justify-content-between mb-2 gap-2">
+    <div *ngIf="legal; else noTaxInfo" class="setting-tax py-2"
+    aria-hidden="false">{{legal?.typ + legal?.last4 }}</div>
+    <ng-template #noTaxInfo>
+      <p > — No tax information —</p>
+    </ng-template>
+    <a (click)="editInformation()" (keydown.enter)="editInformation()" tabindex="0" aria-label="edit info" class="fas fa-pencil-alt mt-2"></a>
+  </div>
+</ng-container>
+  <ng-template #addInfo>
+    <div class="tb-icon">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 mb-2">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 mb-2">
+            <div class="d-flex gap-2">
+            <label class="col-sm-4 fw-bold" for="Tax type">Tax Type</label>
+            <div class="d-flex flex-column w-100">
+            <select class="form-control mb-2" [(ngModel)]="typ" >
+              <option value="" disabled selected>Select a tax</option>
+              <option *ngFor="let tax of taxTypes" [value]="tax">{{ tax }}</option>
+            </select>
+            <div *ngIf="typ==='Other'">
+              <input type="text" [(ngModel)]="other" placeholder="Tax Type" class="form-control"
+              aria-required="true" aria-invalid="true">
+            </div>
+            </div>
+          </div>
+        </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="d-flex gap-2">
+          <label class="col-sm-4 control-label fw-bold" for="Legal">
+            Legal <span *ngIf="typ !== 'Individual'" aria-hidden="false">Entity </span>Name
+          </label>
+            <input type="text" [(ngModel)]="name" placeholder="Name of Tax Entity" class="form-control"
+              aria-required="true" aria-invalid="true">
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="d-flex gap-2">
+        <label class="col-sm-4 control-label fw-bold" for="EIN or SSN">
+          <span *ngIf="typ !== 'Individual';" aria-hidden="false">EIN </span>
+          <span *ngIf="typ === 'Individual';" aria-hidden="true">SSN </span>
+        </label>
+        <div class="w-100">
+           <ng-container *ngIf="typ !== 'Individual'; else ssn">
+            <p-inputMask
+               [(ngModel)]="taxId"
+                mask="99-9999999"
+                [style]="{'height':'70%', 'width':'100%'}"
+                placeholder="__-_______" />
+          </ng-container>
+          <ng-template #ssn>
+              <p-inputMask
+                  mask="999-99-9999"
+                  [(ngModel)]="taxId"
+                  [style]="{'height':'70%', 'width':'100%'}"
+                  id="ssn_input"
+                  placeholder="___-__-____"/>
+           </ng-template>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="btn-group edit" aria-hidden="false">
+          <button type="submit" class="btn btn-xs btn-primary" (click)="saveInformation()">Save</button>
+          <button type="button" (click)="editLegal()" class="btn btn-xs btn-default">Cancel</button>
+        </div>
+      </div>
+      </div>
+    </div>
+    </ng-template>
+</div>

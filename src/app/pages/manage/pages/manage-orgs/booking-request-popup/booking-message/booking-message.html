@@ -1,0 +1,33 @@
+<div  class="tab-pane active" >
+  <h3> <span class="fa fa-comments"></span> Event Messages <small>
+    <span style="color:#0C0" class="fa fa-check-circle"></span>
+    = Message read</small></h3>
+
+  <div  aria-hidden="false">
+    <div  class="row" aria-hidden="false">
+      <div class="col-xs-12">
+        <p>No messages.</p>
+      </div>
+    </div>
+
+    <div class="message_box">
+      <form name="send">
+        <label class="message_lable" for="send message">Send New Message</label>
+        <textarea rows="5" class="form-control ng-pristine ng-untouched ng-valid"
+        aria-multiline="true" aria-disabled="false" aria-invalid="false"></textarea>
+
+        <div style="margin-top: 15px;float:right;">
+          <button type="submit"  class="btn btn-secondary me-2"
+          aria-disabled="false">Send</button>
+          <button type="button"  class="btn btn-default"
+          aria-disabled="false">Clear</button>
+        </div>
+        <div class="clearfix"></div>
+        <p class="help-block text-end">
+          Clicking send will notify the user via email, if not currently logged in.
+          <br>Messages cannot be edited/deleted.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

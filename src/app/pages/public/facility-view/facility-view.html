@@ -1,0 +1,11 @@
+
+<ng-container *ngIf="organizationDetails && organizationFacilities">
+  <app-space-types *ngIf="organizationFacilitiesSpaces" [orgSpaces]="organizationFacilitiesSpaces" (selectedSpaceTypes)="onSelectedSpaceTypes($event)"></app-space-types>
+
+  <app-facility-and-spaces *ngIf="organizationFacilitiesSpaces" [organizationFacilities]="organizationFacilitiesSpaces" [blockData]="blockData">
+  </app-facility-and-spaces>
+  <app-org-about [organizationDetails]="organizationDetails"
+  [organizationFacilities]="organizationFacilities" [page]="page"></app-org-about>
+<app-rules-and-policies [organizationDetails]="organizationDetails" [page]="page">
+</app-rules-and-policies>
+</ng-container>

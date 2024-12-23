@@ -1,0 +1,32 @@
+<div class="allowed-activities">
+  <p class="drop-down-title m-0 my-2">Space Types (multiple)</p>
+  <div class="input-group full-width-select-dro-down mb-3">
+    <div class="card flex justify-content-center full-width-select-dro-down w-100">
+      <div class="admin-text">
+        <li class="nav-item dropdown" [class.show]="dropdownOpen">
+          <span id="navbarAdminDropdown" role="button" title="Space Types"
+                class="form-control custom-dropdown-section custom-dropdown w-100"
+                (click)="dropdownOpen = !dropdownOpen" (keydown.enter)="dropdownOpen = !dropdownOpen" tabindex="0" aria-expanded="false">
+            <ng-container *ngIf="selectedSpaceNames.length === 0">
+              Select Space Type
+            </ng-container>
+            {{ selectedSpaceNames.join(', ') }}
+            <i class="fa-solid fa-angle-down"></i>
+          </span>
+          <ul class="dropdown-menu custom-dropdown w-100" [ngStyle]="{'height': OrgSpaceTypes.length > 4 ? '250px' : 'auto'}" aria-labelledby="navbarAdminDropdown" [class.show]="dropdownOpen">
+            <li *ngIf="selectedSpaceNames.length > 0">
+              <a class="dropdown-item clear-drop-down filter" (click)="clearAllSpaceTypes(); $event.stopPropagation();" (keydown.enter)="clearAllSpaceTypes(); $event.stopPropagation();" tabindex="0">
+                <i class="fa fa-times mr-2"></i>  Clear
+              </a>
+            <li *ngFor="let orgSpaceType of OrgSpaceTypes; let index = index">
+              <a class="dropdown-item" (click)="toggleSpaceType(orgSpaceType.value, index, orgSpaceType.name); $event.stopPropagation();" (keydown.enter)="toggleSpaceType(orgSpaceType.value, index, orgSpaceType.name); $event.stopPropagation();" tabindex="0">
+                <span class="fa mr-2" [ngClass]="{'text-success fa-check': isChecked(orgSpaceType.value)}"></span>
+                {{ orgSpaceType.name }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>

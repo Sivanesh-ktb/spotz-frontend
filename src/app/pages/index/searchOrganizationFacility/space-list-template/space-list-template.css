@@ -1,0 +1,73 @@
+.prod-grid {
+  flex: 1  50%;
+  padding: 12px;
+}
+.button-group .button {
+  padding: 3px 5px;
+  border: 1px solid #9DB4BE;
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+}
+.grid-clr {
+  background-color: #618494 !important;
+}
+.text-margin{
+  margin-bottom: 0.5px !important;
+}
+button.button.list-clr {
+  background-color: #618494 !important;
+}
+
+.spaceimages {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.spaceimages img {
+  object-fit: cover;
+  height: 250px;
+}
+
+
+.s-1-img {
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.hover-buttons {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 2;
+}
+
+.s-1-img:hover img{
+  opacity: 0.5;
+}
+
+.s-1-img:hover .hover-buttons {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn-group .btn-default {
+  padding: 6px 11px !important;
+  font-size: 12px !important;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  border-radius: 0px;
+}
+
+

@@ -1,0 +1,21 @@
+
+<div>
+  <!-- Grid View -->
+  <div *ngIf="viewMode === 'grid';else list" class="cal cal-table clearfix" aria-hidden="false">
+    <div class="day ng-binding">{{dayName}}</div>
+    <div class="month ng-binding">{{month}}</div>
+    <div class="date ng-binding">{{day}}</div>
+    <div class="year ng-binding" aria-hidden="false">{{year}}</div>
+  </div>
+
+  <!-- List View -->
+   <ng-template #list>
+  <div class="cal cal-grid clearfix" aria-hidden="false">
+    <div class="date-range ng-binding">
+      <span class="month ng-binding">{{month}}</span><span class="date ng-binding"> {{day}}</span>
+    </div>
+    <div class="year ng-binding" aria-hidden="false">{{year}}</div>
+  </div>
+</ng-template>
+
+</div>

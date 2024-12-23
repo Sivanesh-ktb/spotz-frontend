@@ -1,0 +1,61 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+<div class="container-fluid">
+  <div class="manage-org">
+    <div class="row">
+      <div class="col-lg-3">
+       <app-profile-sidebar></app-profile-sidebar>
+      </div>
+      <div class="col-lg-9">
+        <div class="profile-basics">
+          <h1>Memberships</h1>
+            <app-pagination
+            [checkPage]=1
+            [totalItems]="totalItems"
+            [pageSize]="pageSize"
+            [multipleData]="memberships"
+            (pagedOrgDetails)="onSelectedPagination($event)" >
+          </app-pagination>
+           <div class="container-table">
+
+            <table class="table table-small table-condensed table-bordered" aria-hidden="false">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Organization</th>
+                  <th>Name</th>
+                  <th>Level</th>
+                  <th>Discount</th>
+                  <th>Instant Booking</th>
+                  <th>Lead Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let membership of pagedOrgDetails"  class="ng-scope">
+                  <td *ngFor="let member of membership.members">
+                    <ng-container *ngIf="member.active === 2">Active</ng-container>
+                    <ng-container *ngIf="member.active === 1">Pending</ng-container>
+                    <ng-container *ngIf="member.active < 0">Inactive</ng-container>
+                  </td>
+                  <td>
+                  {{membership.orgName}}
+                  </td>
+                  <td>{{membership.name}}</td>
+                  <td><span class="label label-success ng-binding"></span>
+                  {{selectedLevelText(membership.level)}}</td>
+                  <td>{{membership.discount}}%</td>
+                  <td> <span *ngIf="membership.instant" class="fa fa-check-square-o ng-hide" aria-hidden="true"></span><span  *ngIf="!membership.instant" class="fa fa-square-o" aria-hidden="false"></span></td>
+                  <td>{{membership.lead}} days</td>
+              </tr>
+              </tbody>
+            </table>
+           </div>
+          </div>
+        </div>
+       </div>
+     </div>
+</div>
+</section>
+

@@ -1,0 +1,121 @@
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  background: 0 0;
+  border: 1px solid transparent;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  color: #000;
+  font-size: 20px;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.add-new-group-container {
+  display: block;
+  position: relative;
+  left: 50px;
+}
+
+.gm-btn {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+}
+.gm-btn-1 a {
+  border: 1px solid #ddd !important;
+  text-decoration: none;
+  color: #000 !important;
+  border-radius: 5px 0px 0px 5px !important;
+  padding: 5px !important;
+}
+.button-group-in {
+  padding-top: 20px;
+}
+.gm-btn .input-group {
+  border-radius: 0px !important;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+.gm-btn .form-control {
+  width: 700px !important;
+  border-radius: 0px !important;
+}
+#dropdown {
+  width: 200px;
+  height: auto;
+  overflow-y: scroll;
+}
+.group-ms {
+  padding-top: 20px;
+}
+.gp-filter {
+  padding-bottom: 30px;
+}
+.groups-members .g-head h2 {
+  font-size: 22px !important;
+  font-weight: 700;
+  margin: 0 0 10px!important;
+  font-family: inherit;
+  color: #044f80;
+}
+.divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+.filter-group{
+  border:none;
+  box-shadow:none;
+  padding-left:20px;
+}
+.bootstrap-switch, .btn-group .btn-default {
+  border-color: #4dcaf4;
+}
+.btn-tabs-right{
+  position: absolute;
+  right: 25px;
+}
+.small-nav-tabs .nav-link {
+  padding: 4px 8px;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.small-nav-tabs .btn {
+  padding: 2px 6px;
+  font-size: 15px;
+}
+.dropdown-header {
+  font-size: 13px;
+  color: #777;
+  cursor: not-allowed;
+}
+
+.no-click {
+  pointer-events: none;
+}
+a.button.gm-btn.btn.view-all-btn {
+  border-left: 1px solid #b7e7f7;
+  background-color: #effafd;
+  border-radius: 0px !important;
+  color: #999999 !important;
+}
+.tab-pane-title:hover {
+  color: #e58327 !important;
+}
+a.button.gm-btn.btn.view-all-btn {
+  color: #333 !important;
+  border: 1px solid #d0e7ef !important;
+  background: #fff !important;
+  padding: 4.5px !important;
+  margin: 0px !important;
+}

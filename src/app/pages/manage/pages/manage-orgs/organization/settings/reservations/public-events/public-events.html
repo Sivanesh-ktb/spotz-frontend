@@ -1,0 +1,47 @@
+<div class="row mb-2">
+  <div class="col-sm-3 col-xs-12">
+    <h4 class="header">Public Event Names</h4>
+  </div>
+
+  <div class="col-sm-7 col-xs-9">
+    <p>
+      When this setting is enabled, the event names of all reservations will be visible to the public.
+    </p>
+
+    <!-- Display the label only if not in edit mode -->
+    <div *ngIf="!isEditMode; else showEvent">
+      <div class="org-setting label label-pill text-white"
+           [ngClass]="{'label-success': org.showBookingDetails, 'label-danger': !org.showBookingDetails}">
+        {{ bookingDetailsSetting(org.showBookingDetails) }}
+      </div>
+    </div>
+
+    <ng-template #showEvent>
+      <div>
+        <label class="control-label" for="show event">Show event names to the public?</label>
+        <select class="form-control" [(ngModel)]="org.showBookingDetails">
+          <option *ngFor="let item of [true, false]" [ngValue]="item">
+            {{ item ? 'Yes - Display event names publicly' : 'No - Do not display event names' }}
+          </option>
+        </select>
+      </div>
+    </ng-template>
+
+  </div>
+
+  <div class="col-sm-2 col-xs-3 text-right p-2">
+    <!-- Toggle edit mode on button click -->
+    <button class="btn btn-link p-0 edit text-black" (click)="toggleEditMode()" *ngIf="!isEditMode">
+      <i class="fas fa-pencil-alt fa-lg"></i>
+    </button>
+
+    <div class="btn-group edit" *ngIf="isEditMode">
+      <button class="btn btn-xs btn-primary" (click)="save()" title="Save changes">
+        <span class="d-none d-sm-inline"> Save</span>
+      </button>
+      <button class="btn btn-xs btn-default" (click)="cancelEdit()" title="Cancel">
+        <span class="d-none d-sm-inline"> Cancel</span>
+      </button>
+    </div>
+  </div>
+</div>

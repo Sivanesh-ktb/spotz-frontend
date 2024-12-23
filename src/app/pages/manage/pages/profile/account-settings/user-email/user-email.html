@@ -1,0 +1,33 @@
+<div class="row account-settings" aria-hidden="false" >
+<div class="col-md-2 col-sm-3 col-xs-12">
+  <h5 class="header">Email</h5>
+</div>
+<div class="col-md-5 col-sm-6 col-xs-9 ">
+      <ng-container *ngIf="hideEditEmail else showInputBox">
+        <div style="width:100%" class="setting ng-binding ng-binding-setting">
+          {{userEmail}}
+        </div>
+      </ng-container>
+      <ng-template #showInputBox>
+        <input type="email" class="form-control" [(ngModel)]="userEmail" placeholder="Email" />
+      </ng-template>
+</div>
+<div class="col-md-5 col-sm-3 col-xs-3 d-flex justify-content-end">
+  <ng-container *ngIf="hideEditEmail; else showEditEmail">
+    <a class="fas fa-pencil-alt space-setting-edit-icon" (click)="updateEmail()" aria-label="Email" (keydown.enter)="updateEmail()" tabindex="0"></a>
+  </ng-container>
+  <ng-template #showEditEmail>
+    <div class="btn-group edit ng-hide settings-rental-card" aria-hidden="true">
+      <div>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <button (click)="confirmEmail()" pButton type="button" label="Save" icon="pi pi-save"
+            class="btn btn-sm btn-primary d-flex align-items-center" styleClass="p-button-warning"></button>
+
+      <button pButton type="button" label="Cancel" (click)="cancelEmail()"
+        class="btn btn-sm btn-default"></button>
+      </div>
+    </div>
+    </div>
+  </ng-template>
+</div>
+</div>

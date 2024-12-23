@@ -1,0 +1,15 @@
+h5.header {
+  margin: 0;
+  font-size: 15px;
+  color: #000;
+  padding-top: 5px;
+}
+.account-settings{
+  padding:10px;
+}
+.alert p {
+  margin: 5px 0;
+}
+.alert.alert-warning i {
+  padding: 10px;
+}

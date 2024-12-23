@@ -1,0 +1,61 @@
+<section class="content settings-page">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="manage-space-bg">
+    <div class="container-fluid">
+      <div class="manage-org">
+        <div class="row">
+          <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+            <app-admin-space-sidebar [displayName]="spaceDetails.name"
+              [rentaltypes]="this.spaceDetails.rentaltypes" [price]="spaceDetails.price"
+              [facName]="facName"></app-admin-space-sidebar>
+          </div>
+          <div class="col-lg-9">
+            <div class="row">
+              <div class="col-lg-6 d-flex justify-content-arround gap-2
+              align-items-center">
+            <h3 class="new-space-h fw-bold">Calendar</h3>
+          </div>
+          <div class="col-lg-3">
+            <div class="space-rentable-toggle d-flex justify-content-end gap-2
+            align-items-center">
+              <h6 class="fw-bold">Bookings</h6>
+                <div class="bootstrap-switch-container mb-3" style="width: 117px;">
+                  <label class='toggle-label'>
+                    <input type='checkbox'/>
+                      <span class='back'>
+                      <span class='toggle'></span>
+                        <span class='label on'>Yes</span>
+                      <span class='label off'>No</span>
+                    </span>
+                  </label>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="space-rentable-toggle d-flex justify-content-end gap-2
+              align-items-center">
+                <h6 class="fw-bold">Availability</h6>
+                  <div class="bootstrap-switch-container mb-3" style="width: 117px;">
+                    <label class='toggle-label'>
+                      <input type='checkbox'/>
+                        <span class='back'>
+                        <span class='toggle'></span>
+                          <span class='label on'>Yes</span>
+                        <span class='label off'>No</span>
+                      </span>
+                    </label>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="calendar-filter col-xs-12 col-md-8 col-lg-12">
+              <app-org-calendar-filter [spaceDetails]="spaceArray" [spaceCalendar] = true></app-org-calendar-filter>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

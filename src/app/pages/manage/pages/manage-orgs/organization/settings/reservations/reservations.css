@@ -1,0 +1,41 @@
+.drop-file {
+  width: 100%;
+  border: 1px solid #ccf1ff;
+  border-radius: 12px;
+  background-color: #edfaff;
+}
+.instructions{
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.up-file {
+  padding: 15px;
+  background-color: #ecf3fb;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.tb-icon i {
+  color: #025aff;
+}
+
+.reservation .setting{
+    border: 1px solid px;
+    background-color: #e2f4fb;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px 12px;
+    height: 34px;
+}
+
+.uploadPdf{
+  background-color: #ccf1ff;
+  border-radius: 10px;
+  margin: 5px
+}
+
+.list-book{
+  list-style-type:circle;
+}

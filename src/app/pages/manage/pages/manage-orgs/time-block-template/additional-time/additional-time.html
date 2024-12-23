@@ -1,0 +1,39 @@
+<div class="well additional-time py-3">
+  <div class="row">
+    <div class="col-lg-8 mb-2">
+      <label for="Additional Time?">Additional Time?</label>
+    </div>
+    <div class="col-lg-4 mb-2">
+      <label>
+        <input type="checkbox" [(ngModel)]="additional" (click)="toggleAdditionalTime()"
+               class="ng-pristine ng-untouched ng-valid" tabindex="0" aria-checked="false"
+               aria-invalid="false"> Yes
+      </label>
+    </div>
+    <div class="col-lg-12">
+      <p class="help-block">When this time is booked, is there additional time that should be booked on
+        the calendar, either before or after the block?</p>
+    </div>
+  </div>
+  <div class="row d-flex gap-2" *ngIf="additional">
+    <ng-container *ngFor="let buffer of buffers; let bufferIndex = index">
+      <div class="row">
+        <div class="col-lg-4">
+          <label for="Buffer">Buffer {{ bufferIndex + 1 }}</label>
+          <a *ngIf="buffers.length>1"class="fa fa-times-circle ms-2" (click)="removeBuffer(bufferIndex)" (keydown.enter)="removeBuffer(bufferIndex)" tabindex="0" aria-label="Hour befor/after"></a>
+          <p class="small-font">Hour Before/After</p>
+        </div>
+        <div class="col-lg-8">
+          <app-time-drop-down [page]="1" [selectedStartTime]="convertTime(buffer.startTime)" [selectedEndTime]="convertTime(buffer.endTime)"  (timeSelected)="onSelectedBufferTime($event, bufferIndex)"></app-time-drop-down>
+        </div>
+      </div>
+    </ng-container>
+    <div class="row">
+      <div class="col-xs-12">
+        <a (click)="addBuffer()" class="btn btn-link" (keydown.enter)="addBuffer()" tabindex="0">
+          <span class="fa fa-plus-circle"></span> Add Buffer
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

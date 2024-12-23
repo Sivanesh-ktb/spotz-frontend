@@ -1,0 +1,37 @@
+<div class="allowed-activiies w-100">
+  <ng-container *ngIf="page !==2">
+   <p class="drop-down-title">SELECT</p>
+  </ng-container>
+  <div class="input-group full-width-select-dro-down mb-3">
+    <div class="card flex justify-content-center full-width-select-dro-down w-100">
+      <div class="admin-text">
+        <li class="nav-item dropdown">
+          <span id="navbarAdminDropdown" role="button"
+          class="form-control custom-dropdown-section custom-dropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">{{templateName}}
+          <i class="fa-solid fa-angle-down"></i></span>
+          <ul class="dropdown-menu custom-dropdown  w-100"
+            [ngStyle]="{'height':templates && templates.length  > 4 ? '250px' : 'auto'}"
+              aria-labelledby="navbarAdminDropdown">
+              <li *ngIf="templates && templates.length > 0">
+                <a class="dropdown-item clear-drop-down filter" tabindex="0">
+                <i class="fa fa-times mr-2"></i> Clear</a>
+              </li>
+              <ng-container *ngIf="templates && templates.length > 0;">
+              <li *ngFor="let template of templates; let current = index">
+                <a class="dropdown-item small" (click)="changeTemplate(template._id,template.name)" (keydown.enter)="changeTemplate(template._id,template.name)" tabindex="0">{{template.name}}
+                <span class="fa mr-2"></span>
+                </a>
+              </li>
+              </ng-container>
+              <li  *ngIf="page !==2">
+                <a (click)="addRule()" (keydown.enter)="addRule()" tabindex="0" class="app-template-drop-down">
+                  <span class="fa fa-plus-circle"></span>
+                  Add New Time Block</a>
+              </li>
+            </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>

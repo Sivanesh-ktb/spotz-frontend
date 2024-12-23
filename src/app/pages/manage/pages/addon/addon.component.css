@@ -1,0 +1,43 @@
+.table-data {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.addons-input,
+.description-textarea,
+button.addons-btn,
+.form-label,
+label,
+.btn {
+    font-size: 13px !important;
+}
+
+.description-textarea {
+    height: 50px !important;
+    resize: none;
+    margin-top: 15px;
+}
+
+.addon-header {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 10px !important;
+    font-family: inherit;
+    color: #044f80;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.save-btn {
+    margin-top: 35px;
+}

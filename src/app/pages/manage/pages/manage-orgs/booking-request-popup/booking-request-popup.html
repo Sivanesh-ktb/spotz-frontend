@@ -1,0 +1,67 @@
+<div class="model_lg font_family">
+    <div>
+        <div class="modal-content poup_content">
+            <!-- Modal Header -->
+            <div class="modal-header popup_header">
+                <div class="d-grid">
+                    <div class="modal-title font-medium-1 text-muted">
+                        <span>Booking Request<span class="fac-name">&nbsp;at </span></span>
+                        <span
+                            class="fac-name" *ngIf="bookingDetails
+                            && bookingDetails.info && bookingDetails.info.f && bookingDetails.info.f.name">
+                            {{bookingDetails.info.f.name}}</span>
+                    </div>
+                    <div *ngIf="bookingDetails && bookingDetails.eventDate" class="summary">
+                      <span><b>{{ bookingDetails.eventDate | date: 'EEEE' }}</b></span>
+                      <span>
+                        {{ bookingDetails.eventDate | date: 'MMMM d'}}—{{ bookingDetails.eventDate | date: 'hh:mm a' }} to
+                        {{ bookingDetails.eventDate | date: 'hh:mm a': 'UTC' }}
+                      </span>
+                    </div>
+                </div>
+                <a (click)="close()" (keydown.enter)="close()" tabindex="0" class="close">
+                  <span aria-hidden="true">x</span>
+                </a>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="scroll_body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-booking-details></app-booking-details>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="tabs-container">
+                                <!-- Tab Buttons -->
+                                <div class="tab-buttons tabs-header">
+                                    <button class="tab-button" [class.active]="activeTab === paymentInfo"
+                                        (click)="setActiveTab(paymentInfo)">
+                                        <span class="fa fa-usd me-2"></span>Payment Info
+                                    </button>
+                                    <button class="tab-button" [class.active]="activeTab === message"
+                                        (click)="setActiveTab(message)">
+                                        <span class="fa fa-comments me-2"></span>Messages
+                                    </button>
+                                </div>
+                                <!-- Tab Content -->
+                                <div class="tab-content" *ngIf="activeTab === paymentInfo">
+                                    <app-booking-payment-info></app-booking-payment-info>
+                                </div>
+                                <div class="tab-content" *ngIf="activeTab === message">
+                                    <app-booking-message></app-booking-message>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn_approve">
+                  <span class="fa fa-check"></span> Approve Booking</button>
+                <button type="button" (click)="close()" class="btn btn_close" data-bs-dismiss="modal">
+                  <span class="fa fa-close"></span> Close</button>
+            </div>
+        </div>
+    </div>
+</div>

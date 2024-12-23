@@ -1,0 +1,102 @@
+<div class="row add-ons-container">
+
+  <div *ngIf="deposits?.length ?? 0 > 0"  class="row deposit-container">
+    <div class="col-sm-5 col-xs-6">
+      <label class="control-label" for="Title">Title</label>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+      <label class="control-label mx-4" for="Amount">Amount</label>
+    </div>
+  </div>
+  <div *ngFor="let deposit of deposits" class="row fluid-table ng-scope mt-3">
+    <ng-container *ngIf="deposit.active; else hideEditDeposit">
+      <div class="row">
+        <div class="col-lg-4">
+          <label class="control-label" for="deposit name">{{ deposit.name }}</label>
+        </div>
+        <div class="col-lg-4 text-center">
+          <label class="control-label" for="deposit amount">${{ deposit.amount }}</label>
+        </div>
+        <div class="col-lg-4 d-flex gap-1">
+          <button pButton type="button" (click)="toggleEdit(deposit)"  (keydown.enter)="toggleEdit(deposit)" tabindex="0" label="Edit" icon="pi pi-pencil"
+            class="btn btn-sm btn-primary" styleClass="p-button-warning" aria-label="editorCount"></button>
+            <p-toast />
+            <p-confirmDialog  key="positionDialog" [position]="position"/>
+          <button pButton (click)="deleteDeposit(deposit)"  (keydown.enter)="deleteDeposit(deposit)" tabindex="0" label="Delete"
+            class="btn btn-sm btn-default" aria-label="Delete"></button>
+        </div>
+      </div>
+      <div class="deposit-details-border mb-2"></div>
+    </ng-container>
+    <ng-template #hideEditDeposit>
+      <div class="col-sm-5 col-xs-6" aria-hidden="false">
+        <input [(ngModel)]="deposit.name" required class="form-control ng-pristine" aria-required="true"
+          aria-invalid="true">
+      </div>
+      <div class="col-sm-3 col-xs-6" aria-hidden="false">
+        <input type="number" [(ngModel)]="deposit.amount" placeholder="0.00" required
+          class="form-control remove-input-arrow" aria-required="true" aria-invalid="true">
+      </div>
+      <div class="col-sm-4 col-xs-12 d-flex gap-1 py-1">
+        <button pButton type="button" (click)="saveDeposit(deposit)" label="Save" icon="pi pi-save"  (keydown.enter)="saveDeposit(deposit)" tabindex="0"
+          class="btn btn-sm btn-primary" styleClass="p-button-warning" aria-label=""></button>
+          
+        <button pButton type="button" (click)="cancelEdit(deposit)" label="Cancel"
+          class="btn btn-sm btn-default"  (keydown.enter)="cancelEdit(deposit)" tabindex="0" aria-label="cancel"></button>
+      </div>
+      <div class="col-sm-8 col-xs-8 rental-terms" aria-hidden="false">
+        <label class="control-label" for="Display Text">Display Text</label>
+        <textarea [(ngModel)]="deposit.text" class="form-control ng-pristine ng-untouched ng-valid"
+          aria-multiline="true" aria-invalid="false"></textarea>
+        <p class="help-block">The renter will see this text display at checkout when agreeing to the terms for the
+          rental.</p>
+      </div>
+      <div class=" deposit-details-border"></div>
+    </ng-template>
+  </div>
+  <div class="row ng-hide fluid-table" *ngIf="!showNewDeposit else hideDeposit;" aria-hidden="true">
+    <div class="col-sm-12">
+      <button class="btn btn-sm btn-default add-deposits-button" (click)="addNewDeposit()"><span class="fa fa-plus-circle">
+        </span> Add New Deposit</button>
+    </div>
+  </div>
+  <ng-template #hideDeposit>
+    <div class="row deposit-container" aria-hidden="false">
+      <div class="col-sm-5 col-xs-6">
+        <label class="control-label" for="Title">Title</label>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <label class="control-label" for="Amount">Amount</label>
+      </div>
+    </div>
+    <div class="row fluid-table ng-scope mt-3">
+      <div class="col-sm-5 col-xs-6" aria-hidden="false">
+          <input [(ngModel)]="depositName" required="required" (keyup)="validateForm()" class="form-control ng-pristine" aria-required="true"
+            aria-invalid="true">
+      </div>
+      <div class="col-sm-3 col-xs-6" aria-hidden="false">
+          <input type="number" [(ngModel)]="depositAmount" (keyup)="validateForm()" placeholder="0.00" required="required" ng-min="1" ng-max="1000"
+           class="form-control remove-input-arrow" aria-required="true"
+            aria-invalid="true">
+      </div>
+      <div class="col-sm-4 col-xs-12 d-flex gap-1 py-1">
+              <button pButton type="button" [disabled]="valid" (click)="saveNewDeposit()"  (keydown.enter)="saveNewDeposit()" tabindex="0" label="Save" icon="pi pi-save" aria-label="save"
+                class="btn btn-sm btn-primary d-flex align-items-center" styleClass="p-button-warning"></button>
+          <button pButton type="button" (click)="newDepositCancel()"  (keydown.enter)="newDepositCancel()" tabindex="0" label="Cancel"
+            class="btn btn-sm btn-default" aria-label="cancel"></button>
+      </div>
+      <div class="col-sm-8 col-xs-8 rental-terms ng-hide" aria-hidden="true">
+        <div><i class="ng-binding"></i></div>
+      </div>
+      <div class="col-sm-8 col-xs-8 rental-terms" aria-hidden="false">
+          <label class="control-label" for="Display">Display Text</label>
+          <textarea [(ngModel)]="depositText" (keyup)="validateForm()" class="form-control ng-pristine
+            ng-untouched ng-valid" aria-multiline="true" aria-invalid="false">
+            </textarea>
+          <p class="help-block">The renter will see this text display at checkout
+            when agreeing to the terms for the rental.</p>
+      </div>
+    </div>
+  </ng-template>
+
+    </div>

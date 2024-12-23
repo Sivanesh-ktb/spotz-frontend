@@ -1,0 +1,25 @@
+<div class="fc table" [ngClass]="{'full-width': dateHeaders.length < 4}"
+  *ngIf="dateHeaders.length > 0" >
+<table>
+  <thead>
+    <tr>
+      <th></th>
+
+      <th *ngFor="let date of dateHeaders">
+        <div class="fc-day-header fc-widget-header">
+          {{ date | date: 'EEE M/d' }}
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let time of timeSlots">
+      <td>
+        <span>{{ time }}</span>
+      </td>
+      <td *ngFor="let date of dateHeaders"  [ngClass]="{'today': isToday(date)}">
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

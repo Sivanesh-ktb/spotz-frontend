@@ -1,0 +1,10 @@
+
+<!-- <app-space-availability></app-space-availability> -->
+<ng-container *ngIf="organizationDetails && organizationFacilities">
+  <app-space-details [organizationDetails]="organizationDetails" [page]="page"  [spaceDetails]="spaceData"></app-space-details>
+  <app-space-availability [spaceDetails]="spaceData"></app-space-availability>
+  <app-org-about [organizationDetails]="organizationDetails"
+  [organizationFacilities]="organizationFacilities" [page]="page"></app-org-about>
+<app-rules-and-policies [organizationDetails]="organizationDetails" [page]="page">
+</app-rules-and-policies>
+</ng-container>

@@ -1,0 +1,33 @@
+<div class="row account-settings" aria-hidden="false" >
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <h5 class="header">Phone</h5>
+  </div>
+  <div class="col-md-5 col-sm-6 col-xs-9 ">
+        <ng-container *ngIf="hideEditPhoneNumber else showInputBox">
+          <div style="width:100%" class="setting ng-binding ng-binding-setting">
+            {{userPhon}}
+          </div>
+        </ng-container>
+        <ng-template #showInputBox>
+          <input type="number" class="form-control remove-input-arrow" [(ngModel)]="userPhon" placeholder="phone" />
+        </ng-template>
+  </div>
+  <div class="col-md-5 col-sm-3 col-xs-3 d-flex justify-content-end">
+    <ng-container *ngIf="hideEditPhoneNumber; else showEditPhoneNumber">
+      <a class="fas fa-pencil-alt space-setting-edit-icon" (click)="updatePhoneNumber()" aria-label="phone number" (keydown.enter)="updatePhoneNumber()" tabindex="0"></a>
+    </ng-container>
+    <ng-template #showEditPhoneNumber>
+      <div class="btn-group edit ng-hide settings-rental-card" aria-hidden="true">
+        <div>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <button (click)="confirmPhoneNumber()" pButton type="button" label="Save" icon="pi pi-save"
+              class="btn btn-sm btn-primary d-flex align-items-center" styleClass="p-button-warning"></button>
+
+        <button pButton type="button" label="Cancel" (click)="cancelPhoneNumber()"
+          class="btn btn-sm btn-default"></button>
+        </div>
+      </div>
+      </div>
+    </ng-template>
+  </div>
+  </div>

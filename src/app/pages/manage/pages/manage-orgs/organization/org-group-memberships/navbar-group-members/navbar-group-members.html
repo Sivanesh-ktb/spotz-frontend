@@ -1,0 +1,95 @@
+
+
+<div class="groups-members">
+  <div class="g-head">
+    <h2>Groups & Memberships</h2>
+  </div>
+  <div class="gp-filter">
+    <div class="gm-btn">
+      <ng-container *ngIf="groupId">
+      <div class="gm-btn-1">
+        <a (click)="viewContactInformation('Select group...')" (keydown.enter)="viewContactInformation('Select group...')" tabindex="0" class="button gm-btn btn view-all-btn">
+          <span class="fa fa-angle-double-left me-2"></span>View All</a>
+      </div>
+    </ng-container>
+      <div class="button-group-in">
+        <div class="input-group">
+          <li class="nav-item dropdown d-flex">
+            <span id="dropdownMenuButton" role="button"
+            class="form-control custom-dropdown-section custom-dropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+        {{viewPageName}}
+      </span>
+      <i id="dropdownMenuButton" class="fa-solid fa-angle-down"
+              data-bs-toggle="dropdown" aria-expanded="false">
+    </i>
+            <ul class="dropdown-menu custom-dropdown" aria-labelledby="navbarAdminDropdown">
+              <li><a class="dropdown-item dropdown-small-text">
+                Custom</a></li>
+              <li><a class="dropdown-item" (click)="addNewGroup()" (keydown.enter)="addNewGroup()" tabindex="0">
+                <span class="fa fa-plus-circle"></span>
+                Add New Group</a></li>
+              <li class="divider"></li>
+              <li>
+                <input placeholder="Filter By Name"
+                class="form-control filter-group ng-pristine ng-untouched ng-valid" aria-invalid="false">
+            </li>
+            <li class="divider"></li>
+            <ng-container *ngFor="let group of orgDetails;">
+            <li *ngIf="group?.system === 0">
+              <a (click)="viewUser(group?._id,group?.name)" (keydown.enter)="viewUser(group?._id,group?.name)" tabindex="0"
+              class="dropdown-item dropdown-medium-text">{{group?.name}}</a>
+            </li>
+          </ng-container>
+          <span class="px-3 dropdown-header py-0">System</span>
+            <li class="divider"></li>
+              <li><a (click)="viewUser(adminGroupId,'Admin')" (keydown.enter)="viewUser(adminGroupId,'Admin')" tabindex="0"
+                class="dropdown-item dropdown-medium-text">Admin</a></li>
+              <li><a (click)="viewUser(approverGroupId,'Approver')" (keydown.enter)="viewUser(approverGroupId, 'Approver')" tabindex="0"
+                class="dropdown-item dropdown-medium-text">Approver</a></li>
+              <li><a (click)="viewUser(editorGroupId,'Editor')" (keydown.enter)="viewUser(editorGroupId, 'Editor')" tabindex="0"
+                class="dropdown-item dropdown-medium-text">Editor</a></li>
+              <li><a (click)="viewUser(maintenanceManagerGroupId,'Maintenance Manager')" (keydown.enter)="viewUser(maintenanceManagerGroupId, 'Maintenance Manager')" tabindex="0"
+                class="dropdown-item dropdown-medium-text">Maintenance Manager</a></li>
+              <li><a (click)="viewUser(maintenanceStaffGroupId,'Maintenance Staff')" (keydown.enter)="viewUser(maintenanceStaffGroupId,'Maintenance Staff')" tabindex="0"
+                class="dropdown-item dropdown-medium-text">Maintenance Staff</a></li>
+            </ul>
+        </li>
+        </div>
+      </div>
+      <div *ngIf="!groupId" class="add-new-group-container">
+        <button (click)="addNewGroup()" class="btn btn-default">
+          <span class="fa fa-plus-circle"></span> Add New Group
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="groupDetails && (system === 0 || system === 1 || system === 2 || system === 3)">
+  <ul class="nav nav-tabs small-nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link tab-pane-title" [ngClass]="{'active': system === 0}" [disabled]="groupDetails?.system===1" id="basic-tab"
+        data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic"
+        aria-selected="true"> <i class="fas fa-pencil-alt" (click)="system = 0" (keydown.enter)="system = 0" tabindex="0"></i> Basic Settings</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link tab-pane-title" id="access-tab" [disabled]="groupDetails?.system===1" [ngClass]="{'active': system === 2}" data-bs-toggle="tab"
+        data-bs-target="#access" type="button" role="tab" aria-controls="access" aria-selected="false" (click)="system = 2">
+        <i class="fas fa-shield-alt"></i> Access</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link tab-pane-title" id="members-tab" [ngClass]="{'active': system === 1}" data-bs-toggle="tab"
+        data-bs-target="#members" type="button" role="tab" aria-controls="members" aria-selected="false" (click)="system = 1">
+        <i class="fas fa-users"></i> Members</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link tab-pane-title" id="reports-tab" [ngClass]="{'active': system === 3}"  data-bs-toggle="tab" data-bs-target="#reports" type="button"
+        role="tab" aria-controls="contact" aria-selected="false" (click)="system = 3"><i class="fas fa-list"></i> Reports</button>
+    </li>
+    <div class="btn-tabs-right tab-pane-title" aria-hidden="false" *ngIf="system === 0">
+      <button type="button" (click)="deleteGroup();" class="btn btn-danger btn-sm">
+        <span class="fa fa-times-circle mr-2"></span>Delete Group</button>
+    </div>
+  </ul>
+</ng-container>
+</div>

@@ -1,0 +1,24 @@
+.invoice-title.title {
+  font-size: 20px;
+}
+ol.mb-4.list-group.list-group-numbered li.list-group-item {
+  border: none;
+  padding: 0px;
+}
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+button.btn.btn-secondary.search-invoice-btn {
+  background-color: #034A61;
+  margin-top:40px;
+}
+
+.help-block {
+  font-size: 8pt;
+}
+
+
+

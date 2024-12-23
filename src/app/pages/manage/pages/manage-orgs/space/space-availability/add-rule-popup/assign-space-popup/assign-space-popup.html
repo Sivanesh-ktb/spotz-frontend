@@ -1,0 +1,89 @@
+<div class="custom-tab">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="assign-tab" data-bs-toggle="tab" data-bs-target="#assign" type="button"
+        role="tab" aria-controls="facilities" aria-selected="true">Assign to User</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="registration-tab" data-bs-toggle="tab" data-bs-target="#registration" type="button"
+        role="tab" aria-controls="space-type" aria-selected="false">Registration</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="setup-instructions-tab" data-bs-toggle="tab" data-bs-target="#setup-instructions" type="button"
+        role="tab" aria-controls="space-type" aria-selected="false">Setup Instructions</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="setup-item-tab" data-bs-toggle="tab" data-bs-target="#setup-item" type="button"
+        role="tab" aria-controls="space-type" aria-selected="false">Setup Items</button>
+    </li>
+  </ul>
+  </div>
+  <div class="tab-content">
+  <div class="tab-pane fade assign fac active show" id="assign" role="tabpanel" aria-labelledby="assign-tab">
+    <div class="d-flex gap-2">
+    <div class=" d-flex flex-column text-align-center">
+      <label class="form-check-label fw-bold" for="Internal">Internal</label>
+      <div class="form-check form-switch">
+      <input class="form-check-input" [(ngModel)]="internal" (click)="updateInternal()" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+    </div>
+    </div>
+    <div *ngIf="internal" class="assign-checkbox mt-4">
+      <input class="form-check-input" [(ngModel)]="assign" (click)="assignChecked()" type="checkbox" role="switch">
+      <label class="form-check-label px-2" for="Assign Internally">  Assign Internally</label>
+    </div>
+  </div>
+  <div *ngIf="!internal || assign" class="d-flex gap-5">
+    <div class="group-drop-down w-100">
+      <label for="group">Group</label>
+      <select (change)="selectGroup($event)" [(ngModel)]="group" class="form-select" id="group" aria-invalid="false">
+        <option disabled selected>Select a group</option>
+        <option *ngFor="let group of groupMembers" [value]="group._id">{{ group.name }}</option>
+      </select>
+    </div>
+    <div class="group-drop-down w-100">
+      <label for="group fw-bold">Members</label>
+      <ng-container *ngIf="groupUsers && groupUsers[0] && groupUsers.length > 0; else noData">
+        <select [(ngModel)]="uid" (change)="selectedMembersDetails()" class="form-select" id="group" aria-invalid="false">
+          <option disabled>Select a group</option>
+          <option *ngFor="let member of groupUsers" [value]="member._id">{{member.firstName}} {{member.lastName}}</option>
+      </select>
+    </ng-container>
+    <ng-template #noData>
+      <br>
+      <span>No group member</span>
+    </ng-template>
+    </div>
+  </div>
+  </div>
+  <div class="tab-pane fade registration fac px-4" id="registration" role="tabpanel" aria-labelledby="registration-tab">
+    <label for="link">Link</label>
+    <input id="link" type="text" [(ngModel)]="link" (keyup)="updateData()"
+    placeholder="http://your.registration.com/link" class="form-control" aria-invalid="false">
+    <p class="help-block p-0 m-0">Add a link for users to signup for this activity, class, or league.
+      Links should start with <i>http </i>or <i>https</i>.</p>
+    <label for="capacity">Capacity</label>
+    <input id="capacity" type="number" [(ngModel)]="capacity" (keyup)="updateData()" class="form-control" aria-invalid="false">
+    <label for="description">Description</label>
+    <textarea id="description" placeholder="Enter additional description for the activity, class, or league."
+    [(ngModel)]="description" class="form-control" aria-multiline="true" aria-invalid="false"></textarea>
+  </div>
+  <div class="tab-pane fade assign fac" id="setup-instructions" role="tabpanel" aria-labelledby="setup-instructions-tab">
+    <textarea placeholder="Enter any work order notes"
+    [(ngModel)]="msg"
+    (keyup)="updateData()"
+    class="form-control ng-pristine ng-valid ng-touched" aria-multiline="true"
+    aria-disabled="false" aria-invalid="false"></textarea>
+    <p class="help-block p-0 m-0">
+      These instructions are only seen by internal
+      personnel for the purpose of readying the space via work orders.
+    </p>
+  </div>
+  <div class="tab-pane fade assign fac" id="setup-item" role="tabpanel" aria-labelledby="setup-item-tab">
+    <p class="help-block">Select items that should be included in the setup for this space use.</p>
+  </div>
+</div>
+  <div class="alert alert-info">
+    <p><span class="help highlight"><span class="fa fa-lightbulb-o"></span>
+    </span>Assign space allows you to create calendar entries for internal events that are
+    scheduled outside of the Spotz process.</p>
+  </div>

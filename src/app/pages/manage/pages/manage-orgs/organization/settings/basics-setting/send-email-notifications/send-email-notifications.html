@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-lg-8">
+    <div class="tab-cnt1">
+      <div class="t-b-1">
+        <p>If you would like to create reservations and group memberships on behalf of users, without
+          sending correspondence, turn off email notifications. This will also not notify of any
+          cancellations.</p>
+        <div class="can-toggle">
+          <div class="bootstrap-switch-container">
+            <label class='toggle-label m-0'>
+              <input type='checkbox' [(ngModel)]="sendMail" (click)="orgEmail()" />
+              <span class='back'>
+                <span class='toggle'></span>
+                <span class='label on'>Yes</span>
+                <span class='label off'>No</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4">
+    <ng-container *ngIf="isEmail">
+      <div class="bootstrap-switch-container mb-3 mt-5 py-3 d-flex gap-2">
+        <button type="submit" class="btn btn-primary" (click)="saveSendEmailNotification()" aria-hidden="false">Save</button>
+        <button type="button" class="btn btn-default" (click)="cancelEmailNotification()" aria-hidden="false">Cancel</button>
+      </div>
+    </ng-container>
+  </div>
+</div>

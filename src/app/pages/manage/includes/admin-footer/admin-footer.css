@@ -1,0 +1,22 @@
+/*footer-section*/
+.footer-links ul li {
+display: inline-block;
+padding: 8px 10px;
+cursor: pointer;
+font-size: 15px;
+}
+
+.foot-bg{
+  background-color: #274451;
+}
+.footer-ver p, li a {
+  color: #fff;
+  gap: 10px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px
+}
+.nav-pills li a:hover {
+  color: #fff;
+  background-color: #37525c;
+}

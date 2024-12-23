@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row mb-4">
+      <div class=" col-md-8 col-sm-6 col-xs-9">
+        <div class="row">
+          <div class=" col-md-2 hidden-sm hidden-xs">
+            <div class="radio"><span class="control-label"> Show</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="radio">
+                  <label class="control-label">
+                    <input type="radio" value="sales" name="transactionType" [(ngModel)]="refunds" (click)="refundView('sales')"> Sales Only
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="radio">
+                  <label class="control-label">
+                    <input type="radio" value="refunds" name="transactionType" [(ngModel)]="refunds" (click)="refundView('refunds')"> Refunds Only
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-3" *ngIf="refunds">
+        <button class="btn btn-default btn-xs" (click)="clearFilter()" aria-hidden="false"><i class="fa fa-times"></i>  Clear Filter</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="table-container" *ngIf="refunds === 'sales' || !refunds ">
+      <table class="table table-hover table-condensed table-sm table-th-white-space-normal"
+        aria-hidden="false">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Type</th>
+              <th>Last 4</th>
+              <th>Duration</th>
+              <th>Location</th>
+              <th>Reservation</th>
+            </tr>
+          </thead>
+          <tbody>
+        <tr >
+          <td colspan="9" class="text-align-center text-center">
+            No transactions
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="refunds-table" *ngIf="refunds === 'refunds'">
+    <div class="alert alert-info py-2">
+      <div class="no-data">
+        <p>No transactions found.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

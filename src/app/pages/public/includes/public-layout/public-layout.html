@@ -1,0 +1,11 @@
+
+<app-navbar [page]=1></app-navbar>
+<ng-container *ngIf="organizationData || organizationFacilities && lowestPriceSpaceDetails  ">
+<app-org-view-header [organizationData]="organizationData" [organizationFacilities]="organizationFacilities"
+[lowestPriceSpaceDetails]="lowestPriceSpaceDetails" [spaceCount]="spaceCount" [page]='page'>
+</app-org-view-header>
+<app-org-slider [organizationData]="organizationData"
+[organizationFacilities]="organizationFacilities" [organizationSliderImages]="organizationSliderImages" [page]="page"></app-org-slider>
+</ng-container>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
+<app-footer></app-footer>

@@ -1,0 +1,14 @@
+.week-grid .day-grid.checked {
+  background-color: #e6ebed;
+}
+.week-grid .day-grid .day {
+  font-size: 12px;
+  font-weight: 400;
+  border-bottom: 1px solid #ccc;
+}
+.week-grid .day-grid .availability {
+  color: #31708f;
+}
+.week-grid .day-grid {
+  width: 20px;
+}

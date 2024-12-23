@@ -1,0 +1,47 @@
+<div class="fc table">
+<table class="d-flex gap-1">
+  <table>
+  <thead>
+    <tr>
+    <th>Spaces</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="space-details-colum name-limit" *ngFor="let space of spaceDetails">
+      <td>{{ space.name }}</td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="fc fac-table-bordered">
+  <table>
+    <tr>
+      <ng-container *ngIf="timeSlots && timeSlots.length > 0">
+      <th  *ngFor="let time of timeSlots">
+        {{ time }}
+      </th>
+      </ng-container>
+    </tr>
+    <ng-container *ngIf="spaceDetails && spaceDetails.length > 0; else noneSpace">
+      <tr *ngFor="let space of spaceDetails">
+      <td *ngFor="let time of timeSlots" class="space-details-colum" [ngClass]="{'today': isToday(time)}">
+        <div class="fc-event-container">
+
+        </div>
+      </td>
+    </tr>
+    </ng-container>
+    <ng-template #noneSpace>
+      <tr>
+        <td *ngFor="let time of timeSlots">
+
+        </td>
+      </tr>
+      </ng-template>
+    <tbody></tbody>
+  </table>
+</div>
+</table>
+</div>

@@ -1,0 +1,23 @@
+<app-booking-info-header [banner]="banner" [facDetails]="facDetails" [spaceDetails]="selectedSpace" (spaceSelected)="onSpaceSelected($event)"></app-booking-info-header>
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-7 col-md-8 col-lg-8 px-3">
+     <app-booking-info-space-details [spaceDetails]="selectedSpace" [amenities]="amenity" [freeAddons]="freeAddons" [paidAddons]="paidAddons"></app-booking-info-space-details>
+     <div class="facility-map-container">
+      <h4>About the Facility</h4>
+      <div class="map-container">
+      <app-google-map [orgMapDetails]="row" [page]="page"></app-google-map>
+    </div>
+    <div class="facility-address mt-2">
+      <span class="address-line d-flex align-items-center gap-2"><span class="address">{{address}}</span></span>
+        <div class="mb-4">{{spaceDetails.fac?.description ?? ''}}</div>
+    </div>
+     </div>
+    </div>
+    <div class="facility-listing col-sm-5 col-md-4 col-lg-4">
+      <div class="listing-search search-box banner-cover">
+        <app-booking-scheduler [spaceDetails]="selectedSpace" [facDetails]="facDetails" (spaceSelected)="onSpaceSelected($event)" (navigateToSchedule)="onNavigateToSchedule()"></app-booking-scheduler>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+<div class="container-fluid">
+  <div class="manage-org">
+    <div class="row">
+      <div class="col-lg-3">
+       <app-profile-sidebar></app-profile-sidebar>
+      </div>
+      <div class="col-lg-9">
+        <div class="profile-basics">
+          <h1>Account Settings</h1>
+        </div>
+        <div class="card-container">
+          <div *ngIf="tempEmail" class="alert alert-warning d-flex" aria-hidden="false">
+            <p>
+              We sent an email to {{userEmail}} to
+              verify your new email.  Click on the link in the email to complete the email update process.
+            </p>
+            <a (click)="closeAlert()" (keydown.enter)="closeAlert()" tabindex="0">
+            <i class="fas fa-times"></i>
+          </a>
+          </div>
+          <app-user-email [userEmail]="userEmail"/>
+          <div class="hr"></div>
+          <app-user-phone [userPhon]="userPhon"/>
+          <div class="hr"></div>
+          <app-user-password/>
+        <div class="hr"></div>
+        <app-user-notifications [reminderEmail]="reminderEmail" [updateEmail]="updateEmail"/>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+</section>

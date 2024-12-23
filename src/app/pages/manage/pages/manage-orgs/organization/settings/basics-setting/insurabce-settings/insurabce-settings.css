@@ -1,0 +1,11 @@
+.error {
+  color: red;
+}
+
+.setting {
+  float: left;
+  border: 1px solid #e2f4fb;
+  background-color: #e2f4fb;
+  border-radius: 5px;
+  padding: 8px 12px;
+}

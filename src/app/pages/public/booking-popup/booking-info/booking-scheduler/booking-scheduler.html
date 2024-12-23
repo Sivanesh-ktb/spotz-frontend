@@ -1,0 +1,62 @@
+<div class="listing-search search-box banner-cover">
+          <div class="input-group w-100 mb-4 header mb-4">
+            <h3><span class="badge">2</span> Schedule</h3>
+          </div>
+          <div class="mt-5">
+          <app-list-spaces [spaceDetails]="spaceDetails" [facDetails]="facDetails" (spaceSelected)="onSpaceSelected($event)"></app-list-spaces>
+          </div>
+          <div class="input-group w-100">
+            <div class="form-box date right w-100">
+              <label class="control-label fw-bold" for="Event Date">
+                <span *ngIf="!isRecurring">Event </span> Date
+              </label>
+              <div class="d-flex text-center align-items-center date-input-container">
+                <input
+                  matInput
+                  class="custom-input"
+                  [matDatepicker]="dp3"
+                  [min]="minDate"
+                  [(ngModel)]="searchDate"
+                  (ngModelChange)="onDateSelected($event)"
+                  readonly
+                  (click)="dp3.open()"
+                />
+                <mat-datepicker-toggle matSuffix [for]="dp3" class="date-picker-container">
+                  </mat-datepicker-toggle>
+                <mat-datepicker #dp3></mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="input-group w-100 repeating d-flex flex-column">
+            <label class="control-label fw-bold" for="Occurrence">Occurrence</label>
+            <div>
+              <label class="radio-inline ms-2">
+                <input
+                  type="radio"
+                  [(ngModel)]="isRecurring"
+                  name="isRecurring"
+                  [value]="false"
+                  (change)="changeRecurring(false)"
+                /> Single
+              </label>
+              <label class="radio-inline ms-2">
+                <input
+                  type="radio"
+                  [(ngModel)]="isRecurring"
+                  name="isRecurring"
+                  [value]="true"
+                  (change)="changeRecurring(true)"
+                /> Recurring
+              </label>
+            </div>
+          </div>
+          <app-recurring *ngIf="isRecurring"></app-recurring>
+          <div class="input-group w-100 p-3">
+            <button
+              type="submit"
+              class="btn btn-primary btn-block w-100"
+              (click)="navigateToBookingSchedule()">
+              Find and book time
+            </button>
+          </div>
+      </div>

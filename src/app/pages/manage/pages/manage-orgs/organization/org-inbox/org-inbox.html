@@ -1,0 +1,63 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12">
+          <div class="edit-org-cnt">
+            <h3 class="new-space-h fw-bold">Inbox</h3>
+          </div>
+          <div class="col-lg-6 d-flex">
+            <a (click)="refreshInbox()" class="btn btn-default btn-xs">
+              <i class="fa-solid fa-arrows-rotate"></i> Refresh
+            </a>
+          </div>
+          <div class="panel panel-body mt-3 px-2 py-2">
+            <div class="section mb-2">
+              <a (click)="viewUnread()" class="btn btn-link text-left">
+                <span
+                [ngClass]="{'fa-caret-right': !unreadExpanded, 'fa-caret-down': unreadExpanded }"
+                      class="fa mr-2"></span>
+                Unread
+                <span class="label label-primary label-email">
+                0
+                </span>
+              </a>
+            </div>
+            <div *ngIf="unreadExpanded" class="section alert alert-success mb-0">
+              <div class="text-center">All messages read.</div>
+            </div>
+          </div>
+          <div class="panel panel-body mt-3 px-2 py-2">
+            <div class="section mb-2 d-flex justify-content-between">
+              <a  (click)="viewRead()" class="btn-link">
+              <span class="fa mr-2 fa-caret-down"></span>
+              Attention Required (Approve / Deny)</a>
+              <span class="label label-primary pull-right ng-binding"
+              aria-hidden="false">{{inboxData.length}}</span>
+            </div>
+              <ng-container *ngIf="readExpanded">
+              <div *ngIf="inboxData.length === 0"
+              class="section alert alert-success mb-0">
+                <div class="text-center">No items to approve/deny.
+                  <a (click)="viewSchedule()" class="fw-bold see-all-booking">
+                    See all bookings <span class="fa fa-chevron-circle-right"></span>
+                  </a>
+                </div>
+              </div>
+              <ng-container *ngFor="let booking of inboxData">
+                <app-booking-line-grouped [booking]="booking"></app-booking-line-grouped>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

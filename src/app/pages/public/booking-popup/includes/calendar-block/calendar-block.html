@@ -1,0 +1,159 @@
+<div *ngIf="(!cal?.pricing?.length && (!cal.unavail))" class="drag-to-select schedule-blocks">
+  <div class="schedule-label schedule-label-text text-center">
+    Click/Drag to Select {{cal?.pricing?.length}}  {{cal.unavail}}
+  </div>
+  <div class="time-controls" *ngIf="cal.divisor > 2">
+    <div class="earlier left">
+      <a class="fa fa-chevron-circle-left" (click)="timePage(-1)" (keydown.enter)="timePage(-1)" tabindex="0" [ngClass]="{disabled:cal.currentPage === 0}"></a>
+    </div>
+    <div class="earlier">
+      <a (click)="timePage(-1)" (keydown.enter)="timePage(-1)" tabindex="0"></a>
+      <span class="text" *ngIf="cal.currentPage !== 0">
+        earlier
+      </span>
+    </div>
+    <div class="later right">
+      <a class="fa fa-chevron-circle-right" (click)="timePage(-1)" (keydown.enter)="timePage(-1)" tabindex="0" [ngClass="{disabled:!showLater()}"]>
+      </a>
+    </div>
+    <div class="later">
+      <a (click)="timePage(-1)" (keydown.enter)="timePage(-1)" tabindex="0"></a>
+      <span class="text" *ngIf="showLater()">
+        later
+      </span>
+    </div>
+  </div>
+  <button *ngFor="let av of cal.avail" class="btn btn-default button" (mouseover)="hover(av, true)"
+    (mouseleave)="hover(av, false)" (mousedown)="onMouseDown($event, av)"
+    [disabled]="av.avail < 0 || av.lead || !av.access" style="position:relative;"
+    [ngStyle]="av.status === 1 ? { 'background-color': '#818589' } : {}" [ngClass]="{
+              'btn-primary': av.isSelected || (av.isSelecting && av.isSelected),
+              'lead': av.lead && av.avail >= 0,
+              'access': !av.access && av.avail >= 0
+              }">
+
+    <div *ngIf="av.level" class="locked" aria-hidden="true">
+      <span class="fa fa-lock"> </span>
+      {{av.level | level : true}}
+    </div>
+    <span>
+      <span [ngClass]="{'fa-check-square': av.isSelected}" class="fa fa-check-square">&nbsp;</span>
+      {{av.time | timeslotPipe : cal.divisor : false : true}}
+    </span>
+  </button>
+  <div *ngFor="let av of (cal.score)"
+     class="no-focus summary" (mousedown)="toggleAllTimes(av)"
+     (mouseover)="hover(av, true)"
+     (mouseleave)="hover(av, false)"
+     [ngClass]="{ 'hover': av.isSelected || av.isSelecting, 'disabled': av.opening === 0 }">
+    <button class="btn btn-default" [disabled]="av.opening === 0">
+      <span class="fa" [ngClass]="{'fa-star':av.opening === (av.opening + av.conflict),'fa-check-square':av.isSelected || av.isSelecting}">
+        &nbsp;
+      </span>
+      <span>
+        {{ av.time | timeslotPipe : cal.divisor : false : true}}
+      </span>
+    </button>
+    <div class="scoring">
+      <div class="value">
+        {{av.opening}} of {{av.opening + av.conflict}}
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<div *ngIf="cal?.pricing?.length && !cal?.score" class="timeblock">
+  <div *ngIf="cal.pricing.length > PRICING_LENGTH">
+    <div class="schedule-label text-center schedule-label-container">
+      Select Block
+    </div>
+    <div class="time-controls d-flex justify-content-between mx-2">
+      <div class="earlier left">
+        <a class="fa fa-chevron-circle-left" href="#" (click)="timePage(-1)"
+          [ngClass]="{ 'disabled': cal.currentPage === 0 }"></a>
+      </div>
+      <div class="later right">
+        <a class="fa fa-chevron-circle-right" href="#" (click)="timePage(1)"
+          [ngClass]="{ 'disabled': (cal.currentPage + 1) * 8 >= cal.pricing.length }"></a>
+      </div>
+    </div>
+  </div>
+  <button #buttonRef class="btn btn-default custom" style="position:relative;" *ngFor="let block of cal.pricing"
+    (mousedown)="onMouseDown($event, block)"
+    [ngClass]="{'btn-primary': block.isSelected, 'lead': block.lead && block.available, 'access': !block.access && block.available}"
+    [disabled]="block.isDisabled || !block.available || block.lead || !block.access || !block.price"
+    (click)="onBlockClick(block)">
+    <div class="row">
+      <div class="col-md-4 text-start">
+        <span class="fa"></span>
+        &nbsp;
+        <span class="text-start">{{ block.name }}</span>
+      </div>
+      <div class="col-md-2 px-0 mx-0">{{ block.price | currency: '$ ' }}</div>
+      <div class="col-md-6 text-end">
+        <span>{{ changeTimeFormat(block.startTime) }} to </span>
+        <span>{{ changeTimeFormat(block.endTime) }}</span>
+      </div>
+    </div>
+  </button>
+  <div class="scoring">
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div *ngIf="cal?.pricing?.length && cal?.score">
+  <div *ngIf="cal.score.length > PRICING_LENGTH">
+    <div class="schedule-label schedule-label-text text-center">
+      Select Block
+    </div>
+    <div class="time-controls">
+      <div class="earlier left">
+        <a class="fa fa-chevron-circle-left" href="" (click)="timePage(-1)"
+          [ngClass]="{ 'disabled': cal.currentPage === 0 }"></a>
+      </div>
+      <div class="earlier">
+        <a href="" (click)="timePage(-1)">
+          <span class="text" *ngIf="cal.currentPage !== 0">more</span>
+        </a>
+      </div>
+      <div class="later right">
+        <a class="fa fa-chevron-circle-right" href="" (click)="timePage(1)"
+          [ngClass]="{ 'disabled': (cal.currentPage + 1) * 8 >= cal.pricing.length }"></a>
+      </div>
+      <div class="later">
+        <a href="" (click)="timePage(1)">
+          <span class="text" *ngIf="(cal.currentPage + 1) * PRICING_LENGTH < cal.pricing.length">more</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-focus summary custom" *ngFor="let block of cal.score; let time = index"
+    (mouseover)="hover(block, true)" (mouseleave)="hover(block, false)" (mousedown)="onMouseDown($event, block)"
+    [ngStyle]="{
+              'opacity': (block.isDisabled || !block.available) ? '0.5' : '1',
+              'pointer-events': (block.isDisabled || !block.available) ? 'none' : 'auto'}" [ngClass]="{
+              'hover': block.isSelected || block.isSelecting,
+              'disabled': block.isDisabled || !block.available}">
+
+    <button class="btn btn-default" style="position:relative;" [disabled]="block.opening === 0">
+      <div class="row col-md-12">
+        <div class="col-md-4">
+          <span class="fa" [ngClass]="{
+                      'fa-star': block.opening === (block.opening + block.conflict),
+                      'fa-check-square': block.isSelected || block.isSelecting
+                    }">
+          </span>&nbsp;
+          <span class="text-start">{{ block.name }}</span>
+        </div>
+        <div class="col-md-2">{{ block.price | currency: '$ ' }}</div>
+        <div class="col-md-6 text-end">
+          <span>{{ changeTimeFormat(block.startTime) }} to</span>
+          <span>{{ changeTimeFormat(block.endTime) }}</span>
+        </div>
+      </div>
+    </button>
+    <div class="scoring">
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.fc.table table {
+   width: 100%;
+}
+
+.today {
+  background-color: yellow;
+  color: red;
+  font-weight: bold;
+}

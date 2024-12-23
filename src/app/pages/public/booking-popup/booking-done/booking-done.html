@@ -1,0 +1,56 @@
+<div class="container-fluid">
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="px-4">
+<div class="booking-process">
+<div class="confirmed ng-scope">
+  <div *ngIf="BookingDoneDetails.status !== 2;else bookingRequest" ><i class="fa fa-check-circle"></i>
+    <h4 class="text-success">Booking Confirmed!</h4>
+    <p class="ng-binding" aria-hidden="false">Reservation number:
+      {{BookingDoneDetails._id}}</p>
+    <div class="well mt-4">
+      <p class="text-left"><span class="fa fa-bolt reservation-text">
+        </span>This reservation requires no further approval from the host, which means you are automatically approved
+        to use this space on the requested date(s) and time(s).</p>
+      <p class="booking-info">Please note, the host may still cancel the
+        reservation in the event of bad weather or unplayable conditions.</p>
+    </div>
+  </div>
+  <ng-template #bookingRequest>
+    <div class="pending-booking row ng-scope">
+      <div class="col-xs-12 request-sent">
+        <i class="fa fa-envelope-o text-success"></i>
+        <h2 class="text-success">Request Sent</h2>
+        <p>You're almost ready to play! Here's what happens next:</p>
+      </div>
+      <div class="col-sm-4"><i class="fa fa-clock-o orange"></i>
+        <p class="next-steps">Your host has 3 days to respond to your request.</p>
+      </div>
+      <div class="col-sm-4"><i class="fa fa-thumbs-o-up orange mr-1"></i>
+        <i class="fa fa-thumbs-o-down orange"></i>
+        <p class="next-steps">They will either approve or deny your
+          reservation — we'll email you when they do.</p>
+      </div>
+      <div class="col-sm-4"><i class="fa fa-soccer-ball-o orange"></i>
+        <p class="next-steps">If they approve your reservation, then you're all set!</p>
+      </div>
+      <div class="col-xs-12">
+        <p ng-show="!vm.cart.isCartCheckOut" aria-hidden="false">
+          <small class="ng-binding">Reservation number:
+            {{BookingDoneDetails._id}}</small></p>
+      </div>
+      </div>
+  </ng-template>
+  <p>
+    <button (click)="dismiss()" class="btn btn-default">Close Window</button>
+  </p>
+  <p><a (click)="findFacility()" (keydown.enter)="findFacility()" tabindex="0" class="btn btn-link">Find more time at this facility</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4">
+  <app-booking-receipt></app-booking-receipt>
+</div>
+</div>
+</div>

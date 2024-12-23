@@ -1,0 +1,113 @@
+.addon-enabled, .addon-selected {
+    padding-bottom: 8px;
+    display: flex;
+}
+
+.head-label {
+    border-bottom: 1px solid #e2e7e9;
+    height: 28px;
+}
+.head-label h5{
+  font-weight: 400 !important;
+}
+.addon-selected .bootstrap-switch {
+    margin: auto 4px auto 0;
+    border-color: #4dcaf4;
+    display: inline-block;
+    direction: ltr;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    line-height: 8px;
+    z-index: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    border-radius: 4px;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+    background: #4dcaf4;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.btn-link {
+    color: #034A61;
+    border-color: transparent;
+    padding: 4px 12px !important;
+    text-decoration: none;
+}
+
+.btn-primary[disabled] {
+    background-color: #ccc;
+    border-color: #adadad;
+    cursor: not-allowed;
+}
+
+.button-links button {
+    font-size: 15px !important;
+}
+
+.addon-headers {
+    font-weight: 500;
+    padding-bottom: 8px;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.bookingOptionsForm{
+    background-color: #fff;
+    border: 1px solid #e2e7e9 !important;
+    border-radius: 5px;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+ .addons-total {
+    padding-top: 8px;
+    font-weight: 500;
+    text-align: right;
+}
+.sub-total{
+  font-weight: 400;
+}
+.addon-description{
+  font-size: 0.8em;
+}
+.addon-children{
+  border-top: 1px solid #eee;
+}
+.addon-use{
+  border-top: 1px solid rgb(238, 238, 238);
+}
+.select-use{
+  text-align:left;
+  padding-top:0;
+}
+.select-qty{
+  width: 50px;
+  height:22px;
+  padding:0;
+}
+.alert-info-text{
+  margin:5px 0;
+}
+.addon-row{
+  padding: 5px 0;
+}
+.addons-border-bottom{
+  border-bottom: 1px solid #eee;
+}

@@ -1,0 +1,84 @@
+<section class="here-are-bg pad-spc position-relative">
+  <div class="container">
+    <div class="featured-spaces">
+      <h3>Featured Spaces</h3>
+    </div>
+    <ngb-carousel #carousel [showNavigationArrows]="false" [showNavigationIndicators]="false">
+      <ng-template ngbSlide>
+          <div class="row">
+          <ng-container *ngFor="let row of addresses">
+            <div class="col-lg-4 zoom-in-animation" *ngIf="row.name">
+              <div class="s-1-img">
+                <div
+                  class="s-image"
+                  *ngIf="row.assets.length > 0; else defaultImage"
+                >
+                  <ngb-carousel>
+                    <ng-template
+                      ngbSlide
+                      *ngFor="let image of row.assets; let i = index"
+                    >
+                      <div class="slider-image-container d-flex large-slider-image">
+                        <div
+                          class="slider-click-area left"
+
+                        ></div>
+                        <img [src]="image?.url" alt="Slide" class="slider-image" />
+                        <div
+                          class="slider-click-area right"
+
+                        ></div>
+                      </div>
+                    </ng-template>
+                  </ngb-carousel>
+                </div>
+                <ng-template #defaultImage>
+                  <div class="s-image">
+                    <img
+                      src="assets/img/spaces/default/2_logo.jpg"
+                      alt="Slide"
+                      class="slider-image"
+                    />
+                  </div>
+                </ng-template>
+              </div>
+              <div class="row">
+                <div class="col-lg-8">
+                  <a (click)="viewSpacePage(row.facilityDetails[0].address,row.facilityDetails[0].org.shortName,
+            row.facilityDetails[0].shortName,row._id )" (keydown.enter)="viewSpacePage(row.facilityDetails[0].address,row.facilityDetails[0].org.shortName,
+            row.facilityDetails[0].shortName,row._id )" tabindex="0">
+                  <div class="s-content-1">
+                    <p class="name-limits mt-1 mb-1">{{ row.name }}</p>
+                    <p class="space-address mb-1">
+                  {{row.facilityDetails[0]?.address?.city+', '+row.facilityDetails[0]?.address?.state}}</p>
+                    <p class="space-address-details mb-2">${{ row.price }} per <ng-container *ngIf="row.rentaltypes===1; else hour"> Day</ng-container>
+                      <ng-template #hour>hour</ng-template></p>
+                  </div>
+                </a>
+                </div>
+                <div class="col-lg-4">
+                  <div class="s-icon">
+                    <p class="space-address-details text-center">{{row?.capacity??0}} <i class="fa fa-user-o" aria-hidden="true"></i></p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          </ng-container>
+          </div>
+      </ng-template>
+    </ngb-carousel>
+    <div class="s-more-spac text-center">
+      <a class="color-white" (click)="onFacilityAnchorClick($event)" (keydown.enter)="onFacilityAnchorClick($event)" tabindex="0">Search more Spaces
+      <img src="./assets/img/arrows-up.png" alt="" />
+    </a>
+    </div>
+  </div>
+  <div class="carousel-controls position-absolute">
+    <button (click)="prevCarousel()" class="btn btn-primary prev" [disabled]="offset === 0">
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+    <button (click)="nextCarousel()" class="btn btn-primary next" [disabled]="(offset + 1) >= addresses.length">
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
+</section>

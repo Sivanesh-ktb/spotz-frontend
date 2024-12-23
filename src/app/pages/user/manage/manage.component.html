@@ -1,0 +1,124 @@
+<section class="content admin">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid mt-2">
+    <h1>Organizations</h1>
+    <div class="banner-container" *ngFor="let org of orgDetails">
+      <div class="top-nav-bar topnav-icon hidden-sm">
+        <div class="info-container">
+          <a (click)="viewPage(org._id,org.name,'inbox')" (keydown.enter)="viewPage(org._id,org.name,'inbox')" tabindex="0">
+            <span class="text info-text">
+              Inbox</span>
+            <div class="fa fa-envelope info-icon">
+            </div>
+          </a>
+        </div>
+        <div class="info-container">
+          <a (click)="viewPage(org._id,org.name,'schedule')" (keydown.enter)="viewPage(org._id,org.name,'schedule')" tabindex="0">
+            <span class="text info-text">
+              Events</span>
+            <div class="fa fa-calendar-check-o info-icon">
+            </div>
+          </a>
+        </div>
+        <div class="info-container">
+          <a (click)="viewPage(org._id,org.name,'cancel')" (keydown.enter)="viewPage(org._id,org.name,'cancel')" tabindex="0">
+            <span class="text info-text">
+              Cancel</span>
+            <div class="fa fa-calendar-times-o info-icon"></div>
+          </a>
+        </div>
+      </div>
+      <div class="user-banner">
+        <div class="img" [style.background-image]="'url(' + org.banner + ')'"></div>
+      </div>
+      <div class="pt-3 px-3">
+        <div class="row logo-row row-seamless">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="logo logo-admin">
+              <a (click)="viewPage(org._id,org.name)" (keydown.enter)="viewPage(org._id,org.name)" tabindex="0">
+               <img *ngIf="org.logo;else defaultImage" [src]="org.logo" alt="org.name">
+               <ng-template #defaultImage>
+                  <img src="assets/img/profile-icon.png" alt="Default Logo">
+               </ng-template>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-7">
+            <h2 class="pg-header mt-2"><a class="ng-binding" (click)="viewPage(org._id,org.name)" (keydown.enter)="viewPage(org._id,org.name)" tabindex="0">{{org.name}}</a>
+              <div class="mt-2"></div><span class="small">
+                <span class="address-line ellipsis ng-isolate-scope" address="org.address">
+                  <span ng-hide="hideStreet" class="address ng-binding" aria-hidden="false">{{org.address.street1}} </span><span
+                    class="city-state"><span class="city ng-binding" aria-hidden="false">{{org.address.city}}<span
+                        aria-hidden="false">,
+                      </span></span><span class="ng-binding" aria-hidden="false">{{org.address.state}} </span>
+                    <span id="zip" ng-hide="hideStreet" ng-bind="address.zip" class="ng-binding"
+                      aria-hidden="false">{{org.address.zip}}</span>
+                  </span></span>
+              </span>
+            </h2>
+          </div>
+          <div class="col-md-2 text-end">
+            <div class="edit mt-3 hidden-sm hidden-xs"><a  (click)="viewPage(org._id,org.name)" (keydown.enter)="viewPage(org._id,org.name)" tabindex="0">
+                <span class="icon-pencil3"><i class="fas fa-pencil-alt highlight"></i></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-5 pb-5">
+        <div class="row">
+          <div class="col-xs-12">
+            <p><span class="ng-binding ng-hide" aria-hidden="true"></span></p>
+          </div>
+        </div>
+        <div class="row actions-row">
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="card-text"><a (click)="viewPage(org._id,org.name,'settings')" (keydown.enter)="viewPage(org._id,org.name,'settings')" tabindex="0">
+                <div class="fa fa-cog mr-2"></div> Settings
+              </a></div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="card-text"><a (click)="viewPage(org._id,org.name,'groups')" (keydown.enter)="viewPage(org._id,org.name,'groups')" tabindex="0">
+                <div class="fa fa-users mr-2"></div> Groups
+              </a></div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="card-text"><a (click)="viewPage(org._id,org.name,'facs')" (keydown.enter)="viewPage(org._id,org.name,'facs')" tabindex="0">
+                <div class="fas fa-building mr-2"></div> Facilities
+              </a></div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-3">
+            <div class="card-text">
+              <div class="dropdown">
+                <li class="nav-item dropdown">
+                  <a id="navbarAdminDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false" class="highlight dropdown-toggle color-black">
+                    <div class="fa fa-bar-chart me-1"></div>Reports <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu facility-drop-down name-limit">
+                    <li class="dropdown-item"><a (click)="viewPage(org._id,org.name,'eventlist')" (keydown.enter)="viewPage(org._id,org.name,'eventlist')" tabindex="0">Event List</a></li>
+                    <li class="dropdown-item"><a (click)="viewPage(org._id,org.name,'transactions')" (keydown.enter)="viewPage(org._id,org.name,'transactions')" tabindex="0">Transactions</a></li>
+                    <li class="dropdown-item"><a (click)="viewPage(org._id,org.name,'deposits')" (keydown.enter)="viewPage(org._id,org.name,'deposits')" tabindex="0">Deposits</a></li>
+                    <li class="dropdown-item"><a (click)="viewPage(org._id,org.name,'invoices')" (keydown.enter)="viewPage(org._id,org.name,'invoices')" tabindex="0">Invoices</a></li>
+                    <li class="dropdown-item"><a (click)="viewPage(org._id,org.name,'usage')" (keydown.enter)="viewPage(org._id,org.name,'usage')" tabindex="0">Usage </a></li>
+                  </ul>
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mx-2">
+      <div class="row">
+        <h1>Reservations this week</h1>
+        <div class="panel panel-default">
+         <p>
+          <i>No upcoming reservations for your organization(s).</i>
+         </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

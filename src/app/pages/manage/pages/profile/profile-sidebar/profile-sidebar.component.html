@@ -1,0 +1,35 @@
+<div class="my-spotz">
+  <h6 class="text-center p-3">My Spotz</h6>
+</div>
+<div class="p-0">
+<div class="my-s">
+<div class="mg-head-1 profile-sidebar">
+  <a class="nav-bar cursor-pointer" (click)="viewReservations()" (keydown.enter)="viewReservations()" tabindex="0" title="Reservations">
+    <p [ngClass]="{ 'fw-bold active': currentRoute === 'reservations' }"><i class="fas fa-list"></i> Reservations
+    </p>
+  </a>
+  <a class="nav-bar cursor-pointer" (click)="viewPayments()" (keydown.enter)="viewPayments()" tabindex="0" title="Payments & Invoices">
+    <p [ngClass]="{ 'fw-bold active': currentRoute === 'payments' }"><i class="fas fa-dollar-sign"></i> Payments & Invoices
+    </p>
+  </a>
+  <a class="nav-bar cursor-pointer" (click)="viewCalendar()" (keydown.enter)="viewCalendar()" tabindex="0" title="calendar">
+    <p [ngClass]="{ 'fw-bold active': currentRoute === 'calendar' }"><i class="far fa-calendar-alt"></i> Calendar
+    </p>
+  </a>
+</div>
+<div class="profile profile-sidebar">
+     <a (click)="viewProfile()" (keydown.enter)="viewProfile()" tabindex="0" class="nav-bar cursor-pointer" title="Profile">
+      <p [ngClass]="{ 'fw-bold active': currentRoute === 'profile' }"><i class="fas fa-user"></i> Profile
+      </p>
+    </a>
+    <a (click)="viewSettings()" (keydown.enter)="viewSettings()" tabindex="0" class="nav-bar cursor-pointer" title="Profile">
+      <p [ngClass]="{ 'fw-bold active': currentRoute === 'settings' }"> <i class="fas fa-cog"></i> Account Settings
+      </p>
+    </a>
+    <a (click)="viewMemberships()" (keydown.enter)="viewMemberships()" tabindex="0" class="nav-bar cursor-pointer" title="Profile">
+      <p [ngClass]="{ 'fw-bold active': currentRoute === 'memberships' }"> <i class="fas fa-users"></i> Memberships
+      </p>
+    </a>
+</div>
+</div>
+</div>

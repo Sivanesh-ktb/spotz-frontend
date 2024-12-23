@@ -1,0 +1,81 @@
+
+.waiver-container{
+  margin-bottom: 0.5rem !important;
+  font-size: 10px;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.border-color{
+  border-bottom: 1px solid #000;
+}
+
+.city-align{
+  width: 15%;
+  text-align: right;
+}
+
+.table-td
+{
+  font-size: 0.8em;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  line-height: 25px;
+  padding: 0 5px;
+}
+
+.waivertitle{
+  font-size: 1.5em !important;
+  font-weight: 500 !important;
+  color: inherit !important;
+  line-height: 1.1 !important;
+}
+
+.waiver-read{
+  font-size: 0.9em !important;
+  margin-top: -1px !important;
+}
+
+.teamname-width{
+  width: 15%;
+}
+
+.waiver-table-font{
+  font-size:0.8em;
+}
+
+.waiver-content-font{
+  font-size:0.7em;
+}
+
+.team-management{
+  font-size: 0.6em;
+}
+
+.span-approved{
+  font-size: 24px !important;
+  font-weight: 500;
+  margin-bottom: 20px !important;
+}
+
+@media print {
+  @page {
+    size: A4;
+  }
+  body {
+    padding: 0;
+    transform: scale(0.9);
+    transform-origin: top left;
+  }
+  * {
+    page-break-inside: avoid;
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
+  .no-print {
+    display: none;
+  }
+  html, body {
+    height: 100%;
+    overflow: visible;
+  }
+}

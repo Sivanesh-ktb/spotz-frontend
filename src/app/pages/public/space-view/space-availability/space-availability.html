@@ -1,0 +1,21 @@
+<div class="availability-container ">
+  <div class="container-fluid px-5">
+      <div class="bg-white px-3">
+        <div class="header">
+          <h3 class="calendar_h3">
+            Events & Availability
+          </h3>
+        <i class="fc-icon fc-icon-fas fa-calendar-alt" role="img"></i>
+        </div>
+        <div class="calendar">
+          <full-calendar [options]="calendarOptions"></full-calendar>
+          <button #myCustomButton class="fc-myCustomButton-button"></button>
+
+          <mat-form-field appearance="fill">
+            <mat-datepicker #datepicker></mat-datepicker>
+            <input matInput [matDatepicker]="datepicker" (dateChange)="onDateChange($event)" placeholder="Choose a date" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+  </div>
+</div>

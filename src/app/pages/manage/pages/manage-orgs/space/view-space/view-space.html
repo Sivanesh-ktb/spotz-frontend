@@ -1,0 +1,294 @@
+<section class="content organization-view-page">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="manage-space-bg">
+    <div class="container-fluid">
+      <div class="manage-org">
+        <div class="row">
+          <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+            <ng-container *ngIf="spaceDetails.name">
+              <app-admin-space-sidebar [displayName]="spaceDetails.name" [rentaltypes]="spaceDetails.rentaltypes"
+                [price]="spaceDetails.price" [facName]="facName" [selectedSpaceTypeEvent]="selectedSpaceTypeEvent">
+              </app-admin-space-sidebar>
+            </ng-container>
+          </div>
+          <div class="row col-lg-9">
+            <div class="d-flex justify-content-between">
+            <h3 class="new-space-h fw-bold">Details</h3>
+            <div class="space-rentable-toggle">
+              <h6>Rentable Space</h6>
+              <div class="bootstrap-switch-container mb-3" style="width: 117px;">
+                <label class='toggle-label'>
+                  <input type='checkbox' (change)="toggleRentableSpace($event)" [checked]="spaceDetails.nonRental" />
+                  <span class='back'>
+                    <span class='toggle'></span>
+                    <span class='label on'>Yes</span>
+                    <span class='label off'>No</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+            <div class=" d-flex space-detail-container row" [ngClass]="{'disabled': spaceDetails.nonRental }">
+              <div class="col-sm-6 space-left-card-section px-3">
+                <div class="section divider card-section">
+                  <div class="row">
+                    <div class="col-xs-9">
+                      <div class="space-card-header d-flex justify-content-between">
+                        <div class="space-card-icon-header d-flex gap-2 align-items-center">
+                          <h2 class="mt-1"><span class="far fa-check-circle"></span> Basics</h2>
+                        </div>
+                        <div class="space-edit-icon">
+                          <a (click)="editSpaceDetails()" (keydown.enter)="editSpaceDetails()" tabindex="0" class="fas fa-pencil-alt" *ngIf="!spaceDetails.nonRental" aria-label="editSpaceDetails"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-container">
+                    <div class="row mb-3">
+                      <div class="col-xs-6">
+                        <h4>Price</h4>
+                        <ng-container *ngIf="spaceDetails.rentaltypes; else hourType">
+                          <span class="lbl">$</span>
+                          <span class="val ng-binding">{{spaceDetails.price}}</span>
+                          <span class="ng-binding">/Day</span>
+                        </ng-container>
+                        <ng-template #hourType>
+                          <span class="lbl">$</span>
+                          <span class="val ng-binding">{{spaceDetails.price}}</span>
+                          <span class="ng-binding">/Hour</span>
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h4>Surface</h4>
+                        <p class="ng-binding">
+                          <ng-container *ngIf="spaceDetails.surface; else notSurface">
+                            {{spaceDetails.surface}}
+                          </ng-container>
+                          <ng-template #notSurface>
+                            Not specified
+                          </ng-template>
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h4>Location</h4>
+                        <div aria-hidden="false">
+                          <ng-container *ngIf="spaceDetails?.indoor === 2; else indoor">
+                            <span class="val fa fa-cloud mr-2"></span>
+                            <span class="lbl">outdoor</span>
+                          </ng-container>
+                          <ng-template #indoor>
+                            <span class="fas fa-building"></span>
+                            <span class="lbl">indoor</span>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <h4>Type</h4>
+                        <span class="label label-success ng-binding spaces space-type" *ngFor="let type of spaceDetails.typ;">
+                          <div class="sports_activities" [ngStyle]="{'background-color': getSpaceColor(type)}">
+                            {{viewSpaceName(type)}}
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <h2><span class="fa fa-arrows-alt"></span> Dimensions</h2>
+                    </div>
+
+                  </div>
+                  <div class="card-container d-flex justify-content-between">
+                    <div class="col-xs-4">
+                      <h4 class="ng-binding">Length </h4>
+                      <p class="ng-binding">
+                        {{spaceDetails?.dimension?.l?.v?? 0 }} {{spaceDetails?.dimension?.l?.m}}</p>
+                    </div>
+                    <div class="col-xs-4">
+                      <h4 class="ng-binding">Width </h4>
+                      <p class="ng-binding">
+                        {{spaceDetails?.dimension?.w?.v?? 0}} {{spaceDetails?.dimension?.w?.m}}</p>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                  </div>
+                </div>
+                <div class="section divider card-section">
+                  <div class="row">
+                    <div class="col-xs-9">
+                      <div class="space-card-header d-flex justify-content-between">
+                        <div class="space-card-icon-header d-flex gap-2 align-items-center">
+                          <h2><span class="fa fa-cog"></span> Settings</h2>
+                        </div>
+                        <div class="space-edit-icon" (click)="viewSpaceSettings()" (keydown.enter)="viewSpaceSettings()" tabindex="0">
+                          <a class="fas fa-pencil-alt"  *ngIf="!spaceDetails.nonRental" aria-label="viewSpaceSettings"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-container">
+                    <div *ngIf="addOns.length > 0" class="title add-on-card-designs" aria-hidden="false">
+                      <h4 class="addon-header mb-2 ng-binding">Custom</h4>
+                      <div class="mb-4 ng-scope space-card-container">
+                        <div class="row" *ngFor="let addOnList of addOns">
+                          <ng-container *ngIf="addOnList.enabled">
+                            <div class="col-sm-6 col-xs-6">
+                              <span class="label label-info label-addon mb-0 ng-binding">{{addOnList.name}}</span>
+                            </div>
+                            <div class="col-sm-4 col-xs-3">
+                              <span *ngIf="addOnList.quantity" aria-hidden="false">Qty :
+                                <span class="text-bold ng-binding">{{addOnList.quantity}}</span></span>
+                              <div *ngIf="addOnList.price" aria-hidden="false">
+                                <span class="ng-binding price">${{addOnList.price}}</span>
+                                <p style="margin-top: 0;" class="help-block">
+                                  <span class="ng-binding">
+                                    {{addOnList.basis}}</span><span
+                                    *ngIf="addOnList.price && addOnList.quantity && addOnList.perItem"
+                                    aria-hidden="false"> per
+                                    item</span>
+                                  <span *ngIf="addOnList.selectLength" aria-hidden="false">* user selects duration of
+                                    use</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div class="col-xs-12 visible-xs-block">
+                              <span class="font-small-3 ng-binding">{{addOnList.description}}</span>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 px-3">
+                <div class="section divider card-section">
+                  <div class="row">
+                    <div class="col-xs-9">
+                      <div class="space-card-header d-flex justify-content-between">
+                        <div class="space-card-icon-header d-flex gap-2 align-items-center">
+                          <h2 class="mt-1"><span class="fas fa-list-ul"></span> Details</h2>
+                        </div>
+                        <div class="space-edit-icon">
+                          <a (click)="editSpaceDetails()" (keydown.enter)="editSpaceDetails()" tabindex="0" class="fas fa-pencil-alt" *ngIf="!spaceDetails.nonRental" aria-label="editSpaceDetails"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-container">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class="details-heading" for="Tagline">Tagline</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="well">
+                          <div class="ng-binding"></div>
+                          <ng-container *ngIf="spaceDetails.tagline; else noTagline">
+                            {{spaceDetails?.tagline}}
+                          </ng-container>
+                          <ng-template #noTagline>
+                            <span>No tagline</span>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class="details-heading" for="Summary">Summary</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="well">
+                          <ng-container *ngIf="spaceDetails && spaceDetails.summary; else noSummary">
+                            {{spaceDetails.summary}}
+                          </ng-container>
+                          <ng-template #noSummary>
+                            <span>No summary</span>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class="details-heading" for="Activities Allowed">Activities Allowed</label><br>
+                        <div class="activities_listing">
+                          <li class="sports_activities label label-info" *ngFor="let activities of spaceDetails?.sports">{{activities}}
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row my-2">
+                      <div class="row" *ngIf="!spaceDetails?.sports || spaceDetails.sports.length === 0">
+                        <span>No Activities tagged</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class="details-heading" for="Max Age Group">Max Age Group</label>
+                      </div>
+                      <div class="col-sm-12 my-2">
+                        <div><span class="ng-binding">{{ spaceDetails?.ageGroup ? spaceDetails.ageGroup : 'N/A'
+                            }}</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="section divider card-section">
+                  <div class="row">
+                    <div class="col-xs-9">
+                      <div class="space-card-header d-flex justify-content-between">
+                        <div class="space-card-icon-header d-flex gap-2 align-items-center">
+                          <h2 class="mt-1"><span class="fa fa-photo"></span> Photos</h2>
+                        </div>
+                        <div class="space-edit-icon" (click)="viewSpacePhotos()" (keydown.enter)="viewSpacePhotos()" tabindex="0">
+                          <a class="fas fa-pencil-alt" *ngIf="!spaceDetails.nonRental" aria-label="viewSpacePhotos"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-container">
+                    <div class="photos space-photos-card">
+                      <ng-container *ngIf="spaceImages?.length > 0; else noPhotos">
+                        <div class="row" *ngFor="let spaceImage of spaceImages">
+
+                          <div class="strip photos-space-images">
+                            <img [src]="spaceImage.url" class="thumbnails" alt="space Image">
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-template #noPhotos>
+                        <div class="row photos border-bottom"></div>
+                        <div class="no-photos">
+                          <span>No photos</span>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+                <div class="section divider card-section">
+                  <div class="row">
+                    <div class="col-xs-9 space-icons">
+                      <h2><span class="fas fa-list-ul gap-2"></span> Child Spaces</h2>
+                    </div>
+                    <div class="col-xs-3"></div>
+                  </div>
+                  <div class="card-container">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

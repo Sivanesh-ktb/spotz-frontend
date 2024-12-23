@@ -1,0 +1,29 @@
+.add-group-button{
+  color: #333;
+  font-weight: 700;
+}
+
+.alert.alert-info,
+.alert.instructions {
+  width: 630px;
+  justify-content: space-between;
+  /* margin-top: 10px; */
+  /* margin-bottom: 0; */
+  text-justify: auto;
+  margin: 0%;
+  padding-top: 10px;
+  padding-bottom: 0%;
+  color: #945112;
+  background-color: #fbecdd;
+  border-color: #f5d1b0;
+}
+
+.text-hover {
+  color: black;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.text-hover:hover {
+  color: #fa8406;
+}

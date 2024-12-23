@@ -1,0 +1,42 @@
+.button-header.availability {
+  background-color: #31708f;
+}
+.button-header {
+  border-radius: 5px;
+  height: 50px;
+  width: 100%;
+  display: inline-block;
+}
+.modal-header {
+  background-color: #eaf3f5;
+  border-bottom: none!important;
+  padding: 14px 20px;
+  margin-bottom: 0;
+}
+.white-header{
+  color: #fff;
+}
+.tim {
+  text-align: center;
+  padding: 7px 4px;
+  margin: 0 auto;
+}
+.week-grid {
+  width: 140px;
+  margin: 2px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.fa.fa-thumbs-up{
+  font-size:5em;
+}
+.availability-section{
+  border-right: 1px dotted #ccc;
+}
+.good-to-g-container{
+  padding-top: 100px;
+}
+.button-header.exception {
+  background-color: #a94442;
+}

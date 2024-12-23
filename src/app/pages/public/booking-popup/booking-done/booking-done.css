@@ -1,0 +1,64 @@
+.reservation-text{
+  float:left;
+  font-size:2.5em;
+  margin-right:10px;
+}
+.text-left{
+  text-align:left;
+}
+.booking-info{
+  text-align:left;
+  padding-left:30px;
+  margin-bottom:0;
+}
+.booking-process .confirmed, .booking-process .warnings {
+  text-align: center;
+  margin: 10px auto;
+}
+.booking-process .confirmed .fa-check-circle {
+  color: #48b74a;
+  font-size: 50px;
+}
+.text-success {
+  color: #28a745!important;
+}
+.well {
+  padding: 15px;
+  background-color: #ecf3fb;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.btn {
+  padding: 4px 12px;
+}
+p{
+  margin: 0px !important;
+}
+.booking-process h4 {
+  font-size: 20px !important;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+}
+.pending-booking .fa {
+  font-size: 44px;
+  color: #e58327;
+}
+.pending-booking .request-sent {
+  padding: 5px 0 30px;
+}
+.text-success {
+  color: #28a745!important;
+}
+.pending-booking h2 {
+  font-size: 22px !important;
+  margin-top: 0;
+  color: #e58327;
+}
+.pending-booking .next-steps {
+  font-size: 16px;
+}
+.pending-booking>div {
+  text-align: center;
+}

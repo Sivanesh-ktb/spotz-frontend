@@ -1,0 +1,19 @@
+.alert .help.highlight {
+    border: 2px solid #f90;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.alert .help {
+    margin-left: 10px;
+    float: right;
+    width: 30px;
+    height: 15px;
+}
+.help {
+    font-size: 13px;
+    color: #158ad7;
+}
+.alert .help.highlight .fa {
+    padding: 7px 9px;
+}

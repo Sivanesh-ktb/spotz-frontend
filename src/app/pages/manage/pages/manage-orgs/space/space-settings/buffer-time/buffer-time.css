@@ -1,0 +1,6 @@
+select.form-control {
+  appearance: auto;
+  background-position: right 22px center;
+  background-size: 12px;
+  padding-right: 30px !important;
+}

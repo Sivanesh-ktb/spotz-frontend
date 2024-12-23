@@ -1,0 +1,28 @@
+.tower-sec-bg {
+  background-color: #274451;
+  padding-bottom: 15px;
+}
+p{
+  padding: 0px;
+  margin:0px;
+}
+.org-title h2 {
+  font-size: 30px !important;
+  margin: 0;
+}
+.bon-ton-img .view-org-logo {
+	border-radius: 33px;
+	width: 65px !important;
+	height: 65px;
+	margin-top: 6px;
+}
+p.org-user-count {
+  border: 1px solid #fff;
+  padding: 5px;
+  border-radius: 16px;
+  font-size: 11px;
+}
+.container-items
+{
+  gap:10px;
+}

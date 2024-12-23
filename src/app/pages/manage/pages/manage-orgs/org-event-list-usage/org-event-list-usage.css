@@ -1,0 +1,58 @@
+.section.sub-section {
+  margin: 15px 0;
+  background-color: #e5f2f5;
+  padding: 15px;
+  border-radius: 9px;
+}
+.section.sub-section h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #044f80;
+  font-weight: 600;
+}
+label.control-label {
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+  font-size: 0.7em;
+  padding: 4px 7px;
+}
+span.advanced-filter-values {
+  font-weight: 500;
+}
+.section.sub-section h4.pt-1 {
+  color: #044f80;
+  font-weight: 500 !important;
+  font-size: 1em !important;
+}
+td.ng-binding a.ng-binding {
+  color: #333;
+  gap: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.table-sm td,.table-sm th {
+  font-size: 10pt;
+  padding: 6px 8px;
+}
+.booking-hours{
+    font-size: 0.7em;
+    padding-top:9px;
+  }
+.booking-hours-start{
+  font-size: 0.7em;
+}
+.form-control-feedback {
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  top: 32px;
+}

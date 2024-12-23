@@ -1,0 +1,14 @@
+<div class="terms-rental-container">
+  <div class="modal-header d-flex justify-content-between align-items-center">
+    <h3>Terms of Rental</h3>
+    <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close"><span aria-hidden="true">x</span></a>
+  </div>
+  <div class="px-4 mt-2 mb-2">
+  <div class="terms-rental-content">
+    <app-host-terms [checkHeader]="checkHeader"></app-host-terms>
+  </div>
+</div>
+<div class="modal-footer ng-scope">
+  <button (click)="dismiss()" class="btn btn-secondary px-2">OK</button>
+</div>
+</div>

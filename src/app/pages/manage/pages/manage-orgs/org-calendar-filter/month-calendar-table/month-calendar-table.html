@@ -1,0 +1,28 @@
+
+<div class="fc table"><table>
+  <thead class="month-table">
+    <tr>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let week of daysInMonth | slice:0:7; let dayIndex = index">
+      <ng-container *ngFor="let day of daysInMonth.slice(dayIndex * 7, (dayIndex + 1) * 7)">
+        <td
+        class="days-column"
+        *ngIf="day"
+        [ngClass]="{'today': isToday(day)}">
+        {{ day }}
+      </td>
+        <td *ngIf="!day">&nbsp;</td>
+      </ng-container>
+    </tr>
+  </tbody>
+  </table>
+</div>

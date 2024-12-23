@@ -1,0 +1,12 @@
+li.nav-item button.nav-link {
+  color: #333;
+}
+.account-container{
+  padding-left: 140px;
+}
+.deposits-details{
+  border-top: 1px solid #dff2ff;
+}
+.deposit-amount.in-progress{
+  color: #7ed321;
+}

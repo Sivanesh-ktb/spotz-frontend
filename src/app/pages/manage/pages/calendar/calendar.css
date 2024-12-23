@@ -1,0 +1,31 @@
+.cal.cal-table {
+  height: auto;
+  padding: 0!important;
+  width: auto!important;
+  margin: auto!important;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+.cal.cal-table .day {
+  padding: 4px 0!important;
+  border-right: 1px solid #eee!important;
+}
+.cal .month {
+  font-weight: 700;
+  color: #c00;
+}
+.cal .date {
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1em;
+}
+.cal .month, .cal .year {
+  font-size: 12px;
+  line-height: 13px;
+}
+.date-range {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

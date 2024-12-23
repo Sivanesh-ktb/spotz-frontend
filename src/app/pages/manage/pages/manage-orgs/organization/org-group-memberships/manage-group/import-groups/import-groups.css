@@ -1,0 +1,16 @@
+
+button.btn.btn-default.active-tab:focus {
+  box-shadow: none;
+}
+
+.close-icon{
+  margin-left: 10px;
+  color: #333;
+  font-size: 17px;
+}
+
+.table-sm td, .table-sm th {
+  font-size: 10pt;
+  padding: 6px 8px;
+}
+

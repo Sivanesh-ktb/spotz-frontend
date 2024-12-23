@@ -1,0 +1,28 @@
+.setting{
+  border: 1px solid px;
+  background-color: #e2f4fb;
+  width: 100%;
+  border-radius: 5px;
+  padding: 8px 12px;
+  height: 34px;
+}
+
+
+select.form-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="none" stroke="%23333" stroke-width="0.7" d="M0 0l2 2 2-2"/></svg>') no-repeat right center;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 30px;
+}
+
+select.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+select.form-control option {
+  padding: 10px;
+}

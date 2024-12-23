@@ -1,0 +1,134 @@
+<!-- src/app/pages/manage/pages/manage-orgs/organization/settings/reservations/replies/replies.html -->
+<div class="row">
+  <div class="col-lg-3">
+    <h4 class="header">Default Replies</h4>
+  </div>
+  <div class="col-lg-9">
+    <div class="tab-cnt1">
+      <div class="t-b-1">
+        <p>Set the default correspondence to be included with reservation notes to the renter.</p>
+        <div class="tab-2">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" [ngClass]="{'active': activeTab === 'accepted'}" id="home-tab" data-bs-toggle="tab"
+                data-bs-target="#home1" type="button" role="tab" aria-controls="home"
+                aria-selected="true" (click)="switchTab('accepted')" [disabled]="validateTab" >Reservation Accepted</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" [ngClass]="{'active': activeTab === 'denied'}" id="profile-tab" data-bs-toggle="tab"
+                data-bs-target="#profile1" type="button" role="tab" aria-controls="profile"
+                aria-selected="false" (click)="switchTab('denied')" [disabled]="validateTab" >Reservation Denied</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" [ngClass]="{'active': activeTab === 'cancelled'}" id="contact-tab" data-bs-toggle="tab"
+                data-bs-target="#contact1" type="button" role="tab" aria-controls="contact"
+                aria-selected="false" (click)="switchTab('cancelled')" [disabled]="validateTab" >Reservation Cancelled</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accepted'}" id="home1" role="tabpanel" aria-labelledby="home-tab">
+              <p>This message will be attached to an email notification that a reservation request has been <i><b>accepted</b></i>.</p>
+
+              <!-- Editable reply section -->
+              <div *ngIf="showReplies['accepted']; else defaultAcceptedReply">
+                 <textarea class="form-control text-area" [(ngModel)]="replies.edit" rows="8"></textarea>
+                <div class="btn-group mt-2">
+                  <button class="btn btn-xs btn-primary" (click)="saveReply()">Save</button>
+                  <button class="btn btn-xs btn-default" (click)="cancelReply()">Cancel</button>
+                </div>
+              </div>
+
+              <ng-template #defaultAcceptedReply>
+                <div class="d-flex align-items-center well">
+                  <div *ngIf="replies.accepted; else defaultReply">
+                    <span>{{ replies.accepted }}</span>
+                    <i class="fas fa-pencil-alt p-2" (click)="editReply('accepted')" (keydown.enter)="editReply('accepted')" tabindex="0"></i>
+                  </div>
+
+                  <ng-template #defaultReply>
+                    <i><span (click)="editReply('accepted')" (keydown.enter)="editReply('accepted')" tabindex="0" class="reply-con">
+                      <i class="fas fa-pencil-alt p-2"></i> Enter a default reply
+                    </span>
+                    <span>&nbsp; for accepted reservations</span></i>
+                  </ng-template>
+
+                  <i *ngIf="replies.accepted" class="fas fa-trash-alt text-danger p-2" (click)="openRemoveModal('accepted')" (keydown.enter)="openRemoveModal('accepted')" tabindex="0"></i>
+                </div>
+              </ng-template>
+            </div>
+
+            <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'denied'}" id="profile1" role="tabpanel" aria-labelledby="profile-tab">
+              <p>This message will be attached to an email notification that a reservation request has been <i><b>denied</b></i>.</p>
+                <div *ngIf="showReplies['denied']; else defaultDeniedReply">
+
+                <textarea class="form-control text-area" [(ngModel)]="replies.edit" rows="8"></textarea>
+                <div class="btn-group  mt-2">
+                  <button class="btn btn-xs btn-primary" (click)="saveReply()">Save</button>
+                  <button class="btn btn-xs btn-default" (click)="cancelReply()">Cancel</button>
+                </div>
+              </div>
+              <ng-template #defaultDeniedReply>
+
+                <div class="d-flex align-items-center well">
+                  <div *ngIf="replies.denied; else defaultReply">
+                    <span>{{ replies.denied }}</span>
+                    <i class="fas fa-pencil-alt p-2" (click)="editReply('denied')" (keydown.enter)="editReply('denied')" tabindex="0"></i>
+                    <span>edit</span>
+                  </div>
+
+                  <ng-template #defaultReply>
+                    <i>
+                      <span (click)="editReply('denied')" (keydown.enter)="editReply('denied')" tabindex="0" class="reply-con">
+                        <i class="fas fa-pencil-alt p-2"></i> Enter a default reply
+                      </span>
+                      <span>&nbsp; for denied reservations</span>
+                    </i>
+                  </ng-template>
+
+                  <i *ngIf="replies.denied" class="fas fa-trash-alt text-danger p-2" (click)="openRemoveModal('denied')" (keydown.enter)="openRemoveModal('denied')" tabindex="0"></i>
+                </div>
+              </ng-template>
+
+            </div>
+
+            <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'cancelled'}" id="contact1" role="tabpanel" aria-labelledby="contact-tab">
+              <p>This message will be attached to an email notification that a reservation request has been <i><b>cancelled</b></i>.</p>
+                <div *ngIf="showReplies['cancelled']; else defaultCancelledReply">
+                 <textarea class="form-control text-area" [(ngModel)]="replies.edit" rows="8"></textarea>
+                <div class="btn-group  mt-2">
+                  <button class="btn btn-xs btn-primary" (click)="saveReply()">Save</button>
+                  <button class="btn btn-xs btn-default" (click)="cancelReply()">Cancel</button>
+                </div>
+              </div>
+              <ng-template #defaultCancelledReply>
+
+                <div class="d-flex align-items-center well">
+                  <div *ngIf="replies.cancelled; else defaultReply">
+                    <span>{{ replies.cancelled }}</span>
+                    <i class="fas fa-pencil-alt p-2" (click)="editReply('cancelled')" (keydown.enter)="editReply('cancelled')" tabindex="0"></i>
+                  </div>
+
+                  <ng-template #defaultReply>
+                    <i>
+                      <span (click)="editReply('cancelled')" (keydown.enter)="editReply('cancelled')" tabindex="0" class="reply-con">
+                        <i class="fas fa-pencil-alt p-2"></i> Enter a default reply
+                      </span>
+                      <span>&nbsp; for cancelled reservations</span>
+                    </i>
+                  </ng-template>
+
+                  <i *ngIf="replies.cancelled" class="fas fa-trash-alt text-danger p-2" (click)="openRemoveModal('cancelled')" (keydown.enter)="openRemoveModal('cancelled')" tabindex="0"></i>
+                </div>
+
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-replies-confirmation
+  [tabName]="selectedTabToRemove"
+  (confirmRemove)="confirmRemoveReply()"
+></app-replies-confirmation>

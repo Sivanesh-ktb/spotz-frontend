@@ -1,0 +1,36 @@
+
+/*Have a space to list Section  */
+
+.have-spc-bg {
+  background-color: #077595;
+  padding-top: 60px;
+  padding-bottom: 110px;
+}
+
+.have-sp-h h2{
+   text-align: center;
+   padding-top: 50px;
+   font-size: 50px !important;
+   color: #fff;
+   padding-bottom: 30px;
+}
+
+.c-btn {
+   padding: 10px 30px;
+   border-radius: 0px;
+   background-color: #fff;
+   color: #000;
+   border-color: #004185;
+   font-family: "Roboto", serif;
+   transition: 0.5s ease-in;
+   border-radius: 10px;
+   text-decoration: none;
+   padding: 13px 16px
+}
+
+.c-btn-2 {
+   color: #fff;
+   text-decoration: underline;
+}
+
+/*Have a space to list Section-End  */

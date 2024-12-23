@@ -1,0 +1,89 @@
+<section class="content settings-page">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="manage-space-bg">
+    <div class="container-fluid">
+      <div class="manage-org">
+        <div class="row">
+          <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+            <app-admin-space-sidebar [displayName]="spaceDetails?.name"
+              [rentaltypes]="spaceDetails?.rentaltypes" [price]="spaceDetails?.price"
+              [facName]="facName"></app-admin-space-sidebar>
+          </div>
+          <div class="col-lg-9">
+            <h3 class="new-space-h fw-bold">Availability</h3>
+              <div class="panel panel-body">
+               <div class="row align-items-start">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                  <h4 class="filter-result fw-bold">Filter</h4>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-10">
+                  <label for="daterangepicker" class="fw-bold">Date Range</label>
+                    <app-date-range-picker  [checkPage]="page" (dateRange)="onSelectedDateRange($event)">
+                    </app-date-range-picker>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                 <label class="fw-bold" for="Rule Type">Rule Type</label>
+                 <br>
+                 <div role="group" aria-label="..." class="btn-group">
+                  <button type="button"
+                    (click)="roleType('all')" [ngClass]="{ 'active-tab': availabilityRoleType === 'all' }" class="btn btn-default rule-type-items">All</button>
+                  <button type="button" [ngClass]="{ 'active-tab': availabilityRoleType === 'availability' }"
+                  (click)="roleType('availability')" class="btn btn-default rule-type-items">Availability</button>
+                  <button type="button" [ngClass]="{ 'active-tab': availabilityRoleType === 'exception' }"
+                  (click)="roleType('exception')" class="btn btn-default rule-type-items">Exception</button>
+                  <button type="button" [ngClass]="{ 'active-tab': availabilityRoleType === 'assignment' }"
+                  (click)="roleType('assignment')" class="btn btn-default rule-type-items">Assignment</button>
+                </div>
+                </div>
+               </div>
+               <div class="section sub-section mt-3">
+                <div class="header mb-2 ">
+                  <div class="row">
+                    <div class="col-sm-2 col-lg-2 col-md-2">
+                      <label class="control-label pt-2 px-3 fw-bold" for="Add Rule">Add Rule</label>
+                    </div>
+                      <div class="col-sm-7 col-lg-7 col-md-7">
+                        <div class="mb-2 d-flex gap-2">
+                          <a (click)="addAvailability(1)" (keydown.enter)="addAvailability(1)" tabindex="0" [class.disabled]="spaceDetails?.price === 0" class="btn btn-secondary mb-2 mr-2"
+                            aria-disabled="false">
+                            <i class="fa-solid fa-plus"></i> Availability
+                          </a>
+                          <a (click)="addAvailability(-1)" (keydown.enter)="addAvailability(-1)" tabindex="0" class="btn btn-secondary mb-2 mr-2">
+                            <i class="fa-solid fa-plus"></i> Exception
+                          </a>
+                          <a (click)="addAvailability(-2)" (keydown.enter)="addAvailability(-2)" tabindex="0" class="btn btn-secondary assignment mb-2 mr-2">
+                            <i class="fa-solid fa-plus"></i> Assignment
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-sm-1 col-lg-1 col-md-1">
+                        <label class="control-label hidden-xs fw-bold" for="View">View</label>
+                      </div>
+                      <div class="col-sm-2 col-lg-2 col-md-2">
+                        <div class="btn-group">
+                          <button class="btn btn-default" [ngClass]="{ 'active': isListView }" (click)="toggleView(true)">
+                            <i class="fa-solid fa-list"></i>
+                          </button>
+                          <button class="btn btn-default" [ngClass]="{ 'active': !isListView }"
+                          (click)="toggleView(false)">
+                            <span class="fa fa-th-list"></span>
+                          </button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+               </div>
+              </div>
+            <div *ngIf="orgId" class="panel panel-body">
+              <ng-container *ngIf="availabilityData">
+                <app-availability-rules [orgId]="orgId" [groupDetails]="groupDetails" [spaceDetails]="spaceDetails" (refreshNewData)="onRefreshNewData()" [availabilityRoleType]="availabilityRoleType" [spaceAvailabilityData]="availabilityData" [viewMode]="viewMode"></app-availability-rules>
+              </ng-container>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>

@@ -1,0 +1,169 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <h4 class="header">Add-Ons </h4>
+  </div>
+  <div class="col-md-7 col-sm-6 col-xs-9">
+    <p><i>Charge for extras, maximize the monetization of your space.
+    </i></p>
+  </div>
+    <ng-container *ngIf="!showAddOns; else hideAddOns">
+      <div class="col-md-3 col-sm-3 col-xs-3">
+      <a class="fas fa-pencil-alt space-setting-edit-icon cancel-addons" (click)="changeAddOns()" (keydown.enter)="changeAddOns()" tabindex="0" aria-label="change addons"></a>
+      </div>
+
+      <div *ngIf="addOns.length > 0"
+      class="title add-on-card-designs" aria-hidden="false">
+        <h4 class="addon-header mb-2 ng-binding">Custom</h4>
+      <div class="mb-4 ng-scope">
+        <div class="row" *ngFor="let addOnList of addOns">
+          <ng-container *ngIf="addOnList.enabled">
+          <div class="col-sm-6 col-xs-6">
+            <span class="label label-info label-addon mb-0 ng-binding">{{addOnList.name}}</span>
+          </div>
+          <div class="col-sm-4 col-xs-3">
+            <span *ngIf="addOnList.quantity" aria-hidden="false">Qty :
+              <span class="text-bold ng-binding">{{addOnList.quantity}}</span></span>
+              <div *ngIf="addOnList.price" aria-hidden="false">
+                <span class="ng-binding price">${{addOnList.price}}</span>
+                <p style="margin-top: 0;" class="help-block">
+                  <span class="ng-binding">
+                    {{addOnList.basis}}</span><span *ngIf="addOnList.price && addOnList.quantity && addOnList.perItem" aria-hidden="false"> per
+                    item</span>
+                  <span *ngIf="addOnList.selectLength" aria-hidden="false">* user selects duration of use</span>
+                </p>
+              </div>
+          </div>
+          <div class="col-xs-12 visible-xs-block">
+            <span class="font-small-3 ng-binding">{{addOnList.description}}</span>
+          </div>
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </ng-container>
+    <ng-template #hideAddOns>
+      <div class="col-md-3 col-sm-3 col-xs-3">
+      <div class="btn-group edit ng-hide settings-rental-card cancel-icon" aria-hidden="true">
+        <a (click)="cancelAddOns()" title="cancel" class="fas fa-times cancel-addons">cancel</a>
+      </div>
+  </div>
+  </ng-template>
+    <ng-container *ngIf="showAddOns">
+      <div class="row">
+        <div class="col-md-12 add-ons-container">
+        <p>
+          Turning a set-up option ON allows your users to request that
+          option while booking this space. If a price is entered here, then it
+          will be added to the total at checkout.
+        </p>
+        <div *ngFor="let addOn of addOns; trackBy: trackById" class="row addon" aria-hidden="false">
+          <div class="col-md-3 col-sm-8">
+            <div class="row">
+              <div class="col-xs-12 addon-enabled" aria-hidden="false">
+                <div class="row bootstrap-switch-container-addon">
+                  <div class="col-sm-3 col-xs-6 addon-selected">
+                  <div class="onoffswitch">
+                    <input type="checkbox" class="onoffswitch-checkbox" (click)="customAddOn(addOn)" id="myonoffswitch" checked>
+                    <label class="onoffswitch-label" for="myonoffswitch">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                   </div>
+                   </div>
+                  <div class="ps-1 mt-2 col-sm-8">
+                    <input type="text" placeholder="Custom name" [(ngModel)]="addOn.name" maxlength="30"
+                      class="form-control addon-name" aria-invalid="true" (keyup)="validateRow(addOn)">
+                  </div>
+                </div>
+                <a class="delete-custom-add-on mt-2" (click)="removeAddOn(addOn)" (keydown.enter)="removeAddOn(addOn)" tabindex="0">
+                  <i class="fas fa-trash-alt"></i> delete custom add-on
+                </a>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="addOn.enabled" class="col-md-9 col-sm-12 addon-settings" aria-hidden="false">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="row">
+                  <div class="col-md-8 col-sm-8 col-xs-9 mt-2">
+                    <div class="addon-price d-flex">
+                      <span class="dolar-icon">$</span>
+                      <div class="price-control">
+                        <input type="number" (change)="validateRow(addOn)"
+                          [(ngModel)]="addOn.price" min="0" class="form-control remove-input-arrow" aria-invalid="false">
+                      </div>
+                      <select class="form-control" [(ngModel)]="addOn.basis" (change)="validateRow(addOn)">
+                        <option value="per use">per use</option>
+                        <option value="per hour">per hour</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-3 addon-quantity mt-2">
+                    <input type="number" (change)="validateRow(addOn)"
+                      [(ngModel)]="addOn.quantity" min="0" class="form-control remove-input-arrow" aria-invalid="false">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="checkbox">
+                      <label class="help-block">
+                        <input type="checkbox" [(ngModel)]="addOn.include"
+                        [disabled]="addOn.price !== 0" aria-disabled="false"
+                          aria-checked="false" aria-invalid="false">
+                          Automatically include with any rental (price must be zero).
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label class="help-block ng-binding">
+                        <input type="checkbox" [(ngModel)]="addOn.perItem"
+                        [disabled]="(!(addOn.price) || addOn.basis !== 'per hour') && !(addOn.price && addOn.quantity)" tabindex="0"
+                          aria-disabled="true" aria-checked="false" aria-invalid="false">  Charge per item (i.e.{{ addOn.price }}
+                        <span class="ng-binding">{{addOn.basis}}</span>, per {{addOn.name}}).
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label class="help-block">
+                        <input type="checkbox" [(ngModel)]="addOn.selectLength"
+                        [disabled]="addOn.basis === 'per use'" tabindex="0"
+                          aria-disabled="true" aria-checked="false" aria-invalid="false">* Allow user to select duration of use
+                        (i.e. 3 of 4 hours rented).
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 addon-desc mt-2">
+                <textarea placeholder="Enter a description" rows="5" class="form-control descriptionbox"
+                  aria-multiline="true" aria-invalid="false"
+                  [(ngModel)]="addOn.description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="common-border-line"></div>
+        </div>
+        <div class="add-ons create-space-add-ons">
+          <a class="add-ons-add" (click)="addAddOn()" (keydown.enter)="addAddOn()" tabindex="0">
+            <i class="fas fa-plus-circle"></i> Create 
+          </a>
+        </div>
+        <div class="common-border-line"></div>
+        <div class="update-add-ons-container row">
+           <div class="update-buttons col-lg-4 d-flex gap-2">
+            <button (click)="updateAddOns()" [disabled]="!(saveAddOns)"
+            aria-disabled="true" aria-checked="false" aria-invalid="false"
+            pButton type="button" label="Save" aria-label="update addons"
+              class="btn btn-sm btn-primary" styleClass="p-button-warning"></button>
+            <button pButton type="button" label="Cancel" (click)="cancelAddOns()"
+              class="btn btn-sm btn-default" aria-label="cancelAddOns"></button>
+           </div>
+           <div class="add-ons-text col-sm-9">
+            <p>* Note that choosing this option sets a maximum on the amount you can collect.
+              For example, if a user only selects the add-on for x total hours,
+              and it is needed for x + 1 or more hours, the most they can be
+              charged is for x.</p>
+           </div>
+        </div>
+      </div>
+      </div>
+    </ng-container>
+</div>

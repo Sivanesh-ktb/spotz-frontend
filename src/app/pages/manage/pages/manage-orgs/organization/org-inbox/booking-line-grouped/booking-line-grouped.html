@@ -1,0 +1,114 @@
+<table class="table table-bordered table-sm mb-2 default-status">
+  <tbody *ngIf="booking && !booking.dismissed">
+    <tr
+      [ngClass]="{
+        denied: booking.status === -2 || booking.status <= -4,
+        approved: booking.status === 2,
+        internal: booking.internal === 1,
+        cancel: booking.status === -1 || booking.status === -3
+      }"
+    >
+      <td class="min_max_w_90">
+        <div class="cal cal-table clearfix horizontal">
+          <div class="day">{{ formattedDay }}</div>
+          <div class="days">
+           <app-calendar [date]="booking.eventDate"></app-calendar>
+          </div>
+        </div>
+      </td>
+      <td class="min_max_w_150">
+        <div class="column slim times col-table-event">
+          <div *ngIf="booking.blocks?.length">
+            <div>
+              <time-clock
+                [block]="booking.blocks[0]"
+                [divisor]="booking.divisor"
+              ></time-clock>
+            </div>
+            <div class="tim">
+             <span class="tim">
+              {{changeTimeFormat(booking.blocks[0])}}  </span>
+             <span class="tim">{{changeTimeFormat(booking.blocks[booking.blocks.length - 1] + 1)}}</span>
+            </div>
+          </div>
+          <div class="duration" *ngIf="booking.blocks?.length">
+            {{totalHours( booking.blocks[0], booking.blocks[booking.blocks.length - 1] + 1)}} HOURS
+          </div>
+        </div>
+      </td>
+      <td class="text-center min_max_w_80 vertical-middle">
+        <div
+          class="label default-status"
+          [ngClass]="{
+            denied: booking.status === -2 || booking.status <= -4,
+            success: booking.status === 2
+          }"
+        >
+          <i class="fa fa-usd dollar"></i>
+          {{ booking.cost.total | number: '1.2-2' }}
+        </div>
+      </td>
+      <td class="min_max_w_250">
+        <div class="row row-seamless">
+          <div class="col-xs-12">
+            <ul class="nav nav-tabs">
+              <li [ngClass]="{ active: !booking.eventTab }">
+                <a (click)="booking.eventTab = false"
+                (keydown.enter)="booking.eventTab = false" tabindex="0">Event</a>
+              </li>
+              <li [ngClass]="{ active: booking.eventTab }">
+                <a (click)="booking.eventTab = true"
+                (keydown.enter)="booking.eventTab = true;" tabindex="0"
+                >Activity</a>
+              </li>
+            </ul>
+            <div class="nav-content">
+              <div class="descriptor" *ngIf="!booking?.eventTab">
+                {{ booking.eventName }}
+                <span *ngIf="booking.cost?.discount?.group?.name">
+                  - {{ booking.cost.discount.group.name }}
+                </span>
+              </div>
+              <div class="descriptor" *ngIf="booking.eventTab">
+                {{ booking.sport }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td class="ng-scope min_max_w_120">
+        <div class="row row-seamless">
+          <div class="col-md-12 col-sm-12">
+            <div class="text">
+              <div class="space">
+                <strong *ngIf="booking && booking.info && booking.info.s
+                && booking.info.s.name">{{ booking.info.s.name }}</strong>
+              </div>
+              <div *ngIf="booking && booking.info && booking.info.f
+              && booking.info.f.name" class="place">{{ booking.info.f.name }}</div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td class="position-relative min_max_w_120">
+        <div class="action">
+          <button *ngIf="review(booking)"
+            class="btn btn-sm btn-default"
+            (click)="viewBooking(booking)"
+          >Review
+          </button>
+          <button *ngIf="!review(booking)"
+            class="btn btn-sm btn-default"
+            (click)="viewBooking(booking)"
+          >
+            View
+          </button>
+        </div>
+        <div class="status"
+        [ngClass]="{ denied: booking.status === -2, approved: booking.status === 2 }">
+          {{ getStatusTitle(booking.status) }}
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

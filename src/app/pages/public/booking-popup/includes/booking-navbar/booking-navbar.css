@@ -1,0 +1,103 @@
+.process ol>li {
+  background: #e4eef1;
+  color: #666;
+  width: 33%;
+  position: relative;
+  cursor: default;
+  list-style-image: none;
+  list-style-type: none;
+  padding: 20px 5px;
+  text-align: center;
+}
+.process ol .active {
+  background: #479bb6;
+  color: #fff;
+}
+.process ol .active:first-child {
+  background: -moz-linear-gradient(left,#1c3d48 0,#479bb6 5%);
+  background: -webkit-linear-gradient(left,#1c3d48 0,#479bb6 5%);
+  background: linear-gradient(to right,#1c3d48 0,#479bb6 5%);
+}
+.process ol>li a {
+  text-transform: uppercase;
+}
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: #777;
+  border-radius: 10px;
+}
+.process ol>li .badge {
+  padding: 2px 5px;
+  margin-right: 10px;
+  background-color: #64b6d1;
+}
+.badge, .label {
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+}
+.process ol {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  counter-reset: li;
+}
+.process ol>li:before {
+  border-bottom: 50px solid transparent;
+  border-top: 50px solid transparent;
+  content: " ";
+  display: block;
+  height: 0;
+  left: 100%;
+  margin-top: -50px;
+  position: absolute;
+  top: 50%;
+  width: 0;
+  border-left: 30px solid #fff;
+  z-index: 1;
+  margin-left: 5px;
+}
+.process ol .active:after {
+  border-left: 30px solid #479bb6;
+}
+.process ol>li:after {
+  border-bottom: 50px solid transparent;
+  border-top: 50px solid transparent;
+  content: " ";
+  display: block;
+  height: 0;
+  left: 100%;
+  margin-top: -50px;
+  position: absolute;
+  top: 50%;
+  width: 0;
+  border-left: 30px solid #e4eef1;
+  z-index: 2;
+}
+.process ol>li {
+  padding: 10px 0 10px 45px;
+  text-align: left;
+}
+.process ol>li:first-child {
+  padding: 10px 0 10px 15px;
+}
+.process ol>li .text {
+  font-size: .8em;
+}
+.process ol>li .fa {
+  margin-right: 10px;
+}
+li{
+  cursor: pointer !important;
+}
+.font-small-2 {
+  font-size: 11px!important;
+  padding-right: 5px;
+}

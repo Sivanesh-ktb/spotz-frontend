@@ -1,0 +1,133 @@
+
+<div class="head-label">
+  <h5>How would you like your space configured?</h5>
+</div>
+<div class="form-group">
+  <div class="col-sm-12">
+      <div class="row addon-headers">
+        <div class="col-sm-8 col-xs-6 ng-binding">Diamond Options</div>
+        <div class="col-sm-4 col-xs-6">Cost</div>
+      </div>
+  </div>
+  <div *ngFor="let addon of addons; let addonIndex = index" class="col-sm-12 addons addons-border-bottom">
+          <div class="row addon-row">
+              <div class="col-sm-8 col-xs-6">
+                <div class="row">
+                  <div class="col-sm-9 col-xs-12">
+                    <div class="row">
+                      <div class="col-sm-3 col-xs-6 addon-selected">
+                        <div class="onoffswitch">
+                          <input
+                              type="checkbox"
+                              class="onoffswitch-checkbox"
+                              id="addon-{{addonIndex}}-selected"
+                              [ngModel]="addon.selected"
+                              (change)="toggleAddon(addon, $event)"
+                              checked
+                          />
+                          <label class="onoffswitch-label" for="addon-{{addonIndex}}-selected">
+                              <span class="onoffswitch-inner"></span>
+                              <span class="onoffswitch-switch"></span>
+                          </label>
+                      </div>
+
+                       </div>
+                      <div class="col-sm-9 col-xs-6 no-padding">
+                        <label for="addon-0-selected" style="cursor:pointer;padding-top:6px;" class="no-select ng-binding">{{addon.name}} </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 hidden-xs">
+                    <div class="row">
+                      <div class="col-xs-12 text-right">
+                        <span *ngIf="addon && addon.quantity && addon.quantity > 0" class="ng-scope">
+                          Quantity <span class="badge ng-binding">{{addon.quantity}}</span></span>
+                        &nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4 col-xs-6 addon-cost">
+                <div class="row">
+                  <div class="col-xs-8">
+                    <div [innerHTML]="addon.displayPrice"
+                    class="ng-binding"></div>
+                    <div *ngIf="addon.perItem && addon.selected && addon.use"
+                    class="ng-binding addon-use" aria-hidden="false">
+                      x {{addon.use}} {{addon.name}}
+                    </div>
+                    <div *ngIf="addon.selectLength && addon.selected && addon.duration"
+                    class="ng-binding ng-hide addon-children"
+                    aria-hidden="true">
+                      x {{addon.duration.text}}
+                    </div>
+                    <div *ngIf="addon.selectLength && addon.selected &&
+                    addon.duration && cartDetails.booking.children.length > 1"
+                    class="ng-binding addon-children ng-hide" aria-hidden="true">
+                      x {{cartDetails.booking.children.length}} days
+                    </div>
+                  </div>
+                  <div class="col-xs-4">
+                    <span *ngIf="addon.selected && !addon.include"
+                    class="pull-right sub-total ng-binding"
+                    aria-hidden="false">{{addon.subtotal }}</span>
+                    <span *ngIf="addon && addon.description"
+                    class="pull-right addon-description ng-hide" aria-hidden="true">
+                    <em>{{addon.description}}</em></span></div>
+                </div>
+              </div>
+            </div>
+      <div class="row" *ngIf="addon.perItem && addon.selected">
+        <div class="col-sm-4 col-xs-6">
+          <div class="row" *ngIf="addon.selectLength && addon.selected">
+              <div class="col-xs-12">
+                  <div class="alert alert-info alert-info-text">
+                      <label class="control-label select-use" for="Select Duration">Select Duration of
+                          Use</label>
+                      <p class="help-block" *ngIf="cartDetails.booking.children.length > 1">per day</p>
+                      <select class="form-control select-qty" [(ngModel)]="addon.duration"
+                          (change)="updateOptionsTotal()">
+                          <option *ngFor="let item of addon.blocks" [ngValue]="item">{{ item.text }}</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+      </div>
+          <div class="col-sm-8 col-xs-6">
+              <div class="row">
+                  <div class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-12 text-right">
+                      <div class="alert alert-info alert-info-text p-2">
+                          <label class="control-label pt-0" for="select">Select No. of {{ addon.name
+                              }}</label>
+                          <br>Qty to Use&nbsp;
+                          <select class="form-control select-qty" [(ngModel)]="addon.use"
+                              (change)="updateOptionsTotal()">
+                              <option *ngFor="let l of [].constructor(addon.quantity); let qty = index"
+                                  [ngValue]="qty + 1">{{ qty + 1 }}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-sm-12">
+      <div class="row">
+          <div *ngIf="cartDetails.booking.cost.optionsTotal" class="addons-total">
+              <span class="total-label">Options Total:</span>
+              <span>{{cartDetails.booking.cost.optionsTotal}}</span>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 text-right">
+      <div class="button-links">
+        <button (click)="reverse()" class="btn btn-link"><span class="fa fa-chevron-circle-left mx-2"></span>Back</button>
+        <button type="button" (click)="cancel()" class="btn btn-link">
+          Cancel<span class="fa fa-times mx-2"></span>
+        </button>
+        <button type="submit"  (click)="forward()" class="btn btn-primary">Continue to book<span class="fa fa-chevron-circle-right mx-2"></span></button>
+      </div>
+    </div>
+</div>

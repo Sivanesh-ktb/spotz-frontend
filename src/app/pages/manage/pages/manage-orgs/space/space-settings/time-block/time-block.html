@@ -1,0 +1,66 @@
+  <div class="row">
+    <div class="col-md-2 col-sm-3 col-xs-12">
+      <h4 class="header">Time Blocks</h4>
+    </div>
+    <div class="col-md-7 col-sm-6 col-xs-9">
+      <p>If you want to rent this space in larger blocks (e.g. half-day, full-day)
+        define those blocks here, or select a template from your Organization Settings.
+      </p>
+    </div>
+    <ng-container *ngIf="!showSpaceTimeBlock; else hideTimeBlock">
+      <div class="col-md-3 col-sm-3 col-xs-3">
+        <a class="fas fa-pencil-alt space-setting-edit-icon cancel-time-block" (click)="changeTimeBlock()" (keydown.enter)="changeTimeBlock()" tabindex="0" aria-label="timeblock"></a>
+      </div>
+    </ng-container>
+    <ng-template #hideTimeBlock>
+      <div class="btn-group edit ng-hide settings-rental-card cancel-icon" aria-hidden="true">
+        <a (click)="cancelBlock()" title="cancel" class="fas fa-times py-2 cancel-time-block">cancel</a>
+      </div>
+      <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-12"></div>
+        <div class="col-md-10 col-sm-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="bold font-small">
+                Select a pricing template from <a (click)="viewOrgSetting()" (keydown.enter)="viewOrgSetting()" tabindex="0" class="black-text highlight">
+                  Organization Settings</a>, or create a new template.
+              </p>
+            </div>
+            <div class="col-md-6" *ngIf="showSpaceTimeBlock && templateDetails">
+              <app-template-drop-down [page]="page" [templates]="templateDetails"
+              [templateName]="templateName" (selectedTemplateId)="OnSelectedTemplateId($event)">
+              </app-template-drop-down>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+      <div class="row">
+      <div class="col-md-2 col-sm-3 col-xs-12"></div>
+      <div *ngIf="showSpaceTimeBlock || (timeBlocks || timeBlocks.length>0)" class="col-md-10 col-sm-10 col-xs-12 time-block-container">
+      <ng-container *ngIf="timeBlocks && spaceDetails">
+        <app-time-block-template [showTimeBlock]='showSpaceTimeBlock' [page]="page"
+        [timeBlocks]="timeBlocks" [data]="spaceDetails"
+        (timeBlockDetails)="OnTimeBlockDetails($event)">
+        </app-time-block-template>
+      </ng-container>
+      </div>
+      </div>
+   <div class="col-md-2 col-sm-3 col-xs-12"></div>
+   <div class="col-md-10 col-sm-10 col-xs-12">
+      <div class="hourly-container m-0">
+        <label class="fw-bold mb-1" for="Show hourly rate">Show hourly rate</label>
+        <div class="bootstrap-switch-container" style="width: 117px;">
+          <label class='toggle-label m-0'>
+            <input type='checkbox' [(ngModel)]="hourly" (click)="spaceHourly($event)"/>
+              <span class='back'>
+              <span class='toggle'></span>
+                <span class='label on'>Yes</span>
+              <span class='label off'>No</span>
+            </span>
+          </label>
+          </div>
+      </div>
+      <p class="help-block">Show the hourly rate for any hours booked outside the time blocks.</p>
+    </div>
+  </div>

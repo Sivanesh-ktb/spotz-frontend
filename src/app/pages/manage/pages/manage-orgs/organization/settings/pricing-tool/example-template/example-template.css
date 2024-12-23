@@ -1,0 +1,13 @@
+p.font-color {
+  color: #333;
+  font-size: 14px;
+}
+
+.fullday-time{
+  text-align: right;
+}
+.control-label {
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 15px;
+}

@@ -1,0 +1,17 @@
+.well.additional-time {
+  background-color: #dce7f5;
+  padding: 10px;
+  border-radius: 15px;
+}
+p.small-font {
+  font-size: 12px;
+}
+p.help-block {
+  font-size: 10pt;
+  padding: 0px;
+  margin: 0px;
+}
+label.control-label {
+  align-items: center;
+  font-size: 13px;
+}

@@ -1,0 +1,23 @@
+.modal-header {
+  background-color: #eaf3f5;
+  border-bottom: none!important;
+  padding: 14px 20px;
+  margin-bottom: 0;
+}
+.modal-header h3{
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  line-height: 1.1 !important;
+  color: inherit;
+}
+.terms-rental-content {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc;
+}
+.modal-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}

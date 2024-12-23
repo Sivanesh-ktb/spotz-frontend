@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-sm-3 col-xs-12">
+    <h4 class="header">Rules and Attachments</h4>
+  </div>
+  <div class="col-sm-9 col-xs-12">
+    <p>
+      <span>Upload any rules, claims, or additional information regarding the use of your organization’s facilities.
+        These documents will appear on all your property pages. PDF format required.</span>
+    </p>
+    <p>
+      <span class="fa fa-check-circle-o"></span> = renter must agree to terms
+    </p>
+    <div class="row" *ngIf="files.length">
+      <div class="col-md-4 col-sm-4 col-xs-6">
+        <label class="control-label" for="Name">Name</label>
+      </div>
+      <div class="col-md-8 col-sm-8 col-xs-6">
+        <label class="control-label" for="Description">Description</label>
+      </div>
+    </div>
+    <div class="row fluid-table" *ngFor="let file of viewFiles; let i = index">
+      <div class="col-md-12 d-flex justify-content-between align-items-center" *ngIf="i !== editRow">
+        <div>
+          <span>{{file.name}}</span>
+          <span class="fa fa-check-circle-o" *ngIf="file.terms"></span>
+        </div>
+        <div class="mt-2">
+          <div class="btn-group">
+            <a class="btn btn-sm btn-primary" [href]="file.url" target="_blank">
+              <!-- <span class="fa fa-external-link visible-sm-block visible-md-block"></span> -->
+              <span class="hidden-sm hidden-md">View</span>
+            </a>
+            <!-- <button class="btn btn-sm btn-default" (click)="editFile(i, file._id)"> -->
+              <!-- <span class="fa fa-pencil visible-sm-block visible-md-block"></span>
+              <span class="hidden-sm hidden-md">Edit</span> -->
+            <!-- </button> -->
+            <button class="btn btn-sm btn-danger" (click)="deleteFile(file.name, file._id)">
+              <!-- <span class="fa fa-trash visible-sm-block visible-md-block"></span> -->
+              <span class="hidden-sm hidden-md">Delete</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-12" *ngIf="i === editRow">
+          <div>
+            <input class="form-control" [(ngModel)]="file.name" />
+          </div>
+        </div>
+        <div class="col-sm-12" *ngIf="i === editRow">
+          <div>
+            <textarea class="form-control" [(ngModel)]="file.description" placeholder="(optional)" rows="5"></textarea>
+            <p class="help-block">
+              New lines create paragraphs;&nbsp;&nbsp;
+              <em>italics</em>
+              | *&nbsp;&nbsp;
+              <strong>strong bold</strong>
+              | **
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-12" *ngIf="i === editRow" style="border-top:none;">
+          <div class="ml-3">
+            <div class="checkbox ml-3">
+              <input type="checkbox" [(ngModel)]="file.terms" />
+              <label for="Render">Renter must agree to these terms.</label>
+            </div>
+            <div class="btn-group mt-3">
+              <!-- <button class="btn btn-sm btn-primary" (click)="saveFile(file._id)"> -->
+                <span class="fa fa-floppy-o visible-xs-block"></span>
+                <span class="hidden-xs">Save</span>
+              <!-- </button> -->
+              <!-- <button class="btn btn-sm btn-default" (click)="cancelEdit()"> -->
+                <span class="fa fa-times visible-xs-block"></span>
+                <span class="hidden-xs">Cancel</span>
+              <!-- </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 uploadpdf m-2">
+        <div (click)="triggerFacFileUpload()" (keydown.enter)="triggerFacFileUpload()" tabindex="0" (drop)="handleFacMapPdf($event)" (dragover)="handleDragOver($event)">
+          <div class="instructions" accept="application/pdf" class="addFile upload-document">
+            <div class="instructions">
+              <span class="fa fa-plus-circle"> </span> Drop new file here <em>— or — </em>
+              <span class="fa fa-mouse-pointer"> </span> click here to upload
+            </div>
+          <div class="d-none">
+            <p-fileUpload #fileUpload
+                          mode="advanced"
+                          name="demo[]"
+                          [url]="uploadUrl"
+                          accept="application/pdf"
+                          chooseLabel=""
+                          uploadLabel="Upload"
+                          [multiple]="true"
+                          (onSelect)="uploadFacMapPdf($event)"
+                          [auto]="true"
+                          styleClass="hidden-file-upload">
+            </p-fileUpload>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

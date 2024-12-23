@@ -1,0 +1,45 @@
+.box {
+  background-color: #fff;
+  padding: 20px 20px;
+  border-radius: 20px;
+}
+
+.Spotz-only{
+  background-color: #ecf3fb;
+  color:#000;
+  padding-top:20px;
+  border-radius: 30px;
+}
+
+.input-group-text {
+  height: 30px;
+  box-shadow: none;
+}
+label.form-check-label {
+  padding-left: 7px;
+}
+span.org-link {
+  color: #999;
+  font-size: 12px;
+  padding: 5px 0;
+}
+p.organization-name {
+  background-color: #e58327;
+  color: #fff;
+  padding: 2px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
+p.remove-margin{
+  margin: 0 !important;
+}
+.org-link .fa-arrow-right:hover{
+  color: #e58327;
+  cursor:pointer;
+}
+.clear-address{
+  color: #0269d9;
+  cursor:pointer;
+  font-size: 13px;
+  padding-top: 3px;
+}

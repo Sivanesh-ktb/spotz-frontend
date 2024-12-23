@@ -1,0 +1,48 @@
+<section >
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="px-4 py-2 edit-org-cnt">
+      <h3 class="fw-bold">Incidents</h3>
+  </div>
+  <div class="row d-flex justify-content-between px-4">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <button
+        class="btn btn-default ng-hide" aria-hidden="true" (click)="refreshIncidentsData()"><span
+          class="fa fa-refresh margin-right-8"></span>
+          Refresh </button>
+      </div>
+      <div class="col-lg-4">
+          <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search Incidents">
+          </div>
+      </div>
+  </div>
+  <div class="incidents-container color-black px-4 mt-2">
+    <a class="color-black"><i class="fa-regular fa-eye color-black"></i>
+      view</a>
+  </div>
+  <div class="incidents-table px-3 mt-2">
+    <table class="table table-hover table-condensed table-sm table-th-white-space-normal"
+    aria-hidden="false">
+      <thead>
+        <tr>
+          <th>Event Date</th>
+          <th>Status</th>
+          <th>Organization</th>
+          <th>Activity / Event</th>
+          <th>Created</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+    <tr >
+      <td colspan="6" class="text-align-center text-center">
+        No transactions
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+<app-footer></app-footer>
+</section>

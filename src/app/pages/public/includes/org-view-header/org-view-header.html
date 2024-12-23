@@ -1,0 +1,42 @@
+<div class="tower-sec-bg color-white">
+  <div class="container">
+    <div class="row text-align-center align-items-center">
+     <div class="col-lg-1">
+       <div class="bon-ton-img">
+        <ng-container *ngIf="orgLogo; else defaultLogo">
+          <img [src]="orgLogo" alt="logo" class="view-org-logo">
+        </ng-container>
+        <ng-template #defaultLogo>
+         <img src="./assets/img/spotz-default-logo.jpg" class="view-org-logo" alt="spotz-default-logo">
+        </ng-template>
+       </div>
+     </div>
+     <div class="col-lg-4">
+       <div class="org-title">
+         <h2 class="m-0">{{orgName}}</h2>
+         <h5 class="m-0" *ngIf="parentName"><a [href]="url" class="text-white">{{parentName}}</a></h5>
+       </div>
+     </div>
+     <div class="col-lg-1"></div>
+     <div class="col-lg-6 d-flex justify-content-end gap-2 align-items-center">
+       <div class=" d-flex flex-column container-items">
+        <div>
+         <p>{{orgAddress}}</p>
+         <p *ngIf="page === 1 && spaceCount" class="listing-pg">{{spaceCount}} Spaces From ${{lowestPriceSpaceDetails.pricing}} per
+          <ng-container *ngIf="lowestPriceSpaceDetails.rentaltypes===1; else hour"> Day</ng-container>
+          <ng-template #hour>hour</ng-template></p>
+         <span class="d-flex gap-2" *ngIf="page === spacePage">
+          <p class="org-user-count">{{capacity}} <i class="fa fa-user-o" aria-hidden="true"></i></p>
+         <p> ${{pricing}} per <ng-container *ngIf="rentaltypes===1; else hour"></ng-container>
+          <ng-template #hour> hour</ng-template></p></span>
+          </div>
+          <div *ngIf="page === spacePage">
+            <div class="book-n-btn"><a class="booking-btn btn-default">Book now</a></div>
+          </div>
+       </div>
+
+     </div>
+
+   </div>
+ </div>
+</div>

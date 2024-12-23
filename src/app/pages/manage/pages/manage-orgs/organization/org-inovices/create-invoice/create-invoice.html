@@ -1,0 +1,50 @@
+<div class="create-invoice-container">
+  <div class="create-invoice-header">
+    <p class="invoice-title title">Create Invoice</p>
+  </div>
+  <ol class="mb-4 list-group list-group-numbered">
+    <li class="list-group-item">Find the un-billed events by searching a date range by group</li>
+    <li class="list-group-item">Select the events to add to an invoice</li>
+    <li class="list-group-item">Generate the invoice, and print or email</li>
+  </ol>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+       <p class="fw-bold">Search Event Date Range</p>
+       <app-date-range-picker [currentPage]="3" (dateRange)="OnDateRangeFilterData($event)"></app-date-range-picker>
+       <p class="help-block">Search for the date the event occurred</p>
+      </div>
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <p class="fw-bold">Search By Group (Optional)</p>
+        <app-custom-group-drop-down (groupSelected)="onGroupSelected($event)"></app-custom-group-drop-down>
+        <p class="py-0 px-0 m-0 help-block">Search for the group to invoice.</p>
+        <div *ngIf="groupId && groupName" (click)="searchGroupReport()" (keydown.enter)="searchGroupReport()" tabindex="0"
+        class="btn btn-default ng-binding" aria-hidden="false">View '{{groupName}}' Group Report »</div>
+       </div>
+       <div class="col-lg-2 col-md-4 col-sm-12">
+        <button class="btn btn-secondary search-invoice-btn" (click)="searchDateRange()">Search</button>
+       </div>
+    </div>
+  </div>
+</div>
+<div role="group" class="btn-group remove-background-color">
+  <p class="fw-bold pe-2 m-0">Filter results</p>
+  <button type="button"
+    (click)="invoicedTab()" [ngClass]="{ 'active-tab': invoiced === true }"
+    class="btn btn-default">To Be Invoiced
+    <span *ngIf="status" class="badge ng-binding ml-3" aria-hidden="false">
+      {{ groupCount }}</span>
+  </button>
+  <button type="button" [ngClass]="{ 'active-tab': discounted === true }"
+  (click)="discountedTab()" class="btn btn-default">Discounted
+  <span *ngIf="status"
+  class="badge ng-binding" aria-hidden="false">{{ invoiceCount }}</span>
+</button>
+</div>
+
+<ng-container *ngIf="invoiced === true">
+  <app-invoice-discounted></app-invoice-discounted>
+</ng-container>
+<ng-container *ngIf="discounted === true">
+  <app-to-be-invoiced></app-to-be-invoiced>
+  </ng-container>

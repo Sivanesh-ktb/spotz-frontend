@@ -1,0 +1,30 @@
+.btn-group.edit.ng-hide.settings-rental-card.cancel-icon {
+  font-size: 11px;
+}
+
+select.form-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSJibGFjayIgdmlld0JveD0iMCAwIDI0IDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMiAxNGwtNy02aDE0eiIvPjwvc3ZnPg==")
+    no-repeat right;
+  background-position-x: 95%;
+  background-position-y: center;
+  background-size: 12px 25px;
+  background-color: white;
+}
+
+.descriptionbox {
+  resize: none;
+  height: auto !important;
+}
+.add-ons-text p {
+  font-size: 12px;
+  color: #999;
+}
+.row.bootstrap-switch-container-addon {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  gap: 12px;
+}

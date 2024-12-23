@@ -1,0 +1,74 @@
+<div class="links">
+  <div list="true" current-user="currentUser" class="ng-isolate-scope">
+    <div class="ng-scope sidebar-container">
+      <div class="ng-scope-space-header">
+        <h2 class="left-panel-title ellipsis org-sidebar-title">
+          {{displayName}}</h2>
+        <div class="d-flex gap-2 p-0 m-0">
+          <div class="space-type">
+          <ng-container *ngIf="rentaltypes; else notRentalType">
+            <p class="m-0">${{price}}/Day</p>
+          </ng-container>
+          <ng-template #notRentalType>
+            <ng-container *ngIf="price || rentaltypes ===0">
+            <p class="m-0">${{price}}/Hour</p>
+          </ng-container>
+          </ng-template>
+          </div>
+          <div class="space-type">
+            <p *ngIf="selectedSpaceTypeEvent && !singleSpaceType; else multiple" class="m-0 space-rental-type multiple-space-type">
+              {{selectedSpaceTypeEvent.name}}
+            </p>
+            <ng-template #multiple>
+              <ng-container *ngIf="selectedSpaceTypeEvent && selectedSpaceTypeEvent.name">
+              <p class="m-0 space-rental-type " [ngStyle]="{'background-color': getSpaceColor(selectedSpaceTypeEvent.value)}">
+                {{selectedSpaceTypeEvent.name}}
+              </p>
+            </ng-container>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="left-nav">
+        <ul class="nav-pills nav-stacked p_20 side_menu">
+          <li class="ng-scope header"><span class="ng-binding fw-bold ng-scope">Manage Space</span></li>
+            <a class="nav-bar cursor-pointer" (click)="viewSpace()" (keydown.enter)="viewSpace()" tabindex="0" title="View" [ngClass]="{'disabled-link': !spaceId}">
+              <p [ngClass]="{ 'fw-bold active': currentRoute === 'space' && spaceId }">
+              View</p></a>
+          <a (click)="viewSpaceSettings()" (keydown.enter)="viewSpaceSettings()" tabindex="0" class="nav-bar cursor-pointer"
+          [ngClass]="{'disabled-link': !spaceId}" title="Settings">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'settings' }">Settings</p></a>
+          <a (click)="viewSpacePhotos()" (keydown.enter)="viewSpacePhotos()" tabindex="0" class="nav-bar cursor-pointer" [ngClass]="{'disabled-link': !spaceId}">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'photos' }">
+            Photos</p></a>
+          <li class="ng-scope header"><span class="fw-bold ng-binding ng-scope view-space">Scheduling</span></li>
+          <a (click)="viewCalendar()" (keydown.enter)="viewCalendar()" tabindex="0" class="nav-bar cursor-pointer"
+          [ngClass]="{'disabled-link': !spaceId}" title="Calendar">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'calendar' }">Calendar</p>
+          </a>
+         <a (click)="viewReservation()" (keydown.enter)="viewReservation()" tabindex="0" class="nav-bar cursor-pointer"
+         [ngClass]="{'disabled-link': !spaceId}" title="Events">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'reservations' }">
+            Events</p></a>
+            <a (click)="viewSpaceAvailability()" (keydown.enter)="viewSpaceAvailability()" tabindex="0" class="nav-bar cursor-pointer"
+            [ngClass]="{'disabled-link': !spaceId}" title="Availability">
+              <p [ngClass]="{ 'fw-bold active': currentRoute === 'availability' }">
+                Availability</p>
+            </a>
+        </ul>
+      </div>
+      <ul class="nav nav-pills nav-stacked leftmenu-bottom d-flex flex-column gap-2">
+        <ng-container *ngIf="spaceId">
+        <li><a (click)="viewSpacePage()" (keydown.enter)="viewSpacePage()" tabindex="0" title="View Space Listing">
+            <i class="fas fa-external-link-alt"></i> View Space Listing</a></li>
+        <li><a target="_blank" title="Duplicate Space" (click)="duplicateSpace()"  (keydown.enter)="duplicateSpace()" tabindex="0">
+            <i class="fa fa-clone"></i> Duplicate</a></li>
+          </ng-container>
+          <li *ngIf="role === 'Superadmin'">
+            <a (click)="deleteOrgManage()" (keydown.enter)="deleteOrgManage()" tabindex="0" [ngClass]="{'disabled-link': !spaceId}">
+              <span class="fa fa-trash"></span>
+              Delete</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="row mb-3">
+  <div class="col-sm-4 col-xs-6">
+    <div class="panel1">
+      <h3  class="ng-binding">$0.00</h3>
+      <h6 >Total Sales</h6>
+    </div>
+  </div>
+  <div class="col-sm-4 col-xs-6">
+    <div class="panel1">
+      <h3  class="ng-binding">$0.00</h3>
+      <h6 >Total Refunds</h6>
+    </div>
+  </div>
+  <div class="col-sm-4 col-xs-12">
+    <div class="panel1">
+      <h3  class="ng-binding">$0.00</h3>
+      <h6 >Net</h6>
+    </div>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-2 hidden-sm hidden-xs">
+    <div class="radio"><span class="control-label">Show</span></div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="radio">
+          <label class="control-label d-flex gap-3">
+            <input type="radio" [(ngModel)]="refunds" value="sales"
+              name="214" aria-checked="false" tabindex="-1" aria-invalid="false">Sales Only
+          </label>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="radio">
+          <label class="control-label d-flex gap-3">
+            <input type="radio" [(ngModel)]="refunds" value="refunds"
+              name="215" aria-checked="false" tabindex="-1" aria-invalid="false">Refunds Only
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row transaction-card d-dlex ">
+ <div class="col-sm-6 col-md-4 col-lg-3">
+  <span class="control-label fw-bold">Filter By User</span>
+ </div>
+ <div class="col-sm-4 col-md-2 col-lg-2">
+  <a class="control-label fw-bold">View report »</a>
+ </div>
+ <div class="col-sm-6 col-md-4 col-lg-3">
+  <select ng-model="userFilter.user"
+  ng-options="u.id as u.name for u in tg.users"
+  ng-change="applyFilter();"
+  class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" aria-invalid="false"
+  ><option selected="selected">All</option>
+  <option label="Dev Team">Dev Team</option>
+</select>
+ </div>
+</div>

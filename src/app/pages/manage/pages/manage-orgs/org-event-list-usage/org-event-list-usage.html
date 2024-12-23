@@ -1,0 +1,255 @@
+<section class="content">
+ <app-admin-navbar></app-admin-navbar>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <ng-container *ngIf="!spaceId && !facilityId && !orgId; else manageOrg">
+           <app-profile-sidebar></app-profile-sidebar>
+          </ng-container>
+          <ng-template #manageOrg>
+          <ng-container *ngIf="spaceId && spaceDetails; else checkFacility">
+            <app-admin-space-sidebar
+              [displayName]="spaceDetails.name"
+              [rentaltypes]="spaceDetails.rentaltypes"
+              [price]="spaceDetails.price"
+              [facName]="facName">
+            </app-admin-space-sidebar>
+          </ng-container>
+          <ng-template #checkFacility>
+            <ng-container *ngIf="facilityId; else orgEvent">
+              <ng-container *ngIf="facName">
+                <app-admin-fac-sidebar [facilityName]="facName">
+                </app-admin-fac-sidebar>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+          <ng-template #orgEvent>
+            <app-admin-org-sidebar></app-admin-org-sidebar>
+          </ng-template>
+        </ng-template>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12">
+          <div class="edit-org-cnt">
+            <h3 class="new-space-h fw-bold">{{currentPage}}</h3>
+         </div>
+       <div class="panel">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 mt-2">
+              <div class=" position-relative">
+              <label for="daterangepicker" class="mb-2">Date Range</label>
+              <i class="fa fa-calendar form-control-feedback"></i>
+            </div>
+              <app-date-range-picker  [checkPage]="page" (dateRange)="onSelectedDateRange($event)">
+              </app-date-range-picker>
+            </div>
+        </div>
+        <div class="section sub-section">
+          <div class="header">
+            <div class="row">
+              <div class="col-lg-6">
+                <h4 class="pt-1">Filter Results</h4>
+              </div>
+              <div class="col-lg-6 d-flex justify-content-end align-items-center">
+                <a (click)="clearFilters()" (keydown.enter)="clearFilters()" tabindex="0" class="btn btn-default btn-xs">
+                  <i class="fa-solid fa-xmark"></i> Clear Filters
+                </a>
+              </div>
+              </div>
+              <ng-container *ngIf="!spaceId">
+              <div class="row">
+                <ng-container *ngIf="checkPage === 1 || checkPage === 2 || checkPage === 3 || checkPage === 6">
+                <div class="col-lg-4">
+                  <app-facility-drop-down [clearValue]="clearValue"
+                    (selectedFacIdName)="onFacilitySelected($event)">
+                  </app-facility-drop-down>
+                </div>
+              </ng-container>
+                <div class="col-lg-4">
+                  <ng-container *ngIf="spaceDetails || checkPage === 6">
+                  <app-space-type-drop-down [clearValue]="clearValue" [spaceDetails]="spaceDetails"
+                  (spaceTypeSelected)="onSpaceTypeSelected($event)"></app-space-type-drop-down>
+                </ng-container>
+                </div>
+                <div class="col-lg-4">
+                  <ng-container *ngIf="checkPage === 6; else defaultDropDown">
+                    <app-booking-status-drop-down [setStatus]=1 [clearValue]="clearValue"
+                    (bookingTypeNameSelected)="onBookingTypeFilterSelected($event)">
+                  </app-booking-status-drop-down>
+                  </ng-container>
+                  <ng-template #defaultDropDown>
+                    <app-booking-status-drop-down [clearValue]="clearValue"
+                    (bookingTypeNameSelected)="onBookingTypeSelected($event)">
+                  </app-booking-status-drop-down>
+                 </ng-template>
+                </div>
+                <ng-container *ngIf="checkPage === 4">
+                   <div class="col-lg-4">
+                          <app-origin-drop-down
+                            (originSelected)="onOriginSelected($event)">
+                          </app-origin-drop-down>
+                    </div>
+                   </ng-container>
+              </div>
+              <ng-container *ngIf="checkPage === 2 || checkPage === 3">
+              <div class="row">
+                <div class="col-lg-4">
+                      <app-origin-drop-down
+                        (originSelected)="onOriginSelected($event)">
+                      </app-origin-drop-down>
+                </div>
+                </div>
+              </ng-container>
+            </ng-container>
+              </div>
+        </div>
+        <div class="section sub-section">
+          <div class="header">
+            <div class="row">
+              <div class="col-lg-6">
+                <span class="btn btn-default btn-xs" (click)="showAdvanceFilter()" (keydown.enter)="showAdvanceFilter()" tabindex="0">
+                  <i class="fas fa-list"></i>
+                  Advanced  Filters</span>
+              </div>
+              </div>
+              <div class="row" *ngIf="advancedFilter">
+                <div class="col-lg-4">
+               <app-sport-activity-drop-down (sportTypeSelected)="onSportTypeSelected($event)">
+               </app-sport-activity-drop-down>
+                </div>
+                <div class="col-lg-4">
+               <app-attendance-drop-down (attendanceSelected)="onAttendanceSelected($event)">
+               </app-attendance-drop-down>
+                </div>
+                <ng-container *ngIf="(checkPage === 2 || checkPage === 3 || checkPage === 4 || checkPage === 5) && groupMultipleSelection ">
+               <div class="col-lg-4">
+                <div class="allowed-activiies w-100 mt-2">
+                  <p class="drop-down-title">Group (multiple)</p>
+                  <app-custom-group-drop-down [multipleSelected]="groupMultipleSelection" (groupSelected)="onGroupSelected($event)"></app-custom-group-drop-down>
+                 </div>
+                </div>
+                </ng-container>
+              </div>
+              </div>
+        </div>
+        <div class="section sub-section">
+          <div class="header">
+            <div class="row">
+              <div class="col-lg-6">
+                <h4 class="pt-1 mt-2">All Results</h4>
+              </div>
+              <ng-container *ngIf="facName && (checkPage === 1 || checkPage === 2 || checkPage === 3 || checkPage === 6)">
+                <div class="d-flex gap-2">
+                  <span class="event-heading">
+                    at
+                  </span>
+                  <span class="advanced-filter-values fw-bold">
+                    {{facName}}
+                  </span>
+                 </div>
+              </ng-container>
+              <ng-container *ngIf="spaceNames && spaceNames.length > 0">
+                <div class="d-flex gap-2">
+                <span class="event-heading">
+                  of type
+                </span>
+                <span class="advanced-filter-values fw-bold">
+                  {{spaceNames.join(', ')}}
+                </span>
+               </div>
+              </ng-container>
+              <ng-container *ngIf="bookingTypeName.length>0">
+                <div class="d-flex gap-2">
+                  <span class="event-heading">
+                    of status
+                  </span>
+                  <span class="advanced-filter-values fw-bold">
+                    {{bookingTypeName.join(', ')}}
+                  </span>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="(selectedStatus && selectedStatus.name.length > 0) || (sportTypes && sportTypes.length > 0) || attendance.length > 0 || selectedGroupTypes.length > 0">
+              <h4 class="pt-1 mt-2">
+                Advanced:
+              </h4>
+              </ng-container>
+              </div>
+              <div class="row" *ngIf="advancedFilter || checkPage === 6">
+                <div class="col-lg-12">
+                  <div class="d-flex gap-2">
+                    <div class="d-flex gap-2">
+                      <ng-container *ngIf="selectedStatus?.name && selectedStatus.name.length > 0">
+                      <span class="filter-activity">
+                          of status
+                      </span>
+                      <span class="advanced-filter-values fw-bold" *ngFor="let status of selectedStatus?.name">
+                          {{ status }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+                  <div class="d-flex gap-2">
+                   <span class="filter-activity" *ngIf ="sportTypes.length >0">
+                    with sport or activity
+                   </span>
+                   <span class="advanced-filter-values fw-bold">
+                   {{sportTypes.join(', ')}}
+                   </span>
+                  </div>
+                   <div class="d-flex gap-2" *ngIf="attendance.length > 0">
+                   <span class="advanced-filter-Attendance">
+                    with attendance
+                   </span>
+                   <span class="advanced-filter-values fw-bold">
+                    {{attendance}}
+                    </span>
+                  </div>
+                  <div class="d-flex gap-2" *ngIf="selectedGroupTypes.length > 0">
+                    <span class="advanced-filter-Attendance">
+                      by group
+                    </span>
+                    <span class="advanced-filter-values fw-bold">
+                     {{selectedGroupTypes.join(', ')}}
+                     </span>
+                   </div>
+                </div>
+              </div>
+              </div>
+        </div>
+        </div>
+        <div class="row mx-3">
+          <div class="col-sm-12 col-xs-12 text-right py-3 px-2 d-flex justify-content-end gap-2">
+           <button *ngIf="checkPage === 1 || (!orgId && !facilityId && !spaceId)" class="btn btn-default ng-hide" aria-hidden="true"><i
+            class="fa fa-print margin-right-8"></i>Print </button>
+            <button  *ngIf=" checkPage === 4"
+            class="btn btn-default ng-hide" aria-hidden="true" (click)="refreshData()"><span
+              class="fa fa-refresh margin-right-8"></span>Refresh </button>
+            <ng-container *ngIf="checkPage === 2">
+              <button class="btn btn-secondary" (click)="searchBookingsData(orgId,url)" aria-hidden="false"><i
+                class="fa fa-search margin-right-8"></i>Search </button>
+                <div class="btn-group">
+                  <button class="btn btn-default" aria-hidden="false"><i
+                      class="fa fa-download margin-right-8"></i>Download </button>
+                </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="checkPage === 1">
+        <app-org-event-list></app-org-event-list>
+      </ng-container>
+      <ng-container *ngIf="checkPage === 3">
+        <app-org-event></app-org-event>
+      </ng-container>
+      <ng-container *ngIf="checkPage === 4 && bookingData">
+        <app-fac-events [bookingData]="bookingData"></app-fac-events>
+      </ng-container>
+      <ng-container *ngIf="checkPage === 5">
+        <app-space-event [bookingData]="bookingData"></app-space-event>
+      </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+table.table.table-sm.table-condensed.table-striped.table-bordered {
+  border: 1px solid #dde3eb;
+}
+
+h1.ng-binding.ng-scope {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px !important;
+  font-family: inherit;
+  color: #274451;
+}
+.table-bordered>tbody>tr>td{
+  border: 1px solid #e2e7e9;
+}
+.admin .table-sm td, .admin .table-sm th {
+  font-size: 10pt;
+  padding: 6px 8px;
+}
+.nav-tabs {
+  border-bottom: 1px solid #e4ebf5;
+}
+.manage-org {
+  background-color: #f9f9f9;
+}
+.tab-content {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e4ebf5;
+  border-top: 0;
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: rgba(67,79,92,.22) 0 2px 2px -1px;
+}
+li.nav-item.ng-scope.active {
+  border: 1px solid #e4ebf5;
+  border-bottom-color: transparent;
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+}
+
+
+
+.org-container {
+  display: flex;
+  grid-gap: 14px;
+}
+.org-container a {
+  cursor: pointer;
+  color:#000;
+}
+span.ng-hide {
+  padding: 5px;
+}
+.members-details {
+  display: flex;
+  align-items: center;
+  grid-gap: 2px;
+}

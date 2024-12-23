@@ -1,0 +1,21 @@
+<div class="input-group w-100">
+  <div class="form-box select">
+    <label class="control-label fw-bold py-1 schedule-title" for="Space">Space</label>
+    <div class="dropdown w-100 mt-2">
+      <button [ngClass]="{'info-page': !infoBtn}" class="btn search-space-drop-down dropdown-toggle btn-default border-0" id="dropdownMenuButton"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selectedSpace.name || 'Select Space' }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <ng-container *ngFor="let detail of facDetails">
+          <li class="dropdown-header ng-binding disabled">
+            <span class="fa"></span>{{ getSpaceTypeName(detail?.typ?.[0] ?? 0) }}
+          </li>
+          <li class="ng-scope dropdown-item" (click)="selectSpace(detail)" (keydown.enter)="selectSpace(detail)" tabindex="0">
+              {{ detail.name }}
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

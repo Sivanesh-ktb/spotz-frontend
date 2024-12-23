@@ -1,0 +1,38 @@
+
+
+<div class="tb-icon">
+  <div class="row">
+  <div class="col-lg-12 col-md-12 mb-2">
+    <div class="t-b-1"  [ngClass]="{'d-flex justify-content-between': !saleTax}">
+      <p>If you need to collect sales tax for your rentals, enter the percentage here.</p>
+      <div class="tb-icon" *ngIf="!saleTax; else showSaleTax">
+        <a (click)="salesTaxInfo()" (keydown.enter)="salesTaxInfo()" tabindex="0" aria-label="sales info" class="ps-2 fas fa-pencil-alt"></a>
+      </div>
+    </div>
+    <div [ngClass]="{'d-flex justify-content-between align-items-center': !saleTax}">
+      <div *ngIf="!saleTax && salesTax" class="setting-tax py-2" aria-hidden="false">
+        {{salesTax}} %
+      </div>
+    </div>
+  </div>
+    <ng-template #showSaleTax>
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+      <label class="control-label fw-bold mb-2" for="Sales tax percentage">Sales Tax Percentage</label>
+      <div class="input-group">
+        <input type="number" class="form-control"
+        aria-label="Input group example" aria-describedby="btnGroupAddon" [(ngModel)]="salesTax" maxlength="3">
+        <div class="input-group-text" id="btnGroupAddon">%</div>
+      </div>
+      <p>These are customers that the host brings into a rental</p>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 mt-4 py-2">
+      <div class="btn-group edit" aria-hidden="false">
+        <button type="submit" class="btn btn-xs btn-primary" [disabled]="!salesTax" (click)="saveTaxInfo()">Save</button>
+        <button type="button" (click)="editTaxInfo()" class="btn btn-xs btn-default">Cancel</button>
+      </div>
+    </div>
+</div>
+</ng-template>
+</div>
+</div>

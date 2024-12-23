@@ -1,0 +1,33 @@
+.header-content {
+  width: 100%;
+  overflow-wrap: break-word;
+  white-space: initial;
+  background-color: #eaf3f5;
+  padding: 12px 15px;
+}
+.booking-header {
+  display: flex;
+  position: relative;
+  margin-bottom: 15px;
+}
+.info-block .logo img{
+  width: 46px;
+  height: 46px;
+  background-size: cover;
+  border: 1px solid #6fc8f3;
+  border-radius: 6px;
+  overflow: hidden;
+  float: left;
+  margin-right: 10px;
+}
+a.color-block
+{
+  color:#333;
+}
+.close-modal {
+  position: absolute;
+  z-index: 999;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+}

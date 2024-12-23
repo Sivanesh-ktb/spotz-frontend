@@ -1,0 +1,108 @@
+<div
+  [ngClass]="{'list-view': viewMode === 'list', 'grid-view': viewMode === 'grid'}"
+>
+  <table
+    class="table table-bordered table-striped table-sm ng-hide"
+    aria-hidden="true"
+  >
+    <thead>
+      <tr>
+        <th class="text-center">Rule Type</th>
+        <th class="text-center">Start / End Date</th>
+        <th class="text-center">Start / End Time</th>
+        <th class="text-center">Days</th>
+        <th class="text-center">Level or User</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let allData of data">
+        <td class="text-center">
+          <ng-container *ngIf="allData.type === 1"> Availability </ng-container>
+          <ng-container *ngIf="allData.type === -1"> Exception </ng-container>
+          <ng-container *ngIf="allData.type === -2">
+            Assign Space
+          </ng-container>
+        </td>
+        <td class="text-center">
+          <div class="d-flex gap-2 text-center align-items-center justify-content-around">
+            <app-calendar [date]="allData.startDate" [viewMode]="viewMode"></app-calendar>
+            <ng-container *ngIf="allData.endDate">
+              - <app-calendar [date]="allData.endDate" [viewMode]="viewMode"></app-calendar>
+            </ng-container>
+          </div>
+          <ng-container *ngIf="allData.endDate; else startDate">
+            <div class="total-days px-3 mt-1">
+              {{getTotalDays(allData.startDate,allData.endDate)}} DAYS
+            </div>
+          </ng-container>
+          <ng-template #startDate>
+            <div class="total-days px-3 mt-1">1 DAY</div>
+          </ng-template>
+        </td>
+        <td class="text-center">
+          <ng-container
+            *ngIf="allData?.pricing.length === 0; else customTemplate"
+          >
+            <div class="time-container text-center">
+              {{changeTimeFormat(allData.startTime)}} -
+              {{changeTimeFormat(allData.endTime)}}
+              <br />
+              {{totalHours(allData.startTime, allData.endTime)}} HOURS
+            </div>
+          </ng-container>
+          <ng-template #customTemplate>
+            <!-- Iterate over the pricing array -->
+            <div *ngFor="let price of allData?.pricing" class="px-5">
+              <div class="checkbox-container d-flex gap-2 align-items-center">
+                <i class="me-2 fa-check-square fas"></i>
+                <label>
+                  <input
+                    type="hidden"
+                    [(ngModel)]="price.checked"
+                    tabindex="0"
+                    aria-disabled="false"
+                    aria-invalid="false"
+                  />
+                  <span>{{ price.name }}</span>
+                </label>
+              </div>
+            </div>
+          </ng-template>
+        </td>
+        <td class="text-center">
+          <div class="d-flex flex-column justify-content-between" style="height: 100%;">
+            <div class="d-flex justify-content-center">
+              <app-days [selectedDays]="allData.days" [viewMode]="viewMode"></app-days>
+            </div>
+          <div class="week-length mt-auto">
+            {{ allData.days.length }} DAYS / WEEK
+          </div>
+        </div>
+        </td>
+        <td class="text-center">
+           <app-priority-boxes [priority]="allData.access" [viewMode]="viewMode"></app-priority-boxes>
+        </td>
+        <td class="text-center">
+          <div class="d-flex gap-2 mt-2 justify-content-around">
+            <a
+              type="button"
+              *ngIf="allData.type===1 || allData.type===-2"
+              (click)="editRule(allData._id,allData.type)"
+              class="btn-link"
+              aria-hidden="false"
+              ><i class="fas fa-pencil-alt"></i
+            ></a>
+            <a
+              type="button"
+              (click)="deleteRule(allData._id)"
+              class="btn-link text-danger"
+            >
+              <span class="fas fa-trash-alt"></span
+            ></a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

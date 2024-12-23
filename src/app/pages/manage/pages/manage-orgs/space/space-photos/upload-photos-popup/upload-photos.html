@@ -1,0 +1,84 @@
+ <!-- upload image popup start-->
+
+ <div class="modal-content-popup">
+  <div class="modal-header-popup ng-scope d-flex justify-content-between">
+    <h4> Add Photos </h4>
+    <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close">X</a>
+  </div>
+  <div class="modal-popup-body admin booking ng-scope mt-3">
+    <div class="container-fluid">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+            role="tab" aria-controls="home" aria-selected="true">Facilities</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+            role="tab" aria-controls="profile" aria-selected="false">Space Types</button>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active mb-3" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <h4 class="panel-title mt-2">Upload Photo</h4>
+          <label for="photo" class="control-label sr-only">Photo</label>
+          <div class="drop-box-popup"
+               (click)="triggerSpaceFileUpload()"
+               (keydown.enter)="triggerSpaceFileUpload()"
+               tabindex="0"
+               (drop)="handleSpaceDropImg($event)"
+               (dragover)="handleSpaceDragImg($event)">
+            <div class="instructions">
+              <p>
+                <span style="font-size: 25pt; margin-bottom: 20px;" class="fa fa-picture-o"></span><br>
+                Drop new photo here <br><em>— or —</em><br>
+                <span class="fa fa-mouse-pointer"></span> click to upload
+              </p>
+            </div>
+            <p-fileUpload #fileUpload
+                          mode="advanced"
+                          name="demo[]"
+                          [url]="uploadUrl"
+                          accept="image/*"
+                          chooseLabel=""
+                          uploadLabel="Upload"
+                          [multiple]="true"
+                          (onSelect)="uploadSpaceImage($event)"
+                          [auto]="true"
+                          class="hidden-file-upload">
+            </p-fileUpload>
+          </div>
+        </div>
+
+        <div ng-class="{active:vm.tab === 1}" class="tab-pane fade custom-tb scroll mb-3"
+        id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <h4 class="panel-title mt-2">Choose from Facility Photos</h4>
+          <div ng-repeat="img in vm.assets"
+            back-img="https://s3.us-west-2.amazonaws.com/gymdandy.imgsrv/qa/orgs/6682f39b00bf8664911e4080/facs/6684f2860eb11d51f6a8274b/gftvabuasxniopppuqjmuauwtbfpdibu.png"
+            class="thumbnails ng-scope"
+            style="background-image: url(&quot;https://s3.us-west-2.amazonaws.com/gymdandy.imgsrv/qa/orgs/6682f39b00bf8664911e4080/facs/6684f2860eb11d51f6a8274b/gftvabuasxniopppuqjmuauwtbfpdibu.png&quot;);">
+            <div ng-click="vm.selectedImage[$index] = !vm.selectedImage[$index];" class="delete" role="button"
+              tabindex="0"><span
+                ng-class="{'icon-checkbox-checked':vm.selectedImage[$index],'icon-checkbox-unchecked':!vm.selectedImage[$index]}"
+                class="fa icon-checkbox-unchecked"></span></div>
+            <div class="helper ng-binding"></div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ng-scope">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="text-center">
+          <button type="submit" ng-click="vm.add()" ng-disabled="!vm.selectedImage || !vm.selected()"
+            class="btn btn-secondary upload-button" aria-disabled="true" disabled="disabled"> <span class="fa fa-plus"></span> Add
+            Images</button>
+          <button type="button" (click)="dismiss()" class="btn btn-default">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- upload image popup end -->

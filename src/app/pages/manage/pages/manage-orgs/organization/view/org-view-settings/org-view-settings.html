@@ -1,0 +1,76 @@
+
+<div class="settings">
+  <div class="d-flex justify-content-between">
+    <h5><i class="fas fa-cog"></i> Settings</h5>
+    <a (click)="viewOrgSettings()" (keydown.enter)="viewOrgSettings()" tabindex="0" aria-label="edit icon" class="fas fa-pencil-alt"></a>
+  </div>
+</div>
+<div class="rules-cnt">
+  <div class="row">
+    <div class="col-lg-3">
+      <h4>Tax Info</h4>
+      <div class="text-center d-flex align-items-center gap-2">
+        <i *ngIf="!vm.org.legal" class="fa fa-times val error"></i>
+        <i *ngIf="vm.org.legal" class="fa fa-check val success"></i>
+        <a *ngIf="!vm.org.legal">
+          <p-tooltip-arrow 
+            pTooltip="Tax Info must be set to receive deposits." 
+            tooltipPosition="bottom" 
+            class="question-arrow">
+            <span class="fa fa-question-circle"></span>
+          </p-tooltip-arrow>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-3 text-center">
+      <h4>Sales Tax</h4>
+      <div class="text-center">
+        <p class="val"> {{ vm.salesTax }} <span class="lbl">%</span></p>
+      </div>
+    </div>
+    <div class="col-lg-3 text-center">
+      <h4>Lead Time</h4>
+      <div class="text-center">
+        <p class="val">
+          {{ vm.leadTime }}<span class="lbl">days</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-3 text-center">
+      <h4>Payouts</h4>
+      <div class="mx-3 px-3  text-center d-flex align-items-center gap-2">
+        <i *ngIf="!vm.org.accts.length" class="fa fa-times val error"></i>
+        <i *ngIf="vm.org.accts.length" class="fa fa-check val success"></i>
+        <a *ngIf="!vm.org.accts.length">
+          <p-tooltip-arrow  pTooltip="Set banking information so you can receive Spotz deposits"  tooltipPosition="bottom"  class="question-arrow"  >
+            <span class="fa fa-question-circle"></span
+          ></p-tooltip-arrow>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row header">
+    <div class="col-xs-12">
+      <h4>Tags<a uib-popover="Use tags to organize facilities/spaces and generate views or reports."
+          popover-trigger="mouseenter" popover-placement="bottom" class="help">
+            <p-tooltip-arrow  pTooltip="Use tags to organize facilities/spaces and generate views or reports."  tooltipPosition="bottom"  class="question-arrow"  >
+              <span class="fa fa-question-circle"></span
+            ></p-tooltip-arrow></a></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div>
+        <p aria-hidden="false" class=""><i>Use tags to organize facilities/spaces and generate views or reports</i></p>
+        <div class="well ng-hide" aria-hidden="true">
+          <ul style="float:left;" class="nav nav-pills fac-tags">
+            <li *ngFor="let tag of vm.tags" class="nav-item">
+              <span class="badge badge-primary">{{ tag }}</span>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

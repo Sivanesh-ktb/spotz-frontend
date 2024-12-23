@@ -1,0 +1,64 @@
+<!-- Grid View -->
+<div *ngIf="viewMode === 'grid'; else list" class="p-3" aria-hidden="false">
+  <div class="rating" aria-hidden="false">
+    <ng-container *ngIf="priority === 0; else unLock">
+      <span class="fa fa-unlock" aria-hidden="true"></span>
+    </ng-container>
+    <ng-template #unLock>
+      <span class="fa fa-lock" aria-hidden="false"></span>
+    </ng-template>
+  </div>
+  <div aria-hidden="false">
+    <div [ngClass]="{highlight: priority >= 4, selected: priority === 4}" class="block">
+      <div class="box"></div>
+      <div class="priority-text">First</div>
+    </div>
+    <div [ngClass]="{highlight: priority >= 3, selected: priority === 3}" class="block">
+      <div class="box"></div>
+      <div class="priority-text">Second</div>
+    </div>
+    <div [ngClass]="{highlight: priority >= 2, selected: priority === 2}" class="block">
+      <div class="box"></div>
+      <div class="priority-text">Third</div>
+    </div>
+    <div [ngClass]="{highlight: priority >= 1, selected: priority === 1}" class="block highlight selected">
+      <div class="box"></div>
+      <div class="priority-text">Fourth</div>
+    </div>
+    <div [ngClass]="{highlight: priority >= 0, selected: priority === 0}" style="border-top: 1px dotted rgb(102, 102, 102); padding-top: 2px;" class="block highlight">
+      <div class="box"></div>
+      <div class="priority-text">Everybody / GA</div>
+    </div>
+  </div>
+</div>
+
+<!-- List View -->
+<ng-template #list>
+
+<div class="list-view">
+    <div class="rating" aria-hidden="false">
+    <ng-container *ngIf="priority === 0; else unLock">
+      <span class="fa fa-unlock" aria-hidden="true"></span>
+    </ng-container>
+    <ng-template #unLock>
+      <span class="fa fa-lock" aria-hidden="false"></span>
+    </ng-template>
+  </div>
+  <div *ngIf="priority === 4" class="block highlight selected">
+    <div class="priority-text">First</div>
+  </div>
+  <div *ngIf="priority === 3" class="block highlight selected">
+    <div class="priority-text">Second</div>
+  </div>
+  <div *ngIf="priority === 2" class="block highlight selected">
+    <div class="priority-text">Third</div>
+  </div>
+  <div *ngIf="priority === 1" class="block highlight selected">
+    <div class="priority-text">Fourth</div>
+  </div>
+  <div *ngIf="priority === 0" class="block highlight selected">
+    <div class="priority-text">Everybody / GA</div>
+  </div>
+</div>
+</ng-template>
+

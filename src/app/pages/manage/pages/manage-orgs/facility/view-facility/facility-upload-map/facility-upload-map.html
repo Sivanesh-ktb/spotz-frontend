@@ -1,0 +1,42 @@
+<div class="groups-iocns">
+  <div class="group-sec mb-2">
+      <h2><i class="fas fa-map-marker-alt"></i> Facility Map </h2>
+
+      <div *ngIf="viewMapUrl" class="col-xs-4 text-right">
+        <a target="_blank"
+        href="{{viewMapUrl}}"
+         class="btn btn-sm btn-secondary view-map-btn" aria-hidden="false">
+         <span class="hidden-sm">View Map</span></a>
+      </div>
+  </div>
+</div>
+<div class="custom-box">
+  <div class="col-lg-12">
+    <div
+    (click)="triggerFacFileUpload()"
+    (keydown.enter)="triggerFacFileUpload()"
+    tabindex="0"
+    (drop)="handleFacMapPdf($event)"
+    (dragover)="handleFacMapPdf($event)">
+ <div class="instructions"
+  accept="application/pdf" ngf-pattern="'application/pdf'" class="addFile ng-pristine ng-untouched ng-valid upload-document" aria-invalid="false">
+      <div class="instructions"> <span class="fa fa-plus-circle"> </span> Drop new file here <em>— or — </em><span class="fa fa-mouse-pointer"> </span> click here to upload</div>
+      <div class="d-none">
+        <p-fileUpload #fileUpload
+                      mode="advanced"
+                      name="demo[]"
+                      [url]="uploadUrl"
+                      accept="application/pdf"
+                      chooseLabel=""
+                      uploadLabel="Upload"
+                      [multiple]="true"
+                      (onSelect)="uploadFacMapPdf($event)"
+                      [auto]="true"
+                      styleClass="hidden-file-upload">
+        </p-fileUpload>
+      </div>
+    </div>
+    <p class="help-block text-center">Click to update</p>
+  </div>
+</div>
+</div>

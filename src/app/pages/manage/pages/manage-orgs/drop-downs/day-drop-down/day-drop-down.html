@@ -1,0 +1,27 @@
+<li class="nav-item dropdown" [ngClass]="{ 'disabled-dropdown': isDisabled }">
+  <span id="navbarAdminDropdown" role="button" [ngClass]="{ 'disabled': isDisabled }" class="form-control custom-dropdown-section custom-dropdown"
+    data-bs-toggle="dropdown" aria-expanded="false">
+    {{selectedDays.length ? getFirstLetters() : 'Select Days' }}   <i class="fa-solid fa-angle-down"></i>
+  </span>
+  <ul class="dropdown-menu custom-dropdown" aria-labelledby="navbarAdminDropdown">
+    <li *ngIf="selectedDays.length > 0">
+      <a class="dropdown-item clear-drop-down filter" (click)="clearAllDays(); $event.stopPropagation();" (keydown.enter)="clearAllDays(); $event.stopPropagation();" tabindex="0">
+        <i class="fa fa-times mr-2"></i>  Clear
+      </a>
+    <li><a (click)="toggleAllDays(); $event.stopPropagation();" (keydown.enter)="toggleAllDays(); $event.stopPropagation();" tabindex="0" class="dropdown-item">
+      <span [ngClass]="{'fa-check': allSelected}" class="fa"></span> All
+    </a></li>
+    <li><a (click)="toggleWeekdays(); $event.stopPropagation();" (keydown.enter)="toggleWeekdays(); $event.stopPropagation();" tabindex="0" class="dropdown-item">
+      <span [ngClass]="{'fa-check': weekdaysSelected}" class="fa"></span> Weekdays
+    </a></li>
+    <li><a (click)="toggleWeekends(); $event.stopPropagation();" (keydown.enter)="toggleWeekends(); $event.stopPropagation();" tabindex="0" class="dropdown-item">
+      <span [ngClass]="{'fa-check': weekendsSelected}" class="fa"></span> Weekends
+    </a></li>
+    <li class="dropdown-header">Days</li>
+    <li *ngFor="let day of days">
+      <a (click)="toggleDay(day); $event.stopPropagation();" (keydown.enter)="toggleDay(day); $event.stopPropagation();" tabindex="0" class="dropdown-item">
+        <span [ngClass]="{'fa-check': selectedDays.includes(day)}" class="fa"></span> {{ day }}
+      </a>
+    </li>
+  </ul>
+</li>

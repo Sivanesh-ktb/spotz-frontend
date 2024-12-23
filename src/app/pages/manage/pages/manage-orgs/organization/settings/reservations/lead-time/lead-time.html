@@ -1,0 +1,46 @@
+
+<div class="row mb-2">
+  <div class="col-sm-3">
+    <h4 class="header">Lead time</h4>
+  </div>
+
+  <div class="col-sm-7">
+    <p>
+      <span>Minimum amount of lead time required for the general public to book space. The Spotz default minimum requirement is 48 hours.</span>
+    </p>
+
+    <div *ngIf="!showLeadTime">
+      <div *ngIf="leadTime || noLeadTime" class="setting">
+        {{ leadTime }} days
+      </div>
+    </div>
+
+    <div *ngIf="showLeadTime">
+      <label class="control-label" for="Number of days">Number of days (x 24 hours)</label>
+      <select class="form-control" [(ngModel)]="tempLeadTime">
+        <option value="zero">No lead time required</option>
+        <option *ngFor="let l of getRange(14, 1)" [value]="l">{{ l }}</option>
+      </select>
+
+      <p class="help-block">
+        Select the number of days notice required to rent the gym. You may set a lower lead time for specific groups
+        <span class="fa fa-users"></span> within the organization.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-sm-2 col-xs-3 text-right p-2">
+    <button class="btn btn-link p-0 edit text-black" (click)="editLeadTime(true)" *ngIf="!showLeadTime">
+      <span class="text"> <i class="fas fa-pencil-alt  fa-lg"></i></span>
+    </button>
+
+    <div class="btn-group edit" *ngIf="showLeadTime">
+      <button class="btn btn-xs btn-primary" (click)="editLeadTime(false, true)">
+        <span class="hidden-xs">Save</span>
+      </button>
+      <button class="btn btn-xs btn-default" (click)="editLeadTime(false)">
+        <span class="hidden-xs">Cancel</span>
+      </button>
+    </div>
+  </div>
+</div>

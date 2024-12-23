@@ -1,0 +1,67 @@
+.facility-listing.search-box {
+  background-color: #fff;
+  border: 1px solid #c7dfef;
+  margin-bottom: 20px;
+  box-shadow: rgba(67, 79, 92, .22) 0 1px 3px 1px;
+  border-radius: 12px;
+  padding: 50px 10px 10px;
+  position: relative;
+}
+
+.facility-listing.search-box .input-group label {
+  padding: 6px 10px 3px;
+  margin-bottom: 0;
+}
+
+.facility-listing.search-box .input-group {
+  width: 100%;
+}
+
+.custom-input {
+  border: none;
+  width: 100%;
+  box-shadow: none;
+}
+
+.facility-listing .input-group .form-box.date,
+.form-box.select.date {
+  width: 22%;
+  border-right: 1px solid #d1edff !important;
+}
+.form-box.select.date{
+  border-bottom: 1px solid #77d2d8 !important;
+}
+.input-group .form-box.occurrence {
+  width: 25%;
+  border-right: 1px solid #d1edff;
+  padding-bottom: 1px;
+}
+
+.search-container {
+  border-bottom: 1px solid #d1edff;
+}
+.update-search-button {
+  border-left: 1px solid #d1edff;
+  flex-direction: column;
+}
+.schedule-title {
+  font-size: 14px;
+}
+.reset {
+  text-decoration: underline !important;
+  display: inline;
+  color: #333;
+}
+
+.refreshText{
+ font-size: 0.75em;
+  color: #333;
+}
+
+.reset:hover{
+  color: #e58327;
+}
+
+button.btn.btn-primary{
+  padding: 4px 30px;
+}

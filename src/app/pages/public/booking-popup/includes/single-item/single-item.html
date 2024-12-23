@@ -1,0 +1,34 @@
+<div class="position-relative ng-scope ui-state-active mb-4">
+  <div id="coverflow-controls" class="single d-flex gap-2" aria-hidden="false">
+    <a class="prev-arrow arrows" #prevArrow>
+      <i class="fa fa-chevron-left"></i>
+    </a>
+    <a class="next-arrow arrows" #nextArrow>
+      <i class="fa fa-chevron-right"></i>
+    </a>
+  </div>
+  <div id="load-more" *ngIf="isFetched">
+    <button class="btn btn-sm btn-default" (click)="updateSearch()">
+      Fetch Dates This Week
+    </button>
+  </div>
+
+  <div class="booking-card-container coverflow" #coverflowContainer>
+    
+    <div *ngIf="isloader" class="loader">
+      <h2 class="ng-binding loading_text">Loading...</h2>
+      <img class="loader-gif" src="assets/img/loader_bk.gif"/></div>
+    <a *ngFor="let available of availabilityList; let dayIndex = index"
+       class="calendar-card-container ui-coverflow-item coverflow__image"
+       (click)="jumpToDay(dayIndex)" (keydown.enter)="jumpToDay(dayIndex)" tabindex="0" [attr.data-coverflow-index]="dayIndex + 1">
+      <div class="calendar-card cover-block">
+        <app-calendar-item [cal]="available"  [timerange]="timeRange"></app-calendar-item>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+
+
+

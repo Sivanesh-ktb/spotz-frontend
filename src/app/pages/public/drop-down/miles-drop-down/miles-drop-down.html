@@ -1,0 +1,11 @@
+<label class="text-white" for="Max Distance"></label>
+<select [(ngModel)]="selectedDistance"
+  [ngClass]="page ? 'public-space-type-drop-down-search' : 'public-space-type-drop-down'"
+  (change)="onDistanceChanged($event)"
+>
+ <option value="0">Max Distance</option>
+  <option *ngFor="let distance of [5, 10, 15, 20, 25]" [value]="distance">
+    {{ distance }} miles
+  </option>
+</select>
+

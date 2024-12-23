@@ -1,0 +1,34 @@
+<div class="pagination-container d-flex justify-content-between">
+  <div class="d-flex gap-2">
+  <div class="dropdown-container">
+    <div class="dropdown" (click)="toggleDropdown()" (keydown.enter)="toggleDropdown()" tabindex="0">
+      <span> Show {{ pageSize }} per page </span>
+      <div class="caret"></div>
+    </div>
+    <ul *ngIf="isDropdownOpen" class="dropdown-list">
+      <li 
+        *ngFor="let size of [5, 10, 20, 50]" 
+        (click)="onPageSizeSelect(size)" (keydown.enter)="onPageSizeSelect(size)" tabindex="0" 
+        [class.selected]="pageSize === size">
+        {{ size }}
+        <span *ngIf="pageSize === size" class="tick-icon"><i class="fa-solid fa-check mx-1"></i></span>
+      </li>
+    </ul>
+  </div>
+  
+<span *ngIf="totalItems > 0; else noRecords" class="fw-bold">
+  {{ currentStart }} to {{ currentEnd }} of {{ totalItems }}
+</span>
+<ng-template #noRecords>
+  <span class="fw-bold">0 to 0 of 0</span>
+</ng-template>
+</div>
+  <ngb-pagination
+    [page]="page"
+    [pageSize]="pageSize"
+    [maxSize]="maxPageSize"
+    [collectionSize]="totalItems"
+    (pageChange)="onPageChange($event)">
+  </ngb-pagination>
+</div>
+

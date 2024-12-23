@@ -1,0 +1,23 @@
+<div class="rules-section-bg color-white">
+  <div class="container-fluid p-5">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="rules-cnt">
+          <h4>Rules and Policies</h4>
+          <p>This space belongs to the Village of Glenwood Parks and <br>Recreation.</p>
+          <ng-container *ngFor="let rule of rulesAndPoliciesPdf">
+          <span class="rule-policies d-flex gap-3 flex-direction-column"><a [href]="rule?.url" class="color-white py-2" target="_blank"><img src="./assets/img/file.png"  alt="file image">  {{rule?.name}}
+            <img src="./assets/img/up-arrow-iIcon.png" alt="Rule name"></a> </span>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="groups-cnt">
+          <h4>Groups</h4>
+          <p>Apply to join a group to receive rental priority and discounts for spaces within Village of Glenwood Parks and Recreation. </p>
+          <span> Apply now  <img src="./assets/img/up-arrow-iIcon.png" alt="Apply now"> </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

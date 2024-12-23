@@ -1,0 +1,55 @@
+<div class="update-search">
+  <div class="facility-listing time-search search-box p-0 no-border">
+    <div class="input-group d-flex px-1 search-container">
+      <div class="form-box select w-25 date">
+        <app-list-spaces *ngIf="facDetails && facDetails.length>0" [facDetails]="facDetails"></app-list-spaces>
+      </div>
+      <div class="form-box date right w-25">
+        <label class="control-label fw-bold px-1 py-1 schedule-title" for="Start date">Start date</label>
+        <div class="d-flex text-center align-items-center date-input-container px-2 h-50">
+          <input matInput class="custom-input"  (ngModelChange)="onDateSelected($event)" [matDatepicker]="dp3" [min]="minDate"
+            [(ngModel)]="searchDate" readonly (click)="dp3.open()" />
+          <mat-datepicker-toggle matSuffix [for]="dp3" class="date-picker-container"></mat-datepicker-toggle>
+          <mat-datepicker #dp3></mat-datepicker>
+        </div>
+      </div>
+      <div class="form-box occurrence w-25">
+        <label class="control-label fw-bold px-3 py-1 schedule-title" for="Occurrence">Occurrence</label>
+        <div class="d-flex">
+          <label class="radio-inline d-flex gap-2">
+            <input type="radio" [(ngModel)]="isRecurring" name="isRecurring" [value]="false"
+            (change)="changeRecurring(false)" /> Single
+          </label>
+          <label class="radio-inline d-flex gap-2">
+            <input type="radio" [(ngModel)]="isRecurring" name="isRecurring" [value]="true"
+            (change)="changeRecurring(true)" /> Recurring
+          </label>
+        </div>
+      </div>
+      <div class="form-box update-search-button select w-25 d-flex justify-content-center align-items-center">
+        <button type="submit" (click)="updateBookingSchedule()" class="btn btn-default btn-block btn-primary color-white" aria-disabled="true">
+          Update Search</button>
+          <div *ngIf="searchChanged" class="refreshText">
+            <span class="fa fa-refresh">
+            </span>
+            Results require refresh.
+            <a (click)="resetForm()" (keydown.enter)="resetForm()" tabindex="0" class="reset"> reset</a>
+          </div>
+      </div>
+    </div>
+    <div *ngIf="!isRecurring" class="bottom-row">
+      <div class="input-group p-3"><span class="col-sm-6 ng-scope"><strong>Single</strong>
+          <span class="ng-binding ng-scope"> use on {{selectedDate}}</span></span>
+      </div>
+    </div>
+    <div *ngIf="isRecurring" class="px-3 py-4">
+      <a (click)="showRecurring = !showRecurring" (keydown.enter)="showRecurring = !showRecurring" tabindex="0">
+        <span> Recurring Monthly on the </span><br> <span>3rd Thursday of each month until {{selectedDate}}</span>
+        <i [class]="showRecurring ? 'fa fa-chevron-up ms-2' : 'fa fa-chevron-down ms-2'"></i>
+      </a>
+    </div>
+  </div>
+  <div class="px-3 mb-2">
+    <app-recurring *ngIf="!showRecurring" [updateSearch]="updateSearch"></app-recurring>
+  </div>
+</div>

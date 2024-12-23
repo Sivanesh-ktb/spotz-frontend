@@ -1,0 +1,20 @@
+.custom-sort {
+  background-color: #274451 !important;
+  color: #fff;
+  border: 1px solid #274451;
+  box-shadow: 1px 1px 2px 2px #858585;
+  position: absolute;
+  z-index: 1;
+}
+
+.custom-sort li:hover{
+  background-color: #0d6efd;
+}
+.custom-sort li{
+    padding: 5px;
+}
+.custom-sort {
+  width: 125px;
+  max-width: 95px;
+  min-width: 95px;
+}

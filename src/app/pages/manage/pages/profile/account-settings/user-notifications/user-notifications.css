@@ -1,0 +1,8 @@
+.checkbox label strong {
+  padding-left: 10px;
+}
+.save-notification-btn {
+  display: flex;
+  left: 0;
+  flex-direction: row-reverse;
+}

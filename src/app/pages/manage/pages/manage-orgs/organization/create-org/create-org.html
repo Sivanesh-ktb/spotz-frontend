@@ -1,0 +1,269 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+</div>
+
+<!-- Edit Organization Section -->
+
+<form [formGroup]="addNewOrg" (ngSubmit)="orgAddNew()" class="ng-untouched ng-pristine ng-invalid">
+ <div class="container-fluid">
+  <div class="mt-4">
+  <div class="row">
+      <div class="col-lg-3">
+        <ng-container *ngIf="orgId">
+            <app-admin-org-sidebar></app-admin-org-sidebar>
+        </ng-container>
+      </div>
+      <div class="col-lg-9">
+        <div class="edit-org-cnt">
+           <h3>{{orgFormTitle}}</h3>
+        </div>
+
+        <div class="row box">
+          <div class="col-lg-5">
+            <div class="category">
+              <p>Name</p>
+              <input type="name" class="form-control" id="name"
+              placeholder="Organization Name" formControlName="name"
+              (keyup)="organizationName($event)">
+
+                <div *ngIf="addNewOrg.controls['name'].invalid && (addNewOrg.controls['name'].dirty || addNewOrg.controls['name'].touched)" class="text-danger">
+                  Name is required.
+                </div>
+               <span class="org-link d-flex align-items-center" (click)="redirectToOrgUrl(orgUrl, orgName)" (keydown.enter)="redirectToOrgUrl(orgUrl, orgName)" tabindex="0">
+                  <p class="org-url">{{ orgUrl }}</p>
+                  <p class="organization-name name-limit">{{ orgName ? orgName : '[short-name]' }}</p>
+                  <p class="fa fa-arrow-right"></p>
+              </span>
+                <div class="category-input">
+                  <p>Category</p>
+                  <select class="form-select" aria-label="Default select example" formControlName="cat">
+                    <option disabled> Select Category </option>
+                    <option value="1">Public School</option>
+                    <option value="2">Private School</option>
+                    <option value="3">Private</option>
+                    <option value="4">Municipality</option>
+                  </select>
+                  <div *ngIf="addNewOrg.controls['cat'].invalid && (addNewOrg.controls['cat'].dirty || addNewOrg.controls['cat'].touched)" class="text-danger">
+                    Category is required.
+                    </div>
+                </div>
+                <div class="address mt-3">
+                  <div class="d-flex gap-3">
+                   <p>Address</p>
+                  <a class="clear-address" (click)="clearAddress()" (keydown.enter)="clearAddress()" tabindex="0">
+                    <i class="fa-solid fa-xmark"></i> clear</a>
+                </div>
+                  <input type="address" class="form-control" id="address" placeholder="100 Main Street" formControlName="street1">
+                <div *ngIf="addNewOrg.controls['street1'].invalid && (addNewOrg.controls['street1'].dirty || addNewOrg.controls['street1'].touched)" class="text-danger">
+                  Address is required.
+                  </div>
+                </div>
+                <div class="address-2 mt-3">
+                  <input type="text" class="form-control" id="address" placeholder="PO Box, Room #" formControlName="street2">
+                </div>
+                <div class="city">
+                  <div class="row form-group">
+                    <div class="col-sm-6">
+                      <input id="city" type="text" placeholder="City"
+                      (keyup)="organizationCity($event)"
+                      formControlName="city" class="form-control mt-3 ng-pristine ng-invalid ng-invalid-required ng-touched"
+                      aria-required="true" aria-invalid="true">
+                    <div *ngIf="addNewOrg.controls['city'].invalid && (addNewOrg.controls['city'].dirty || addNewOrg.controls['city'].touched)" class="text-danger">
+                      City is required.
+                      </div>
+                    </div>
+                    <div class="col-sm-2 mt-3">
+                      <select id="state" formControlName="state"
+                      (change)="organizationState($event)" class="form-control select-drop-down">
+                        <option disabled selected></option>
+                        <option *ngFor="let state of usState" [value]="state">{{ state }}</option>
+                      </select>
+                     <div *ngIf="addNewOrg.controls['state'].invalid && (addNewOrg.controls['state'].dirty || addNewOrg.controls['state'].touched)" class="text-danger">
+                      State is required.
+                      </div>
+                    </div>
+                    <div class="col-sm-4 mt-3">
+                      <input id="zip" type="text" formControlName="zip" placeholder="Zip" required="" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" aria-required="true" aria-invalid="true">
+                   <div *ngIf="addNewOrg.controls['zip'].invalid && (addNewOrg.controls['zip'].dirty || addNewOrg.controls['zip'].touched)" class="text-danger">
+                      Zip is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-7 row">
+            <h4>Links</h4>
+            <div class="row">
+              <div class="col-lg-4">
+                <p class="py-2"><i class="fa fa-globe"></i> Website</p>
+              </div>
+              <div class="col-lg-8">
+                <div class="home-url-input">
+                  <input type="text" class="form-control" id="address"
+                  placeholder="your-website-handle" formControlName="url">
+                  <p class="remove-margin p-text m-o p-0">Link to your organization's website.</p>
+                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <p class="py-2"><i class="fa fa-facebook"></i> Facebook</p>
+              </div>
+              <div class="col-lg-8">
+                <div class="facebook-field mt-1 d-flex gap-2">
+                  <p class="mt-1 p-0">facebook.com/</p> <input type="text" class="form-control" id="address"
+                   placeholder="your-facebook-handle" formControlName="facebook">
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <p class="py-2"><i class="fa-brands fa-x-twitter"></i> Twitter</p>
+              </div>
+              <div class="col-lg-8">
+                <div class="twitter-field mt-1 d-flex gap-2">
+                  <p class="mt-1 p-0">twitter.com/</p> <input type="text" class="form-control" id="address"
+                   placeholder="your-twitter-handle" formControlName="twitter">
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <p class="py-2"><i class="fa fa-instagram"></i>  IG</p>
+              </div>
+              <div class="col-lg-8">
+                <div class="Insta-field mt-1">
+                  <p class="mt-1 p-0">Instagram.com/</p>
+                   <input type="text" class="form-control" id="address"
+                   placeholder="your-instagram-handle" formControlName="instagram">
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="Spotz-only mt-3">
+          <div  class="row">
+             <div class="col-lg-6">
+               <h5>Spotz Only</h5>
+               <input type="checkbox" class="form-check-input" id="claimedOrg" formControlName="claimed">
+               <label class="form-check-label" for="claimedOrg">Claimed organization</label>
+               <p class="p-text">Does this organization have an account to manage their rentals? Checking this option removes the "Claim this Organization" banner on their listing pages.</p>
+               <div class="active-organization">
+               <input type="checkbox" class="form-check-input" id="activeOrg" formControlName="active">
+               <label class="form-check-label" for="activeOrg">Active Organization</label>
+                <p>Enable or disable listing for the entire Organization</p>
+               </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="paying">
+               <input type="checkbox" class="form-check-input" id="payingOrg" formControlName="paying">
+               <label class="form-check-label" for="payingOrg">Paying organization</label>
+               <p class="p-text">A paying Organization Under Contract</p>
+                </div>
+                <div class="featured">
+               <input type="checkbox" class="form-check-input" id="featuredOrg" formControlName="featured">
+               <label class="form-check-label" for="featuredOrg">featured organization</label>
+               <p class="p-text">An Organization to feature</p>
+                </div>
+             </div>
+          </div>
+           <div class="terms">
+            <h5>Terms</h5>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="row">
+                  <div class="col-lg-6">
+                  <h6>Host Group</h6>
+                  <div class="input-group align-items-center">
+                   <input type="number" class="form-control remove-input-arrow"
+                   aria-label="Input group example" aria-describedby="btnGroupAddon" (input)="removePlusMinus($event)" formControlName="group" min="0" max="100" step="1"  maxlength="3">
+                   <div class="input-group-text" id="btnGroupAddon">%</div>
+                   <div> <p class="p-text fw-bold m-0 p-0 ps-2">Default:0%</p></div>
+                  <div class="text-danger" *ngIf="addNewOrg.controls['group'].errors?.['min'] || addNewOrg.controls['group'].errors?.['max']">
+                    Percentage must be between 0 and 100.
+                  </div>
+                   <p class="p-text">These are customers that the host brings into a rental</p>
+                 </div>
+               </div>
+               <div class="col-lg-6">
+                 <h6>Host-Non-Group</h6>
+                  <div class="input-group align-items-center">
+                   <input type="number" class="form-control remove-input-arrow"
+                   aria-label="Input group example" (input)="removePlusMinus($event)" aria-describedby="btnGroupAddon" formControlName="nonGroup"
+                   min="0" max="100" step="1" value="1" maxlength="3">
+                   <div class="input-group-text" id="btnGroupAddon">%</div>
+                   <div> <p class="p-text fw-bold m-0 p-0 ps-2">Default:0%</p></div>
+                  <div class="text-danger" *ngIf="addNewOrg.controls['nonGroup'].errors?.['min'] || addNewOrg.controls['nonGroup'].errors?.['max']">
+                    Percentage must be between 0 and 100.
+                  </div>
+                   <p class="p-text">These are customers that the host brings into a rental</p>
+                 </div>
+               </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="row">
+                  <div class="col-lg-6">
+                  <h6>User</h6>
+                  <div class="input-group align-items-center">
+                   <input type="number" class="form-control remove-input-arrow"
+                   aria-label="Input group example" aria-describedby="btnGroupAddon"
+                   formControlName="user"  maxlength="3" (input)="removePlusMinus($event)">
+                   <div class="input-group-text" id="btnGroupAddon">%</div>
+                   <div> <p class="p-text fw-bold m-0 p-0 ps-2">Default: 5%</p></div>
+                  <div class="text-danger" *ngIf="addNewOrg.controls['user'].errors?.['min'] || addNewOrg.controls['user'].errors?.['max']">
+                    Percentage must be between 5 and 100.
+                  </div>
+                   <p class="p-text">User convenience fee. some organizations will override this amount so that customers do not pay extra to rent online</p>
+                 </div>
+               </div>
+               <div class="col-lg-6">
+                 <h6>Transaction</h6>
+                  <div class="input-group align-items-center">
+                   <input type="number" class="form-control remove-input-arrow"
+                    aria-label="Input group example" aria-describedby="btnGroupAddon"
+                    formControlName="tx"  maxlength="3" (input)="removePlusMinus($event)">
+                   <div class="input-group-text" id="btnGroupAddon">%</div>
+                   <div> <p class="p-text fw-bold m-0 p-0 ps-2">Default: 4%</p></div>
+
+                  <div class="text-danger" *ngIf="addNewOrg.controls['tx'].errors?.['min'] || addNewOrg.controls['tx'].errors?.['max']">
+                    Percentage must be between 4 and 100.
+                  </div>
+                  <div class="text-danger" *ngIf="addNewOrg.controls['tx'].errors?.['tx']">
+                    Only numbers are allowed, and special characters are not permitted.
+                  </div>
+                   <p class="p-text">Credit Card fees. These are Passed along from the card processor</p>
+                 </div>
+               </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <h6>Monthly</h6>
+                  <div class="input-group">
+                    <div class="input-group-text" id="btnGroupAddon">$</div>
+                   <input type="text" class="form-control"
+                    aria-label="Input group example" aria-describedby="btnGroupAddon"
+                    formControlName="monthly"   (input)="validateMonthly($event)"
+                    >
+                  </div>
+                   <p class="p-text">The monthly SaaS fees paid by the organization.</p>
+              </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+      </div>
+  </div>
+</div>
+</div>
+  <div class="container-fluid py-2">
+      <div class="btns">
+          <button type="submit" class="btn btn-primary"  [disabled]="sameOrgName && sameOrgCity || invalidOrgName">Save</button>
+           <a (click)="cancelOrg()" (keydown.enter)="cancelOrg()" tabindex="0" class="btn btn-default">Cancel</a>
+      </div>
+  </div>
+</form>
+<!-- Edit Organization Section -->
+</section>

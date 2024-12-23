@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <app-update-search (navigateToUpdateSchedule)="onNavigateToUpdateSchedule()"></app-update-search>
+      <div class="booking-calendar-info">
+        <app-calender-info></app-calender-info>
+      </div>
+      <div class="w-100">
+        <div *ngIf="!showScore; else repeat">
+          <app-single-item *ngIf="checkAvailability; else noAvailability"></app-single-item>
+          <ng-template #noAvailability>
+            <app-no-availability></app-no-availability>
+          </ng-template>
+        </div>
+        <ng-template #repeat>
+          <app-repeat-item *ngIf="checkAvailability;"></app-repeat-item>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <app-booking-receipt></app-booking-receipt>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<section>
+  <div class="sticky_navbar">
+    <app-admin-navbar></app-admin-navbar>
+    </div>
+    <div class="d-flex justify-content-between px-3">
+        <h1 class="addon-header py-3">Addons</h1>
+        <div class="mt-3">
+            <button class="btn btn-sm btn-primary" (click)="addData()">
+                <span class="fa-solid fa-plus"></span> Add
+            </button>
+        </div>
+    </div>
+    <div class="p-3">
+        <table class="table table-condensed table-bordered table-striped-tbody table-sm">
+            <thead>
+                <tr class="p-4">
+                    <th class="col-8">Name</th>
+                    <th class="col-">Category</th>
+                    <th class="col-">Indoor/Outdoor</th>
+                    <th class="">Cost Basis</th>
+                    <th class="col-1">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let id of editingIds">
+                    <tr *ngIf="id.startsWith('new-')">
+                        <td>{{editForm[id].name ? editForm[id].name : 'Untitled'}}</td>
+                        <td>{{editForm[id].category}}</td>
+                        <td>{{getIndoorOutdoor(editForm[id].indoor)}}</td>
+                        <td>{{editForm[id].basis}}</td>
+                        <td>
+                      <button class="btn btn-sm text-primary fw-bold s-1 addons-btn" (click)="toggleNew(id)">
+                     {{ editStates[id] ? 'Hide' : 'Edit' }}
+                      </button>
+                      <button class="btn btn-sm text-primary fw-bold addons-btn" (click)="deleteAddon(id)">Delete</button>
+                  </td>
+              </tr>
+                 <tr *ngIf="id.startsWith('new-') && editStates[id]">
+                      <td>
+                          <span class="table-data mb-2 fw-bold">Name:</span><br/>
+                          <input [(ngModel)]="editForm[id].name" class="addons-input w-100 form-control mt-2 mb-2" placeholder="Untitled">
+                      </td>
+                      <td>
+                          <span class="table-data mb-2 fw-bold">Category:</span>
+                          <select [(ngModel)]="editForm[id].category" class="form-control mt-2 mb-2">
+                              <option>Setup</option>
+                              <option>Utilities</option>
+                              <option>Extras</option>
+                              <option>Custom</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span class="table-data mb-2 fw-bold">Indoor/Outdoor:</span>
+                          <select [(ngModel)]="editForm[id].indoor" class="form-control mt-2 mb-2">
+                              <option [value]="0">Indoor</option>
+                              <option [value]="1">Outdoor</option>
+                              <option [value]="2">Both</option>
+                          </select>
+                      </td>
+                      <td colspan="2">
+                          <span class="table-data mb-2 fw-bold">Cost Basis:</span>
+                          <select [(ngModel)]="editForm[id].basis" class="form-control mt-2 mb-2">
+                              <option>per use</option>
+                              <option>per hour</option>
+                          </select>
+                      </td>
+                  </tr>
+                  <tr *ngIf="id.startsWith('new-') && editStates[id]">
+                      <td>
+                        <app-space-type-drop-down
+                        [allTypes]="true"
+                        (spaceTypeSelected)="onSpaceTypeSelected($event)"
+                        [spaceTypes]="editForm[id].typ">
+                      </app-space-type-drop-down>
+
+                      </td>
+                      <td colspan="3">
+                          <span class="table-data mt-2 fw-bold">Description:</span>
+                          <textarea [(ngModel)]="editForm[id].description" class="form-control description-textarea"></textarea>
+                      </td>
+                      <td class="text-center">
+                          <button class="btn btn-sm btn-primary save-btn" (click)="saveAddons(id)">Save</button>
+                      </td>
+                  </tr>
+              </ng-container>
+
+              <!-- Existing addon rows -->
+              <ng-container *ngFor="let addondetails of addonsData">
+                  <tr>
+                      <td>{{addondetails.name}}</td>
+                      <td>{{addondetails.category}}</td>
+                      <td>{{getIndoorOutdoor(addondetails.indoor)}}</td>
+                      <td>{{addondetails.basis}}</td>
+                      <td>
+                          <button class="btn btn-sm text-primary fw-bold s-1 addons-btn" (click)="toggleEdit(addondetails._id)">
+                              {{ editingIds.includes(addondetails._id) ? 'Hide' : 'Edit' }}
+                          </button>
+                          <button class="btn btn-sm text-primary fw-bold addons-btn" (click)="deleteAddon(addondetails._id)">Delete</button>
+                      </td>
+                  </tr>
+                  <tr *ngIf="editingIds.includes(addondetails._id)">
+                      <td>
+                          <span class="table-data mb-2 fw-bold">Name:</span><br/>
+                          <input [(ngModel)]="addondetails.name" class="addons-input w-100 form-control mt-2 mb-2" placeholder="Untitled"/>
+                      </td>
+                      <td>
+                          <span class="table-data mb-2 fw-bold">Category:</span>
+                          <select [(ngModel)]="addondetails.category" class="form-control mt-2 mb-2">
+                              <option>Setup</option>
+                              <option>Utilities</option>
+                              <option>Extras</option>
+                              <option>Custom</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span class="table-data mb-2 fw-bold">Indoor/Outdoor:</span>
+                          <select [(ngModel)]="addondetails.indoor" class="form-control mt-2 mb-2">
+                              <option [value]="0">Indoor</option>
+                              <option [value]="1">Outdoor</option>
+                              <option [value]="2">Both</option>
+                          </select>
+                      </td>
+                      <td colspan="2">
+                          <span class="table-data mb-2 fw-bold">Cost Basis:</span>
+                          <select [(ngModel)]="addondetails.basis" class="form-control mt-2 mb-2">
+                              <option>per use</option>
+                              <option>per hour</option>
+                          </select>
+                      </td>
+                  </tr>
+                  <tr *ngIf="editingIds.includes(addondetails._id)">
+                      <td>
+                        <app-space-type-drop-down
+                        [allTypes]="true"
+                        (spaceTypeSelected)="onSpaceTypeSelected($event)"
+                        [spaceDetails]="addondetails.typ">
+                      </app-space-type-drop-down>
+
+                      </td>
+                      <td colspan="3">
+                          <span class="table-data mt-2 fw-bold">Description: </span>
+                          <textarea [(ngModel)]="addondetails.description" class="form-control description-textarea"></textarea>
+                      </td>
+                      <td class="text-center">
+                          <button class="btn btn-sm btn-primary save-btn" (click)="updateAddon(addondetails._id)">Save</button>
+                      </td>
+                  </tr>
+              </ng-container>
+          </tbody>
+      </table>
+  </div>
+</section>

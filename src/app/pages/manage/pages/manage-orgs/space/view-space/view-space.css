@@ -1,0 +1,75 @@
+.section.divider.card-section .card-container .well {
+  width:100%;
+   margin-bottom: 10px;
+   padding: 15px;
+   background-color: #d3eaf0;
+   border: none;
+   box-shadow: none;
+   border-radius: 12px;
+ }
+.space-rentable-toggle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+}
+.strip.photos-space-images img {
+  width: 180px;
+  height: 180px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.photos.space-photos-card {
+  display: flex;
+  overflow-x: auto;
+  width: 415px;
+}
+.sports_activities{
+  list-style: none;
+  background-color: #034a61;
+  color: #ffffff;
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  border-radius: 3px;
+  margin: 2px;
+}
+
+.details-heading{
+  font-weight: 600;
+}
+.label-info.label-addon{
+  display: inline-block;
+  background-color: #43aacd;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 4px;
+  color: #fff;
+  border-radius: .25em;
+}
+.addon-header{
+  border-bottom: 1px solid #ddd;
+  color: #999;
+}
+.disabled.row, .disabled.row a, .disabled.row label {
+  color: #ccc !important;
+}
+.disabled.row .label-info, .disabled.row .space-type.spaces, .disabled.row .thumbnails {
+  opacity: 0.5;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}

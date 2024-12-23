@@ -1,0 +1,18 @@
+
+<div class="container-fluid-slider p-0">
+  <div class="container-fluid p-0">
+  <ngb-carousel>
+    <ng-template ngbSlide *ngFor="let image of images">
+      <div class="wrapper d-flex">
+        <div class="slider-image-container d-flex large-slider-image">
+          <img [src]="image[0]" alt="Slide" class="slider-image">
+        </div>
+        <div class="slider-image-container small-slider-image">
+          <img [src]="image[1]" alt="Slide" class="slider-image">
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+</div>
+</div>
+

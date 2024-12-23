@@ -1,0 +1,61 @@
+  <div class="reservation">
+      <app-lead-time [leadTime]="leadTime" (leadTimeChanged)="onLeadTimeChanged($event)"></app-lead-time>
+    <hr>
+    <app-rules-attachment [orgId]="orgId" [viewFiles]="files" [orgDetails]="orgDetails"
+    (getUploadedFiles)="onGetUploadedFiles()">
+    </app-rules-attachment>
+    <hr>
+    <app-replies></app-replies>
+    <hr>
+    <app-public-events></app-public-events>
+    <hr>
+    <div class="row">
+      <div class="col-lg-3">
+        <h4 class="header">Import Bookings</h4>
+      </div>
+      <div class="col-lg-9">
+        <div class="tab-cnt1">
+          <div class="t-b-1">
+            <p>Import bookings from a CSV file.</p>
+            <div class="up-file">
+              <b>
+                <p class="u-file">Upload File</p>
+              </b>
+              <input type="file" id="import up-file" required="required" style="border-color: #ccc;"
+                class="form-control">
+              <div class="form-check fm-spc">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Skip check for existing booking
+                </label>
+              </div>
+              <div class="imbooking-flie"></div>
+              <button class="btn btn-primary">Import Bookings</button>
+              <div class="imp-booking">
+                <ul>
+                  <li class="list-book">Create a blank first column</li>
+                  <li class="list-book">Fields required:
+                    <ul>
+                      <li class="list-book">facility</li>
+                      <li class="list-book">space</li>
+                      <li class="list-book">date</li>
+                      <li class="list-book">start (time)</li>
+                      <li class="list-book">end (time)</li>
+                      <li class="list-book">eventname</li>
+                      <li class="list-book">attendance (10, 20, 50, 100, 200, 300, 400, 500, 1000, 3000, 3001)</li>
+                      <li class="list-book">customer</li>
+                      <li class="list-book">email</li>
+                      <li class="list-book">eventtype (sport)</li>
+                    </ul>
+                  </li>
+                  <li class="list-book">Time format: hh:mm am</li>
+                  <li class="list-book">Items should be limited to 300 at a time (rework underway)</li>
+                  <li class="list-book">Processing is 0.3s/line, and it should complete before a timeout of 60s</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

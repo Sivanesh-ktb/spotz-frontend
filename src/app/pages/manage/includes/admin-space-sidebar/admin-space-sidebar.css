@@ -1,0 +1,60 @@
+.ng-scope-space-header,ul.nav.nav-pills.nav-stacked.leftmenu-bottom {
+  font-family: inherit !important;
+  background-color: #d3eaf0;
+  font-weight: 700;
+  padding: 20px;
+}
+.ng-scope-space-header{
+  border-radius: 18px 18px 0 0;
+}
+ul.nav.nav-pills.nav-stacked.leftmenu-bottom {
+  border-radius: 0px 0px 18px 18px;
+}
+.hr-cnt.space-title {
+  background-color: #d3eaf0;
+  border-radius: 20px 20px 0px 0px;
+  padding: 2px;
+}
+.hr-cnt.space-title p span.hr-cnt-text {
+  color: #fff;
+  background: #e58327;
+  padding: 5px 31px;
+  border-radius: 12px;
+}
+.ng-scope-space-header p {
+  font-size: 11px;
+  width:inherit;
+  background-color: #e58327;
+  color: #fff;
+  border-radius: 50px;
+  text-align: left;
+  height: 100%;
+  padding: 4px;
+}
+.sidebar-container{
+  background-color: #fff;
+  border-radius: 16px;
+}
+li.ng-scope a {
+  color: #333;
+}
+span.space-rental-type{
+  color: #fff !important;
+  padding:4px !important;
+  border-radius: 5px !important;
+  font-size:11px !important;
+}
+.space-rental-type.multiple-space-type{
+  background-color: #747474
+}
+.disabled-link,.disabled-link p {
+  pointer-events: none;
+  color: #999;
+  text-decoration: none;
+}
+p.space-rental-type{
+  color: #fff !important;
+  padding:4px !important;
+  border-radius: 5px !important;
+  font-size:11px !important;
+}

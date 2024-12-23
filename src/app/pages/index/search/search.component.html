@@ -1,0 +1,76 @@
+<div class="form-bg">
+ <div [ngClass]="page ? 'container-fluid form-flex' : 'container form-flex'">
+    <div [ngClass]="page ? 'search-form search' : 'search-form'">
+      <div class="location d-flex flex-column location-container-box">
+        <div class="search-label">
+          <label for="location">Location</label>
+        </div>
+        <div class="search-input">
+          <input
+            class="search-organization w-100"
+            placeholder="e.g. Madison, WI or 53562"
+            [(ngModel)]="searchAddress"
+            (onLocationSelected)="getAddressDetails($event)"
+            (keyup)="getAddressDetails($event)"
+          />
+          <ul
+            class="address-suggestions m-0 p-2"
+            *ngIf="addresses.length > 0 && !hideAddress"
+          >
+            <ng-container *ngFor="let address of addresses">
+              <li *ngIf="address" class="select-address" (click)="selectAddress(address)" (keydown.enter)="selectAddress(address)" tabindex="0">
+                {{ address?.description }}
+                <ng-container *ngIf="address?.city">
+                  {{ ", " + address?.city }}
+                </ng-container>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+      <div class="guests d-flex flex-column location-container-box">
+        <div class="search-label">
+          <label for="guests">Numbers of guests</label>
+        </div>
+        <div class="search-input">
+          <select
+            [(ngModel)]="selectedGuestRange"
+            class="form-control border-none"
+            matNativeControl
+            required
+          >
+            <option class="form-control" value="0">Any numbers</option>
+            <option class="form-control" value="1">0-10</option>
+            <option class="form-control" value="2">11-50</option>
+            <option class="form-control" value="3">51-100</option>
+            <option class="form-control" value="4">101-500</option>
+            <option class="form-control" value="5">501-1,000</option>
+            <option class="form-control" value="6">More than 1,001</option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex flex-column date-container location-container-box">
+        <div class="when">
+          <label for="when" class="when-label">When</label>
+        </div>
+        <div class="d-flex text-center align-items-center">
+          <mat-datepicker-toggle matSuffix [for]="dp3" class="date-picker-container"></mat-datepicker-toggle>
+          <mat-datepicker #dp3></mat-datepicker>
+          <input matInput [matDatepicker]="dp3" [min]="minDate" [(ngModel)]="date" (click)="dp3.open()" readonly/>
+        </div>
+      </div>
+      <div class="search-icon">
+        <a
+        class="form-search address-search"
+        (click)="isSearchDisabled ? null : search()"
+        (keydown.enter)="isSearchDisabled ? null : search()"
+        [ngClass]="{ disabled: isSearchDisabled }"
+        tabindex="0"
+      >
+        <i class="fa fa-search"></i>
+      </a>
+
+      </div>
+    </div>
+  </div>
+</div>

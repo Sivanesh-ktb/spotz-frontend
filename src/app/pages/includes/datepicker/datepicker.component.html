@@ -1,0 +1,13 @@
+<div class="select-wrapper">
+  <span class="fa fa-calendar select-icon"></span>
+  <select id="monthYear" class="form-control w-100" [(ngModel)]="selectedMonthYear"  (change)="selectDayDropDown($event)">
+    <ng-container *ngFor="let yearGroup of monthYearOptions">
+      <option [ngValue]="yearGroup.year" disabled class="year-option">
+        {{ yearGroup.year }}
+      </option>
+      <option *ngFor="let month of yearGroup.months" [value]="month">
+        {{ month }}
+      </option>
+    </ng-container>
+  </select>
+</div>

@@ -1,0 +1,63 @@
+<div class="modal-content view-profile-popup">
+  <div ng-show="vm.modal" class="modal-header ng-scope" aria-hidden="false">
+    <h4 class="ng-binding">View User</h4>
+    <a type="button" (click)="closeDialog()" (keydown.enter)="closeDialog()" tabindex="0" class="close">
+      <span aria-hidden="true">X</span></a>
+  </div>
+  <div ng-class="{'modal-body':vm.modal}" class="ng-scope modal-body">
+    <div ng-class="{'container-fluid':vm.modal,'container':!vm.modal}" class="user container-fluid">
+      <div class="row d-flex align-items-center">
+        <div class="col-sm-3 col-xs-12">
+          <div class="photo">
+            <div class="view-user-icon" [ngStyle]="{
+                  'background-image': userDetails && userDetails.assets && userDetails.assets.url
+                    ? 'url(' + userDetails.assets.url + ')'
+                    : 'url(./assets/img/user-icon.png)'
+                }">
+            </div>
+            <div class="text-center">
+              <a href="https://www.facebook.com/{{userDetails.facebook?.id}}"*ngIf="userDetails && userDetails.facebook?.id" class="social facebook active" target="_blank">
+                <img src="./assets/img/facebook-icon.svg" alt="">
+              </a>
+              <a href="https://plus.google.com/{{userDetails.google?.id}}"*ngIf="userDetails && userDetails.google?.id" class="social google active" target="_blank">
+                <img src="./assets/img/google-icon.svg" alt="">
+              </a>
+            </div>
+            <div class="text-center">
+              <p *ngIf="userDetails && userDetails.dob">
+                {{userDetails.dob | age}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-9 col-xs-12">
+          <h3 class="ng-binding" aria-hidden="false"
+            *ngIf="userDetails && (userDetails.firstName || userDetails.lastName)">
+            {{userDetails.firstName }} {{userDetails.lastName}}</h3>
+          <span class="address-line ellipsis ng-isolate-scope">
+            <span class="city-state"><span *ngIf="userDetails && userDetails.address &&
+                  userDetails.address.street1" class="city ng-binding"
+                aria-hidden="false">{{userDetails.address.street1}}
+                <span *ngIf="userDetails && userDetails.address &&
+                  userDetails.address.city" aria-hidden="false" class=""> {{userDetails.address.city}},
+                </span></span><span *ngIf="userDetails && userDetails.address &&
+                  userDetails.address.state" ng-hide="hideCityState" class="ng-binding"
+                aria-hidden="false">{{userDetails.address.state}} </span>
+              <span id="zip" *ngIf="userDetails && userDetails.address &&
+                  userDetails.address.zip" class="ng-binding" aria-hidden="false">
+                {{userDetails.address.zip}}</span>
+            </span></span>
+            <div class="ng-binding" *ngIf="userDetails && userDetails.email">{{userDetails.email}}</div>
+            <div class="ng-binding" *ngIf="userDetails && userDetails.phon">{{ formatPhoneNumber(userDetails.phon) }}
+            </div>
+          <div *ngIf="userDetails && userDetails.bio && userDetails.bio.length">
+            <h3>About Me</h3>
+            <p>
+              {{userDetails.bio}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

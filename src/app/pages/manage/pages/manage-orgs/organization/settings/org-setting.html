@@ -1,0 +1,47 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+</div>
+
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9">
+          <div class="col-sm-6 col-xs-12">
+            <h3 class="new-space-h fw-bold">Settings</h3>
+          </div>
+          <div class="settings">
+            <ul class="nav nav-tabs small-nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                  role="tab" aria-controls="home" aria-selected="true">Basics</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+                  role="tab" aria-controls="profile" aria-selected="false">Reservations</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
+                  role="tab" aria-controls="contact" aria-selected="false">Pricing Tools</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <app-basics-setting [orgId]="orgId" [orgDetails]="orgDetails" (callOrgAPI)="onCallOrgAPI()"></app-basics-setting>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <app-reservations></app-reservations>
+              </div>
+              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+               <app-pricing-tool></app-pricing-tool>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

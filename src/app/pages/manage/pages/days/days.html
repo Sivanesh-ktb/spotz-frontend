@@ -1,0 +1,20 @@
+<!-- Grid View -->
+<div *ngIf="viewMode === 'grid'; else list" class="week-grid d-flex gap-1" aria-hidden="false">
+  <div class="day-grid ng-scope" *ngFor="let day of days">
+    <div class="day ng-binding">{{ day.shortName }}</div>
+    <div class="check">
+      <span *ngIf="isSelectedDay(day.name)" class="fa fa-square availability ng-scope"></span>
+      <span *ngIf="!isSelectedDay(day.name)" class="fa fa-square-o" aria-hidden="false"></span>
+    </div>
+  </div>
+</div>
+
+<!-- List View -->
+<ng-template #list>
+  <div  class="week-grid d-flex gap-1">
+    <div class="day ng-binding" *ngFor="let day of days">
+      <span  *ngIf="isSelectedDay(day.name)" >{{ day.shortName }}</span>
+    </div>
+  </div>
+</ng-template>
+

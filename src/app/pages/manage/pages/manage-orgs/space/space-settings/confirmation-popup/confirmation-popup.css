@@ -1,0 +1,9 @@
+.modal-content-popup .modal-header-popup h4 {
+  color: #333c3e;
+  line-height: 1.42857143 !important;
+  font-size: 19px !important;
+}
+
+.name-limit{
+  display: inline-flex !important;
+}

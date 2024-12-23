@@ -1,0 +1,45 @@
+<section class="content settings-page">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="manage-space-bg">
+    <div class="container-fluid">
+      <div class="manage-org">
+        <div class="row">
+          <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+            <app-admin-space-sidebar [displayName]="spaceDetails?.name"
+              [rentaltypes]="spaceDetails?.rentaltypes" [price]="spaceDetails?.price"
+              [facName]="facName"></app-admin-space-sidebar>
+          </div>
+          <div class="col-lg-9"  *ngIf="spaceDetails">
+            <h3 class="new-space-h fw-bold">Settings</h3>
+            <div class="panel panel-default">
+              <app-rental-settings [spaceDetails]="spaceDetails" [hideRental]="hideRental"
+              [spaceId]="spaceId"[rentalBlockTime]='rentalBlockTime'
+              [selectedOptionValue]="selectedOptionValue" (selectedOption)="onSelectedOption($event)"
+              ></app-rental-settings>
+            </div>
+            <div class="panel panel-default">
+            <app-buffer-time [spaceDetails]="spaceDetails" [spaceId]="spaceId"
+            [showBuffer]="showBuffer" [bufferBeforeValue]="bufferBeforeValue" [bufferAfterValue]="bufferAfterValue"></app-buffer-time>
+            </div>
+            <div class="panel panel-default">
+             <app-add-ons [spaceDetails]="spaceDetails" [spaceId]="spaceId" [showAddOns]="showAddOns"
+             [saveAddOns]="saveAddOns" [addOns]="addOns"></app-add-ons>
+            </div>
+            <div class="panel panel-default">
+              <app-time-block [spaceDetails]="spaceDetails" [timeBlocks]="timeBlocks"
+              (timeBlockTemplateDetails)="OnTimeBlockTemplateDetails($event)" (hourlyUpdate)="onHourlyUpdate($event)"></app-time-block>
+            </div>
+            <div class="panel panel-default">
+              <app-deposits [spaceDetails]="spaceDetails" [deposits]="deposits" [pricingDetails]="pricingDetails"></app-deposits>
+            </div>
+            <div class="panel panel-default">
+              <app-allow-refund [spaceDetails]="spaceDetails" [isRefundable]='spaceIsRefundable' [checkIsRefundable]="checkIsRefundable"></app-allow-refund>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<div class="intro-head">
+  <h6>Introduction</h6>
+
+    <div *ngIf="editOrgDescription; else noEditIcon">
+      <div class="btn-group edit org-description mb-3" aria-hidden="false">
+        <button class="btn btn-sm btn-primary">
+          <span class="hidden-xs"(click)="saveDescription()" (keydown.enter)="saveDescription()" tabindex="0">Save</span>
+        </button>
+        <button (click)="cancelDescription()" class="btn btn-sm btn-default">
+          <span class="hidden-xs">Cancel</span>
+        </button>
+      </div>
+    </div>
+    <ng-template #noEditIcon>
+      <a (click)="editDescription()"  (keydown.enter)="editDescription()" tabindex="0">
+      <i class="fas fa-pencil-alt"></i>
+    </a>
+    </ng-template>
+</div>
+<div *ngIf="editOrgDescription; else noEditOrgDescription">
+  <textarea class="form-control" [(ngModel)]="description" rows="5"></textarea>
+</div>
+<ng-template #noEditOrgDescription>
+  <div class="description">
+    <ng-container *ngIf="orgDescription; else noDescription">
+      <p>{{ orgDescription }}</p>
+    </ng-container>
+    <ng-template #noDescription>
+    <p>Add a description for your organization and welcome your visitors.</p>
+    </ng-template>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+
+<div class="admin-side-bar-section">
+  <div class="admin-side-bar">
+    <h2 class="left-panel-title ellipsis org-sidebar-title"
+   *ngIf="facilityName && facilityName">{{ facilityName }}</h2>
+
+  </div>
+  <div class="left-nav">
+    <div class="mg-head">
+          <h6>Manage Facility</h6>
+      <a class="nav-bar cursor-pointer" (click)='viewFacility()' (keydown.enter)="viewFacility()" tabindex="0" title="View">
+        <p [ngClass]="{ 'fw-bold active': currentRoute === 'viewFac' }">View</p>
+      </a>
+      <a class="nav-bar cursor-pointer" (click)='viewSpaces()' (keydown.enter)="viewSpaces()" tabindex="0" title="Spaces">
+        <p [ngClass]="{ 'fw-bold active': currentRoute === 'spaces' }">Spaces</p>
+      </a>
+      <a class="nav-bar cursor-pointer" (click)="viewFacMap()" (keydown.enter)="viewFacMap()" tabindex="0" title="Facility Map">
+        <p [ngClass]="{ 'fw-bold active': currentRoute === 'map' }">Facility Map</p>
+      </a>
+      <h6 class="sidebar-heading">Scheduling</h6>
+          <a class="nav-bar cursor-pointer" (click)="viewFacCalendar()" (keydown.enter)="viewFacCalendar()" tabindex="0" title="Calendar">
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'calendar' }">Calendar</p>
+          </a>
+          <a class="nav-bar cursor-pointer" (click)="viewFacEvents()" (keydown.enter)="viewFacEvents()" tabindex="0" title="Events" >
+            <p [ngClass]="{ 'fw-bold active': currentRoute === 'reservations' }">Events</p>
+          </a>
+    </div>
+  </div>
+  <ul class="nav nav-pills nav-stacked leftmenu-bottom">
+    <li class="ng-scope"><a (click)="deleteOrgManage()"  (keydown.enter)="deleteOrgManage()" tabindex="0" title="Delete"><span class="fa fa-trash"></span> Delete</a></li>
+    <li><a (click)="viewFacPage()"  (keydown.enter)="viewFacPage()" tabindex="0" title="View Facility Listing" [ngClass]="{'not-allowed':!facId}">
+      <i class="fas fa-external-link-alt"></i> View
+        Facility Listing</a></li>
+  </ul>
+  </div>

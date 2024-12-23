@@ -1,0 +1,272 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+<div class="manage-space-bg">
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="main">
+          <div class="body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+                  <div class="links">
+                    <div fac="vm.fac" list="true" current-user="currentUser" class="ng-isolate-scope">
+                      <div ng-if="list" class="ng-scope fac-sidebar">
+                        <h2 *ngIf="facName; else notFacilityName" class="left-panel-title ellipsis org-sidebar-title ng-scope">{{facName}}</h2>
+                        <ng-template #notFacilityName>
+                          <h2 class="left-panel-title ellipsis ng-scope org-sidebar-title">&lt;Enter Name&gt;</h2>
+                        </ng-template>
+
+                        <app-admin-fac-sidebar></app-admin-fac-sidebar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-9 main-content">
+                  <div ng-class="{header:vm.showAsHeader}" class="row header">
+                    <div class="col-xs-12">
+                      <div fac="vm.fac" heading="vm.heading" class="ng-isolate-scope">
+                        <div ng-if="!list" class="ng-scope">
+                          <div class="row">
+                            <div class="col-sm-6 col-xs-12 hidden-print">
+                              <h3 ng-if="heading" class="new-space-h fw-bold">{{facFormTitle}}</h3>
+                            </div>
+                            <div ng-hide="suppress" class="col-sm-6 visible-sm-block" aria-hidden="false">
+                              <h3 class="text-right ng-binding" aria-label="suppress"></h3>
+                            </div>
+                            <div ng-hide="suppress" class="col-xs-12 visible-xs-block" aria-hidden="false">
+                              <h3 class="ng-binding" aria-label="suppress"></h3>
+                            </div>
+                          </div>
+                          <div class="row">
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div></div>
+                    <form [formGroup]="facilityForm" (ngSubmit)="addAndUpdateFacility()"
+                      autocomplete="off" class="ng-invalid-required ng-valid-pattern ng-dirty"
+                      data-hs-cf-bound="true">
+                      <div class="edit-area">
+                        <div class="panel">
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                  <label for="facilityName" class="control-label">Name</label>
+                                  <input id="facilityName" formControlName="name" type="text"
+                                  (keyup)="getFacilityName($event)"
+                                    placeholder="Johnson High School" required="required"
+                                    class="mb-3 form-control ng-pristine ng-untouched ng-invalid-required ng-valid-pattern"
+                                    aria-required="true" aria-invalid="true">
+                                    <div *ngIf="facilityForm.controls['name'].invalid && (facilityForm.controls['name'].dirty || facilityForm.controls['name'].touched)" class="text-danger">
+                                      Name is required.
+                                    </div>
+                                  <url-block org="vm.fac.org" fac="vm.fac" class="ng-isolate-scope">
+                                    <div class="url-block ng-binding">
+                                      <span class="fac-link d-flex align-items-center text-align-center">
+                                      <p class="org-url">{{ facilityUrl }}</p>
+                                      <p><span class="note">{{ orgDetails.name ? orgDetails.name : '[short-name]' }}</span></p>
+                                      <p>/facilities/<span class="highlight">{{facilityName ? facilityName : '[name]'}}</span></p><p class="fa fa-arrow-right fw-bold"></p></span></div>
+                                  </url-block>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel">
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-sm-6 col-xs-12 admin">
+                                <label class="control-label" for="Type">Type</label><br>
+                                <div class="btn-group facility-type mt-2">
+                                  <label [ngClass]="{ 'active-tab': facilityType === 1 }">
+                                    <input type="radio" formControlName="indoor" [value]="1" (click)="onFacilityTypeChange(1)" (keydown.enter)="onFacilityTypeChange(1)" tabindex="0">
+                                    Indoor
+                                  </label>
+                                  <label [ngClass]="{ 'active-tab': facilityType === 2 }">
+                                    <input type="radio" formControlName="indoor" [value]="2" (click)="onFacilityTypeChange(2)">
+                                    Outdoor
+                                  </label>
+                                  <label [ngClass]="{ 'active-tab': facilityType === 3 }">
+                                    <input type="radio" formControlName="indoor" [value]="3" (click)="onFacilityTypeChange(3)">
+                                    Indoor/Outdoor
+                                  </label>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="section divider">
+                              <h2><span for="introduction"> <span class="icon-users2"></span>Introduction</span></h2>
+                              <div class="content panel">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <textarea formControlName="description"
+                                      placeholder="Write a description for the facility." style="height:110px;"
+                                      class="form-control text-area ng-pristine ng-untouched ng-valid" aria-multiline="true"
+                                      aria-invalid="false"></textarea>
+                                    <p class="help-block">
+                                      New lines create paragraphs;
+                                      *<em>italics</em>*
+                                      **<strong>bold</strong>**
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="section divider">
+                              <h2><span for="amenities"> <span class="icon-list2"></span>Amenities</span>
+                                <a uib-popover="Available amenities are based on the facility type: Indoor or Outdoor"
+                                  popover-trigger="mouseenter" popover-placement="bottom" class="help">
+                                  <span class="fa fa-question-circle"></span>
+                                </a>
+                              </h2>
+                              <div class="content panel">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="row" *ngIf="amenities">
+                                      <div *ngFor="let amenity of facilityAmenity; let result = index" class="col-sm-6 col-xs-6 space-facility">
+                                        <div class="checkbox">
+                                          <label>
+                                            <input type="checkbox"
+                                                   [value]="amenity"
+                                                   (change)="onAmenitiesChange($event)"
+                                                   [checked]="isAmenityChecked(amenity)"
+                                                   [disabled]="shouldDisableCheckbox(result)"
+                                                   class="ng-pristine ng-untouched ng-valid">
+                                            {{ amenity }}
+                                          </label>
+                                        </div>
+                                      </div>
+
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="section divider">
+                              <h2><span class="fa fa-cog"></span>Settings</h2>
+                              <div class="content panel">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div
+                                      class="bootstrap-switch-off bootstrap-switch-small d-flex ">
+                                      <div class="bootstrap-switch-container" style="width: 117px;">
+                                        <label class='toggle-label'>
+                                          <input type='checkbox' formControlName="showAvailability"/>
+                                            <span class='back'>
+                                             <span class='toggle'></span>
+                                              <span class='label on'>Yes</span>
+                                             <span class='label off'>No</span>
+                                           </span>
+                                         </label></div>
+                                    <label for="showAvailability" class="fw-bold px-2 mt-3"> Show space availability by default</label>
+                                  </div>
+                                    <p class="help-block p-text">On the facility page, availablity is turned off by default. Check
+                                      here to turn it on when the page loads.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="section divider">
+                              <h2><span class="fa fa-map-marker"></span>Location</h2>
+                              <div class="content panel">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group address d-flex justify-content-between">
+                                      <label for="address1" class="control-label">Address
+                                        <a (click) ="clearAddress()" (keydown.enter)="clearAddress()" tabindex="0"
+                                          class="btn btn-link ml-4 clear-button"><i class="far fa-times-circle"></i> Clear</a></label>
+                                      <label>
+                                        <input type="checkbox" (change)="onCheckboxChange($event)"> Same as Organization
+                                      </label>
+                                    </div>
+
+                                      <div class="form-group mt-2">
+
+                                        <input id="address1" type="text" formControlName="street1" placeholder="100 Main Street" class="form-control">
+                                      <div *ngIf="facilityForm.controls['street1'].invalid && (facilityForm.controls['street1'].dirty || facilityForm.controls['street1'].touched)" class="text-danger">
+                                        Street is required.
+                                        </div>
+                                      </div>
+                                      <div class="form-group mt-2">
+                                        <input id="address2" type="text" formControlName="street2" placeholder="PO Box, Room #" class="form-control">
+                                      </div>
+                                      <div class="row form-group">
+                                        <div class="col-sm-6 mt-2">
+                                          <input id="city" type="text" formControlName="city" placeholder="City" class="form-control">
+                                        <div *ngIf="facilityForm.controls['city'].invalid && (facilityForm.controls['city'].dirty || facilityForm.controls['city'].touched)" class="text-danger">
+                                          City is required.
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-2 sandwich mt-2">
+                                          <select id="state" formControlName="state" class="form-control">
+                                            <option value="" disabled selected></option>
+                                            <option *ngFor="let state of usState" [value]="state">{{ state }}</option>
+                                          </select>
+                                          <div *ngIf="facilityForm.controls['state'].invalid && (facilityForm.controls['state'].dirty || facilityForm.controls['state'].touched)" class="text-danger">
+                                            State is required.
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mt-2">
+                                          <input id="zip" type="text" formControlName="zip" placeholder="Zip" class="form-control">
+                                        <div *ngIf="facilityForm.controls['zip'].invalid && (facilityForm.controls['zip'].dirty || facilityForm.controls['zip'].touched)" class="text-danger">
+                                          Zip is required.
+                                          </div>
+                                        </div>
+                                      </div>
+                                    <div class="form-group"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="section divider">
+                              <h2> <span class="fa fa-thumb-tack"></span>Details</h2>
+                              <div class="content panel">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <label for="abbr" class="control-label">Abbreviation</label>
+                                      <input id="abbr" formControlName="abbr" type="text" placeholder="i.e. JHS"
+                                        class="form-control ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="url" class="control-label">Url</label>
+                                      <input id="url" type="text" formControlName="href" placeholder="http://"
+                                        class="form-control ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex gap-2 justify-content-end">
+                        <button type="submit" class="btn btn-primary" [disabled]="invalidFacName">Save</button>
+                        <button type="button" (click)="cancel()" class="btn btn-default">Cancel </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

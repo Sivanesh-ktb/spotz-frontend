@@ -1,0 +1,29 @@
+<section>
+  <div class="home">
+    <app-navbar></app-navbar>
+    <div class="banner-cnt text-center">
+      <div class="">
+        <h1>Find Your Happy <span class="head-txt">Space</span></h1><br>
+        <p>Unique hourly rentals for parties, events, retreats, video shoots, and oh-so-much more.</p>
+      </div>
+    </div>
+    <div class="tempest-txt"><b>The Tempest Boardroom</b> Memphis, TN</div>
+  </div>
+</section>
+
+<!-- Search -->
+<div class="home-page-search-element">
+  <app-search></app-search>
+</div>
+<!--- Facility list -->
+<app-facilitylist (anchorClicked)="focusSearchBox()"></app-facilitylist>
+<!-- Testimonials Section -->
+<app-testimonial></app-testimonial>
+<!-- Sign up Section -->
+<app-signup></app-signup>
+
+<!-- Have a space to list section -->
+<app-space></app-space>
+
+<!-- Have a space to list section End -->
+<app-footer></app-footer>

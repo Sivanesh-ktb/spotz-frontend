@@ -1,0 +1,9 @@
+
+  <label for="All space types"></label>
+  <select [ngClass]="page ? 'public-space-type-drop-down-search' : 'public-space-type-drop-down'" (change)="onSpaceTypeChange($event)">
+    <option value="-1">All space types</option>
+    <ng-container *ngFor="let space of OrgSpaceTypes; let index = index">
+      <option [value]="space.value">{{space.name}}</option>
+    </ng-container>
+  </select>
+

@@ -1,0 +1,57 @@
+.photos-border-bottom{
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.btn-primary {
+  background-color: #e58327;
+  border-color: #b96516;
+}
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.thumbnail, .thumbnail img,
+.col-lg-3.space-images{
+  width: 180px;
+  height: 180px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.thumbnail .delete {
+  z-index: 10;
+  right: 0;
+  padding: 10px;
+  background-color: #eee;
+  border-bottom-left-radius: 6px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  position: absolute;
+  border: 1px solid #ccc;
+}
+.manage-space-bg {
+  background: #f9f9f9;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; 
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; 
+}

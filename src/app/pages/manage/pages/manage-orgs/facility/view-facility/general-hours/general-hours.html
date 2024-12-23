@@ -1,0 +1,64 @@
+<!-- upload image popup start -->
+<div class="modal-content-popup">
+  <div class="modal-header-popup ng-scope d-flex justify-content-between">
+    <h4> Operating Hours </h4>
+    <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close">X</a>
+  </div>
+  <div class="modal-popup-body admin booking ng-scope mt-3">
+    <div class="modal-body">
+      <div class="alert alert-info mb-3 mx-auto">
+        <p>
+          These are operating hours for the facility and
+          <u>NOT</u> necessarily rentable hours.
+        <br>
+          Use this setting to show when the site is
+          accessible (i.e. for a park) or open (i.e. business facility).</p>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="row" *ngFor="let timeBlockValue of timeBlock">
+        <div class="col-sm-4">
+          <label for="Day of week">Day of Week</label>
+          <app-day-drop-down [selectedDays]="timeBlockValue.days || []"
+            (daySelected)="timeBlockValue.days = $event">
+          </app-day-drop-down>
+        </div>
+        <div class="col-sm-3">
+          <label class="control-label" for="start time">Start Time</label>
+          <select [(ngModel)]="timeBlockValue.start" class="form-control" required>
+            <option value="" disabled selected></option>
+            <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+          </select>
+        </div>
+        <div class="col-sm-3">
+          <label class="control-label" for="end time">End Time</label>
+          <select [(ngModel)]="timeBlockValue.end" class="form-control" required>
+            <option value="" disabled selected></option>
+            <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <a (click)="removeTimeBlock(timeBlockValue)" (keydown.enter)="removeTimeBlock(timeBlockValue)" tabindex="0" class="btn-link">
+            <span class="fa fa-times-circle mt-4"></span>
+          </a>
+        </div>
+      </div>
+      <div class="mb-4">
+        <a class="text-hover" (click)="addTimeBlock()" (keydown.enter)="addTimeBlock()" tabindex="0">
+          <span class="fa fa-plus-circle"></span> Add more hours
+        </a>
+      </div>
+
+      <p class="help-block"><span class="fa fa-question-circle"></span> Set availability (or rentable time blocks) by
+        applying rules to the space (Scheduling &gt; Inventory)</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="text-right">
+      <button type="submit" (click)="saveTimeBlocks()" class="btn btn-secondary btn-sm me-1"
+        aria-disabled="false">Save</button>
+      <button type="button" (click)="dismiss()" class="btn btn-default btn-sm ms-1">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- upload image popup end -->

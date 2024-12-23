@@ -1,0 +1,298 @@
+<div class="row mb-2">
+  <p>
+    Let Spotz handle the insurance headache! You'll need your own General
+    Liability Insurance, but then we can help renters rent, by making sure that
+    they are covered.
+  </p>
+  <div *ngIf="!showInsurance">
+    <div class="d-flex justify-content-between" *ngIf="ins; else noInsurance">
+      <div class="d-flex align-items-center">
+        <div class="setting mx-3">
+          <span class="fa fa-check text-success mx-2"></span> Setup Complete
+        </div>
+        <button class="btn btn-default" (click)="removeInsurance()">
+          <span class="fa fa-times"></span> Remove insurance
+        </button>
+      </div>
+      <a (click)="insuranceInfo()" (keydown.enter)="insuranceInfo()" tabindex="0" aria-label="insurance info" class="fas fa-pencil-alt mt-2"></a>
+    </div>
+    <ng-template #noInsurance>
+      <div class="d-flex justify-content-between">
+        <i>— No insurance settings —</i>
+        <a (click)="insuranceInfo()" (keydown.enter)="insuranceInfo()" tabindex="0" aria-label="insurance info" class="fas fa-pencil-alt mt-2"></a>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="showInsurance">
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="control-label question" for="carry you own Liability"
+          >Do you carry your own General Liability insurance with an each
+          occurrence limit of at least $1,000,000?</label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="radio-inline mx-2">
+          <input
+            name="gl"
+            type="radio"
+            [(ngModel)]="gl"
+            [value]="true"
+            required
+          />
+          Yes
+        </label>
+        <label class="radio-inline">
+          <input
+            name="gl"
+            type="radio"
+            [(ngModel)]="gl"
+            [value]="false"
+            required
+          />
+          No
+        </label>
+      </div>
+    </div>
+    <div *ngIf="gl === false">
+      <p class="error pl-0 font-small-3">
+        <span class="fa fa-times mr-3"></span> Our insurance provider requires
+        that the hosting facility/organization to have General Liability
+        Insurance in order to extend a policy to the renter.
+      </p>
+    </div>
+    <div *ngIf="gl" class="mb-2">
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="control-label question" for="require your facility"
+            >Do you require your facility users to carry a General Liability
+            policy with an each occurrence limit of at least $1,000,000?</label
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="radio-inline mx-2">
+            <input
+              name="userGl"
+              type="radio"
+              [(ngModel)]="userGl"
+              [value]="true"
+              required
+            />
+            Yes
+          </label>
+          <label class="radio-inline">
+            <input
+              name="userGl"
+              type="radio"
+              [(ngModel)]="userGl"
+              [value]="false"
+              required
+            />
+            No
+          </label>
+          <p class="help-block">
+            <em>* This is for information only</em>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="control-label question" for="any of you facility"
+            >Do any of your facilities fall under any of the following
+            descriptions?</label
+          >
+          <div
+            style="
+              border: 1px solid #ccc;
+              background-color: #eee;
+              padding: 10px;
+              margin-top: 10px;
+            "
+          >
+            <div class="row">
+              <div class="col-sm-4">
+                <ul>
+                  <li>amusement park</li>
+                  <li>go-kart</li>
+                  <li>open water (i.e. lakes, ponds, rivers)</li>
+                </ul>
+              </div>
+              <div class="col-sm-4">
+                <ul>
+                  <li>obstacle course</li>
+                  <li>paintball</li>
+                  <li>skate park</li>
+                </ul>
+              </div>
+              <div class="col-sm-4">
+                <ul>
+                  <li>trampoline park</li>
+                  <li>ice skating rink</li>
+                  <li>roller rink</li>
+                </ul>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label class="radio-inline  mx-2">
+                  <input
+                    name="prohibited"
+                    type="radio"
+                    [(ngModel)]="prohibited"
+                    [value]="true"
+                    required
+                  />
+                  Yes
+                </label>
+                <label class="radio-inline">
+                  <input
+                    name="prohibited"
+                    type="radio"
+                    [(ngModel)]="prohibited"
+                    [value]="false"
+                    required
+                  />
+                  No
+                </label>
+              </div>
+            </div>
+            <div *ngIf="prohibited">
+              <p class="error">
+                <span class="fa fa-times error"></span>
+                <em
+                  >Sorry, we are unable to provide renters' insurance for these
+                  types of establishments.</em
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="control-label question" for="you have batting"
+            >Do you have batting cages available to rent?</label
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="radio-inline  mx-2">
+            <input
+              type="radio"
+              [(ngModel)]="battingValue"
+              [value]="true"
+              (click)="validateForm()"
+              required
+            />
+            Yes
+          </label>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              [(ngModel)]="battingValue"
+              [value]="false"
+              (click)="validateForm()"
+              required
+            />
+            No
+          </label>
+        </div>
+      </div>
+      <div
+        style="
+          border: 1px solid #ccc;
+          background-color: #eee;
+          padding: 10px;
+          margin-top: 10px;
+        "
+        *ngIf="battingValue"
+      >
+        <div class="row">
+          <div class="col-sm-12">
+            <label class="control-label" for="following statements"
+              >Are all the following statements true:</label
+            >
+            <ol>
+              <li>
+                <span class="fa fa-check" style="float: right"></span>
+                Participants must be required to wear batting helmets
+              </li>
+              <li>
+                <span class="fa fa-check" style="float: right"></span>
+                Participants younger than 12 must have a parent or guardian
+                (coach) present
+              </li>
+              <li>
+                <span class="fa fa-check" style="float: right"></span> Rules,
+                including height requirements, operating instructions and
+                assumption of risk must be posted in plain sight
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <label class="radio-inline">
+              <input
+                type="radio"
+                [(ngModel)]="batting"
+                [value]="true"
+                (click)="validateForm()"
+                name="batting"
+                required
+              />
+              Yes
+            </label>
+            <label class="radio-inline">
+              <input
+                type="radio"
+                [(ngModel)]="batting"
+                [value]="false"
+                (click)="validateForm()"
+                name="batting"
+                required
+              />
+              No
+            </label>
+          </div>
+        </div>
+        <div *ngIf="!batting">
+          <p class="error">
+            <span class="fa fa-times error"></span>
+            <em
+              >Sorry, insurance for batting cages is contingent on these
+              requirements.</em
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group edit" aria-hidden="false" *ngIf="showInsurance">
+      <button
+        type="submit"
+        [disabled]="validate"
+        class="btn btn-xs btn-primary"
+        (click)="saveInsuranceSettings
+        ()"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        (click)="cancelInsurance()"
+        class="btn btn-xs btn-default"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>

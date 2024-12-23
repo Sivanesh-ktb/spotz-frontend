@@ -1,0 +1,72 @@
+
+.modal.fade.show.update-access {
+  opacity: 1;
+  display: block;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
+  outline: 0;
+}
+.modal-header {
+  background-color: #eaf3f5;
+}
+.modal-title {
+  line-height: 1 !important;
+}
+.group-default {
+  padding: 0px 10px;
+}
+.group-default p {
+  background-color: #eaf3f5;
+  color: #000;
+  border-radius: 20px;
+  padding: 15px 15px;
+}
+button.btn.btn-outline-primary:hover{
+  color:#000;
+  background: #fff;
+}
+.tab-content.user-access-popup .user-access.fac {
+  height: 150px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.form-check label.form-check-label {
+  font-size: 13px;
+}
+.tab-content.user-access-popup .user-access.fac::-webkit-scrollbar {
+  width: 8px;
+}
+.tab-content.user-access-popup .user-access.fac::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.tab-content.user-access-popup .user-access.fac::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.tab-content.user-access-popup .user-access.fac::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.currentTabActive {
+  background-color: #4dcaf4 !important;
+  color: white !important;
+  border-color: #4dcaf4 !important;
+}
+.btn-outline-primary {
+  color: #4dcaf4;
+  border-color: #4dcaf4;
+}
+.btn-outline-primary:hover{
+  background-color: #fff;
+  border-color: #4dcaf4;
+}
+.cursor-pointer {
+  cursor: pointer !important;
+}

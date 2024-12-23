@@ -1,0 +1,68 @@
+<div class="d-flex">
+  <div class="dropdown-selectbox mx-2 text-white">
+    <ul class="nav navbar-nav selectbox">
+      <li class="dropdown" role="presentation">
+        <span class="dropdown-toggle" (click)="toggleDropdown()" (keydown.enter)="toggleDropdown()" tabindex="0" role="button">
+          <span class="text-decoration-underline mx-2">Sort</span>
+          <span *ngIf="currentSort === 'near'">Proximity</span>
+          <span *ngIf="currentSort === 'name'">Alpha</span>
+          <span *ngIf="currentSort === 'price'">Price</span>
+
+          <span *ngIf="currentSort === 'near' && !sortOrder"> far to near </span>
+          <span *ngIf="currentSort === 'near' && sortOrder">
+            near to far
+          </span>
+          <span *ngIf="currentSort === 'name' && !sortOrder"> Z-A </span>
+          <span *ngIf="currentSort === 'name' && sortOrder"> A-Z </span>
+          <span *ngIf="currentSort === 'price' && !sortOrder">
+            high to low
+          </span>
+          <span *ngIf="currentSort === 'price' && sortOrder">
+            low to high
+          </span>
+          <span class="caret"></span>
+        </span>
+
+        <ul
+          class="dropdown-menu custom-sort"
+          role="menu"
+          [ngClass]="{ 'show': dropdownOpen, 'hide': !dropdownOpen }"
+        >
+          <li (click)="onSortOptionSelect('near')" (keydown.enter)="onSortOptionSelect('near')" tabindex="0">
+            Proximity
+            <span
+              *ngIf="currentSort === 'near'"
+              class="fa"
+              [ngClass]="{
+              'fa-caret-up': sortOrder,
+              'fa-caret-down': !sortOrder
+            }"
+            ></span>
+          </li>
+          <li (click)="onSortOptionSelect('name')" (keydown.enter)="onSortOptionSelect('name')" tabindex="0">
+            A-Z
+            <span
+              *ngIf="currentSort === 'name'"
+              class="fa"
+              [ngClass]="{
+              'fa-caret-up': sortOrder,
+              'fa-caret-down': !sortOrder
+            }"
+            ></span>
+          </li>
+          <li (click)="onSortOptionSelect('price')" (keydown.enter)="onSortOptionSelect('price')" tabindex="0">
+            Price
+            <span
+              *ngIf="currentSort === 'price'"
+              class="fa"
+              [ngClass]="{
+              'fa-caret-up': sortOrder,
+              'fa-caret-down': !sortOrder
+            }"
+            ></span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

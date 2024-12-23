@@ -1,0 +1,87 @@
+<section class="content fac-space-view-section">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-fac-sidebar [facilityName]="facilityDetails.name" />
+        </div>
+        <div class="col-lg-9">
+          <h3 class="new-space-h fw-bold">Spaces</h3>
+            <div class="panel panel-default">
+              <div class="row">
+                <div class="col-sm-12 space-info">
+                  <i class="fa fa-info-circle info-circle space-info-icon"></i>
+                    A space is a rentable unit. This could be a gym, a field, etc within a facility.
+                </div>
+              </div>
+              <div class="container-fluid p-0">
+                <h2 class="mb-0 mt-4 text-muted filter-title">FILTER</h2>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <app-space-type-drop-down [clearValue]="clearValue"
+                    [allTypes]="true"
+                  (spaceTypeSelected)="onSpaceTypeSelected($event)">
+                  </app-space-type-drop-down>
+                  </div>
+                  <div class="col-lg-3 space-clear-filter">
+                   <ng-container *ngIf="spaceIds.length >0">
+                    <a (click)="clearFilters()"  (keydown.enter)="clearFilters()" tabindex="0" class="btn btn-default btn-xs">
+                      <i class="fa fa-xmark"></i> Clear Filters</a>
+                   </ng-container>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-small table-condensed table-bordered" aria-hidden="false">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Facility</th>
+                    <th>Type</th>
+                    <th>Rate</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let space of spaceDetails"  class="ng-scope">
+                    <td class="ng-binding d-flex gap-2 text-center align-items-center" >
+                      <i (click)="viewEditSpace(space.id)"  (keydown.enter)="viewEditSpace(space.id)" tabindex="0" class="fas fa-pencil-alt cursor-pointer mt-1"></i>
+                     <span (click)="viewSpace(space.id)"  (keydown.enter)="viewSpace(space.id)" tabindex="0" class="name-limit cursor-pointer">{{space.name}}</span>
+                    </td>
+                    <td><a
+                      aria-hidden="false" class="view-profile name-limit" title="View Profile">{{facName}}</a></td>
+                    <td><span class="label label-success ng-binding" *ngFor="let type of space.typ;">
+                      <div class="sports_activities" [ngStyle]="{'background-color': getSpaceColor(type)}">
+                      {{viewSpaceName(type)}}
+                      </div>
+                    </span></td>
+                    <td><a aria-hidden="true"
+                      class="ng-hide">${{space.price}}</a></td>
+                      <td class="text-right">
+                        <div class="btn btn-default btn-sm dropdown">
+                          <li class="nav-item dropdown">
+                          <a id="navbarAdminDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="fa fa-calendar"></div> Upcoming <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu facility-drop-down name-limit dropdown-menu-right">
+                            <li class="dropdown-item"><a (click)="viewCalendar(space.id)"  (keydown.enter)="viewCalendar(space.id)" tabindex="0">Calendar</a></li>
+                            <li class="dropdown-item"><a (click)="viewBooking(space.id)"  (keydown.enter)="viewBooking(space.id)" tabindex="0">Bookings</a></li>
+                            <li class="dropdown-item"><a (click)="viewAvailability(space.id)"  (keydown.enter)="viewAvailability(space.id)" tabindex="0">Availability</a></li>
+                          </ul>
+                        </li>
+                        </div>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-right">
+              <button (click)="addSpace()" class="btn btn-primary ng-scope"><span class="fa fa-plus-circle mr-2"></span> Add Space </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

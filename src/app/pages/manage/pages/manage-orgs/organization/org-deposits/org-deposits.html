@@ -1,0 +1,138 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9">
+          <div class="edit-org-cnt">
+            <h3 class="new-space-h fw-bold">Deposits</h3>
+          </div>
+          <div class="panel">
+             <div class="row py-3 px-3">
+              <div class="col-lg-4 col-md-6 col-sm-6 d-flex gap-2 text-uppercase cursor-pointer"
+              (click)="toggleDeposits()" (keydown.enter)="toggleDeposits()" tabindex="0">
+               <span class="fw-bold"> Sun</span>
+               <span class="date">Sep 1</span>
+               <span class="fw-bold">
+                <!-- <i class="fa-solid fa-caret-down"></i> -->
+              </span>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6">
+               <span class="fw-bold deposit-amount">
+                $0.00
+               </span>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center">
+                <span class="deposit-date text-uppercase">
+                  2024 August
+                </span>
+              </div>
+              <div *ngIf="showDepositPanel" class="deposits-details mt-3">
+             <div class="deposit-container mt-3  d-flex">
+              <div class="col-lg-4 col-md-6 col-sm-6 d-flex flex-column text-uppercase gap-3">
+                <span > For Period: </span>
+                <span class="fw-bold">August 1 - August 31</span>
+               </div>
+               <div class="col-lg-4 col-md-6 col-sm-6 d-flex gap-3">
+                <div class="deposits-container d-flex flex-column">
+                  <span class="deposit-amount">
+                  $0.00
+                  </span>
+                  <span class="fw-bold deposit-amount">
+                    $0.00
+                  </span>
+                </div>
+                  <span class="fw-bold">
+                    Net Deposit
+                  </span>
+               </div>
+               <div class="col-lg-4 col-md-6 col-sm-6 justify-content-center">
+               <div class="d-flex flex-column gap-1
+               align-items-start ml-5 account-container">
+                  <span class="deposit-amount">
+                    To Account:
+                  </span>
+                  <span class="deposit-amount font-italic">
+                    <i> Pending Account Setup</i>
+                  </span>
+                  <span class="fw-bold deposit-amount in-progress font-italic">
+                    <i>In Progress</i>
+                  </span>
+               </div>
+              </div>
+            </div>
+              </div>
+             </div>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="paid-booking-tab" data-bs-toggle="tab" data-bs-target="#paid-booking"
+                  type="button" role="tab" aria-controls="paid-booking" aria-selected="true">
+                  Paid Bookings</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="Offline-payments-tab" data-bs-toggle="tab" data-bs-target="#Offline-payments"
+                  type="button" role="tab" aria-controls="Offline-payments" aria-selected="false">
+                  Offline Payments </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="discounted-tab" data-bs-toggle="tab" data-bs-target="#discounted" type="button"
+                  role="tab" aria-controls="discounted" aria-selected="false">
+                  Discounted </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="refund-tab" data-bs-toggle="tab" data-bs-target="#refund" type="button"
+                  role="tab" aria-controls="refund" aria-selected="false">
+                  Refunded</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="add-ons-tab" data-bs-toggle="tab" data-bs-target="#add-ons" type="button"
+                  role="tab" aria-controls="add-ons" aria-selected="false">
+                  Add-Ons</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="invoices-tab" data-bs-toggle="tab" data-bs-target="#invoices" type="button"
+                  role="tab" aria-controls="invoices" aria-selected="false">
+                  Invoices</button>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="paid-booking" role="tabpanel" aria-labelledby="paid-booking-tab">
+                <ng-container *ngIf="paid">
+                <app-paid-booking [paid]="paid"></app-paid-booking>
+              </ng-container>
+              </div>
+              <div class="tab-pane fade" id="Offline-payments" role="tabpanel" aria-labelledby="Offline-payments-tab">
+                <ng-container *ngIf="offline">
+                <app-offline-payments [offline]="offline"></app-offline-payments>
+              </ng-container>
+              </div>
+              <div class="tab-pane fade" id="discounted" role="tabpanel" aria-labelledby="discounted-tab">
+                <ng-container *ngIf="discounted">
+                <app-deposits-discounted [discounted]="discounted"></app-deposits-discounted>
+              </ng-container>
+              </div>
+              <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund-tab">
+                <ng-container *ngIf="refunded">
+                <app-refunded [refunded]="refunded"></app-refunded>
+              </ng-container>
+              </div>
+              <div class="tab-pane fade" id="add-ons" role="tabpanel" aria-labelledby="add-ons-tab">
+                <app-add-ons></app-add-ons>
+              </div>
+              <div class="tab-pane fade" id="invoices" role="tabpanel" aria-labelledby="invoices-tab">
+                <ng-container *ngIf="invoiced">
+                <app-invoices [invoiced]="invoiced"></app-invoices>
+              </ng-container>
+              </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+</section>

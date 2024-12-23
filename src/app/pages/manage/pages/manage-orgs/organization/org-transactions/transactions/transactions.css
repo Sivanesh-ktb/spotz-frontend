@@ -1,0 +1,17 @@
+.panel1, .panel2 {
+  padding: 15px;
+  box-shadow: 1px 2px 2px rgba(121,141,163,.18);
+  margin-bottom: 15px;
+  border-radius: 9px;
+  background-color: #e8f1fb;
+}
+.panel1 h3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #044f80;
+  text-transform: none;
+  margin-top: 0;
+}
+select.form-control.ng-valid.ng-dirty.ng-valid-parse.ng-touched{
+  padding: 0px 3px !important;
+}

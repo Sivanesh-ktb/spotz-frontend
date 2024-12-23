@@ -1,0 +1,231 @@
+<div class="col-md-12 p-2 d-flex justify-content-around">
+<button *ngIf="!showForgot" class="col-md-4 nav-btn" (click)="toggleSwitch(loginTab)" [ngClass]="{ 'active': showLogin}">SignIn</button>
+  <button *ngIf="!showForgot" class="col-md-4 nav-btn" (click)="toggleSwitch(signupTab)" [ngClass]="{ 'active': showSigup }">SignUp</button>
+  <button *ngIf="showResetTab && !showForgot" class="col-md-4 nav-btn" (click)="toggleSwitch(resetTab)" [ngClass]="{ 'active': showReset }">Reset</button>
+  <button *ngIf="showForgot" class="col-md-12 nav-btn"  (click)="toggleSwitch(forgetPasswordTab)" [ngClass]="{ 'active': showForgot }">Forgot</button>
+</div>
+<div  *ngIf="showLogin">
+  <div class="login-container">
+    <div class="google-login">
+    <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
+<span>Sign in with Google</span>
+</div>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required>
+      </div>
+      <div class="form-group login-signup-btn">
+        <a (click)="toggleSwitch(forgetPasswordTab)" (keydown.enter)="toggleSwitch(forgetPasswordTab)" tabindex="0" class="login-hover">Forgot password</a>
+        <button type="submit" class="login-btn">Login</button>
+      </div>
+    <p class="m-0">Not a member? <a (click)="toggleSwitch(signupTab)" (keydown.enter)="toggleSwitch(signupTab)" tabindex="0" class="login-hover">Sign-up</a></p>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  </div>
+</div>
+<div *ngIf="showSigup ">
+  <div class="register-container">
+    <div class="google-login">
+      <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
+      <span>Sign up with Google</span>
+    </div>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="firstName">First Name: <span class="required">*</span></label>
+        <input type="text" id="firstname" name="firstName" [(ngModel)]="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name: <span class="required">*</span></label>
+        <input type="text" id="lastname" name="lastName" [(ngModel)]="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email: <span class="required">*</span></label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password: <span class="required">*</span></label>
+        <div class="password-container">
+          <input
+            type="{{isPasswordVisible ? 'text' : 'password'}}"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            minlength="8"
+            #passwordCtrl="ngModel"
+          >
+          <i
+            class="fa"
+            [class.fa-eye]="!isPasswordVisible"
+            [class.fa-eye-slash]="isPasswordVisible"
+            (click)="togglePasswordVisibility()"
+            (keydown.enter)="togglePasswordVisibility()"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="isPasswordVisible ? 'Hide password' : 'Show password'"
+          ></i>
+        </div>
+        <div class="password-requirements" *ngIf="passwordCtrl.touched">
+          <small class="invalid" *ngIf="!hasMinLength">Password must be at least 8 characters.</small>
+          <small class="invalid" *ngIf="!hasLowercase">Password must contain at least one lowercase letter.</small>
+          <small class="invalid" *ngIf="!hasUppercase">Password must contain at least one uppercase letter.</small>
+          <small class="invalid" *ngIf="!hasNumber">Password must contain at least one number.</small>
+          <small class="invalid" *ngIf="!hasSpecialChar">Password must contain at least one non-alphanumeric character (symbol) (e.g., @$!%*?&).</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password: <span class="required">*</span></label>
+        <div class="password-container">
+          <input 
+            type="{{isConfirmPasswordVisible ? 'text' : 'password'}}"
+            id="confirmPassword" 
+            name="confirmPassword" 
+            [(ngModel)]="confirmPassword" 
+            required
+            [ngClass]="{'invalid': confirmPassword !== password && confirmPassword !== ''}" 
+          >
+          <i 
+            class="fa" 
+            [class.fa-eye]="!isConfirmPasswordVisible" 
+            [class.fa-eye-slash]="isConfirmPasswordVisible" 
+            (click)="toggleConfirmPasswordVisibility()"
+            (keydown.enter)="toggleConfirmPasswordVisibility()"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="isPasswordVisible ? 'Hide password' : 'Show password'"
+          ></i>
+        </div>
+        <div *ngIf="confirmPassword && confirmPassword !== password">
+          Passwords do not match.
+        </div>
+      </div>     
+      <div class="form-group">
+        <label for="phone">Phone: <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="phone" 
+          name="phone" 
+          [(ngModel)]="phone" 
+          required
+          (keypress)="allowOnlyNumbers($event)"
+          maxlength="13" 
+          #phoneCtrl="ngModel"
+        >
+        <div *ngIf="phoneCtrl.invalid && phoneCtrl.touched">
+          <small *ngIf="phoneCtrl.errors?.['required']">Phone number is required.</small>
+          <small *ngIf="phoneCtrl.errors?.['maxlength']">Phone number cannot exceed 13 digits.</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth: <span class="required">*</span></label>
+        <input type="date" id="dob" name="dob" [(ngModel)]="dob" required  min="1900-01-01" max="{{maxDob}}" #dobCtrl="ngModel">
+      <div *ngIf="dobCtrl.invalid && dobCtrl.touched">
+        <small *ngIf="dobCtrl.errors?.['required']">Date of Birth is required.</small>
+        <small *ngIf="dobCtrl.errors?.['min']">You must be at least 18 years old.</small>
+      </div>
+      </div>
+      <div class="form-group login-signup-btn">
+      <button type="submit" class="register-btn" [disabled]="registerForm.invalid || password !== confirmPassword">Register</button>
+      </div>
+      <p class="login-link m-0">Have an account? <a (click)="showLogin = true" (keydown.enter)="showLogin = true" tabindex="0" class="login-hover">Login</a></p>
+    </form>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  </div>
+
+</div>
+<div *ngIf="showForgot">
+  <div class="login-container">
+    <form (ngSubmit)="onForgotPasswordSubmit()">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required>
+      </div>
+      <div class="form-group login-signup-btn">
+        <button type="submit" class="login-btn">Submit</button>
+      </div>
+      <p class="login-link m-0">Remember your password? <a (click)="toggleSwitch(loginTab)" (keydown.enter)="toggleSwitch(loginTab)" tabindex="0" class="login-hover">Back to Login</a></p>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  </div>
+</div>
+
+<div *ngIf="showReset">
+  <div class="login-container">
+    <form (ngSubmit)="onResetPasswordSubmit()">
+      <div class="form-group">
+        <label for="password">Password: <span class="required">*</span></label>
+        <div class="password-container">
+          <input
+            type="{{isPasswordVisible ? 'text' : 'password'}}"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            minlength="8"
+            #passwordCtrl="ngModel"
+          >
+          <i
+            class="fa"
+            [class.fa-eye]="!isPasswordVisible"
+            [class.fa-eye-slash]="isPasswordVisible"
+            (click)="togglePasswordVisibility()"
+            (keydown.enter)="togglePasswordVisibility()"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="isPasswordVisible ? 'Hide password' : 'Show password'"
+          ></i>
+        </div>
+        <div class="password-requirements" *ngIf="passwordCtrl.touched">
+          <small class="invalid" *ngIf="!hasMinLength">Password must be at least 8 characters.</small>
+          <small class="invalid" *ngIf="!hasLowercase">Password must contain at least one lowercase letter.</small>
+          <small class="invalid" *ngIf="!hasUppercase">Password must contain at least one uppercase letter.</small>
+          <small class="invalid" *ngIf="!hasNumber">Password must contain at least one number.</small>
+          <small class="invalid" *ngIf="!hasSpecialChar">Password must contain at least one non-alphanumeric character (symbol) (e.g., @$!%*?&).</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password: <span class="required">*</span></label>
+        <div class="password-container">
+          <input
+            type="{{isConfirmPasswordVisible ? 'text' : 'password'}}"
+            id="confirmPassword"
+            name="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            required
+            [ngClass]="{'invalid': confirmPassword !== password && confirmPassword !== ''}"
+          >
+          <i
+            class="fa"
+            [class.fa-eye]="!isConfirmPasswordVisible"
+            [class.fa-eye-slash]="isConfirmPasswordVisible"
+            (click)="toggleConfirmPasswordVisibility()"
+            (keydown.enter)="toggleConfirmPasswordVisibility()"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="isPasswordVisible ? 'Hide password' : 'Show password'"
+          ></i>
+        </div>
+        <div *ngIf="confirmPassword && confirmPassword !== password">
+          Passwords do not match.
+        </div>
+      </div>
+     <div class="form-group login-signup-btn">
+        <button type="submit" class="login-btn" [disabled]="password !== confirmPassword">Reset</button>
+      </div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    </form>
+  </div>
+</div>
+
+
+

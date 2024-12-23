@@ -1,0 +1,12 @@
+.font-medium-3 {
+  font-size: 15px!important;
+}
+h2 {
+  font-size: 1.5em;
+}
+button.nav-link {
+  color: #333 !important;
+}
+.nav-tabs{
+  border-bottom: none !important;
+}

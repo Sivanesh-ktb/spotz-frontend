@@ -1,0 +1,15 @@
+<div class="time-drop-down-container d-flex gap-3">
+  <div class="startTime">
+    <select [(ngModel)]="startTime" (ngModelChange)="selectStartTime($event)" required class="form-control">
+      <option disabled selected>Select a start time</option>
+      <option *ngFor="let time of times" [value]="time">{{time}}</option>
+    </select>
+  </div>
+  <div class="endTime">
+    <select [(ngModel)]="endTime" (ngModelChange)="selectEndTime($event)" required class="form-control">
+      <option disabled selected>Select an end time</option>
+      <option *ngFor="let time of times" [value]="time">{{time}}</option>
+    </select>
+  </div>
+</div>
+<p *ngIf="validationError" class="text-danger mt-2 help-block">{{validationError}}</p>

@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-lg-5 d-flex gap-3">
+    <div class="fc-button-group">
+      <button type="button" (click)="today()" [ngClass]="{
+        'fc-today-button': true, 
+        'fc-button': true, 
+        'fc-state-default': true, 
+        'fc-corner-left': true, 
+        'fc-state-disabled': isTodayDisabled()
+      }">
+        Today</button><button type="button"
+        class="fc-datePicker-button fc-button fc-state-default fc-corner-right">
+        <span class="fc-icon fc-icon-calendar">
+          <input
+          ngbDatepicker
+          #d="ngbDatepicker"
+          [style]="{display: 'none'}"
+          [positionTarget]="buttonEl"
+          [(ngModel)]="scheduleCalendarDate"
+          (ngModelChange)="dateChange($event)"
+        />
+        <i #buttonEl class="pi pi-calendar" (click)="d.toggle()" (keydown.enter)="d.toggle()" tabindex="0" type="button"></i  >
+        </span>
+      </button>
+    </div>
+    <div class="fc-button-group">
+      <button class="fc-prev-button fc-button px-3
+      fc-state-default fc-corner-left" (click)="previewDate()">
+        <span class="fa-solid fa-angle-left"></span></button>
+        <button class="fc-next-button px-3 fc-button fc-state-default
+        fc-corner-right" (click)="nextDate()">
+          <span class="fa-solid fa-chevron-right"></span>
+       </button></div>
+  </div>
+  <div class="col-lg-7 text-end">
+    <div class="btn-group space-toggle" role="group" aria-label="Basic radio toggle button group">
+      <button type="button" (click)="today()" [ngClass]="{active : selectedType=== 'day'}"
+        class="fc-today-button fc-button fc-state-default fc-corner-left">
+        Day
+      </button>
+      <button type="button" (click)="filter('agenda')" [ngClass]="{active : selectedType=== 'agenda'}"
+        class="fc-today-button fc-button fc-state-default fc-corner-left">
+        Agenda
+      </button>
+    </div>
+    <div class="btn-group" role="group" aria-label="mr-3 Basic radio toggle button group">
+      <button type="button" (click)="today()" [ngClass]="{active : selectedType=== 'dayTwo'}"
+        class="fc-today-button fc-button fc-state-default fc-corner-left">
+        {{spaceCalendar? "Day" : "Date"}}
+      </button>
+      <button type="button" (click)="filter('threeDay')" [ngClass]="{active : selectedType=== 'threeDay'}"
+        class="fc-today-button fc-button fc-state-default fc-corner-left">
+        3 Day
+      </button>
+      <button type="button" (click)="filter('week')" [ngClass]="{active : selectedType=== 'week'}"
+        class="fc-today-button fc-button fc-state-default fc-corner-left">
+        Week
+      </button>
+      <button type="button" (click)="filter('month')" [ngClass]="{active : selectedType=== 'month'}"
+        class="fc-today-button fc-button fc-state-default fc-corner-left">
+        Month
+      </button>
+    </div>
+</div>
+<div class="fc-center mt-3">
+  <h3 class="preview-date">{{ formattedDate }}</h3>
+</div>
+</div>
+<div class="fc table">
+<ng-container *ngIf="(selectedType === 'week' || selectedType ==='threeDay') && timeSlots">
+<app-week-calendar-table [timeSlots]="timeSlots" [dateHeaders]="dateHeaders" [scheduleData]="scheduleData"></app-week-calendar-table>
+</ng-container>
+<ng-container *ngIf="(selectedType === 'day' || selectedType === 'dayTwo') && timeSlots">
+<app-day-calendar-table [spaceDetails]="spaceDetails" [timeSlots]="timeSlots" [scheduleData]="scheduleData"></app-day-calendar-table>
+</ng-container>
+<ng-container *ngIf="selectedType === 'month'">
+<app-month-calendar-table [daysInMonth]="daysInMonth" [scheduleData]="scheduleData"></app-month-calendar-table>
+</ng-container>
+<ng-container *ngIf="selectedType === 'agenda'">
+  <app-agenda></app-agenda>
+</ng-container>
+</div>
+

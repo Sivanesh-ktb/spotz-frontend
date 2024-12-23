@@ -1,0 +1,164 @@
+/*Banner Section End*/
+.search-form {
+  z-index: 99;
+  position: relative;
+  display: flex;
+  background-color: #fff;
+  padding-top: 7px;
+  border-radius: 75px;
+  border: 1px solid #274451;
+  top: -32px;
+  max-width: 1279px;
+  width: 100%;
+  padding: 3px 41px;
+  align-items: center;
+}
+label.when-label {
+  padding-left: 12px;
+  margin-bottom: -10px;
+}
+.form-flex input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  height: 20px;
+  color: #333;
+}
+.form-control.border-none {
+  background-color: transparent;
+  border: 0px solid !important;
+}
+input.form-control.search-google-map:focus,
+.form-control.border-none:focus {
+  box-shadow: none !important;
+}
+.guests {
+  display: flex !important;
+  align-content: stretch;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.when {
+  display: flex !important;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.form-search a {
+  color: #fff;
+}
+.form-search.disabled{
+  color: #d1d0d0;
+  cursor: not-allowed;
+  background: linear-gradient(#889397, #889397);
+  cursor: not-allowed !important;
+}
+.form-search {
+  position: absolute;
+  right: 0.5%;
+  bottom: 5px;
+  font-size: 15px;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  border-radius: 52px;
+  text-align: center;
+  padding: 15px;
+  color: #fff !important;
+  background: linear-gradient(#1fbbe7, #0f8cb0);
+}
+.form-bg {
+  background-color: #274451;
+}
+.mat-mdc-text-field-wrapper {
+  height: 32px !important;
+  flex: none !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+.location input:focus {
+  outline: none !important;
+}
+
+.guests input:focus {
+  outline: none !important;
+}
+
+.when input:focus {
+  outline: none !important;
+}
+app-google-auto-complete.searh-organization {
+  max-height: 30px;
+  height: 100%;
+}
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+  height: 40px;
+}
+.search-organization{
+  background-color: #fff;
+  position: relative;
+  width:100%;
+}
+
+.example-full-width.google-map-input{
+  background-color: #fff;
+}
+.mat-mdc-text-field-wrapper,
+.address-suggestions {
+  background-color: #fff !important;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white;
+}
+.address-suggestions{
+  position: absolute;
+  width: 350px !important;
+  top: 90%;
+  left: 18px;
+  z-index: 100;
+  display: block;
+  right: auto;
+}
+.address-suggestions li{
+  padding:5px ;
+}
+.address-suggestions li:hover{
+  background: #dbdbdb;
+  cursor: pointer;
+}
+input.search-organization {
+  font-size: 12px;
+}
+.date-container {
+  height: 55px;
+  position: relative;
+}
+
+.date-container .when-label {
+  position: absolute;
+  top: 1px;
+  z-index: 2;
+  background: white;
+}
+
+.date-picker-container {
+  position: relative;
+  z-index: 1;
+  top: 15px;
+  width: 5px;
+}
+
+input[matInput] {
+  z-index: 1;
+  padding: 10px;
+}
+/*Form Section*/
+.search-form.search {
+  max-width: 100%;
+}
+.location-container-box{
+  width: 35% !important;
+}
+input.mat-datepicker-input.mat-mdc-input-element.ng-valid.cdk-text-field-autofill-monitored.ng-touched.ng-dirty:focus-visible {
+  outline: none !important;
+}

@@ -1,0 +1,60 @@
+<div class="about-tower-bg">
+  <div class="containerp-fluid p-5">
+    <div class="row">
+      <div class="col-lg-6">
+        <app-google-map [orgMapDetails]="organizationFacilities" [page]="page"></app-google-map>
+      </div>
+      <div class="col-lg-6 ps-3 color-white">
+        <ng-container *ngIf="page !== 3">
+          <div class="abt-t amenities text-white">
+            <h2>About {{name}}</h2>
+            <p>{{description}}
+            </p>
+          </div>
+          <div class="row">
+            <div class="amenities text-white">
+              <h2>Amenities</h2>
+            </div>
+            <div class="row">
+              <ng-container *ngFor="let chunk of chunkArray(amenities, 4)">
+                <div class="col-lg-4" *ngFor="let amenity of chunk">
+                  <div class="amenities-1 text-white">
+                    <a>{{ amenity }}</a>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="page === 3">
+          <div class="facility">
+            <div class="head text-white">
+              <h2>{{organizationFacilities.name}}</h2>
+            </div>
+            <div class="description text-white">
+              <ng-container *ngIf="organizationFacilities.description; else descriptionTemplate">
+                <p>{{organizationFacilities.description}}</p>
+              </ng-container>
+              <ng-template #descriptionTemplate>
+                <p>There is no description for this Organization</p>
+              </ng-template>
+            </div>
+          </div>
+          <div class="org">
+            <div class="head text-white">
+              <h2>{{organizationDetails.name}}</h2>
+            </div>
+            <div class="description text-white">
+              <ng-container *ngIf="organizationDetails.description; else descriptionTemplate">
+                <p>{{organizationDetails.description}}</p>
+              </ng-container>
+              <ng-template #descriptionTemplate>
+                <p>There is no description for this Organization</p>
+              </ng-template>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

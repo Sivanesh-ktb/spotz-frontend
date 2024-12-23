@@ -1,0 +1,24 @@
+<footer class="footer-content">
+  <div class="row foot-bg m-0 p-0">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+      <ul *ngIf="orgId" class="nav nav-pills mt-3 d-flex gap-3" aria-hidden="false">
+        <li class="disabled"><a><strong>Quick Links:</strong></a></li>
+        <li><a class="px-2" (click)="manageOrg('inbox')" (keydown.enter)="manageOrg('inbox')" tabindex="0">Inbox</a></li>
+        <li><a class="px-2" (click)="manageOrg('schedule')" (keydown.enter)="manageOrg('schedule')" tabindex="0">Events</a></li>
+        <li class="disabled"><a class="px-2"><strong>Reports</strong></a></li>
+        <li><a class="px-2" (click)="manageOrg('eventlist')" (keydown.enter)="manageOrg('eventlist')" tabindex="0">Event List</a></li>
+        <li><a class="px-2" (click)="manageOrg('invoices')" (keydown.enter)="manageOrg('invoices')" tabindex="0">Invoices</a></li>
+        <li><a class="px-2" (click)="manageOrg('usage')" (keydown.enter)="manageOrg('usage')" tabindex="0">Usage</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3">
+    <div class="container-fluid">
+        <div class="row">
+      <div class="footer-ver">
+        <p class="mt-3">Spotz v1.12.76</p>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</footer>

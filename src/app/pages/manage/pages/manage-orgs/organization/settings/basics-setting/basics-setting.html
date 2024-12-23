@@ -1,0 +1,98 @@
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="b-spc">Tax Info</h6>
+    </div>
+    <div class="col-lg-9" *ngIf="legal">
+         <app-tax-info [legal]="legal" (legalChanges)="OnLegalChanges($event)"></app-tax-info>
+    </div>
+    <div class="col-lg-9" *ngIf="!legal">
+      <app-tax-info [legal]="legal" (legalChanges)="OnLegalChanges($event)"></app-tax-info>
+ </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="b-spc">Sales Tax</h6>
+    </div>
+    <div class="col-lg-9">
+      <app-sales-tax [salesTax]="orgDetails?.salesTax" (salesTaxValue)="OnSalesTaxValue($event)"></app-sales-tax>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="b-spc">Payout Methods</h6>
+    </div>
+    <div class="col-lg-9" *ngIf="orgDetails?.accts">
+     <app-payout-methods [accts]="orgDetails?.accts" (acctsChanges)="onAcctsChanges($event)"></app-payout-methods>
+    </div>
+    <div class="col-lg-9" *ngIf="!orgDetails?.accts">
+      <app-payout-methods [accts]="orgDetails?.accts" (acctsChanges)="onAcctsChanges($event)"></app-payout-methods>
+     </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="b-spc">Insurance Settings</h6>
+    </div>
+    <div class="col-lg-9">
+      <app-insurance-settings [ins]="orgDetails?.insurance" (insChanges)="onInsChanges($event)"  (insuranceRemoved)="onInsuranceRemoved($event)"></app-insurance-settings>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="b-spc">Deposits</h6>
+    </div>
+    <div class="col-lg-9">
+      <div class="tab-cnt1 mb-2">
+        <div class="t-b-1">
+          <p>deposits allow you to collect from a space user in case of incident. The user agrees to allow
+            you to charge these amounts on any rental.</p>
+          <div class="well d-flex justify-content-between">
+            <app-org-add-deposits [deposits]="orgDetails?.deposits" (updateDepositsDetails)="onUpdateDepositsDetails($event)"
+            (newDepositSave)="onNewDepositSave($event)" (deleteDeposits)="onDeleteDeposits($event)"></app-org-add-deposits>
+            <div class="tb-icon">
+              <i class="fas fa-pencil-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row p-2">
+    <div class="col-lg-3">
+      <h6 class="tag-sp b-spc">Tags</h6>
+    </div>
+    <div class="col-lg-9">
+      <app-tag  [tags]="orgDetails?.tags" (tagsValue)="OnTagsChanges($event)"></app-tag>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="tag-sp b-spc">Transaction Fees</h6>
+    </div>
+    <div class="col-lg-9">
+      <app-transaction-fees [userFees]="orgDetails?.userFees" (userFeesValue)="onUserFeesValue($event)"></app-transaction-fees>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="tag-sp b-spc">Send email notifications</h6>
+    </div>
+    <div class="col-lg-9">
+      <app-send-email-notifications [sendMail]="orgDetails?.sendMail" (sendMailValue)="onSendMailValue($event)"></app-send-email-notifications>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-3">
+      <h6 class="tag-sp b-spc">Spotz Service Fee</h6>
+    </div>
+    <div class="col-lg-9">
+      <app-spotz-service-fee [isFees]="orgDetails?.isFees" (spotzFeesValue)="onSpotzFeesValue($event)">
+      </app-spotz-service-fee>
+    </div>
+  </div>

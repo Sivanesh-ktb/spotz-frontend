@@ -1,0 +1,10 @@
+.dialog-header, .modal-header {
+  background-color: #eaf3f5;
+  border-bottom: none !important;
+  padding: 14px 20px;
+  margin-bottom: 0;
+}
+button.btn.btn-default:focus,
+button.btn.btn-primary:focus {
+  box-shadow: none !important;
+}

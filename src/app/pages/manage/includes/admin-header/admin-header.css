@@ -1,0 +1,11 @@
+
+
+/*Header Section*/
+
+.site-logo img {
+  width: 100px !important;
+}
+
+.navbar .bg-light {
+  background-color: #f8f9fa00 !important;
+}

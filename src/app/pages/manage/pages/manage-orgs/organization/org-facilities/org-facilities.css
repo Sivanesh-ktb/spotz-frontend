@@ -1,0 +1,32 @@
+.shaded-column {
+  border-left: 1px solid #c1d8ed;
+  border-right: 1px solid #c1d8ed;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+a.btn.btn-default.btn-common {
+  padding: 1px 5px !important;
+  background: #fff;
+  margin-left: 8px;
+  border: 1px solid #5eb2ff;
+}
+a.btn.btn-default.btn-common i {
+ padding-right: 8px;
+}
+td.ng-binding.cursor-pointer {
+  text-align: center;
+  color: #0269d9;
+}
+td.shaded-column .badge {
+  padding: 2px 5px;
+  background-color: #32b3df;
+  font-weight: 600;
+}
+a.view-profile span.facility-name {
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+}
+span.view-add-btn{
+font-size:12px !important;
+}

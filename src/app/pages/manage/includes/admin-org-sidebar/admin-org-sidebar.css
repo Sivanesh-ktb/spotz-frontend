@@ -1,0 +1,85 @@
+
+.manage-org {
+  padding-top: 40px;
+}
+
+.mg-sec {
+  background-color: #fff;
+  border-top: 20px solid #d3eaf0;
+  border-radius: 18px;
+}
+
+.mg-icon ul li{
+  list-style-type: none;
+  text-decoration: none;
+  padding-left: 0px;
+  display: inline-block;
+  padding:10px;
+}
+.mg-head {
+  padding-left: 15px;
+}
+
+.finance-reports {
+ padding-left: 15px;
+}
+
+.og-box-btm ul{
+  list-style-type: none;
+  text-decoration: none;
+  padding-left: 0px;
+  display: inline-block;
+  padding:10px;
+  line-height: 30px;
+}
+.mg-icon {
+  background-color: #d3eaf0;
+  color: #025266;
+}
+
+.og-box-btm {
+  background-color: #d3eaf0;
+  color: #025266;
+  padding-left: 15px;
+}
+a.cursor-pointer {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+}
+
+.mg-head h6{
+  font-size: 1em;
+  padding-bottom: 10px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 0;
+}
+.org-view-text{
+  color: #025266;
+}
+.org-view-text:hover{
+  color: #e7750b;
+}
+.leftmenu-bottom {
+  padding: 12px 10px;
+  background-color: #d3eaf0;
+  border-radius: 0 0 18px 18px !important;
+}
+.leftmenu-bottom>li, .leftmenu-bottom>li>a {
+  display: block;
+  position: relative;
+}
+.leftmenu-bottom li a {
+  font-weight: 600;
+  color: #025266;
+}
+.leftmenu-bottom>li>a {
+  border-radius: 4px;
+}
+.nav.left-nav {
+  padding: 0 20px 20px;
+}
+.leftmenu-bottom>li>a {
+  padding: 8px 15px;
+}

@@ -1,0 +1,58 @@
+
+
+
+    <ng-container *ngIf="multipleSelected; else singleSelection">
+      <div class="input-group full-width-select-dro-down mb-3">
+        <div class="card flex justify-content-center full-width-select-dro-down w-100">
+          <div class="admin-text">
+            <li class="nav-item dropdown" [class.show]="dropdownOpen">
+              <span id="navbarAdminDropdown" role="button"
+                    class="form-control custom-dropdown-section custom-dropdown w-100"
+                    (click)="dropdownOpen = !dropdownOpen" (keydown.enter)="dropdownOpen = !dropdownOpen" tabindex="0" aria-expanded="false">
+                    <ng-container *ngIf="selectedGroupNames.length === 0">
+                      Select Group ..
+                    </ng-container>
+                {{ selectedGroupNames.join(', ') }}
+                <i class="fa-solid fa-angle-down"></i>
+              </span>
+              <ul class="dropdown-menu custom-dropdown w-100"
+              [ngStyle]="{'height': groupLength  > 4 ? '250px' : 'auto'}"
+                aria-labelledby="navbarAdminDropdown" [class.show]="dropdownOpen">
+                <li *ngIf="selectedGroupNames.length > 0">
+                  <a class="dropdown-item clear-drop-down filter" (click)="clearAllGroups(); $event.stopPropagation();" (keydown.enter)="clearAllGroups(); $event.stopPropagation();" tabindex="0">
+                    <i class="fa fa-times mr-2"></i>  Clear
+                  </a>
+                <li *ngFor="let group of orgDetails; let index = index">
+                  <a class="dropdown-item" (click)="toggleGroupType(group._id, index, group.name); $event.stopPropagation();" (keydown.enter)="toggleGroupType(group._id, index, group.name); $event.stopPropagation();" tabindex="0">
+                    <span class="fa mr-2" [ngClass]="{'text-success fa-check': isChecked(group._id)}"></span>
+                    {{ group?.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </div>
+        </div>
+    </div>
+      </ng-container>
+      <ng-template #singleSelection>
+        <li class="nav-item dropdown">
+          <span id="navbarAdminDropdown" role="button"
+          class="form-control custom-dropdown-section custom-dropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">{{groupName}}
+          <i *ngIf="clearIcon; else dropdownIcon" class="fa fa-times close-icon" (click)="clearDropdown()" (keydown.enter)="clearDropdown()" tabindex="0"></i>
+          <ng-template #dropdownIcon>
+          <i class="fa-solid fa-angle-down"></i>
+          </ng-template>
+        </span>
+          <ul class="dropdown-menu custom-dropdown"
+          [ngStyle]="{'height': groupLength  > 4 ? '250px' : 'auto'}"
+          aria-labelledby="navbarAdminDropdown">
+            <ng-container *ngFor="let group of orgDetails;">
+              <li *ngIf="group?.system === 0">
+                <a (click)="viewUser(group?._id,group?.name)" (keydown.enter)="viewUser(group?._id,group?.name)" tabindex="0"
+                class="dropdown-item dropdown-medium-text">{{group?.name}}</a>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+  </ng-template>

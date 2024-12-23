@@ -1,0 +1,9 @@
+.org-unauthorized-info {
+  color: #dc3545!important;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+button.close-button{
+  border:1px solid #d3d3d3;
+}

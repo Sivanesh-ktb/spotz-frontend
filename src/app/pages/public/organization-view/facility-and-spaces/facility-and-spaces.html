@@ -1,0 +1,53 @@
+<div class="spaces-list-spc color-white container-fluid px-4">
+  <div class="row">
+    <div class="col-lg-4 mb-4"  *ngFor="let space of organizationFacilities">
+      <div class="s-1-img">
+        <div class="s-image" *ngIf="space?.assets?.length>0; else defaultImage">
+          <ngb-carousel #carousel [interval]="0">
+            <ng-template ngbSlide *ngFor="let image of space.assets; let i = index">
+              <div class="slider-image-container d-flex large-slider-image">
+                <img [src]="image?.url" alt="Slide" class="slider-image">
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+        <ng-template #defaultImage>
+        <div class="s-image" >
+         <img src="assets/img/spaces/default/2_logo.jpg" alt="Slide" class="slider-image">
+        </div>
+      </ng-template>
+      </div>
+      <div class="row">
+        <div class="col-lg-10">
+          <div class="s-content-1">
+            <h4 class="mt-3">{{space?.name}}</h4>
+            <p class="space-address">
+              {{ space.facilityDetails[0]?.address?.street1 ? space.facilityDetails[0].address.street1 : '' }}
+              {{ space.facilityDetails[0]?.address?.street2 ? ', ' + space.facilityDetails[0].address.street2 : '' }}
+              {{ space.facilityDetails[0]?.address?.city ? ', ' + space.facilityDetails[0].address.city : '' }}
+              {{ space.facilityDetails[0]?.address?.state ? ', ' + space.facilityDetails[0].address.state : '' }}
+              {{ space.facilityDetails[0]?.address?.zip ? ', ' + space.facilityDetails[0].address.zip : '' }}
+            </p>            
+            <h6>From ${{space?.price}} per <ng-container *ngIf="space.rentaltypes===1; else hour"> Day</ng-container>
+              <ng-template #hour>hour</ng-template></h6>
+          </div>
+        </div>
+        <div class="col-lg-2 mt-2">
+          <div class="s-icon">
+            <p>{{space?.capacity ?? 0}} <i class="fa fa-user-o" aria-hidden="true"></i></p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column">
+        <div class="space-list-btn red-room-ls">
+          <!-- <ng-container  *ngFor="let available of blockData">
+            <ng-container *ngIf="available?.ruleset?.rules[0]?.spaceOptions?.spaces[0]?.id == space._id" >
+            <button class="button spaces-clr">{{convertTime(available.startTime)}} {{convertTime(available.endTime)}}</button>
+            </ng-container>
+         </ng-container> -->
+        </div>
+        <div class="list-spc-btn mt-4"><a class="booking-btn btn-default">Book now</a></div>
+      </div>
+    </div>
+  </div>
+</div>

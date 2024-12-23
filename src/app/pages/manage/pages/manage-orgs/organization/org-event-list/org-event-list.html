@@ -1,0 +1,51 @@
+<div class="transactions work-orders">
+  <div class="table-responsive mb-2">
+    <table class="table table-sm table-condensed table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Date / Time</th>
+          <th class="hidden-xs hidden-sm">Duration</th>
+          <th>Activity / Event</th>
+          <th>Facility / Space</th>
+          <th class="hidden-xs hidden-sm">Tags</th>
+          <th> <span class="hidden-xs">Notes and </span>Tasks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="wo in vm.list.filtered" class="ng-scope" >
+          <td class="ng-binding"> <strong class="ng-binding">Mon</strong>Jul
+            1st<br>10:30AM <span>to</span> 4:30PM<span
+              class="label label-default booking-hour-start">
+              6 hrs </span>
+          </td>
+          <td class="hidden-xs hidden-sm ng-binding booking-hours">
+            6 hrs
+          </td>
+          <td class="ng-binding">Other *
+            <div class="visible-lg-inline-block visible-md-inline-block"></div>
+            <div class="visible-sm-block visible-xs-block"></div><em class="ng-binding">
+              Summer Playground Program <span class="ng-binding" aria-hidden="false">-
+                Approver</span></em><br><span
+              class="ng-scope"><a class="ng-binding"><span
+                  class="fa fa-user"></span>Superior Parks</a></span>
+          </td>
+          <td class="ng-binding">Webster Dream Park
+            <div class="visible-sm-inline-block visible-xs-inline-block"></div>
+            <div class="visible-lg-inline-block visible-md-inline-block"></div>
+            <div class="visible-sm-block visible-xs-block"></div>Pavilion
+          </td>
+          <td class="hidden-xs hidden-sm"></td>
+          <td>
+            <button type="button" class="btn btn-sm btn-default"><span>View <span
+                  class="hidden-xs">Work Order</span></span></button>
+          </td>
+        </tr>
+        <!-- <tr ng-show="!vm.list.filtered.length" aria-hidden="false" class="">
+          <td colspan="6" class="zero-results text-center"><em>
+              No results <span ng-show="vm.allWorkOrders.length" aria-hidden="true" class="ng-hide">with the current
+                filters.</span></em></td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+</div>

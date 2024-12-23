@@ -1,0 +1,81 @@
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.navbar {
+  background-color: transparent !important;
+}
+
+.home {
+  position: relative;
+  background: url('../../../../assets/img/banner.png') no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+}
+
+.home:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.nav-link:hover {
+  color: #17a4cb !important;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+  left: 0;
+  margin-left: -125px;
+}
+.dropdown-item,
+a.nav-link.ng-star-inserted {
+  cursor: pointer;
+}
+li.nav-item a {
+  font-size: 0.9em;
+}
+nav.navbar.navbar-expand-lg.navbar-light.navbar-dark {
+  background-color: #274451 !important;
+  padding-bottom: 0px;
+}
+nav.navbar.navbar-expand-lg.navbar-light.static-page .container-fluid .collapse.navbar-collapse ul.navbar-nav li.nav-item a.nav-link {
+  color: #000 !important;
+}
+
+.spotzlogo{
+  height:50px !important;
+}
+a.navbar-brand img {
+  display: block;
+  width: 140px;
+}
+.static-page{
+  border-bottom: 1px solid #274451;
+}
+.nav-item a.nav-link:hover {
+  background-color: transparent;
+  color: #e58327 !important;
+}
+.badge-cart {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  line-height: 14px;
+  text-align: center;
+  padding: 1px;
+  background-color: red;
+  color: #fff;
+  z-index: 9999;
+  top: -7px;
+  right: 1px;
+}
+.shopping-icon{
+  font-size:1em;
+  margin-top: 11px !important;
+}

@@ -1,0 +1,72 @@
+.facility-listing {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+.payment {
+  background-color: #fff;
+  border: 1px solid #e2e7e9;
+  border-radius: 5px;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+.payment .form-group {
+  clear: both;
+}
+.payment p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  font-family: 'Open Sans', sans-serif !important;
+}
+.well {
+  padding: 15px;
+  background-color: #ecf3fb;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.terms input[type=checkbox] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  zoom: 1.5;
+  margin: 0;
+}
+.payment a.view-samples {
+  color: #e58327;
+  text-decoration: underline;
+}
+.button-links.divide {
+  border-top: 1px solid #e2e7e9 !important;
+  padding-top: 6px !important;
+}
+.btn-link {
+  color: #034A61;
+  text-decoration: none;
+}
+.form-group {
+  margin-right: -15px !important;
+  margin-left: -15px !important;
+}
+.booking .animate-switch>div {
+  padding: 0 15px 15px;
+}
+.help-block, .help-block .fa-question-circle {
+  font-size: 12px;
+}
+.text-right {
+  text-align: right!important;
+}
+.button-links button.btn-link .fa:last-child {
+  padding-left: 10px;
+}
+.button-links button.btn-link .fa:first-child {
+  padding-right: 10px;
+}
+a.plain-link {
+  color: #333;
+  font-size: 14px;
+}
+a.plain-link:hover {
+  color: #e58327;
+}

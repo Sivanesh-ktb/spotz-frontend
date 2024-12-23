@@ -1,0 +1,91 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-profile-sidebar></app-profile-sidebar>
+        </div>
+        <div class="col-lg-9 invoice-container">
+          <div class="profile-basics">
+            <h1>Payments</h1>
+          </div>
+          <div class="payment-container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" (click)="checkCurrentTab(1)" id="org-transaction-tab" data-bs-toggle="tab" data-bs-target="#org-transaction"
+                  type="button" role="tab" aria-controls="org-transaction" aria-selected="true">
+                  Transactions
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" (click)="checkCurrentTab(2)" id="create-invoice-tab" data-bs-toggle="tab" data-bs-target="#create-invoice"
+                  type="button" role="tab" aria-controls="create-invoice" aria-selected="false">
+                  Invoices
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" (click)="checkCurrentTab(3)" id="create-payment-tab" data-bs-toggle="tab" data-bs-target="#payment"
+                  type="button" role="tab" aria-controls="payment" aria-selected="false">
+                  Payment Methods
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-content">
+            <div class="tab-pane fade show active  remove-background-color" id="org-transaction" role="tabpanel" aria-labelledby="paid-booking-tab">
+              <div class="invoices-tab-content">
+              <h4 class="payment-tab-content fw-bold">Transactions</h4>
+                <div class="row mb-4">
+                  <div class="col-lg-8 mt-2">
+                    <label for="daterangepicker" class="mb-2">Date Range</label>
+                    <ng-container *ngIf="page">
+                      <app-date-range-picker [checkPage]="page" (dateRange)="onSelectedDateRange($event)">
+                      </app-date-range-picker>
+                    </ng-container>
+                  </div>
+                  <div class="col-lg-3 mt-4">
+                    <button class="btn btn-secondary mt-3">Search</button>
+                  </div>
+                </div>
+            </div>
+            <div class="table-container">
+              <app-transaction-table></app-transaction-table>
+            </div>
+              </div>
+            <div class="tab-pane fade remove-background-color" id="create-invoice" role="tabpanel" aria-labelledby="create-invoice-tab">
+              <div class="invoices-tab-content payment-tab-content fw-bold">
+                Invoices
+                <div class="invoice-filter mt-2">
+                  <div role="group" aria-label="..." class="btn-group">
+                    <button type="button"
+                      (click)="filterData('all')" [ngClass]="{ 'active-tab': currentTab === 'all' }" class="btn btn-default">All</button>
+                    <button type="button" [ngClass]="{ 'active-tab': currentTab === 'open' }"
+                    (click)="filterData('open')" class="btn btn-default">Open</button>
+                    <button type="button" [ngClass]="{ 'active-tab': currentTab === 'paid' }"
+                    (click)="filterData('paid')" class="btn btn-default">Paid</button>
+                  </div>
+                </div>
+              </div>
+              <div class="table-container">
+                <app-invoice-table></app-invoice-table>
+                </div>
+            </div>
+            <div class="tab-pane fade remove-background-color" id="payment" role="tabpanel" aria-labelledby="create-payment-tab">
+              <div class="invoices-tab-content payment-tab-content fw-bold">
+                Payment Methods
+              </div>
+              <div class="table-container">
+                <app-payment-methods></app-payment-methods>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

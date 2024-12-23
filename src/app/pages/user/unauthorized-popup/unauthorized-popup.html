@@ -1,0 +1,28 @@
+
+<div class="modal-content-popup">
+  <div class="modal-header-popup ng-scope d-flex justify-content-between">
+    <h4><i class="fa-solid fa-triangle-exclamation"></i>
+      UNAUTHORIZED</h4>
+    <a (click)="dismissPopup()" (keydown.enter)="dismissPopup()" tabindex="0" class="close">X</a>
+  </div>
+  <div class="modal-popup-body admin booking ng-scope">
+    <div class="container-fluid">
+      <div class="modal-body ng-binding ng-scope text-danger p-2"
+      ng-bind-html="msg">
+      <p class="m-0 org-unauthorized-info">
+      <span>Not authorized to view the resource.</span>
+      <span>Please check with an administrator of your organization or contact support if you
+      feel this message is in error.</span>
+    </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ng-scope p-0">
+    <div class="row">
+      <div class="bootstrap-switch-container mb-3 mt-2 d-flex gap-2">
+        <button type="button" class="btn btn-default close-button" (click)="dismissPopup()"
+        aria-hidden="false">close</button>
+      </div>
+    </div>
+  </div>
+</div>

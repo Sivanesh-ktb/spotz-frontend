@@ -1,0 +1,27 @@
+.tb-icon i {
+  color: #025aff;
+}
+.well {
+  padding: 15px;
+  background-color: #ecf3fb;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.bootstrap-switch-container{
+  width: 117px;
+}
+p {
+  color: #333;
+}
+.setting-tax{
+  float: left;
+  border: 1px solid #e2f4fb;
+  background-color: #e2f4fb;
+  width: 100%;
+  border-radius: 5px;
+  padding: 8px 12px;
+  height: 34px;
+  padding-bottom: 2rem!important;
+}

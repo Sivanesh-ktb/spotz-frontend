@@ -1,0 +1,7 @@
+.dropdown-menu.custom-dropdown.priority-dropdown.show{
+    height: 170px;
+}
+
+span.form-control.custom-dropdown-section.custom-dropdown {
+    display: block !important;
+}

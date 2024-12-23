@@ -1,0 +1,209 @@
+/* popup screen css */
+.modal-body{
+    overflow-y: auto;
+    height: 70vh;
+    overflow-x: hidden;
+}
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.model_lg{
+    max-width: 1360px;
+}
+.popup_header{
+    background-color: #eaf3f5;
+    border-bottom: none !important;
+    margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif !important;
+}
+.poup_content{
+    border-radius: 20px !important;
+}
+.summary{
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif !important;
+}
+.font-medium-1{
+font-size: 13px;
+}
+.btn-info:focus{
+    box-shadow: none;
+}
+.btn{
+    box-shadow: none;
+}
+.btn-close:focus{
+    box-shadow: none;
+}
+.btn_approve:focus{
+    box-shadow: none;
+}
+.btn_close:focus{
+    box-shadow: none;
+}
+.btn_approve {
+    color: #fff;
+    background-color: #3c763d;
+}
+.btn_close {
+    background-color: #e58327;
+    border-color: #b96516;
+    color: #fff;
+}
+.switch .btn-group {
+    display: flex;
+    border: 1px solid #4dcaf4;
+    border-color: #4dcaf4;
+  }
+
+  .switch .btn-group .btn {
+    margin-right: 10px;
+  }
+
+  .switch .btn-group .btn:last-child {
+    margin-right: 0;
+  }
+
+
+  .btn-hidden {
+    visibility: hidden;
+  }
+
+
+.status{
+    padding: 8px;
+    background-color: #f1f1f1;
+    color: #747474;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    border-radius: 3px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* statr time end time left side */
+.panel1{
+    background-color: #f4f9ff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 9px;
+}
+.panel_lable{
+    background-color: #5bc0de;
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    color: #fff;
+    border-radius: .25em;
+}
+.small{
+    font-size: 80%;
+}
+.panel2{
+    background-color: #f4f9ff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 9px;
+}
+/* summary location address right side */
+.font_family{
+    font-family: 'Open Sans', sans-serif !important;
+}
+.summary_address a{
+    color: #333;
+}
+.summary_address{
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+/* receipt-modal */
+.receipt {
+    font-size: 0.9em;
+}
+.receipt-modal h3 {
+    font-size: 1.2em;
+}
+.receipt-modal textarea {
+    max-height: 160px;
+}
+.form-control {
+    padding: 4px 10px;
+    font-size: 13px;
+    height: 70px !important;
+    box-shadow: none;
+    border: 1px solid #c8d8e9;
+    text-transform: none;
+}
+
+
+
+
+/* tab container */
+
+  .tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: rgb(70, 70, 70);
+    border: 1px solid #e4ebf5;
+    font-size: 14px;
+  }
+
+  .tab-button.active {
+    background-color: #ffffff;
+    color: rgb(70, 70, 70);
+    margin-bottom: -1px;
+    border: 1px solid #e4ebf5;
+    border-bottom: none;
+    font-size: 14px;
+
+  }
+
+  .tab-content {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e4ebf5;
+    margin-bottom: 20px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: rgba(67, 79, 92, .22) 0 2px 2px -1px;
+    margin-top: -2px;
+
+  }
+  .recipt_total{
+    background-color: #e8f1fb;
+    color: #000;
+    border-radius: 12px;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+
+  /* message */
+  .message_box{
+    padding: 15px;
+    background-color: #ecf3fb;
+    border: none;
+    box-shadow: none;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+ .message_lable{
+    margin-bottom: 8px;
+    font-size: 13px;
+ }
+
+ .payment-text{
+  font-weight: 400;
+ }
+

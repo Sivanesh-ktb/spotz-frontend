@@ -1,0 +1,37 @@
+.rules-cnt{
+  border-radius: 20px;
+  padding: 30px 26px;
+  box-shadow: rgba(67, 79, 92, .22) 0 2px 2px 0;
+  background: #fff;
+  font-size: 14px;
+}
+
+.rules-cnt a {
+  color: #158ad7 !important;
+}
+.rules-cnt h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #999;
+}
+
+.rules-cnt .val {
+  font-size: 21px !important;
+  line-height: 40px;
+}
+.val.error {
+  color: #C00;
+}
+
+.help {
+  color: #158ad7;
+}
+
+.lbl {
+  font-size: .9em;
+  color: #a1a1a1;
+  padding-left: 5px;
+}

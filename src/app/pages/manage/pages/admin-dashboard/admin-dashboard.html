@@ -1,0 +1,155 @@
+
+<section class="content">
+<div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+</div>
+  <div class="main-content">
+  <div class="org-head">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 edit-org-cnt">
+          <h3 class="org-hd fw-bold">Organizations</h3>
+            <div class="org-sec"></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="month-cnt">
+           <div class="mb-1">
+            <app-datepicker (selectedMonth)="onSelectDayDropDown($event)"></app-datepicker>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="px-4">
+      <app-pagination
+        [checkPage]="1"
+      [totalItems]="totalItems"
+      [pageSize]="pageSize"
+      [multipleData]="orgDetails"
+      (pagedOrgDetails)="onSelectedPagination($event)" >
+    </app-pagination>
+</div>
+<div class="container-fluid table-spc">
+  <div class="dashboard-table table-responsive">
+    <table class="table table-condensed table-striped table-small table-bordered mb-0">
+      <thead>
+        <tr>
+          <th class="table-clr table-head-no">S.No</th>
+              <th class="table-clr" (click)="sort('name')">
+                Name
+                <span *ngIf="sortField === 'name'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                <span *ngIf="!sortField || (sortField !== 'name' && !isSorted)">▼</span>
+              </th>
+              <th class="table-clr" (click)="sort('cityState')">
+                City State
+                <span *ngIf="sortField === 'cityState'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                <span *ngIf="!sortField || (sortField !== 'cityState' && !isSorted)">▼</span>
+              </th>
+              <th class="text-right table-clr" (click)="sort('deposits')">
+                Deposits
+                <span *ngIf="sortField === 'deposits'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                <span *ngIf="!sortField || (sortField !== 'deposits' && !isSorted)">▼</span>
+              </th>
+              <th class="text-right table-clr" (click)="sort('hours')">
+                Hours
+                <span *ngIf="sortField === 'hours'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                <span *ngIf="!sortField || (sortField !== 'hours' && !isSorted)">▼</span>
+              </th>
+              <th class="text-right table-clr" (click)="sort('spotzFees')">
+                Spotz Fees
+                <span *ngIf="sortField === 'spotzFees'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                <span *ngIf="!sortField || (sortField !== 'spotzFees' && !isSorted)">▼</span>
+              </th>
+          <th  class="text-right table-clr">Tx</th>
+          <th  class="text-right table-clr">Monthly</th>
+          <th class="table-clr"></th>
+          <th class="table-clr"></th>
+        </tr>
+      </thead>
+
+      <tbody class="table-body-wrapper">
+        <tr *ngIf="pagedOrgDetails.length === 0">
+          <td colspan="10" class="text-center">
+            <p>No organizations found.</p>
+          </td>
+        </tr>
+        <tr  *ngFor="let org of pagedOrgDetails; let no = index">
+          <td><small class="ng-binding"></small> {{no+1 }}</td>
+          <td>
+            <div class="org-container">
+          <a (click)="editOrganization(org._id)"  (keydown.enter)="editOrganization(org._id)" tabindex="0" title="Edit organization">
+            <p><i class="fas fa-pencil-alt highlight"></i></p>
+          </a>
+                  <a (click)="getId(org._id)"  (keydown.enter)="getId(org._id)" tabindex="0" class="ng-binding org-name highlight" title="View organization details">{{ org.name }}</a>
+                </div>
+              </td>
+              <td class="ng-binding">{{ org.address.city }}, {{ org.address.state }}</td>
+              <td class="text-right"><a class="ng-binding" *ngIf="org && org.deposits">{{ org.deposits }}</a></td>
+              <td class="text-right"><a class="ng-binding">{{ org.hours }}</a></td>
+              <td class="text-right"><a class="ng-binding" *ngIf="org.totals && org.totals.userFees && org.totals.transactionFees
+                && org.totals.netSales">
+                    {{org.totals.userFees + org.totals.transactionFees | currency: '$'}}
+				            <span *ngIf="(org && org.totals && org.totals.userFees && org.totals.transactionFees) &&
+                    (org.totals.userFees + org.totals.transactionFees) > 0">
+                      {{ ((org.totals.userFees + org.totals.transactionFees) / org.totals.netSales) * 100 | number: '1.0-0' }}%
+                    </span>
+              </a></td>
+              <td class="text-right"><a class="ng-binding" *ngIf="org && org.terms && org.terms.tx">{{ convertPercentage(org.terms.tx) }}</a></td>
+              <td class="text-right"><a class="ng-binding">${{ org.monthly }}</a></td>
+              <td class="text-right"></td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <a (click)="viewOrgInbox(org._id)"  (keydown.enter)="viewOrgInbox(org._id)" tabindex="0" class="btn btn-default btn-sm">
+                    <div class="fa fa-envelope"></div>
+                  </a>
+                  <a (click)="viewSetting(org._id)"  (keydown.enter)="viewSetting(org._id)" tabindex="0" class="btn btn-default btn-sm">
+                    <div class="fa fa-cog"></div>
+                  </a>
+                  <a (click)="viewOrgGroup(org._id)"  (keydown.enter)="viewOrgGroup(org._id)" tabindex="0" class="btn btn-default btn-sm">
+                    <div class="fas fa-users"></div>
+                  </a>
+                  <a (click)="viewFacility(org._id)"  (keydown.enter)="viewFacility(org._id)" tabindex="0" class="btn btn-default btn-sm">
+                    <div class="icon-office mr-2 font-small-2"></div>
+                    <span class="ng-binding">{{ org?.facilities?.length }}</span>
+                  </a>
+                  <div class="btn btn-default btn-sm dropdown">
+                    <li class="nav-item dropdown">
+                      <a id="navbarAdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="highlight">
+                        <div class="fa fa-bar-chart me-1"></div>Reports <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu facility-drop-down name-limit">
+                        <li class="dropdown-item"><a (click)="viewEventList(org._id)"  (keydown.enter)="viewEventList(org._id)" tabindex="0">Event List</a></li>
+                        <li class="dropdown-item"><a (click)="viewTransaction(org._id)"  (keydown.enter)="viewTransaction(org._id)" tabindex="0">Transactions</a></li>
+                        <li class="dropdown-item"><a (click)="viewDeposits(org._id)"  (keydown.enter)="viewDeposits(org._id)" tabindex="0">Deposits</a></li>
+                        <li class="dropdown-item"><a (click)="viewInvoice(org._id)"  (keydown.enter)="viewInvoice(org._id)" tabindex="0">Invoices</a></li>
+                        <li class="dropdown-item"><a (click)="viewUsage(org._id)"  (keydown.enter)="viewUsage(org._id)" tabindex="0">Usage </a></li>
+                      </ul>
+                    </li>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th class="text-right">Totals</th>
+              <th class="text-right ng-binding">$28.76</th>
+              <th class="text-right ng-binding">2 hrs</th>
+              <th class="text-right ng-binding">$2.14
+                <div class="ng-binding">Spotz 7.4%</div>
+              </th>
+              <th></th>
+              <th class="text-right ng-binding">$855.00</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Organization Section -->
+</section>

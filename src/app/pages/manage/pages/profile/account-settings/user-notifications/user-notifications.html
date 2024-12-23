@@ -1,0 +1,36 @@
+<div class="row form-horizontal">
+  <div class="col-sm-2 col-xs-12 title">
+    <h5 class="header">Notifications</h5>
+  </div>
+  <div class="col-sm-9 col-xs-12">
+    <p> Select the notifications you'd like to receive.</p>
+    <div class="row">
+      <div class="col-sm-4">
+        <p> <strong>I would like to receive:</strong></p>
+      </div>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" disabled="disabled" ng-checked="true" checked="checked"><strong>Reservation notifications </strong><em>(required)</em>
+            <p class="mb-0">Notify me when my rental status changes or any correspondence from the space owner.</p>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="reminderEmail" class="ng-pristine ng-untouched ng-valid" tabindex="0" aria-checked="true" aria-invalid="false"><strong>Reservation reminders </strong>
+            <p class="mb-0">Remind me about my upcoming rentals.</p>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="updateEmail" class="ng-pristine ng-untouched ng-valid" tabindex="0" aria-checked="true" aria-invalid="false"><strong>New Listings</strong>
+            <p class="mb-0">Notify me when a new space is listed on Spotz in my area.</p>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="save-notification-btn">
+<button class="btn btn-primary" (click)="updateReminderEmail()">Save</button>
+</div>

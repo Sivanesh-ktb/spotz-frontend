@@ -1,0 +1,19 @@
+ <div class="modal-content-popup">
+  <div class="modal-header-popup ng-scope d-flex justify-content-between">
+    <h4>ARE YOU SURE? </h4>
+    <a (click)="dismiss()" (keydown.enter)="dismiss()" tabindex="0" class="close">X</a>
+  </div>
+  <div class="modal-popup-body admin booking ng-scope mt-3 remove-popup">
+    Remove {{name}}
+  </div>
+  <div class="modal-footer ng-scope">
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="text-right d-flex gap-3">
+            <button type="submit"(click)="deleteContact()" class="btn btn-primary btn-sm" aria-disabled="false">Yes</button>
+            <button type="button" (click)="dismiss()" class="btn btn-default btn-sm">No</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

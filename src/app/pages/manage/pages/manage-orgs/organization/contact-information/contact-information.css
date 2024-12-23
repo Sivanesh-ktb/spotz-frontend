@@ -1,0 +1,23 @@
+.icon-gap {
+  position: relative;
+  right: 6px;
+}
+.label-info {
+  background-color: #034A61;
+}
+.label-info,
+.label-default {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  color: #fff;
+  border-radius: .25em;
+}
+.label-default {
+  background-color: #777;
+}
+.table-sm td, .table-sm th {
+  font-size: 10pt;
+  padding: 6px 8px;
+}
+

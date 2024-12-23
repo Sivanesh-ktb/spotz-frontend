@@ -1,0 +1,84 @@
+<section class="content fac-space-view-section">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <ng-container *ngIf="facName">
+          <app-admin-fac-sidebar [facilityName]="facilityDetails?.name" />
+        </ng-container>
+        </div>
+        <div class="col-lg-9">
+          <div class="d-flex w-100">
+            <google-map
+            [center]="center"
+            width="72vw"
+            height="60vh"
+            [zoom]="zoom"
+            [mapTypeId]="mapTypeId"
+            (mapClick)="moveMap($event)"
+            (mapMousemove)="move($event)">
+            <map-marker
+              *ngFor="let marker of markers"
+              [position]="marker.position"
+              [options]="{
+                title: marker.title,
+                icon: marker.icon,
+                draggable: marker.draggable
+              }"
+              (mapClick)="onMarkerClick(marker)"
+              (mapDragend)="onDragend(marker, $event)"            >
+            </map-marker>
+            <map-marker
+            *ngFor="let space of spaceMarkers"
+            [position]="space.position"
+            [title]="space.title"
+            [options]="{
+              icon: space.icon,
+              title: space.title,
+              draggable: space.draggable
+            }"
+            (mapClick)="onSpaceMarkerClick(space)"
+            (mapDragend)="onDragendSpace(space, $event)"            >
+          </map-marker>
+            <map-info-window>
+            </map-info-window>
+          </google-map>
+          </div>
+          <p class="fac-map-info">Click on the map to place a space. Click on a marker to select space. Drag a marker to reposition.</p>
+          <div class="row  mt-3">
+          <div class="col-lg-6 col-md-6 col-xs-6 d-flex gap-2">
+            <button (click)="saveMap()" class="btn btn-primary">Save Space Locations</button>
+            <button (click)="clearMap()" class="btn btn-default"> <span class="fa fa-times"> </span> Clear Map</button>
+          </div>
+          <div class="form-group d-flex justify-content-end gap-2 col-lg-6 col-md-6 col-xs-6 text-right">
+            <label for="Click to Add">Click to Add:</label>
+            <div class="btn-group">
+              <button (click)="addAmenity('parking')" class="btn btn-default">
+                <img src="/assets/img/amenities/parking.svg" uib-popover="Parking" popover-placement="top-left" popover-trigger="mouseenter" width="24" height="24" alt="parking">
+              </button>
+              <button (click)="addAmenity('entrance')" class="btn btn-default">
+                <img src="/assets/img/amenities/entrance.svg" uib-popover="Entrance" popover-placement="top" popover-trigger="mouseenter" width="24" height="24" alt="entrance">
+              </button>
+              <button (click)="addAmenity('restrooms')" class="btn btn-default">
+                <img src="/assets/img/amenities/restrooms.svg" uib-popover="Restrooms" popover-placement="top" popover-trigger="mouseenter" width="24" height="24" alt="restrooms">
+              </button>
+              <button (click)="addAmenity('lockers')" class="btn btn-default">
+                <img src="/assets/img/amenities/lockers.svg" uib-popover="Lockers" popover-placement="top" popover-trigger="mouseenter" width="24" height="24" alt="lockers">
+              </button>
+              <button (click)="addAmenity('fountain')" class="btn btn-default">
+                <img src="/assets/img/amenities/fountain.svg" uib-popover="Drinking Fountain" popover-placement="top-right" popover-trigger="mouseenter" width="24" height="24" alt="fountain">
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+

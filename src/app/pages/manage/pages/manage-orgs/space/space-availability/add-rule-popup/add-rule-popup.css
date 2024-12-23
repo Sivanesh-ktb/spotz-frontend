@@ -1,0 +1,36 @@
+.dialog-header, .modal-header {
+  background-color: #eaf3f5;
+  border-bottom: none!important;
+  padding: 14px 20px;
+  margin-bottom: 0;
+}
+.availability-date-picker
+{
+  height: 40px !important;
+}
+.availability-popup-container {
+  height: 600px;
+}
+.custom-template {
+  font-size: 13px;
+}
+.select-all-times{
+  border-bottom:1px solid #e6f2ff;
+}
+.font-small-2{
+  font-size: 11px;
+}
+
+label{
+  font-weight: 700;
+  font-size: 14px;
+}
+
+h4{
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+::ng-deep .p-datepicker .p-datepicker-calendar td,
+::ng-deep .p-datepicker .p-datepicker-calendar th {
+  padding: 0px;
+}

@@ -1,0 +1,188 @@
+<div class="container-fluid">
+    <div class="row payment-method" style="width: 100%;" *ngFor="let card of PaymentMethod">
+      <div class="col-sm-1 col-xs-2">
+          <input type="radio" name="" [id]="card.card_id"  [(ngModel)]="selectedCardIndex" [value]="card">
+      </div>
+      <div class="col-sm-6 col-xs-10">
+          <div [ngSwitch]="card.cardType" style="float: left;">
+              <img class="card-img" *ngSwitchCase="'amex'" src="{{americanCard}}" alt="amex"/>
+              <img class="card-img" *ngSwitchCase="'mastercard'" src="{{masterCard}}" alt="mastercard"/>
+              <img class="card-img" *ngSwitchCase="'visa'" src="{{visaCard}}" alt="visa"/>
+              <img class="card-img" *ngSwitchCase="'discover'" src="{{discoverCard}}" alt="discover" />
+              <img class="card-img" *ngSwitchCase="'jcb'" src="{{jcbCard}}"  alt="jcb" />
+              <span class="fa fa-credit-card" *ngSwitchDefault></span>
+          </div>
+          <strong class="card-number">ending in {{ card.last4 }}</strong>
+      </div>
+      <div class="col-sm-3 col-sm-offset-0 col-xs-offset-2 col-xs-7">
+          {{ card.cardholderName }}
+      </div>
+      <div class="col-sm-2 col-xs-3">
+          {{ card.expirationDate }}
+      </div>
+    </div>
+
+    <div class="row payment-method">
+      <div class="col-sm-12">
+        <button class="btn btn-link p-0" (click)="addNewPayment()" [disabled]="showNewPayment"
+          >
+          <span class="fa fa-plus-circle"></span> Add new payment method
+        </button>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="showNewPayment">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="px-4">
+          <form id="checkout" name="newPayment" data-hs-cf-bound="true" [formGroup]="paymentForm"
+            (ngSubmit)="handlePayment()">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group head-label">
+                  <label class="control-label fw-bold" for="Payment Info">Payment Info</label>
+                </div>
+                <div class="form-group">
+                  <label for="nameOnCard" class="control-label">Name on Card</label>
+                  <input type="text" placeholder="Name" required="required" class="form-control"
+                    formControlName="cardholderName">
+                    <div class="text-danger" *ngIf="paymentForm.controls['cardholderName'].hasError('pattern')">
+                      Please enter a valid cardholder name (only letters and spaces).
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="companyName" class="control-label">Company</label>
+                  <input type="text" placeholder="(optional)" class="form-control"
+                    formControlName="companyName" aria-invalid="false">
+                </div>
+                <div class="form-group">
+                  <label for="card-number" class="control-label">Card Number</label>
+                  <div class="input-group position-relative">
+                    <div class="form-control" id="card-number">
+                      <span class="input-group-addon">
+                        <div class="fa fa-cardType"></div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cvv" class="control-label full-label">Code</label>
+                  <div id="card-cvc" class="form-control"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="expiration-date" class="control-label full-label">Exp. Date (mm/yy)</label>
+                    <div class="input-group">
+                      <div id="card-expiry" class="form-control"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div id="card-error" style="color:red">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group head-label">
+                  <label class="control-label fw-bold" for="Billing Address">Billing Address</label>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <label for="billingName" class="col-sm-12 control-label"> <a id="billingName"
+                        ng-click="pmt.formAction.copy.name()" uib-popover="Copy name from card"
+                        popover-trigger="mouseenter" popover-placement="left"><span class="fa fa-arrow-right">
+                        </span></a> Name</label>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <input type="text" placeholder="First Name" required="required" class="form-control"
+                        formControlName="billingFirstName">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 lastInList">
+                      <input type="text" placeholder="Last Name" required="required" class="form-control"
+                        formControlName="billingLastName">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="companyName" class="control-label"> <a id="billingCompany"
+                      uib-popover="Copy company from card" popover-trigger="mouseenter"
+                      popover-placement="left"><span class="fa fa-arrow-right">
+                      </span></a> Company</label>
+                  <input type="text" placeholder="(optional)" class="form-control " aria-invalid="false"
+                    formControlName="billingCompany">
+                </div>
+                <div class="form-group">
+                  <gd-address same-text="Profile" same="pmt.same" class="ng-isolate-scope">
+                    <div class="form-group">
+                      <div class="d-flex justify-content-start gap-2 align-items-center">
+                      <label for="address" class="control-label">Address
+                      </label>
+                      <a class="btn btn-link ml-4 font-small-3" (click)="clearProfile()" (keydown.enter)="clearProfile()" tabindex="0"><i
+                            class="icon-cross3 font-small-3"></i>Clear</a>
+                          <input type="checkbox" name="same" tabindex="0" aria-checked="false" [(ngModel)]="sameAsProfile" (change)="toggleSameAsProfile()"
+                            aria-invalid="false" [ngModelOptions]="{standalone: true}">
+                            <label class="ng-binding" for="Same as Profile">
+                            Same as Profile
+                        </label>
+                      </div>
+                      <input id="address1" type="text" placeholder="100 Main Street" class="form-control"
+                        formControlName="address1">
+                    </div>
+                    <div class="form-group">
+                      <input id="address2" type="text" formControlName="address2" placeholder="PO Box, Room #"
+                        class="form-control " aria-invalid="false">
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input id="city" type="text" placeholder="City" formControlName="city"
+                          class="form-control">
+                      </div>
+                      <div class="col-sm-2 sandwich">
+                        <select id="state" class="form-control select-drop-down" formControlName="state">
+                          <option disabled selected></option>
+                          <option *ngFor="let state of usState" [value]="state">{{ state }}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-4">
+                        <input id="zip" type="text" placeholder="Zip" formControlName="zip"
+                          class="form-control">
+                      </div>
+                    </div>
+                  </gd-address>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <!-- <div *ngIf="formError" class="alert alert-danger">
+                  {{ formError }}
+                </div> -->
+            <div class="button-links divide py-3">
+              <button type="submit" class="btn btn-primary" aria-disabled="true"
+                [disabled]="isLoading && paymentForm.invalid">Save
+                Payment Method</button>
+              <button type="button" class="btn btn-link px-3" (click)="clearNewPayment()">Cancel
+                <span class="fa fa-times"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row pb-3">
+        <div class="col-sm-12 text-right">
+          <div class="button-links divide">
+            <button class="btn btn-link highlight" (click)="reverse()">
+              <span class="fa fa-chevron-circle-left"></span> Back
+            </button>
+            <button class="btn btn-link highlight" type="button" (click)="cancel()">
+              Cancel <span class="fa fa-times"></span>
+            </button>
+            <button class="btn btn-secondary" type="button">
+              Add to cart &nbsp;<span class="fa fa-shopping-cart"></span>
+            </button>
+            <button class="btn btn-primary" type="button" (click)="selectPayment()" [disabled]="PaymentMethod.length === 0 || (!selectedCardIndex && selectedCardIndex !== 0)">
+              Use this payment method&nbsp;<span class="fa fa-chevron-circle-right"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>

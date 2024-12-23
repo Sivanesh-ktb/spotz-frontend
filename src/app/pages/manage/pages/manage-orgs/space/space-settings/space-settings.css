@@ -1,0 +1,128 @@
+
+
+section.content.settings-page {
+  background: #f9f9f9;
+}
+h4.header {
+  margin: 0;
+  font-size: 18px;
+  color: #000;
+  padding-top: 5px;
+}
+.setting.ng-binding-setting {
+  float: left;
+  background-color: #e2f4fb;
+  border-radius: 5px;
+  padding: 8px 12px;
+}
+label.control-label.space-setting-label {
+  color: #000;
+  font-size: 18px;
+  font-weight: 600;
+}
+a.fas.fa-pencil-alt.space-setting-edit-icon {
+  right: 32px;
+  position: absolute;
+  color: #000;
+}
+.btn-primary {
+  background-color: #e58327;
+  border-color: #b96516;
+}
+.btn-default {
+  border-color: #4dcaf4;
+  text-align: center;
+}
+.btn-group.edit.ng-hide.settings-rental-card {
+  position: absolute;
+  right: 40px;
+}
+button.p-element.p-button-sm.p-button-info.p-button-outlined.p-button.p-component,
+.p-button-text.p-button-sm.p-button-outlined.p-confirm-dialog-reject.p-button.p-component.ng-star-inserted {
+  border: 1px solid #4dcaf4 !important;
+}
+.btn-group.edit.ng-hide.settings-rental-card.cancel-icon a {
+  display: flex;
+  flex-direction: row;
+  color: #0d6efd;
+  gap: 10px;
+  justify-content: flex-end;
+  position: absolute;
+  right: 22px;
+}
+.col-md-12.add-ons-container {
+  padding: 15px;
+  background-color: #ecf3fb;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.addon-price .price-control {
+  width: 180px;
+  position: relative;
+}
+.delete-custom-add-on
+{
+  position:relative;
+  color: #333;
+}
+a.add-ons-add{
+  color: #333;
+}
+.delete-custom-add-on:hover
+{
+  color:#e58327;
+}
+.addon-price.d-flex {
+  align-items: center;
+  gap: 5px;
+}
+h4.addon-header {
+  padding-bottom: 3px;
+  border-bottom: 1px solid #ddd;
+}
+.addons h4 {
+  margin-top: 20px;
+}
+.category h4 {
+  border-bottom: 1px solid #ddd;
+}
+.title.add-on-card-designs {
+  padding-left: 215px;
+}
+span.label.label-info.label-addon.mb-0.ng-binding {
+  display: inline-block;
+  background-color: #43aacd;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 4px;
+  color: #fff;
+  border-radius: .25em;
+}
+.visible-xs-block {
+  padding-bottom: 15px;
+}
+span.text-bold.ng-binding {
+  font-size: 16px;
+  font-weight: 700;
+}
+.ng-binding.price {
+  font-size: 18px;
+}
+.btn-primary:disabled {
+  background: #6f6e6e;
+  border: 1px solid #6f6e6e;
+  cursor: not-allowed;
+}
+.add-ons-container{
+  padding: 15px;
+  background-color: #ecf3fb;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.col-sm-3.col-xs-6.addon-selected {
+  height: 27px;
+}

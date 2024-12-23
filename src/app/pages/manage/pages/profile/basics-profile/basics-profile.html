@@ -1,0 +1,297 @@
+
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar [imageUrl]="profileImage" [userProfileName]="userName"></app-admin-navbar>
+  </div>
+<div class="container-fluid">
+  <div class="manage-org">
+    <div class="row">
+      <div class="col-lg-3">
+       <app-profile-sidebar></app-profile-sidebar>
+      </div>
+      <div class="col-lg-9">
+        <div class="profile-basics">
+          <h1>Profile Basics</h1>
+            <h6 class="basic-profile-titles mt-4">
+              <i class="fas fa-user ms-3"></i> Name & Title
+            </h6>
+        </div>
+        <form [formGroup]="profileForm" (ngSubmit)="profileSubmit()">
+        <div class="card-container">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="first-name">
+                <div class="form-group">
+                  <h6 class="basic-profile-label">First Name
+                    <span class="icon-color">
+                        <p-tooltip-arrow [pTooltip]="nameInfo" tooltipPosition="right" class="question-arrow">
+                        <i class="fas fa-question-circle ms-3"></i>
+                        </p-tooltip-arrow>
+                    </span>
+                  </h6>
+                  <input type="text" class="form-control" formControlName="firstName" aria-describedby="emailHelp"
+                    placeholder="First Name">
+                      <div *ngIf="profileForm.controls['firstName'].invalid && (profileForm.controls['firstName'].dirty || profileForm.controls['firstName'].touched)" class="basic-profile-valid">
+                        First Name is required.
+                        </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="first-name">
+                <div class="form-group">
+                  <h6 class="basic-profile-label">Last Name <i class="fas fa-lock i-color ms-3"></i></h6>
+                  <input type="text" class="form-control" formControlName="lastName"
+                    placeholder="Last Name">
+                    <div *ngIf="profileForm.controls['lastName'].invalid && (profileForm.controls['lastName'].dirty || profileForm.controls['lastName'].touched)" class="basic-profile-valid">
+                      Last Name is required.
+                      </div>
+                  <p class="name-title small-name text-muted">Name is only revealed to space admins on booking/membership requests</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="first-name">
+                <div class="form-group">
+                  <h6 class="basic-profile-label">Title</h6>
+                  <input type="email" class="form-control"
+                    placeholder="Coach,Organizer" formControlName="title">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bio-form">
+              <h6 class="basic-profile-titles mt-4">
+                <i class="fas fa-info-circle ms-3"></i> Bio
+              </h6>
+        </div>
+
+        <div class="card-container">
+          <div class="photo-sec">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="photo">
+                  <h6 class="basic-profile-label">Photo</h6>
+                    <div class="drop-box-popup"
+               (click)="triggerProfileFileUpload()" (keydown.enter)="triggerProfileFileUpload()"
+               (drop)="handleProfileDragImg($event)" tabindex="0"
+               (dragover)="handleProfileDragImg($event)">
+               <div (mouseenter)="onHover(true)"
+               (mouseleave)="onHover(false)" class="h-100">
+            <div class="instructions h-100" [class.hovered]="isHovered">
+              <p>
+                <span class="profile-drop fa fa-picture-o"></span><br>
+                Drop new photo here <br><em>— or —</em><br>
+                <span class="fa fa-mouse-pointer"></span> click to upload
+              </p>
+            </div>
+            <img
+                            class="profile-img h-100"
+                            [class.hidden]="isHovered"
+                            [src]="profileImage"
+                            alt="Uploaded profile"
+                          />
+          </div>
+          <div class="d-none">
+            <p-fileUpload #fileUpload
+                          mode="advanced"
+                          name="demo[]"
+                          [url]="uploadUrl"
+                          accept="image/*"
+                          chooseLabel=""
+                          uploadLabel="Upload"
+                          [multiple]="true"
+                          (onSelect)="uploadProfileImage($event)"
+                          [auto]="true"
+                          styleClass="hidden-file-upload">
+            </p-fileUpload>
+          </div>
+          </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="affiliations">
+                  <h6 class="basic-profile-label">Affiliations
+                    <span class="icon-color">
+                      <a (click)="addAffiliation()" (keydown.enter)="addAffiliation()" tabindex="0"><i class="fas fa-plus-circle ms-3"></i>
+                        Add</a>
+                      <p-tooltip-arrow [pTooltip]="affiliationInfo" tooltipPosition="right" class="question-arrow">
+                        <i class="fas fa-question-circle ms-3"></i>
+                      </p-tooltip-arrow>
+                    </span>
+                  </h6>
+                </div>
+                  <div class="input-row d-flex gap-3 mb-2" *ngFor="let affiliation of affiliationArray.controls; index as idx; last as isLast">
+                    <div class="col-sm-8 col-xs-9">
+                    <input type="text" [formControl]="affiliation" placeholder="Affiliation Name" class="form-control">
+                    </div>
+                    <div class="col-sm-4 col-xs-3 no-padding">
+                      <button type="button" (click)="dropAffiliation(idx)" class="btn btn-default">
+                        <span class="fa fa-times-circle mr-1"></span> Remove
+                      </button>
+                    </div>
+                  </div>
+                  <p class="small-name">Organizations you belong to, like a team or league</p>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="gnender mt-2">
+                  <h6 class="basic-profile-label">Gender<span class="icon-color"><i class="fas fa-lock ms-3"></i></span> </h6>
+                </div>
+                <div class="form-group mt-2">
+                      <select
+                        class="form-select"
+                        formControlName="gender"
+                        aria-label="Default select example"
+                      >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="prefer not to say">prefer not to say </option>
+                  </select>
+                  <p class="gender-cnt text-muted small-name">Used for statistics and never shared with other users</p>
+                </div>
+
+
+              </div>
+              <div class="col-lg-6">
+                <div class="gnender mt-2">
+                  <h6 class="basic-profile-label">Birth date <span class="icon-color"><i class="fas fa-lock  ms-3"></i></span> </h6>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <select class="form-select" formControlName="month" aria-label="Select month">
+                        <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                      </select>
+                      <div *ngIf="profileForm.controls['month'].invalid && (profileForm.controls['month'].dirty || profileForm.controls['month'].touched)" class="basic-profile-valid">
+                        month is required.
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <select class="form-select" formControlName="day" aria-label="Select day">
+                        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                      </select>
+                      <div *ngIf="profileForm.controls['day'].invalid && (profileForm.controls['day'].dirty || profileForm.controls['day'].touched)" class="basic-profile-valid">
+                        day is required.
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <select class="form-select" formControlName="year" aria-label="Select year">
+                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                      </select>
+                      <div *ngIf="profileForm.controls['year'].invalid && (profileForm.controls['year'].dirty || profileForm.controls['year'].touched)" class="basic-profile-valid">
+                        year is required.
+                        </div>
+                    </div>
+                  </div>
+                  <p class="birth-date text-muted small-name">Used for statistics. Age (not date) will be shared with space admins on
+                    booking/membership requests. Must be 18 or older.</p>
+                </div>
+              </div>
+              <h6 class="basic-profile-label">Describe yourself
+                <span class="icon-color">
+                  <p-tooltip-arrow pTooltip={{descriptionInfo}} tooltipPosition="bottom" class="question-arrow" >
+                 <i class="fas fa-question-circle ms-3"></i></p-tooltip-arrow>
+                </span>
+              </h6>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1"></label>
+                <textarea class="form-control" formControlName="bio" rows="5"
+                  placeholder="All about You!"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="location">
+          <div class="location-heading">
+                <h6 class="basic-profile-titles mt-4">
+                  <span><i class="fas fa-globe-americas ms-3"></i
+                  ></span>
+                  Location
+                </h6>
+              </div>
+
+          <div class="card-container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="pb-address basic-profile-label"> Address <span class="icon-color">
+                  <i class="fas fa-lock  ms-3"></i></span></div>
+                <input type="text" class="form-control mt-4"
+                  placeholder="Street Address" formControlName="street1">
+                  <div *ngIf="profileForm.controls['street1'].invalid && (profileForm.controls['street1'].dirty || profileForm.controls['street1'].touched)" class="basic-profile-valid">
+                    Street Address is required.
+                    </div>
+                  <input type="text" class="form-control mt-4"
+                    placeholder="Apt, Unit" formControlName="street2">
+                <p class="location text-muted small-name">Street and house number never shared with other users. Required for booking.</p>
+              </div>
+              <div class="col-lg-6">
+                <div class="city basic-profile-label">
+                  City / State / Postal Code
+                  <span class="icon-color">
+                    <p-tooltip-arrow pTooltip={{addressInfo}} tooltipPosition="bottom" class="question-arrow" >
+                    <i class="fas fa-question-circle ms-3"></i></p-tooltip-arrow>
+                  </span>
+                </div>
+                <div class="month-field">
+                  <input type="text" class="form-control mt-4"
+                    placeholder="City" formControlName="city">
+                    <div *ngIf="profileForm.controls['city'].invalid && (profileForm.controls['city'].dirty || profileForm.controls['city'].touched)" class="basic-profile-valid">
+                      City is required.
+                      </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <select class="form-select  mt-4" formControlName="state" aria-label="Default select example">
+                        <option *ngFor="let state of states" [value]="state">{{state}}</option>
+                      </select>
+                      <div *ngIf="profileForm.controls['state'].invalid && (profileForm.controls['state'].dirty || profileForm.controls['state'].touched)" class="basic-profile-valid">
+                        State is required.
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="postal-code">
+                      <input type="number" class="form-control mt-4" formControlName="zip"
+                        placeholder="Postal Code">
+                        <div *ngIf="profileForm.controls['zip'].invalid && (profileForm.controls['zip'].dirty || profileForm.controls['zip'].touched)" class="basic-profile-valid">
+                          Zip is required.
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="save-btn">
+          <div class="btns">
+            <button type="submit" class="btn btn-primary">
+              Save</button>
+              <button type="button" class="sign-up-btn btn btn-default">
+                Cancel</button></div>
+        </div>
+      </form>
+      </div>
+
+      </div>
+      </div>
+</div>
+</section>
+
+
+

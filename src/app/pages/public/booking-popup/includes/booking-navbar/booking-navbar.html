@@ -1,0 +1,24 @@
+
+  <div class="process col-sm-10 hidden-xs p-0 w-100">
+    <ol>
+      <li class="main" (click)="viewPage(bookingInfo)" (keydown.enter)="viewPage(bookingInfo)" tabindex="0" [ngClass]="{ 'active': status === bookingInfo}"><a>
+        <span class="hidden-sm hidden-xs ng-hide" aria-hidden="true">
+          <span *ngIf="infoBtn" class="font-small-2 pr-2">back to</span>
+          </span><span class="badge hidden-sm">1
+          </span><span class="text">Info   </span></a></li>
+      <li  class="main" [ngClass]="{ 'active': activePage === bookingSchedule}"><a><span class="badge hidden-sm">2</span><span class="text">Schedule</span></a></li>
+      <li class="main" [ngClass]="{ 'active': activePage === bookPage || activePage === bookingOption}"><a ><span class="badge hidden-sm">3</span><span class="text">Book</span></a></li>
+      <li class="sub" [ngClass]="{ 'active': activePage === bookPage || activePage === bookingOption}"> <a>
+        <span *ngIf="activePage !== bookingOption" class="fa hidden-sm fa-thumb-tack"></span>
+        <span *ngIf="activePage === bookingOption" class="fa hidden-sm fa-check-circle"></span>
+        <span class="text">Usage</span></a></li>
+      <li class="sub" [ngClass]="{ 'active': activePage === bookingOption}"> <a><span class="fa hidden-sm fa-circle-o"></span>
+        <span class="text">Options</span></a></li>
+      <li class="sub" [ngClass]="{ 'active': activePage === bookingPayment}"> <a> <span class="fa hidden-sm fa-circle-o"></span>
+        <span class="text">Payment</span></a></li>
+      <li class="sub" [ngClass]="{ 'active': activePage === bookingVerify}"> <a> <span class="fa hidden-sm fa-circle-o"></span>
+        <span class="text">Verify</span></a></li>
+      <li class="sub" [ngClass]="{ 'active': status === bookingDone}"> <a><span class="fa hidden-sm fa-circle-o"></span>
+        <span class="text">Done</span></a></li>
+    </ol>
+  </div>

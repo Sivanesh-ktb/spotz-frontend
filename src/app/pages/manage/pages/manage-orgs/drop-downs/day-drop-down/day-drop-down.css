@@ -1,0 +1,11 @@
+span.fa.fa-check {
+  color: #39ab0c;
+}
+.disabled-dropdown {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.disabled {
+  cursor: not-allowed;
+}

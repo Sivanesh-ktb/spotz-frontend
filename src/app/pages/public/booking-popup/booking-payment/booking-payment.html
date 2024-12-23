@@ -1,0 +1,20 @@
+<div ng-switch="vm.cart.book" class="booking-process">
+  <div ng-switch-when="true" ng-class="[vm.back,{'schedule-booking':vm.cart.bookingProcess === 0}]"
+    class="animate ng-scope">
+    <div ng-class="{bottom:vm.cart.bookingProcess !== 0,tall:vm.cart.bookingProcess === 0}" class="spaces-list bottom">
+    </div>
+    <div ng-show="vm.cart.bookingProcess === 0" class="spaces-list bottom ng-hide" aria-hidden="true"></div>
+    <div class="container-fluid">
+      <div class="row booking">
+        <div ng-switch="vm.cart.bookingProcess"
+          class="col-md-8 col-smx-12 animate-switch-container booking-process work-area">
+          <div ng-switch-when="2" ng-class="vm.back" class="animate-switch ng-scope mb-4">
+            <app-paymentmethods></app-paymentmethods>
+          </div>
+        </div>
+        <div class="col-md-4 hidden-smx hidden-xs side-area">
+          <app-booking-receipt></app-booking-receipt>
+        </div>
+      </div>
+    </div>
+  </div>

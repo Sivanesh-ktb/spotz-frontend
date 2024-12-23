@@ -1,0 +1,153 @@
+<div class="my-3 px-3">
+  <div class="listing">
+    <div class="space-price" *ngIf="!spaceDetails?.pricing?.length">
+      <div class="price-hr"></div>
+      <div class="rate">
+        Rate
+        <span>
+          <ng-container *ngIf="spaceDetails && spaceDetails.price && spaceDetails?.rentaltypes===1;else hour">
+            ${{price | number:'1.2-2'}} per day
+          </ng-container>
+          <ng-template #hour>
+            ${{price | number:'1.2-2'}} per hour
+          </ng-template>
+        </span>
+      </div>
+      <div class="price-hr"></div>
+    </div>
+
+    <div class="row listing-description">
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <h4 class="space-detail-title">Space Details</h4>
+      </div>
+      <div class="col-xs-12 col-md-12 col-lg-12" *ngIf="spaceDetails&& spaceDetails.summary">
+        <p>{{ spaceDetails.summary }}</p>
+      </div>
+      <div class="col-xs-12 col-md-12 col-lg-12"
+        *ngIf="(spaceDetails && spaceDetails.tagline) && spaceDetails?.tagline !== spaceDetails?.summary">
+        <p>{{ spaceDetails.tagline }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12 space-dimensions">
+        <div>
+          <h5>Location</h5>
+          <div *ngIf="spaceDetails?.indoor === 2; else indoor">
+            <span class="fa fa-cloud me-2"></span>
+            <span class="ml-2">Outdoor</span>
+          </div>
+          <ng-template #indoor>
+            <span class="fa fa-building me-2"></span>
+            <span class="ml-2">Indoor</span>
+          </ng-template>
+      </div>
+      <div class="">
+        <h5 class="space-detail-subtitle">Surface</h5>
+          <div>
+            <em *ngIf="!spaceDetails?.surface">Not specified</em>
+            {{ spaceDetails?.surface | titlecase }}
+          </div>
+      </div>
+      <div class="">
+        <h5 class="space-detail-subtitle">Length</h5>
+        <div  *ngIf="spaceDetails&& spaceDetails.dimension &&
+        spaceDetails.dimension.l&& spaceDetails.dimension.l.v">
+          {{ spaceDetails.dimension.l.v }}
+          {{ spaceDetails.dimension.l.m }}
+          </div>
+
+                </div>
+      <div class="">
+        <h5 class="space-detail-subtitle">Width</h5>
+        <div *ngIf="spaceDetails&& spaceDetails.dimension&& spaceDetails.dimension.w
+        &&spaceDetails.dimension.w.v && spaceDetails.dimension.w.m">
+          {{ spaceDetails.dimension.w.v }} {{ spaceDetails.dimension.w.m }}
+        </div>
+      </div>
+      <div class=""
+              *ngIf="spaceDetails?.typ?.indexOf(1) !== -1 && spaceDetails?.dimension?.o">
+              <h5 class="space-detail-subtitle">Mound</h5>
+              <div *ngIf="spaceDetails&&spaceDetails.dimension
+              && spaceDetails.dimension.o
+              && spaceDetails.dimension.o.v &&
+              spaceDetails.dimension.o.m">
+                {{ spaceDetails.dimension.o.v }} {{ spaceDetails.dimension.o.m }}
+              </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default p-0 mt-3" *ngIf="spaceDetails?.pricing?.length">
+      <div class="panel-heading">
+        <h4>Pricing</h4>
+        <p class="m-0">This space uses special block pricing.</p>
+      </div>
+      <div class="panel-body">
+        <adv-block-display *ngIf="spaceDetails?.pricing" start-label="sTime" end-label="eTime" class="ng-isolate-scope">
+          <div class="mb-4">
+            <ul class="list-feed mt-2">
+              <li *ngFor="let price of spaceDetails?.pricing">
+                <div class="block-time">
+                  <span ng-hide="price.endTime <= price.startTime" class=" pr-4 ng-binding">
+                    <strong>
+                      {{totalHours(price.startTime, price.endTime)}}
+                    </strong>
+                  </span>
+                  <span class="ng-binding">
+                    {{ price.name }} , {{ convertToTimeSlot(price.startTime) }} - {{ convertToTimeSlot(price.endTime) }}
+                    <span class="hidden-sm hidden-xs">
+                      <span>&ndash;</span>
+                      <span *ngFor="let line of price.table">
+                        ${{ line.amount }}
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </adv-block-display>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <tbody>
+        <tr *ngFor="let price of spaceDetails?.pricing">
+          <td>
+            <span class="px-3">{{ price.name }}</span>
+            <em class="text-muted">
+              {{ convertToTimeSlot(price.startTime) }} to {{ convertToTimeSlot(price.endTime) }}
+            </em>
+          </td>
+          <td>
+            <div *ngFor="let line of price.table" class="row col-lg-12">
+              <div class="col-xs-6 col-lg-6">${{ line.amount }}</div>
+              <div class="col-xs-6 col-lg-6">{{ getShortDayNames(line.days) }}</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="space-options panel1" *ngIf="spaceDetails?.addons?.length && (freeAddons.length || paidAddons.length)">
+      <h3 class="panel-title">Amenities</h3>
+      <div class="clearfix" *ngIf="freeAddons.length">
+        <h5>Included with rental</h5>
+        <ul class="list-style-bullet">
+          <li *ngFor="let addon of freeAddons">
+            <span class="addon-name">{{ addon.name }}</span>
+            <span class="addon-qty" *ngIf="addon.quantity"> &nbsp;(x{{ addon.quantity }}) </span>
+            <span class="addon-desc" *ngIf="addon.description">{{ addon.description }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="clearfix" *ngIf="paidAddons.length">
+        <h5>Available for purchase</h5>
+        <div class="amenity" *ngFor="let addon of paidAddons">
+          <span class="addon-name">{{ addon.name }}</span>
+          <span class="addon-qty" *ngIf="addon.quantity"> &nbsp;(x{{ addon.quantity }}) </span>
+          <span class="addon-price">${{ addon.price }} {{ addon.basis }}</span>
+          <span class="addon-desc" *ngIf="addon.description">{{ addon.description }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,206 @@
+<form [formGroup]="bookingInfoForm">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row head-label">
+                <label class="head-label" for="Event Info">Event Info</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="head-label" for="ReservationPurpose">Reservation Purpose <span class="fa fa-asterisk important"></span></label>
+                </div>
+                <div class="col-sm-8">
+                    <input formControlName="eventName" type="text" class="form-control"
+                        placeholder="e.g. Practice, Scrimmage">
+                        <p class="help-block m-0">e.g.
+                          <ng-container *ngFor="let event of eventNames">
+                            <a (click)="selectEvent(event)" (keydown.enter)="selectEvent(event)" tabindex="0">{{event}}</a>,
+                          </ng-container>
+                        </p>
+                    <div *ngIf="bookingInfoForm.get('eventName')?.invalid && bookingInfoForm.get('eventName')?.touched"
+                        class="text-danger info-message">
+                        Event name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="head-label" for="Expected Attendance">Expected Attendance <span class="fa fa-asterisk important"></span></label>
+                </div>
+                <div class="col-sm-8">
+                    <input formControlName="attendance" type="number" placeholder="Attendance"
+                        class="form-control">
+                    <div *ngIf="bookingInfoForm.get('attendance')?.invalid && bookingInfoForm.get('attendance')?.touched"
+                        class="text-danger info-message">
+                        Attendance is required and must be a valid number.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="head-label" for="Activity">Activity <span class="fa fa-asterisk important"></span></label>
+                </div>
+                <div class="col-sm-8" *ngIf="spaceDetails && spaceDetails.sports && spaceDetails.sports.length>0">
+                    <select formControlName="sport" (change)="updateSport()" class="form-control">
+                        <option value="" disabled>Select...</option>
+                        <option *ngFor="let sport of spaceDetails.sports">{{ sport }}</option>
+                        <option label="Other *" value="Other *">Other *</option>
+                    </select>
+                    <div *ngIf="bookingInfoForm.get('sport')?.invalid && bookingInfoForm.get('sport')?.touched"
+                        class="text-danger info-message">
+                        Sport is required.
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="processedSport === others" class="form-group row">
+                <div class="col-sm-4">
+                    <label class="head-label" for="Describe">Describe</label>
+                </div>
+                <div class="col-sm-8">
+                    <input formControlName="otherSport" type="text" class="form-control">
+                    <div *ngIf="bookingInfoForm.get('otherSport')?.invalid && bookingInfoForm.get('otherSport')?.touched"
+                        class="text-danger info-message">
+                        Description is required for 'Other'.
+                    </div>
+                </div>
+            </div>
+
+           <div class="form-group row">
+    <div class="col-sm-4">
+        <label class="head-label" for="Additional Info">Additional Info</label>
+    </div>
+    <div class="col-sm-8">
+        <textarea formControlName="additionalInfo" class="form-control h-75 custom-textarea" placeholder="(optional)"></textarea>
+        <p class="help-block">Provide any additional use info for the space administrator.</p>
+    </div>
+</div>
+
+        </div>
+
+        <div class="col-sm-6" formGroupName="supervisor">
+            <div class="form-group row head-label">
+                <div class="col-sm-4">
+                    <label class="head-label" for="Supervisor">Supervisor</label>
+                </div>
+                <div class="col-sm-8 row p-0">
+                    <div class="checkbox p-0">
+                        <label>
+                            <input type="checkbox" formControlName="myInfo" (click)="supervisingDetails()"> I'll be supervising
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="head-label" for="Name">Name <span class="fa fa-asterisk important"></span></label>
+                </div>
+                <div class="col-sm-4">
+                    <input formControlName="firstName" type="text" placeholder="First Name"
+                        class="form-control">
+                        <div *ngIf="bookingInfoForm.get('supervisor.firstName')?.invalid && bookingInfoForm.get('supervisor.firstName')?.touched" class="text-danger info-message">
+                          First name is required.
+                      </div>
+                </div>
+                <div class="col-sm-5">
+                    <input formControlName="lastName" type="text" placeholder="Last Name"
+                        class="form-control">
+                    <div *ngIf="bookingInfoForm.get('supervisor.lastName')?.invalid && bookingInfoForm.get('supervisor.lastName')?.touched"
+                        class="text-danger info-message">
+                        Last name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="head-label" for="Title">Title</label>
+                </div>
+                <div class="col-sm-9">
+                    <input formControlName="title" type="text" class="form-control"
+                        placeholder="Coach, Organizer, etc.">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="head-label" for="Email">Email <span class="fa fa-asterisk important"></span></label>
+                </div>
+                <div class="col-sm-9">
+                    <input formControlName="email" type="email" class="form-control" placeholder="Email">
+                    <div *ngIf="bookingInfoForm.get('supervisor.email')?.invalid && bookingInfoForm.get('supervisor.email')?.touched"
+                        class="text-danger info-message">
+                        Email is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="head-label" for="Phone">Phone <span class="fa fa-asterisk important"></span></label>
+                </div>
+                <div class="col-sm-9">
+                        <p-inputMask
+                        mask="(999) 999-9999"
+                        formControlName="phon"
+                        [style]="{'height':'50%',width: '100%'}"
+                        placeholder="(___) ___-____ x_____" />
+                    <div *ngIf="bookingInfoForm.get('supervisor.phone')?.invalid && bookingInfoForm.get('supervisor.phone')?.touched"
+                        class="text-danger info-message">
+                        Phone number is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group head-label">
+              <label class="col-sm-12" for="On behalf of">
+                On behalf of...
+                <p-tooltip-arrow [pTooltip]="behalfInfo" tooltipPosition="right" class="question-arrow">
+                  <i class="fas fa-question-circle ms-3"></i>
+                  </p-tooltip-arrow>
+              </label>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="head-label" for="Association">Association</label>
+                </div>
+                <div class="col-sm-9">
+                    <select formControlName="affiliation" class="form-control">
+                        <option *ngFor="let aff of affiliations">{{ aff }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div *ngIf="bookingInfoForm.get('supervisor.affiliation')?.value === NEW_TEXT" class="form-group row">
+                <div class="col-sm-3">
+                    <label class="head-label" for="Describe">Describe</label>
+                </div>
+                <div class="col-sm-9">
+                    <input formControlName="otherAffiliation" type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <div class="button-links">
+              <button (click)="reverse()" class="btn btn-link"><span class="fa fa-chevron-circle-left mx-2"></span>Back</button>
+              <button type="button" (click)="cancel()" class="btn btn-link">
+                Cancel<span class="fa fa-times mx-2"></span>
+              </button>
+              <button type="submit" (click)="submit()" class="btn btn-primary">Continue to book&nbsp;<span class="fa fa-chevron-circle-right mx-2"></span></button>
+            </div>
+          </div>
+    </div>
+
+    <div *ngIf="bookingInfoForm.invalid" class="row">
+        <div class="col-sm-12 help-block text-right">
+            <span>Please complete the form in order to continue.</span>
+        </div>
+        <div class="help-block text-right">Please Enter All Required Fields
+          <span class="fa fa-asterisk"></span>
+        </div>
+    </div>
+</form>

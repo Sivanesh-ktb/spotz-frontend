@@ -1,0 +1,30 @@
+.date-picker-input
+{
+  background-color: #fff !important;
+  border: none !important;
+}
+.date-container
+{
+  border: 1px solid #ccc !important;
+  background-color: #fff !important;
+  height: 35px;
+}
+label.control-label{
+    align-items: center;
+    margin-bottom: 0px !important;
+    font-size: 13px;
+    font-weight: 700;
+}
+.mat-datepicker-toggle.date-picker-container.custom-datepicker-toggle {
+  display: none !important;
+}
+.form-control-feedback-cancel {
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
+input.mat-datepicker-input.mat-mdc-input-element.form-control.date-picker-input.ng-untouched.ng-pristine.ng-valid.cdk-text-field-autofill-monitored {
+  border: 1px solid rgb(197, 197, 197) !important;
+}

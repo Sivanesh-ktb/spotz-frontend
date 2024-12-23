@@ -1,0 +1,7 @@
+ul.dropdown-menu.custom-dropdown.booking-drop-down.show {
+  height: 175px;
+}
+
+ul.dropdown-menu.custom-dropdown.booking-drop-down.not-selected {
+  height: 145px;
+}

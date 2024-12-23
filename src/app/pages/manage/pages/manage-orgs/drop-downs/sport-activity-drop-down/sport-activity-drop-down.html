@@ -1,0 +1,37 @@
+<div class="allowed-activities mt-2">
+  <p class="drop-down-title" *ngIf = "!createSpace">Sport / Activity (multiple)</p>
+  <div class="input-group full-width-select-dropdown mb-2">
+    <div class="card flex justify-content-center full-width-select-dropdown w-100">
+      <div class="admin-text">
+        <li class="nav-item dropdown">
+          <span id="navbarAdminDropdown" role="button"
+                class="form-control custom-dropdown-section custom-dropdown w-100"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <ng-container *ngIf="selectedSportTypes.length > 1; else elseBlock">
+                  Multiple
+                </ng-container>
+                  <ng-template #elseBlock>
+                    {{ selectedSportTypes.join(', ') }}
+                  </ng-template>
+            <i class="fa-solid fa-angle-down"></i>
+          </span>
+          <ul class="dropdown-menu custom-dropdown w-100" aria-labelledby="navbarAdminDropdown">
+            <ng-container *ngFor="let sportType of sportTypes">
+              <li *ngIf="groupedSports[sportType]" class="type-header">
+                <span class="label-name dropdown-item"><b>{{ sportType }}</b></span>
+                <hr />
+                <ng-container *ngFor="let name of groupedSports[sportType]">
+                  <li class="dropdown-item cursor-pointer"  (click)="handleClick(name, $event)" (keydown.enter)="handleClick(name, $event)" tabindex="0">
+                    <span class="fa mr-2" [ngClass]="{'text-success fa-check': isChecked(name)}"></span>
+                    {{ name }}
+                  </li>
+                </ng-container>
+                <hr />
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>

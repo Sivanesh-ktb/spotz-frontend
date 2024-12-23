@@ -1,0 +1,45 @@
+span.fa.fa-arrow-right {
+    color: #e58327;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .button-links.divide {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3px;
+    border-top: 1px solid #e2e7e9;
+    padding-top: 6px;
+  }
+  
+  .btn-link {
+    color: #034A61;
+    padding: 4px 12px;
+    text-decoration: none;
+    font-size: 14px !important;
+  }
+  
+  .fa-credit-card {
+    position: absolute;
+    right: 7px;
+    top: 8px;
+  }
+  
+  .card-img {
+    width: 28px;
+    height: 19px;
+  }
+  
+  .payment-method>div {
+    padding: 3px 15px;
+    height: 35px;
+  }
+  strong.card-number {
+    padding: 10px;
+}
+
+.highlight:hover{
+  color: #e58327;
+}

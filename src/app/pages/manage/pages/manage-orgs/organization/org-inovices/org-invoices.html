@@ -1,0 +1,42 @@
+<section class="content">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="container-fluid">
+    <div class="manage-org">
+      <div class="row">
+        <div class="col-lg-3">
+          <app-admin-org-sidebar></app-admin-org-sidebar>
+        </div>
+        <div class="col-lg-9 invoice-container">
+          <div class="edit-org-cnt">
+            <h3 class="new-space-h fw-bold fw-bold">Invoices</h3>
+          </div>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="org-invoice-tab" data-bs-toggle="tab" data-bs-target="#org-invoice"
+                type="button" role="tab" aria-controls="org-invoice" aria-selected="true">
+                Invoices</button>
+            </li>
+            <li class="nav-item create-invoice-btn" role="presentation">
+              <button class="nav-link" id="create-invoice-tab" data-bs-toggle="tab" data-bs-target="#create-invoice"
+                type="button" role="tab" aria-controls="create-invoice" aria-selected="false">
+                <span class="fa fa-plus-circle"></span>  Create </button>
+            </li>
+          </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active  remove-background-color" id="org-invoice" role="tabpanel" aria-labelledby="paid-booking-tab">
+                <div class="invoices-tab-content">
+                Invoices
+              </div>
+              <app-filter-invoice></app-filter-invoice>
+                </div>
+                <div class="tab-pane fade show create-invoice-tab" id="create-invoice" role="tabpanel" aria-labelledby="create-invoice">
+                  <app-create-invoice></app-create-invoice>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

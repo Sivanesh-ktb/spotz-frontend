@@ -1,0 +1,46 @@
+<section class="content settings-page">
+  <div class="sticky_navbar">
+  <app-admin-navbar></app-admin-navbar>
+  </div>
+  <div class="manage-space-bg">
+    <div class="container-fluid">
+      <div class="manage-org">
+        <div class="row">
+          <div class="col-lg-3 admin-nav hidden-sm hidden-xs">
+            <app-admin-space-sidebar [displayName]="this.spaceDetails.name"
+              [rentaltypes]="this.spaceDetails.rentaltypes"
+              [price]="this.spaceDetails.price" [facName]="facName"></app-admin-space-sidebar>
+          </div>
+          <div class="col-lg-9">
+            <h3 class="new-space-h fw-bold">Photos</h3>
+            <div class="row photos-border-bottom"></div>
+            <div class="col-lg-12 d-flex gap-4 mt-3">
+              <button type="button" (click)="addPhotos()" class="btn btn-primary mr-2 btn-split">
+                <span class="fa fa-plus"> </span><span class="lbl"> Add photos</span></button>
+              <button type="button" (click)="deleteSelectedImages()"
+              [disabled]="(spaceImages && spaceImages.length === 0) || !checkImage"
+              class="btn btn-default btn-split" aria-disabled="true" disabled="disabled">
+              <span class="fa fa-times-circle"></span><span class="lbl"> Remove selected images</span></button>
+              <button type="button" [disabled]="(spaceImages && spaceImages.length === 0)|| !checkImage"
+              class="btn btn-default btn-split"> <span class="fa fa-edit">
+              </span><span class="lbl"> Save order</span></button>
+            </div>
+            <div class="row mt-3">
+              <div class="col-lg-3 space-images gap-2" *ngFor="let spaceImage of spaceImages; let i = index;">
+                <div class="thumbnail" [ngClass]="{'selected': selectedImages[i]}">
+                  <div class="delete" role="button" tabindex="0" (click)="toggleImageSelection(i)" (keydown.enter)="toggleImageSelection(i)">
+                    <span [ngClass]="{'fas fa-check': selectedImages[i], 'fa icon-checkbox-unchecked': !selectedImages[i]}"></span>
+                  </div>
+                  <div class="helper ">{{spaceImage.id}}</div>
+                  <div class="image-container">
+                    <img [src]="spaceImage.url" alt="Image">
+                  </div>
+                </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
