@@ -25,6 +25,10 @@ jobs:
           # Open SSH port temporarily for deployment
           gcloud compute firewall-rules update allow-ssh --allow tcp:22
 
+      - name: Mark repository as safe
+        run: |
+          git config --global --add safe.directory /opt/nodejs/spotz-frontend
+
       - name: Deploy Angular App to Private Instance
         run: |
           # Use gcloud compute ssh command with the service account (no private key required)
