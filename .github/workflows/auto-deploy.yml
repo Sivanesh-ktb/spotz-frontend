@@ -1,24 +1,49 @@
+name: Debug Deployment to GCP
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Authenticate to GCP using Service Account Key
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Add SSH Key
+      - name: Set GCP Project
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts
+          gcloud config set project ${{ secrets.PROJECT_ID }}
 
-      - name: Deploy to Instance
+      - name: Check Firewall Rules
         run: |
-          ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} << 'EOF'
-            cd /opt/nodejs/spotz-frontend
-            git pull origin main
-            npm install
-            npm run build
-            echo "Deployment completed successfully"
-          EOF
+          echo "Checking Firewall Rules..."
+          gcloud compute firewall-rules list --filter="name=allow-ssh"
+
+      - name: Test SSH Connectivity
+        run: |
+          echo "Testing SSH connection..."
+          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
+            --project=${{ secrets.PROJECT_ID }} \
+            --zone=${{ secrets.ZONE }} \
+            --command="echo 'SSH connection successful.'"
+
+      - name: Deploy Angular App
+        run: |
+          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
+            --project=${{ secrets.PROJECT_ID }} \
+            --zone=${{ secrets.ZONE }} \
+            --command="
+              git config --global --add safe.directory /opt/nodejs/spotz-frontend
+              cd /opt/nodejs/spotz-frontend/
+              git pull origin main
+              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
+              npm install
+              npm run build
+              echo 'Deployment completed.'
+            "
