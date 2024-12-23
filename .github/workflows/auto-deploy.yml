@@ -25,25 +25,39 @@ jobs:
           echo "Checking Firewall Rules..."
           gcloud compute firewall-rules list --filter="name=allow-ssh"
 
+      - name: Add SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts
+
       - name: Test SSH Connectivity
         run: |
           echo "Testing SSH connection..."
-          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
-            --project=${{ secrets.PROJECT_ID }} \
-            --zone=${{ secrets.ZONE }} \
-            --command="echo 'SSH connection successful.'"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} << 'EOF'
+            echo "SSH connection successful."
+            exit 0
+          EOF
 
       - name: Deploy Angular App
         run: |
-          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
-            --project=${{ secrets.PROJECT_ID }} \
-            --zone=${{ secrets.ZONE }} \
-            --command="
-              git config --global --add safe.directory /opt/nodejs/spotz-frontend
-              cd /opt/nodejs/spotz-frontend/
-              git pull origin main
-              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
-              npm install
-              npm run build
-              echo 'Deployment completed.'
-            "
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} << 'EOF'
+            # Ensure git is set to trust the directory
+            git config --global --add safe.directory /opt/nodejs/spotz-frontend
+
+            # Navigate to the app directory
+            cd /opt/nodejs/spotz-frontend/
+
+            # Pull the latest changes from the main branch
+            git pull origin main
+
+            # Replace the environment file
+            cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
+
+            # Install dependencies and build the app
+            npm install
+            npm run build
+
+            echo "Deployment completed successfully."
+          EOF
