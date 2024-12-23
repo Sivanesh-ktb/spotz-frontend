@@ -14,17 +14,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Test DNS Resolution (for debugging)
+        run: |
+          nslookup ${{ secrets.SERVER_NAME }} || echo "DNS resolution failed"
+
       - name: Set up SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts
-
-      - name: Test DNS Resolution
-        run: |
-          echo "Testing DNS resolution for ${SERVER_NAME}..."
-          nslookup ${{ secrets.SERVER_NAME }}
+          # Retry logic in case of DNS failure
+          for i in {1..5}; do
+            ssh-keyscan -H ${{ secrets.SERVER_NAME }} >> ~/.ssh/known_hosts && break || sleep 5
+          done
 
       - name: Authenticate to GCP using Service Account Key
         uses: google-github-actions/auth@v2
@@ -39,7 +41,6 @@ jobs:
         run: |
           # SSH into the instance using the configured SSH key and run deployment commands
           ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} << 'EOF'
-            # Update repository and install dependencies
             cd /opt/nodejs/spotz-frontend
             git pull origin main
             cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
