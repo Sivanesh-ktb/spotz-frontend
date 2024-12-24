@@ -3,48 +3,28 @@ name: Auto Deployment to GCP - Frontend
 on:
   push:
     branches:
-      - main  # You can modify this branch name as per your requirement
+      - main  # Change this to your branch if necessary
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}  # Ensure this runs for the `main` branch
 
     steps:
-      - name: Authenticate to GCP using Service Account Key
+      - name: Authenticate to GCP using Service Account
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}  # Store the service account key in GitHub Secrets
 
       - name: Set GCP Project
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
-      - name: Open SSH Port on GCP Firewall (Before Deployment)
+
+      - name: Deploy Angular App to Compute Instance
         run: |
-          # Open SSH port temporarily for deployment
-          gcloud compute firewall-rules update allow-ssh --allow tcp:22
-      - name: Deploy Angular App to Private Instance
-        run: |
-          # SSH into the instance using gcloud compute and execute the deployment commands
-          gcloud compute ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_NAME }} \
-            --project=${{ secrets.PROJECT_ID }} \
-            --zone=${{ secrets.ZONE }} \
-            --command="
-              # Add repository to safe list to avoid 'dubious ownership' error
-              git config --global --add safe.directory /opt/nodejs/spotz-frontend
-              
-              # Ensure proper ownership (optional step)
-              sudo chown -R $(whoami):$(whoami) /opt/nodejs/spotz-frontend
-              
-              # Perform the deployment
-              cd /opt/nodejs/spotz-frontend/
-              git pull origin main
-              cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts
-              npm install
-              npm run build
-              echo 'Deployment completed.'
-            "
-      - name: Close SSH Port on GCP Firewall (After Deployment)
-        run: |
-          # Close SSH port after deployment by deleting the rule
-          gcloud compute firewall-rules delete allow-ssh --quiet
+          gcloud compute ssh ubuntu@34.58.99.209 --zone=us-central1-c --command="
+            cd /opt/nodejs/spotz-frontend &&
+            git pull &&
+            cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/spotz-frontend/src/environments/environment.ts &&
+            npm install &&
+            npm run build
+          "
