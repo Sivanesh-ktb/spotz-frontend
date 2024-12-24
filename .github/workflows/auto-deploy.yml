@@ -24,7 +24,7 @@ jobs:
           gcloud compute ssh ubuntu@test --zone=us-central1-c --command="
             cd /opt/nodejs/spotz-frontend &&
             git pull &&
-            cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/spotz-frontend/src/environments/environment.ts &&
+            cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/spotz-frontend/src/environments/environment.ts &&
             npm install &&
             npm run build
           "
