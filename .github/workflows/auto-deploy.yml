@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy Angular App to Compute Instance
         run: |
-          gcloud compute ssh ubuntu@your-instance-name --zone=us-central1-c --command="
+          gcloud compute ssh ubuntu@test --zone=us-central1-c --command="
             cd /opt/nodejs/spotz-frontend &&
             git pull &&
             cp /opt/nodejs/spotz-devops/config/environment.demo /opt/nodejs/spotz-frontend/spotz-frontend/src/environments/environment.ts &&
