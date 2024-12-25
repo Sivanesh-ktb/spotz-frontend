@@ -1,9 +1,9 @@
-name: Auto Deployment to GCP - Frontend
+ame: Auto Deployment to GCP - Frontend
 
 on:
   push:
     branches:
-      - main  # Change this to your branch if necessary
+      - main  # Adjust branch if needed
 
 jobs:
   deploy:
@@ -13,15 +13,15 @@ jobs:
       - name: Authenticate to GCP using Service Account
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}  # Store the service account key in GitHub Secrets
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Set GCP Project
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID }}
 
-      - name: Deploy Angular App to Compute Instance
+      - name: Deploy Angular App to Private Instance
         run: |
-          gcloud compute ssh ubuntu@test --zone=us-central1-c --command="
+          gcloud compute ssh ubuntu@10.128.0.6 --zone=us-central1-c --command="
             cd /opt/nodejs/spotz-frontend &&
             git pull &&
             cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts &&
