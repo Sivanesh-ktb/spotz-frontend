@@ -1,4 +1,4 @@
-ame: Auto Deployment to GCP - Frontend
+name: Auto Deployment to GCP - Frontend
 
 on:
   push:
