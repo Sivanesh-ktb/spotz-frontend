@@ -14,6 +14,8 @@ steps:
       - '-c'
       - |
         echo "Deploying to private Compute Engine instance..."
+        # Here we use GCP internal methods to interact with the private instance
+        gcloud compute instances describe ${_INSTANCE_NAME} --zone=${_ZONE}
         gcloud compute ssh ubuntu@${_INSTANCE_NAME} --zone=${_ZONE} --command="
           cd /opt/nodejs/spotz-frontend &&
           git pull &&
@@ -23,9 +25,9 @@ steps:
         "
 
 substitutions:
-  _INSTANCE_NAME: "test"  # Replace with your instance name
-  _ZONE: "us-central1-c"  # Replace with your GCP zone
-  _PROJECT_ID: "lyrical-beach-439615-f1"  # Replace with your GCP project ID
+  _INSTANCE_NAME: "your-instance-name"  # Replace with your private instance name
+  _ZONE: "us-central1-c"  # Replace with the GCP zone
+  _PROJECT_ID: "your-project-id"  # Replace with your GCP project ID
   _KEY_FILE: "/workspace/service-account-key.json"  # Path to your service account key
 
 timeout: '1200s'
