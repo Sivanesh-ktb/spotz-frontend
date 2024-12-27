@@ -5,7 +5,8 @@ steps:
       - '-c'
       - |
         echo "Authenticating with GCP..."
-        gcloud auth activate-service-account --key-file=$KEY_FILE
+        echo $GCP_CREDENTIALS > $HOME/gcp-key.json
+        gcloud auth activate-service-account --key-file=$HOME/gcp-key.json
         gcloud config set project $PROJECT_ID
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -14,8 +15,6 @@ steps:
       - '-c'
       - |
         echo "Deploying to private Compute Engine instance..."
-        # Here we use GCP internal methods to interact with the private instance
-        gcloud compute instances describe ${_INSTANCE_NAME} --zone=${_ZONE}
         gcloud compute ssh ubuntu@${_INSTANCE_NAME} --zone=${_ZONE} --command="
           cd /opt/nodejs/spotz-frontend &&
           git pull &&
@@ -28,7 +27,6 @@ substitutions:
   _INSTANCE_NAME: "your-instance-name"  # Replace with your private instance name
   _ZONE: "us-central1-c"  # Replace with the GCP zone
   _PROJECT_ID: "your-project-id"  # Replace with your GCP project ID
-  _KEY_FILE: "/workspace/service-account-key.json"  # Path to your service account key
 
 timeout: '1200s'
 
