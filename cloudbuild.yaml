@@ -5,8 +5,8 @@ steps:
       - '-c'
       - |
         echo "Authenticating with GCP..."
-        echo "${_GCP_CREDENTIALS}" > $HOME/gcp-key.json
-        gcloud auth activate-service-account --key-file=$HOME/gcp-key.json
+        echo "${_GCP_CREDENTIALS}" > /root/gcp-key.json  # Directly use /root as the home directory
+        gcloud auth activate-service-account --key-file=/root/gcp-key.json
         gcloud config set project ${_PROJECT_ID}
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
