@@ -5,7 +5,7 @@ steps:
       - '-c'
       - |
         echo "Authenticating with GCP..."
-        echo ${_GCP_CREDENTIALS} > $HOME/gcp-key.json
+        echo "${_GCP_CREDENTIALS}" > $HOME/gcp-key.json
         gcloud auth activate-service-account --key-file=$HOME/gcp-key.json
         gcloud config set project ${_PROJECT_ID}
 
@@ -27,20 +27,22 @@ substitutions:
   _INSTANCE_NAME: "test"  # Replace with your private instance name
   _ZONE: "us-central1-c"  # Replace with the GCP zone
   _PROJECT_ID: "lyrical-beach-439615-f1"  # Replace with your GCP project ID
-  _GCP_CREDENTIALS: "{
-  \"type\": \"service_account\",
-  \"project_id\": \"lyrical-beach-439615-f1\",
-  \"private_key_id\": \"555fe4ec6569e9c88fb73db1c5f548fac1aa6301\",
-  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC2srk2NHlWjuQh\\numTigH+6rcfSb69PVIXCuuu773+nFYcHGlF09TJJcRPPPD8jm0RjgzX8Dt7uT2qR\\nuc+597u7YpHeMwXYeGqx//opDmF12oY4oVsIG7y5Yl3c7tx324BSedwWQDVmk+Jy\\nHmvtNUoSV4yGiIMez4BAdBPKh0LHXrM+jbON/0gMyqPy5/PYLmTi7u/VamZWpvaI\\n4FwmqdJ67RXtu6o6Vwch1XZgGzgamq3Z7+7QQegvTatyNgNHkcGkog8Rk9/4CYnt\\nv2QXMADcqDocJvOi1ChKwuF+/ngguO9HsVJF2qAqLSjoJFnXiNFkyK+B+9HkDOww\\n6dUDLwdRAgMBAAECggEAB3K0TcMoYjC7mKtoYvqBmorsn0XZ1AZaWKS1qQj7v4RH\\nZ7D5OqcnWGqhd9yZJ1q0WEk4WXECwhzfN5cnYom4r8w2LaSPW7KXCPAqUuOo8fzJ\\nZYQgea1lzXn24SOkvccnTVV19TtDYg3r2KKoXDiEr0g97Jsim04yyI3i46oNfSKr\\nze7olrCIeoRYagRrIVCFGWB2kyQ7+zZ+FpzjjRT9ZKl7/iDmqT5jfrCF9hhApnAA\\nLqFVYtGRqrSi6uaBriSjekDNlIcMypBbhvS/bkVZX8bitp0459uAKDUmOPzKBEfQ\\nL58cc+QOX8HGkba11BgAs4G1a0AWl1i0m1IutgHEBQKBgQDiGfLFN3oR5JuxOQaR\\n6LY34fa/txfQPKg3pz88iLnBK+DEJWJOYTkpBeoqMDSLQxMiwDBLS1AK5+v8VU6w\\nuVJ6TNJbHXYyDgUiwlh5cT4/dIb5k/I0PO2m3Ox4kN5d1yuQ8VhOvgTIl2NUwei/\\n7H6vQvGIkBvOBw7aMva8vQMp1QKBgQDO23nlWH809FbQlJNZYqbGdxUU31EpSDSd\\nMQQossxOYLbV52dwrK02Ij3IKdgWY/WT/8GygAnYFBD4Vnkf8yLhmGnLD9GR4GvU\\nQGI1XCmB3ibn/zGDDKfQ0Vak5hNby7ZhrFbZzU1TK/ZH2Y1adTlwV5pEb8EhEeEQ\\n6VhYw9aJjQKBgB69RGJHrpLsL7aieCAyMUPbtr5N2DD5bi1S0agbNpXqrz47juf1\\nE95d7X4a26nrTpi05Fv4O0OgUFcYCgDA0VPLSfYVRVJ80XnuTjUEjl/2KbuYv58W\\ngYDkHEov9+tuK4AjL8xUzTWwT1LgohIlxvtw8IGOhhk2oHBN6XmzgNCZAoGAev5G\\niRZIdHz/jX956UDd9s1hTIrHoCsdlYVKesRs9AFPVPoFKBqT1scfQv+WSyHeJ8R/\\nMBovQDoWKQKJfHS9fbN429MpAXqVwpsRibalu2EScwjqMIh6049U3DEsu3zxkTu+\\nXDxUyKowAmKZSHrAz0pXIG/uPjJ6Rurnq8etrRUCgYBoNTbppO34s2okqvpnHbTL\\noNr140ciQrs+gf3S3ntfebLn0euub4vvKHqzlEZlypmtlFcYUf6WqytdwvA6C7qB\\nVX6j5OEFivT1xFv0SAI1j2ZxOjIVFJJ9Mw5g6bD3XmbajQ+rZznWVPA3vZcZsZso\\nsG3bN4t9AAZbYatw74I5Hg==\\n-----END PRIVATE KEY-----\\n",
-  "client_email": "64409270416-compute@developer.gserviceaccount.com",
-  "client_id": "116904382377938713874",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/64409270416-compute%40developer.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
-"  # Replace with your GCP service account key as a string
+
+  # Use YAML block format for the JSON key to avoid parsing errors
+  _GCP_CREDENTIALS: |
+    {
+      "type": "service_account",
+      "project_id": "lyrical-beach-439615-f1",
+      "private_key_id": "555fe4ec6569e9c88fb73db1c5f548fac1aa6301",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC2srk2NHlWjuQh\numTigH+6rcfSb69PVIXCuuu773+nFYcHGlF09TJJcRPPPD8jm0RjgzX8Dt7uT2qR\nuc+597u7YpHeMwXYeGqx//opDmF12oY4oVsIG7y5Yl3c7tx324BSedwWQDVmk+Jy\nHmvtNUoSV4yGiIMez4BAdBPKh0LHXrM+jbON/0gMyqPy5/PYLmTi7u/VamZWpvaI\n4FwmqdJ67RXtu6o6Vwch1XZgGzgamq3Z7+7QQegvTatyNgNHkcGkog8Rk9/4CYnt\nv2QXMADcqDocJvOi1ChKwuF+/ngguO9HsVJF2qAqLSjoJFnXiNFkyK+B+9HkDOww\n6dUDLwdRAgMBAAECggEAB3K0TcMoYjC7mKtoYvqBmorsn0XZ1AZaWKS1qQj7v4RH\nZ7D5OqcnWGqhd9yZJ1q0WEk4WXECwhzfN5cnYom4r8w2LaSPW7KXCPAqUuOo8fzJ\nZYQgea1lzXn24SOkvccnTVV19TtDYg3r2KKoXDiEr0g97Jsim04yyI3i46oNfSKr\nze7olrCIeoRYagRrIVCFGWB2kyQ7+zZ+FpzjjRT9ZKl7/iDmqT5jfrCF9hhApnAA\nLqFVYtGRqrSi6uaBriSjekDNlIcMypBbhvS/bkVZX8bitp0459uAKDUmOPzKBEfQ\nL58cc+QOX8HGkba11BgAs4G1a0AWl1i0m1IutgHEBQKBgQDiGfLFN3oR5JuxOQaR\n6LY34fa/txfQPKg3pz88iLnBK+DEJWJOYTkpBeoqMDSLQxMiwDBLS1AK5+v8VU6w\nuVJ6TNJbHXYyDgUiwlh5cT4/dIb5k/I0PO2m3Ox4kN5d1yuQ8VhOvgTIl2NUwei/\n7H6vQvGIkBvOBw7aMva8vQMp1QKBgQDO23nlWH809FbQlJNZYqbGdxUU31EpSDSd\nMQQossxOYLbV52dwrK02Ij3IKdgWY/WT/8GygAnYFBD4Vnkf8yLhmGnLD9GR4GvU\nQGI1XCmB3ibn/zGDDKfQ0Vak5hNby7ZhrFbZzU1TK/ZH2Y1adTlwV5pEb8EhEeEQ\n6VhYw9aJjQKBgB69RGJHrpLsL7aieCAyMUPbtr5N2DD5bi1S0agbNpXqrz47juf1\nE95d7X4a26nrTpi05Fv4O0OgUFcYCgDA0VPLSfYVRVJ80XnuTjUEjl/2KbuYv58W\ngYDkHEov9+tuK4AjL8xUzTWwT1LgohIlxvtw8IGOhhk2oHBN6XmzgNCZAoGAev5G\niRZIdHz/jX956UDd9s1hTIrHoCsdlYVKesRs9AFPVPoFKBqT1scfQv+WSyHeJ8R/\nMBovQDoWKQKJfHS9fbN429MpAXqVwpsRibalu2EScwjqMIh6049U3DEsu3zxkTu+\nXDxUyKowAmKZSHrAz0pXIG/uPjJ6Rurnq8etrRUCgYBoNTbppO34s2okqvpnHbTL\noNr140ciQrs+gf3S3ntfebLn0euub4vvKHqzlEZlypmtlFcYUf6WqytdwvA6C7qB\nVX6j5OEFivT1xFv0SAI1j2ZxOjIVFJJ9Mw5g6bD3XmbajQ+rZznWVPA3vZcZsZso\nsG3bN4t9AAZbYatw74I5Hg==\n-----END PRIVATE KEY-----\n",
+      "client_email": "64409270416-compute@developer.gserviceaccount.com",
+      "client_id": "116904382377938713874",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/64409270416-compute%40developer.gserviceaccount.com",
+      "universe_domain": "googleapis.com"
+    }  # Service account credentials in JSON format, properly escaped using the block style.
 
 timeout: '1200s'
 
