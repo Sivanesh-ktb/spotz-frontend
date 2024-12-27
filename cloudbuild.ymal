@@ -1,0 +1,28 @@
+steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Authenticating with GCP..."
+        gcloud auth activate-service-account --key-file=$KEY_FILE
+        gcloud config set project $PROJECT_ID
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Deploying to private Compute Engine instance..."
+        gcloud compute ssh ubuntu@INSTANCE_NAME --zone=ZONE --command="
+          cd /opt/nodejs/spotz-frontend &&
+          git pull &&
+          cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts &&
+          npm install &&
+          npm run build
+        "
+substitutions:
+  _INSTANCE_NAME: "test"
+  _ZONE: "us-central1-c"
+  _PROJECT_ID: "lyrical-beach-439615-f1"
+  _KEY_FILE: "/workspace/service-account-key.json"
+timeout: '1200s'
