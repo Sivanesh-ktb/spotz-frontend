@@ -17,12 +17,12 @@ steps:
       - '-c'
       - |
         echo "Deploying to private Compute Engine instance..."
-        gcloud compute ssh ubuntu@${_INSTANCE_NAME} --zone=${_ZONE} --command="
-          cd /opt/nodejs/spotz-frontend &&
-          git pull &&
-          cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts &&
-          npm install &&
-          npm run build
+        gcloud compute ssh ubuntu@${_INSTANCE_NAME} --zone=${_ZONE} --command="\
+          cd /opt/nodejs/spotz-frontend && \
+          git pull && \
+          cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
+          npm install && \
+          npm run build \
         "
 
 substitutions:
