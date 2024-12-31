@@ -19,7 +19,9 @@ steps:
       - '-c'
       - |
         echo "Copying files to the target instance..."
-        gcloud compute scp ./dist/* ubuntu@${_LB_IP}:/opt/nodejs/spotz-frontend --zone=${_ZONE} -- -o "ProxyCommand ssh -W %h:%p -i /root/gcp-key.json"
+        gcloud compute scp ./dist/* ubuntu@${_LB_IP}:/opt/nodejs/spotz-frontend \
+        --zone=${_ZONE} \
+        -- -o "ProxyCommand ssh -W %h:%p -i /root/gcp-key.json"
 
   # Step 3: Execute Deployment Commands on Target Instance
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -33,8 +35,8 @@ steps:
           git pull && \
           cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
           npm install && \
-          npm run build \
-        " -- -o "ProxyCommand ssh -W %h:%p -i /root/gcp-key.json"
+          npm run build" \
+        -- -o "ProxyCommand ssh -W %h:%p -i /root/gcp-key.json"
 
 substitutions:
   _PROJECT_ID: "lyrical-beach-439615-f1"
@@ -45,7 +47,7 @@ substitutions:
       "type": "service_account",
       "project_id": "lyrical-beach-439615-f1",
       "private_key_id": "a79c613ca3a52b64d1fd3efbf717a145f06fc04e",
-      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsQ0WgsQte/APw\nO2Ae7DFcZv3H3q5svM6s3jw2THdvgkO0DLpLTTgEMUEDiZTSG9Zsn8RBQOiZqYgJ\nXPPV6RTWv2S90hyb9uiDVh6JViFVrPNH/4+pqz+pWDAwQF6UwhP4WZfsoiP8gSIY\nR4UroyZbIH2JhBXRmnT3C/hu0J+QUhsI0S4o0gtbvOV6eiZRhsEOSmv2Ub+Iwkyo\nBZBjkKyx8KNJ60rchZUAAjQpT5bYwBs/4MuBggyAtonzR4x9AOI7IfgXHTHEk8XH\nMAMOuISeRyoc16G7tpq09R960tHcjKFiQ4M1ZXoXpUicnu5TFEMZm1fgk8ppqcWi\nBsNYxOg3AgMBAAECggEALOlbGWKfStPcuQDZ9iXxVpx5dOcvRaVSIwrL2wJDr1xg\nh2w8E87dmGY5A5GWrdLZLDfZRIQGQK3NDFfiMLaUmsqKmtzRXa5Zf4hv7LF6fmpZ\ngT91drBxqBaYdbQKlLEm4LyHGghJ5pbKS1c2NqLSKLcHU9eOkre44AIMcuPMfiUj\nzwpodBOFVNObevBobbfAmkbF2TjqRXedTRgHoOnyA0ZU5+kTGjU6s2SH9AE2daxZ\njvMBaYW2BC319API6nNR87t2B1a7FuPG4yA8qILnd4D8la5lBvqA4gA7Gx7FCF15\nDVLOVWmXF13Ie3EkdMzRjBT8A5XJyvbt1HnYmiXrmQKBgQC87I1rSlHtuXNvaCFM\n...
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsQ0WgsQte/APw\nO2Ae7DFcZv3H3q5svM6s3jw2THdvgkO0DLpLTTgEMUEDiZTSG9Zsn8RBQOiZqYgJ\nXPPV6RTWv2S90hyb9uiDVh6JViFVrPNH/4+pqz+pWDAwQF6UwhP4WZfsoiP8gSIY\nR4UroyZbIH2JhBXRmnT3C/hu0J+QUhsI0S4o0gtbvOV6eiZRhsEOSmv2Ub+Iwkyo\nBZBjkKyx8KNJ60rchZUAAjQpT5bYwBs/4MuBggyAtonzR4x9AOI7IfgXHTHEk8XH\nMAMOuISeRyoc16G7tpq09R960tHcjKFiQ4M1ZXoXpUicnu5TFEMZm1fgk8ppqcWi\nBsNYxOg3AgMBAAECggEALOlbGWKfStPcuQDZ9iXxVpx5dOcvRaVSIwrL2wJDr1xg\nh2w8E87dmGY5A5GWrdLZLDfZRIQGQK3NDFfiMLaUmsqKmtzRXa5Zf4hv7LF6fmpZ\ngT91drBxqBaYdbQKlLEm4LyHGghJ5pbKS1c2NqLSKLcHU9eOkre44AIMcuPMfiUj\nzwpodBOFVNObevBobbfAmkbF2TjqRXedTRgHoOnyA0ZU5+kTGjU6s2SH9AE2daxZ\njvMBaYW2BC319API6nNR87t2B1a7FuPG4yA8qILnd4D8la5lBvqA4gA7Gx7FCF15\nDVLOVWmXF13Ie3EkdMzRjBT8A5XJyvbt1HnYmiXrmQKBgQC87I1rSlHtuXNvaCFM\n..."
     }
 
 logsBucket: "spotzbuildlogs"
