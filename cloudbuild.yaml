@@ -1,50 +1,54 @@
 timeout: '1200s'
 
 steps:
+  # Step 1: Authenticate with GCP using Service Account Key
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-          echo "Authenticating with GCP..."
-          echo "${_GCP_CREDENTIALS}" > /root/gcp-key.json
-          gcloud auth activate-service-account --key-file=/root/gcp-key.json
-          gcloud config set project ${_PROJECT_ID}
+        echo "Authenticating with GCP..."
+        echo "${_GCP_CREDENTIALS}" > /root/gcp-key.json
+        gcloud auth activate-service-account --key-file=/root/gcp-key.json
+        gcloud config set project ${_PROJECT_ID}
 
+  # Step 2: Transfer Files to Target Instance via Load Balancer
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-          echo "Deploying to private Compute Engine instance..."
-          gcloud compute ssh ubuntu@${_INSTANCE_NAME} --zone=${_ZONE} --command="\
-            cd /opt/nodejs/spotz-frontend && \
-            git pull && \
-            cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
-            npm install && \
-            npm run build \
-          "
+        echo "Copying files to the target instance..."
+        gcloud compute scp ./dist/* ubuntu@${_LB_IP}:/opt/nodejs/spotz-frontend --zone=${_ZONE} -- -o "ProxyCommand ssh -W %h:%p -i /root/gcp-key.json"
+
+  # Step 3: Execute Deployment Commands on Target Instance
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Deploying application on the target instance..."
+        gcloud compute ssh ubuntu@${_LB_IP} --zone=${_ZONE} --command="\
+          cd /opt/nodejs/spotz-frontend && \
+          git pull && \
+          cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
+          npm install && \
+          npm run build \
+        " -- -o "ProxyCommand ssh -W %h:%p -i /root/gcp-key.json"
 
 substitutions:
-  _INSTANCE_NAME: "test"
-  _ZONE: "us-central1-c"
   _PROJECT_ID: "lyrical-beach-439615-f1"
+  _LB_IP: "34.110.247.40"  # Replace with the Load Balancer's IP
+  _ZONE: "us-central1-c"
   _GCP_CREDENTIALS: |
     {
       "type": "service_account",
       "project_id": "lyrical-beach-439615-f1",
       "private_key_id": "a79c613ca3a52b64d1fd3efbf717a145f06fc04e",
-      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsQ0WgsQte/APw\nO2Ae7DFcZv3H3q5svM6s3jw2THdvgkO0DLpLTTgEMUEDiZTSG9Zsn8RBQOiZqYgJ\nXPPV6RTWv2S90hyb9uiDVh6JViFVrPNH/4+pqz+pWDAwQF6UwhP4WZfsoiP8gSIY\nR4UroyZbIH2JhBXRmnT3C/hu0J+QUhsI0S4o0gtbvOV6eiZRhsEOSmv2Ub+Iwkyo\nBZBjkKyx8KNJ60rchZUAAjQpT5bYwBs/4MuBggyAtonzR4x9AOI7IfgXHTHEk8XH\nMAMOuISeRyoc16G7tpq09R960tHcjKFiQ4M1ZXoXpUicnu5TFEMZm1fgk8ppqcWi\nBsNYxOg3AgMBAAECggEALOlbGWKfStPcuQDZ9iXxVpx5dOcvRaVSIwrL2wJDr1xg\nh2w8E87dmGY5A5GWrdLZLDfZRIQGQK3NDFfiMLaUmsqKmtzRXa5Zf4hv7LF6fmpZ\ngT91drBxqBaYdbQKlLEm4LyHGghJ5pbKS1c2NqLSKLcHU9eOkre44AIMcuPMfiUj\nzwpodBOFVNObevBobbfAmkbF2TjqRXedTRgHoOnyA0ZU5+kTGjU6s2SH9AE2daxZ\njvMBaYW2BC319API6nNR87t2B1a7FuPG4yA8qILnd4D8la5lBvqA4gA7Gx7FCF15\nDVLOVWmXF13Ie3EkdMzRjBT8A5XJyvbt1HnYmiXrmQKBgQC87I1rSlHtuXNvaCFM\nWPHmoiSyk5ZSsEXbbFCie1CGMtQ9ZRqPmyjOxapSN+hxoWlAPSZ0PWMXCHkC8W0a\nHS8SZRnGLbxbtu2jJggKgiJOOOOn0rt45d9VHTvfT3xS2IlE6Wghm0TF4ExPzIHF\np9JBBDEbVDtk899oGo3t2Y6bvwKBgQDpbF2ooJuWdLA44dAKOHbpx3fVmRPYUzPk\ngZK2l6SlrjBFDGCOf4NAQHPlFM/QdDGkjU0HrZyK1xpaj89M/yfnPPLe7v4rXMQ7\nLCXS+gLb6uY1TnKg3scOJkgAz2YqaC/HQY0FHHwimd/7eA8yVWdLatw3EjAOusgw\nPuigGVwxiQKBgD0guP1PFcU6bQxOAAApA1QhgIg7Urc8i83cdRatmbdiOOQIk5iF\nlqWYtWxW5KHnnRuI7alMt4QbXLREE44QhUuJZNaHs9tlC+zvAEkOJDV1GMwTVk9e\n6W0rwVSW7l4L7BZdAzFkgNMZqPdk71RZ4aDhz1XNYk5ezhlsBiJAc3EXAoGAQzHw\n3EQvxeYdfKJ0sxyCDtZfBtwkPFfnTlaGl42b1h4IwzfG6/6FGA/1zPJqyIVKbSZI\nEHfH4qf9bCiN8opZQFXpTIfcHzt7OdWBpfRWslwynRHSKcE36DjY7XLG5FpNtryG\nDfyfN464TbnIFiNDsxA2CJxxvSvDyS+y47OpOJECgYEAlOn1C1gyVQdVpwtw/lKf\n+NwJkgMPnNLiG+OmGnTiqPXCBs2qeaYHjqVHXfYbKYyXvGqjm3ZvNYiVMvTs95m5\nojA7h3Q9FC96Bkjw2usJA+guFw1b4gbACRE6KBPkm+MIjCfS9QlY7IKbuOWB3pO2\nqjjJvc3sm9qZbSVJxhCcibQ=\n-----END PRIVATE KEY-----\n",
-      "client_email": "64409270416-compute@developer.gserviceaccount.com",
-      "client_id": "116904382377938713874",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/64409270416-compute%40developer.gserviceaccount.com",
-      "universe_domain": "googleapis.com"
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsQ0WgsQte/APw\nO2Ae7DFcZv3H3q5svM6s3jw2THdvgkO0DLpLTTgEMUEDiZTSG9Zsn8RBQOiZqYgJ\nXPPV6RTWv2S90hyb9uiDVh6JViFVrPNH/4+pqz+pWDAwQF6UwhP4WZfsoiP8gSIY\nR4UroyZbIH2JhBXRmnT3C/hu0J+QUhsI0S4o0gtbvOV6eiZRhsEOSmv2Ub+Iwkyo\nBZBjkKyx8KNJ60rchZUAAjQpT5bYwBs/4MuBggyAtonzR4x9AOI7IfgXHTHEk8XH\nMAMOuISeRyoc16G7tpq09R960tHcjKFiQ4M1ZXoXpUicnu5TFEMZm1fgk8ppqcWi\nBsNYxOg3AgMBAAECggEALOlbGWKfStPcuQDZ9iXxVpx5dOcvRaVSIwrL2wJDr1xg\nh2w8E87dmGY5A5GWrdLZLDfZRIQGQK3NDFfiMLaUmsqKmtzRXa5Zf4hv7LF6fmpZ\ngT91drBxqBaYdbQKlLEm4LyHGghJ5pbKS1c2NqLSKLcHU9eOkre44AIMcuPMfiUj\nzwpodBOFVNObevBobbfAmkbF2TjqRXedTRgHoOnyA0ZU5+kTGjU6s2SH9AE2daxZ\njvMBaYW2BC319API6nNR87t2B1a7FuPG4yA8qILnd4D8la5lBvqA4gA7Gx7FCF15\nDVLOVWmXF13Ie3EkdMzRjBT8A5XJyvbt1HnYmiXrmQKBgQC87I1rSlHtuXNvaCFM\n...
     }
 
-logsBucket: "spotzbuildlogs"  # Specify the logs bucket
+logsBucket: "spotzbuildlogs"
 
 options:
   logging: GCS_ONLY  # Logs will only be available in Google Cloud Storage
