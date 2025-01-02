@@ -1,15 +1,14 @@
 timeout: '1200s'
 
 steps:
-  # Step 1: Authenticate with GCP using Service Account Key from Secret Manager
+  # Step 1: Authenticate with GCP using Service Account Key (hardcoded)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo "Authenticating with GCP using Secret Manager..."
-        # Fetch the service account key from Secret Manager and save it to a file
-        gcloud secrets versions access latest --secret=my-service-account-key > /root/gcp-key.json
+        echo "Authenticating with GCP..."
+        echo "${_GCP_CREDENTIALS}" | base64 --decode > /root/gcp-key.json
         gcloud auth activate-service-account --key-file=/root/gcp-key.json
         gcloud config set project ${_PROJECT_ID}
 
@@ -19,17 +18,17 @@ steps:
     args:
       - '-c'
       - |
-        echo "Copying files to the target instance..."
-        gcloud compute scp --recurse ./dist/* ubuntu@${_LB_INSTANCE_NAME}:/opt/nodejs/spotz-frontend --zone=${_ZONE}
+        echo "Transferring files using the Load Balancer..."
+        gcloud compute scp --recurse ./dist/* ${_LB_USER}@${_LB_IP}:/opt/nodejs/spotz-frontend --zone=${_ZONE} --project=${_PROJECT_ID}
 
-  # Step 3: Execute Deployment Commands on Target Instance
+  # Step 3: Deploy using Google Cloud Compute API (run deployment commands)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo "Deploying application on the target instance..."
-        gcloud compute ssh ubuntu@${_LB_INSTANCE_NAME} --zone=${_ZONE} --command="\
+        echo "Deploying application on the target instance via LB..."
+        gcloud compute ssh ${_LB_USER}@${_LB_IP} --zone=${_ZONE} --project=${_PROJECT_ID} --command="\
           cd /opt/nodejs/spotz-frontend && \
           git pull && \
           cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
@@ -39,8 +38,11 @@ steps:
 
 substitutions:
   _PROJECT_ID: "lyrical-beach-439615-f1"
-  _LB_INSTANCE_NAME: "test"  # Replace with the actual instance name
+  _LB_USER: "ubuntu"  # Change to your username for the VM
+  _LB_IP: "34.110.247.40"  # Replace with the Load Balancer's public IP
   _ZONE: "us-central1-c"
+  _GCP_CREDENTIALS: >
+    eyJ0eXBlIjoic2VydmljZV9hY2NvdW50IiwicHJvamVjdF9pZCI6Imx5cmljYWwtYmVhY2gtNDM5NjE1LWYxIiwicHJpdmF0ZV9rZXlfaWQiOiJhNzljNjEzY2EzYTUyYjY0ZDFmZDNlZmJmNzE3YTE0NWYwNmZjMDRlIiwicHJpdmF0ZV9rZXkiOiJNSUlFd...BASE64_ENCODED_CONTENT...
 
 logsBucket: "spotzbuildlogs"
 
