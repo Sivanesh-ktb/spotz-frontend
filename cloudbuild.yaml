@@ -33,7 +33,7 @@ steps:
         gcloud compute ssh ubuntu@${_LB_INSTANCE_NAME} --zone=${_ZONE} --command="\
           cd /opt/nodejs/spotz-frontend && \
           git pull && \
-          cp /opt/nodejs/config/file1.txt /opt/nodejs/spotz-frontend/src/environments/filw1.txt && \
+          cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
           npm install && \
           npm run build \
         "
