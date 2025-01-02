@@ -20,7 +20,7 @@ steps:
       - '-c'
       - |
         echo "Copying files to the target instance..."
-        gcloud compute scp --recurse ./dist/* ubuntu@${_LB_IP}:/opt/nodejs/spotz-frontend --zone=${_ZONE}
+        gcloud compute scp --recurse ./dist/* ubuntu@${_LB_INSTANCE_NAME}:/opt/nodejs/spotz-frontend --zone=${_ZONE}
 
   # Step 3: Execute Deployment Commands on Target Instance
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -29,7 +29,7 @@ steps:
       - '-c'
       - |
         echo "Deploying application on the target instance..."
-        gcloud compute ssh ubuntu@${_LB_IP} --zone=${_ZONE} --command="\
+        gcloud compute ssh ubuntu@${_LB_INSTANCE_NAME} --zone=${_ZONE} --command="\
           cd /opt/nodejs/spotz-frontend && \
           git pull && \
           cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
@@ -39,7 +39,7 @@ steps:
 
 substitutions:
   _PROJECT_ID: "lyrical-beach-439615-f1"
-  _LB_IP: "34.110.247.40"  # Replace with the Load Balancer's IP
+  _LB_INSTANCE_NAME: "test"  # Replace with the actual instance name
   _ZONE: "us-central1-c"
 
 logsBucket: "spotzbuildlogs"
