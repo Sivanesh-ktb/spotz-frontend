@@ -1,16 +1,17 @@
 timeout: '1200s'
 
 steps:
-  # Step 1: Authenticate with GCP using Service Account Key (hardcoded)
+  # Step 1: Set Up SSH Authentication
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo "Authenticating with GCP..."
-        echo "${_GCP_CREDENTIALS}" | base64 --decode > /root/gcp-key.json
-        gcloud auth activate-service-account --key-file=/root/gcp-key.json
-        gcloud config set project ${_PROJECT_ID}
+        echo "Setting up SSH authentication..."
+        mkdir -p /root/.ssh
+        echo "${_SSH_PRIVATE_KEY}" | base64 --decode > /root/.ssh/id_rsa
+        chmod 600 /root/.ssh/id_rsa
+        echo "SSH setup complete."
 
   # Step 2: Transfer Files to Target Instance via Load Balancer
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -18,31 +19,32 @@ steps:
     args:
       - '-c'
       - |
-        echo "Transferring files using the Load Balancer..."
-        gcloud compute scp --recurse ./dist/* ${_LB_USER}@${_LB_IP}:/opt/nodejs/spotz-frontend --zone=${_ZONE} --project=${_PROJECT_ID}
+        echo "Copying files to the target instance..."
+        gcloud compute scp --recurse ./dist/* ubuntu@${_LB_INSTANCE_NAME}:/opt/nodejs/spotz-frontend --zone=${_ZONE}
+        echo "Files copied successfully."
 
-  # Step 3: Deploy using Google Cloud Compute API (run deployment commands)
+  # Step 3: Execute Deployment Commands on Target Instance
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo "Deploying application on the target instance via LB..."
-        gcloud compute ssh ${_LB_USER}@${_LB_IP} --zone=${_ZONE} --project=${_PROJECT_ID} --command="\
+        echo "Deploying application on the target instance..."
+        gcloud compute ssh ubuntu@${_LB_INSTANCE_NAME} --zone=${_ZONE} --command="\
           cd /opt/nodejs/spotz-frontend && \
           git pull && \
           cp /opt/nodejs/config/environment.demo /opt/nodejs/spotz-frontend/src/environments/environment.ts && \
           npm install && \
           npm run build \
         "
+        echo "Deployment completed successfully."
 
 substitutions:
   _PROJECT_ID: "lyrical-beach-439615-f1"
-  _LB_USER: "ubuntu"  # Change to your username for the VM
-  _LB_IP: "34.110.247.40"  # Replace with the Load Balancer's public IP
+  _LB_INSTANCE_NAME: "test"  # Replace with the actual instance name
   _ZONE: "us-central1-c"
-  _GCP_CREDENTIALS: >
-    eyJ0eXBlIjoic2VydmljZV9hY2NvdW50IiwicHJvamVjdF9pZCI6Imx5cmljYWwtYmVhY2gtNDM5NjE1LWYxIiwicHJpdmF0ZV9rZXlfaWQiOiJhNzljNjEzY2EzYTUyYjY0ZDFmZDNlZmJmNzE3YTE0NWYwNmZjMDRlIiwicHJpdmF0ZV9rZXkiOiJNSUlFd...BASE64_ENCODED_CONTENT...
+  _SSH_PRIVATE_KEY: > 
+    LS0tLS1CRUdJTiB... # Base64-encoded private SSH key
 
 logsBucket: "spotzbuildlogs"
 
