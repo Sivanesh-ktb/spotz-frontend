@@ -1,4 +1,4 @@
-timeout: '1200s'
+timeout: '1800s'
 
 steps:
   # Step 1: Set Up SSH Authentication
